@@ -23,4 +23,4 @@ Este projeto é uma landing page para o aplicativo Heal, voltado para profission
 
 1. **Clone o Repositório**:
    ```bash
-   git clone https://github.com/SEU_USUARIO/heal-landing-page.git
+   git clone https://github.com/SEU_USUARIO/landing-page-heal.git
