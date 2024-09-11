@@ -3,29 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#00a8cc">
+    <meta name="theme-color" content="#016BBF">
     <title>Heal - Gerenciamento de Feridas para Profissionais de Saúde</title>
     
     <meta property="og:type" content="website">
     <meta property="og:title" content="Heal - Gestão Eficiente de Feridas">
     <meta property="og:description" content="O aplicativo perfeito para profissionais de saúde gerenciarem o tratamento de feridas com eficiência.">
-    <meta property="og:image" content="https://healapp.com/imagens/logo.png">
+    <meta property="og:image" content="logo.png">
     <meta property="og:image:type" content="image/png">
     
-    <link rel="icon" type="image/png" href="https://healapp.com/favicon.png">
+    <link rel="stylesheet" href="whats_button.css">
+    
+   
+
+    <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Raleway", sans-serif;
+            font-weight: 300;
+            font-style: normal;
             background-color: #f5f5f5;
             margin: 0;
             padding: 0;
         }
 
         .header {
-            background-color: #00a8cc;
+            background-color: #016BBF;
             color: white;
             padding: 20px;
             text-align: center;
@@ -54,19 +64,134 @@
             margin-bottom: 30px;
         }
 
-        .cta-button {
-            background-color: #00a8cc;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 5px;
-        }
+        .bn45 {
+            width: 170px;
+            height: 50px;
+          }
 
-        .cta-button:hover {
-            background-color: #007b99;
-        }
+          .bn46 {
+            width: 150px;
+            height: 50px;
+          }
 
+          *, *:before, *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
+          
+          body {
+            background: #f5f5f5;
+            font-family: "Raleway", sans-serif;
+          }
+
+          
+          .buttons {
+            margin-top: 50px;
+            text-align: center;
+            border-radius: 30px;
+          }
+          
+          .blob-btn {
+            z-index: 1;
+            position: relative;
+            padding: 20px 46px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #0505A9;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            transition: color 0.5s;
+            cursor: pointer;
+            border-radius: 30px;
+          }
+          
+          .blob-btn:before {
+            content: "";
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #0505A9;
+            border-radius: 30px;
+          }
+          
+          .blob-btn:after {
+            content: "";
+            z-index: -2;
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s 0.2s;
+            border-radius: 30px;
+          }
+          
+          .blob-btn:hover {
+            color: #FFFFFF;
+          }
+          
+          .blob-btn__inner {
+            z-index: -1;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            background: #FFFFFF;
+          }
+          
+          .blob-btn__blobs {
+            position: relative;
+            display: block;
+            height: 100%;
+            filter: url('#goo');
+          }
+          
+          .blob-btn__blob {
+            position: absolute;
+            top: 2px;
+            width: 25%;
+            height: 100%;
+            background: #0505A9;
+            border-radius: 100%;
+            transform: translate3d(0, 150%, 0) scale(1.4);
+            transition: transform 0.45s;
+          }
+          
+          .blob-btn:hover .blob-btn__blob {
+            transform: translateZ(0) scale(1.4);
+          }
+          
+          .blob-btn__blob:nth-child(1) {
+            left: 0;
+            transition-delay: 0s;
+          }
+          
+          .blob-btn__blob:nth-child(2) {
+            left: 25%;
+            transition-delay: 0.08s;
+          }
+          
+          .blob-btn__blob:nth-child(3) {
+            left: 50%;
+            transition-delay: 0.16s;
+          }
+          
+          .blob-btn__blob:nth-child(4) {
+            left: 75%;
+            transition-delay: 0.24s;
+          }
+          
+        
         .footer {
             background-color: #333;
             color: white;
@@ -85,16 +210,7 @@
             text-decoration: underline;
         }
 
-        .whatsapp-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25d366;
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-        }
+        
 
         .tab-content {
             margin-top: 20px;
@@ -118,40 +234,13 @@
         .item-card i {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #00a8cc;
+            color: #016BBF;
         }
 
         .item-card hr {
             margin: 10px 0;
             width: 50%;
-            border-top: 2px solid #00a8cc;
-        }
-
-        .dropdown-language {
-            margin: 20px;
-        }
-
-        .dropdown-toggle {
-            background-color: #00a8cc;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-        }
-
-        .dropdown-menu {
-            background-color: #fff;
-            border-radius: 5px;
-        }
-
-        .dropdown-item {
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f5f5f5;
+            border-top: 2px solid #016BBF;
         }
 
         .blockn {
@@ -168,11 +257,13 @@
             background-color: #333;
             color: white;
             padding: 40px 0;
-            text-align: left;
+            text-align: center;
         }
 
         .block7 a {
             color: white;
+            margin: 0 15px;
+            font-size: 1rem;
         }
 
         .block7 a:hover {
@@ -195,29 +286,35 @@
     </div>
 
     <div class="main-content">
-        <h2>Eficiência no tratamento de feridas</h2>
+       
+        <h3>Eficiência no tratamento de feridas</h3>
         <p>Com o Heal, você pode registrar, acompanhar e monitorar a evolução do tratamento de feridas de seus pacientes com facilidade. Acesse relatórios detalhados e mantenha seu consultório organizado.</p>
-        <a href="#contato" class="cta-button">Experimente Agora</a>
-    </div>
+        <img src="logo.png" alt="logo" style="width: 190px;">
+        <div class="buttons">
+            <button class="blob-btn">
+              Experimente Agora
+              <span class="blob-btn__inner">
+                <span class="blob-btn__blobs">
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                </span>
+              </span>
+            </button>
+          </div>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+              <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+              </filter>
+            </defs>
+          </svg>
 
-    <!-- Seção de Download do App -->
-    <div class="blockn block6">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <a href="https://play.google.com/store/apps/details?id=me.consultorio" target="_blank">
-                        <img src="/Content/googleplay.png" alt="Google Play" />
-                    </a>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <a href="https://apps.apple.com/app/consultorio/id1219450013" target="_blank">
-                        <img src="/Content/appstore.png" alt="App Store" />
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+     
     <!-- Seção de Como Funciona com Abas -->
     <div class="container">
         <h3>Como funciona o sistema?</h3>
@@ -249,48 +346,61 @@
                     <i class="fa fa-file-medical"></i>
                     <h3>Prontuário Eletrônico</h3>
                     <hr>
-                    Organização, acesso rápido e segurança para informações dos pacientes, facilitando e melhorando a sua prática. Acesse o histórico completo de cada paciente com facilidade e segurança, permitindo uma melhor tomada de decisões no tratamento.
+                    Organização, acesso rápido e segurança para informações dos pacientes, facilitando e melhorando a tomada de decisão com base em dados precisos e atualizados.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <div class="block7">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="dropup droplan">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Idioma
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" href="#">Português</a>
-                            <a class="dropdown-item" href="#">Inglês</a>
-                        </div>
-                    </div>
+    <!-- Seção de Download do App com Abas -->
+    <div class="container">
+        <h3>Baixe o aplicativo</h3>
+        <ul class="nav nav-tabs" id="downloadTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="playstore-tab" data-toggle="tab" href="#playstore" role="tab" aria-controls="playstore" aria-selected="true">Google Play</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="appstore-tab" data-toggle="tab" href="#appstore" role="tab" aria-controls="appstore" aria-selected="false">App Store</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="downloadTabContent">
+            <div class="tab-pane fade show active" id="playstore" role="tabpanel" aria-labelledby="playstore-tab">
+                <div class="text-center">
+                    <a href="https://play.google.com/store/apps/details?id=me.consultorio" target="_blank">
+                        <a href="/" tabIndex="0"><img class="bn45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="bn45"/></a>
+                    </a>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <a href="#">Sobre Nós</a>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <a href="#">Contato</a>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <a href="#">Política de Privacidade</a>
+            </div>
+            <div class="tab-pane fade" id="appstore" role="tabpanel" aria-labelledby="appstore-tab">
+                <div class="text-center">
+                    <a href="https://apps.apple.com/app/consultorio/id1219450013" target="_blank">
+                        <a href="/" tabIndex="0"><img class="bn46" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"alt="bn46"/></a>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
     <!-- Botão do WhatsApp -->
-    <a href="https://wa.me/5511999999999" class="whatsapp-button" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Scripts e outros elementos -->
+        <div class="whats-float">
+            <a href="https://wa.me/5599999999999" target="_blank">
+                <i class="fab fa-whatsapp"></i><span>WhatsApp<br><small>+55 11 97123456</small></span>
+            </a>
+        </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Heal - Todos os direitos reservados.</p>
+            <div>
+                <a href="#">Política de Privacidade</a> | 
+                <a href="#">Termos de Uso</a> | 
+                <a href="#contato">Contato</a>
+            </div>
+        </div>
+    </footer>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
