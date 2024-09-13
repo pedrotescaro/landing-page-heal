@@ -15,9 +15,20 @@
   display: inline-block;
   width: 30px;
   height: 30px;
+  background-image: url(https://www.countryflags.io/br/flat/32.png);
   background-size: contain;
   background-repeat: no-repeat;
   margin-right: 10px;
+}
+
+.language-selected.change-br:before {
+  background-image: url(https://www.countryflags.io/br/flat/32.png);
+}
+.language-selected.change-en:before {
+  background-image: url(https://www.countryflags.io/us/flat/32.png);
+}
+.language-selected.change-es:before {
+  background-image: url(https://www.countryflags.io/es/flat/32.png);
 }
 
 .language ul {
@@ -53,6 +64,17 @@
   background-repeat: no-repeat;
   vertical-align: middle;
   margin-right: 10px;
+}
+
+a.br:before {
+  background-image: url(https://www.countryflags.io/br/flat/32.png);
+}
+
+a.en:before {
+  background-image: url(https://www.countryflags.io/us/flat/32.png);
+}
+a.es:before {
+  background-image: url(https://www.countryflags.io/es/flat/32.png);
 }
 
 .language:hover ul {
