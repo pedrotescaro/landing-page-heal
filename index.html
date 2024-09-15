@@ -11,11 +11,10 @@
     <meta property="og:description" content="O aplicativo perfeito para profissionais de saúde gerenciarem o tratamento de feridas com eficiência.">
     <meta property="og:image" content="logo.png">
     <meta property="og:image:type" content="image/png">
-    
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="whats_button.css">
     <link rel="stylesheet" href="lang.css">
-    
-   
+
 
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -25,292 +24,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
-    <style>
-        body {
-            font-family: "Raleway", sans-serif;
-            font-weight: 300;
-            font-style: normal;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            background-color: #016BBF;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-        }
-
-        .main-content {
-            padding: 50px;
-            text-align: center;
-        }
-
-        .main-content h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .main-content p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .bn45 {
-            width: 170px;
-            height: 50px;
-          }
-
-          .bn46 {
-            width: 150px;
-            height: 50px;
-          }
-
-          *, *:before, *:after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-          }
-          
-          body {
-            background: #f5f5f5;
-            font-family: "Raleway", sans-serif;
-          }
-
-          
-          .buttons {
-            margin-top: 50px;
-            text-align: center;
-            border-radius: 30px;
-          }
-          
-          .blob-btn {
-            z-index: 1;
-            position: relative;
-            padding: 20px 46px;
-            text-align: center;
-            text-transform: uppercase;
-            color: #0505A9;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: transparent;
-            outline: none;
-            border: none;
-            transition: color 0.5s;
-            cursor: pointer;
-            border-radius: 30px;
-          }
-          
-          .blob-btn:before {
-            content: "";
-            z-index: 1;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            border: 2px solid #0505A9;
-            border-radius: 30px;
-          }
-          
-          .blob-btn:after {
-            content: "";
-            z-index: -2;
-            position: absolute;
-            left: 3px;
-            top: 3px;
-            width: 100%;
-            height: 100%;
-            transition: all 0.3s 0.2s;
-            border-radius: 30px;
-          }
-          
-          .blob-btn:hover {
-            color: #FFFFFF;
-          }
-          
-          .blob-btn__inner {
-            z-index: -1;
-            overflow: hidden;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 30px;
-            background: #FFFFFF;
-          }
-          
-          .blob-btn__blobs {
-            position: relative;
-            display: block;
-            height: 100%;
-            filter: url('#goo');
-          }
-          
-          .blob-btn__blob {
-            position: absolute;
-            top: 2px;
-            width: 25%;
-            height: 100%;
-            background: #0505A9;
-            border-radius: 100%;
-            transform: translate3d(0, 150%, 0) scale(1.4);
-            transition: transform 0.45s;
-          }
-          
-          .blob-btn:hover .blob-btn__blob {
-            transform: translateZ(0) scale(1.4);
-          }
-          
-          .blob-btn__blob:nth-child(1) {
-            left: 0;
-            transition-delay: 0s;
-          }
-          
-          .blob-btn__blob:nth-child(2) {
-            left: 25%;
-            transition-delay: 0.08s;
-          }
-          
-          .blob-btn__blob:nth-child(3) {
-            left: 50%;
-            transition-delay: 0.16s;
-          }
-          
-          .blob-btn__blob:nth-child(4) {
-            left: 75%;
-            transition-delay: 0.24s;
-          }
-          
-          .blob-btn::before {
-             content: attr(data-content);
-             z-index: 1;
-             position: absolute;
-             left: 0;
-             top: 0;
-             width: 100%;
-             height: 100%;
-             border: 2px solid #0505A9;
-             border-radius: 30px;
-          }
-
-        
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .footer a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        
-
-        .tab-content {
-            margin-top: 20px;
-        }
-
-        .item-card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-
-        .item-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .item-card h6 {
-            font-weight: 350;
-            line-height: 1.5;
-            margin-bottom: -0.7px;
-        }
-
-        .item-card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #016BBF;
-        }
-
-        .item-card hr {
-            margin: 10px 0;
-            width: 50%;
-            border-top: 2px solid #016BBF;
-        }
-
-        .blockn {
-            padding: 40px 0;
-            background-color: #f5f5f5;
-        }
-
-        .blockn img {
-            width: 100%;
-            max-width: 200px;
-        }
-
-        .block7 {
-            background-color: #333;
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .block7 a {
-            color: white;
-            margin: 0 15px;
-            font-size: 1rem;
-        }
-
-        .block7 a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 576px) {
-            .blockn .col-sm-6 {
-                text-align: center;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
-
     <div class="header">
+           <!-- Seletor de idioma -->
+           <div class="nav-item dropdown language">
+            <a href="#" class="nav-link dropdown-toggle language-selected" data-bs-toggle="dropdown" data-bs-display="static">
+                pt-BR
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#" class="dropdown-item br">Português</a></li>
+                <li><a href="#" class="dropdown-item en">English</a></li>
+            </ul>
+        </div> <!-- Fim Seletor de Idioma -->
         <h1>Heal</h1>
         <p id="subtitle">O aplicativo ideal para gerenciar o tratamento de feridas</p>
-        <div class="language">
-            <div class="language-selected">
-                pt-BR
-            </div>
-            <ul>
-                <li><a href="#" class="br">Português</a></li> <!-- pt-BR -->
-                <li><a href="#" class="en">English</a></li> <!-- en-US -->
-            </ul>
-        </div>
     </div>
 
     <div class="main-content">
