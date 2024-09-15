@@ -13,6 +13,7 @@
     <meta property="og:image:type" content="image/png">
     
     <link rel="stylesheet" href="whats_button.css">
+    <link rel="stylesheet" href="lang.css">
     
    
 
@@ -191,6 +192,18 @@
             transition-delay: 0.24s;
           }
           
+          .blob-btn::before {
+             content: attr(data-content);
+             z-index: 1;
+             position: absolute;
+             left: 0;
+             top: 0;
+             width: 100%;
+             height: 100%;
+             border: 2px solid #0505A9;
+             border-radius: 30px;
+          }
+
         
         .footer {
             background-color: #333;
@@ -229,6 +242,12 @@
         .item-card h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
+        }
+
+        .item-card h6 {
+            font-weight: 350;
+            line-height: 1.5;
+            margin-bottom: -0.7px;
         }
 
         .item-card i {
@@ -282,26 +301,35 @@
 
     <div class="header">
         <h1>Heal</h1>
-        <p>O aplicativo ideal para gerenciar o tratamento de feridas</p>
+        <p id="subtitle">O aplicativo ideal para gerenciar o tratamento de feridas</p>
+        <div class="language">
+            <div class="language-selected">
+                pt-BR
+            </div>
+            <ul>
+                <li><a href="#" class="br">Português</a></li> <!-- pt-BR -->
+                <li><a href="#" class="en">English</a></li> <!-- en-US -->
+            </ul>
+        </div>
     </div>
 
     <div class="main-content">
        
-        <h3>Eficiência no tratamento de feridas</h3>
-        <p>Com o Heal, você pode registrar, acompanhar e monitorar a evolução do tratamento de feridas de seus pacientes com facilidade. Acesse relatórios detalhados e mantenha seu consultório organizado.</p>
+        <h3 id="text">Eficiência no tratamento de feridas</h3>
+        <p id="subtext">Com o Heal, você pode registrar, acompanhar e monitorar a evolução do tratamento de feridas de seus pacientes com facilidade. Acesse relatórios detalhados e mantenha seu consultório organizado.</p>
         <img src="logo.png" alt="logo" style="width: 190px;">
         <div class="buttons">
-            <button class="blob-btn">
-              Experimente Agora
-              <span class="blob-btn__inner">
-                <span class="blob-btn__blobs">
-                  <span class="blob-btn__blob"></span>
-                  <span class="blob-btn__blob"></span>
-                  <span class="blob-btn__blob"></span>
-                  <span class="blob-btn__blob"></span>
+            <button class="blob-btn" id="btn">
+                <span class="button-text">Experimente Agora</span>
+                <span class="blob-btn__inner">
+                  <span class="blob-btn__blobs">
+                    <span class="blob-btn__blob"></span>
+                    <span class="blob-btn__blob"></span>
+                    <span class="blob-btn__blob"></span>
+                    <span class="blob-btn__blob"></span>
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>                        
           </div>
           
           <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -317,7 +345,7 @@
      
     <!-- Seção de Como Funciona com Abas -->
     <div class="container">
-        <h3>Como funciona o sistema?</h3>
+        <h3 id="explicacao">Como funciona o sistema?</h3>
         <!-- Navegação das Abas -->
         <ul class="nav nav-tabs" id="funcionalidadesTabs" role="tablist">
             <li class="nav-item">
@@ -334,9 +362,11 @@
             <div class="tab-pane fade show active" id="gestao-pacientes" role="tabpanel" aria-labelledby="gestao-pacientes-tab">
                 <div class="item-card">
                     <i class="fa fa-users"></i>
-                    <h3>Gestão de Pacientes</h3>
+                    <h3 id="gestão">Gestão de Pacientes</h3>
                     <hr>
+                    <h6 id="hist">
                     Histórico de consultas, anamnese, evolução, prescrição, controle de retornos e mensagens personalizadas. Mantenha todas as informações do paciente organizadas em um só lugar, facilitando o acompanhamento e gestão.
+                    </h6>
                 </div>
             </div>
 
@@ -344,9 +374,11 @@
             <div class="tab-pane fade" id="prontuario" role="tabpanel" aria-labelledby="prontuario-tab">
                 <div class="item-card">
                     <i class="fa fa-file-medical"></i>
-                    <h3>Prontuário Eletrônico</h3>
+                    <h3 id="pront">Prontuário Eletrônico</h3>
                     <hr>
+                    <h6 id="org">
                     Organização, acesso rápido e segurança para informações dos pacientes, facilitando e melhorando a tomada de decisão com base em dados precisos e atualizados.
+                    </h6>
                 </div>
             </div>
         </div>
@@ -354,7 +386,7 @@
 
     <!-- Seção de Download do App com Abas -->
     <div class="container">
-        <h3>Baixe o aplicativo</h3>
+        <h3 id="app">Baixe o aplicativo</h3>
         <ul class="nav nav-tabs" id="downloadTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="playstore-tab" data-toggle="tab" href="#playstore" role="tab" aria-controls="playstore" aria-selected="true">Google Play</a>
@@ -390,16 +422,17 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Heal - Todos os direitos reservados.</p>
+            <p id="copyright">&copy; 2024 Heal - Todos os direitos reservados.</p>
             <div>
-                <a href="#">Política de Privacidade</a> | 
-                <a href="#">Termos de Uso</a> | 
-                <a href="#contato">Contato</a>
+                <a href="#" id="policies">Política de Privacidade</a> | 
+                <a href="#" id="terms">Termos de Uso</a> | 
+                <a href="#contato" id="contact">Contato</a>
             </div>
         </div>
     </footer>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
