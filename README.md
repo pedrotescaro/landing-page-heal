@@ -22,10 +22,7 @@ Este projeto é uma landing page para o aplicativo Heal, voltado para profission
 Diagrama de Caso de uso Cliente:
 ```
 <p align="center">
-![DiagramadeCasodeUso1_pages-to-jpg-0001]()
-
-  <img width="1600"  src="![DiagramadeCasodeUso1_pages-to-jpg-0001](https://github.com/user-attachments/assets/0fedd88e-6915-445a-bff5-5837128d5e52)
-">
+  <img width="1600"  src="assets/diagramacasodeuso.png">
 </p>
 
 ## Instruções de Uso
