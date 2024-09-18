@@ -18,12 +18,6 @@ Este projeto é uma landing page para o aplicativo Heal, voltado para profission
 - **Font Awesome**: Ícones para melhorar a interface.
 - **jQuery**: Manipulação do DOM e funcionalidades interativas.
 - **Popper.js**: Biblioteca para posicionamento de elementos emergentes.
-```
-Diagrama de Caso de uso:
-```
-<p align="center">
-  <img width="1600"  src="assets/diagramacasodeuso.png">
-</p>
 
 ## Instruções de Uso
 
