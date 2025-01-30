@@ -11,10 +11,9 @@
     <meta property="og:description" content="O aplicativo perfeito para profissionais de saúde gerenciarem o tratamento de feridas com eficiência.">
     <meta property="og:image" content="logo.png">
     <meta property="og:image:type" content="image/png">
-    <link rel="stylesheet" href="css\style.css">
-    <link rel="stylesheet" href="css\whats_button.css">
-    <link rel="stylesheet" href="css\lang.css">
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/btn_code.scss">
+    <link rel="stylesheet" href="css/lang.css">
 
     <link rel="icon" type="image/png" href="Logo3.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -23,145 +22,180 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    
 </head>
 <body>
-    <div class="header">
-           <!-- Seletor de idioma -->
-           <div class="nav-item dropdown language">
-            <a href="#" class="nav-link dropdown-toggle language-selected" data-bs-toggle="dropdown" data-bs-display="static">
-                pt-BR
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="#" class="dropdown-item br">Português</a></li>
-                <li><a href="#" class="dropdown-item en">English</a></li>
-            </ul>
-        </div> <!-- Fim Seletor de Idioma -->
-        <h1>Heal</h1>
-        <p id="subtitle">O aplicativo ideal para gerenciar o tratamento de feridas</p>
-    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="language-dropdown">
+                <a href="#" class="language-selected">pt-BR</a>
+                <ul class="language-options">
+                    <li><a href="#" class="br">Português</a></li>
+                    <li><a href="#" class="en">English</a></li>
+                </ul>
+            </div>
+            <h1>Heal</h1>
+            <p id="subtitle">O aplicativo ideal para gerenciar o tratamento de feridas</p>
+        </div>
+    </header>
 
-    <div class="main-content">
-       
-        <h3 id="text">Eficiência no tratamento de feridas</h3>
-        <p id="subtext">Com o Heal, você pode registrar, acompanhar e monitorar a evolução do tratamento de feridas de seus pacientes com facilidade. Acesse relatórios detalhados e mantenha seu consultório organizado.</p>
-        <img src="logo.png" alt="logo" style="width: 190px;">
-        <div class="buttons">
-            <button class="blob-btn" id="btn">
-                <span class="button-text">Experimente Agora</span>
-                <span class="blob-btn__inner">
-                  <span class="blob-btn__blobs">
-                    <span class="blob-btn__blob"></span>
-                    <span class="blob-btn__blob"></span>
-                    <span class="blob-btn__blob"></span>
-                    <span class="blob-btn__blob"></span>
-                  </span>
-                </span>
-              </button>                        
-          </div>
-          
-          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
-                <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
-              </filter>
-            </defs>
-          </svg>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 id="text">Eficiência no tratamento de feridas</h2>
+                <p id="subtext">Com o Heal, você pode registrar, acompanhar e monitorar a evolução do tratamento de feridas de seus pacientes com facilidade. Acesse relatórios detalhados e mantenha seu consultório organizado.</p>
+                <img src="logo.png" alt="Logo Heal" class="hero-logo">
+                <br>
+                <button class="bubbly-button">Experimente Agora</button>
+            </div>
+        </div>
+    </section>
 
-     
-    <!-- Seção de Como Funciona com Abas -->
-    <div class="container">
-        <h3 id="explicacao">Como funciona o sistema?</h3>
-        <!-- Navegação das Abas -->
-        <ul class="nav nav-tabs" id="funcionalidadesTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="gestao-pacientes-tab" data-toggle="tab" href="#gestao-pacientes" role="tab" aria-controls="gestao-pacientes" aria-selected="true">Gestão de Pacientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="prontuario-tab" data-toggle="tab" href="#prontuario" role="tab" aria-controls="prontuario" aria-selected="false">Prontuário Eletrônico</a>
-            </li>
-        </ul>
-
-        <!-- Conteúdo das Abas -->
-        <div class="tab-content" id="funcionalidadesTabContent">
-            <!-- Aba de Gestão de Pacientes -->
-            <div class="tab-pane fade show active" id="gestao-pacientes" role="tabpanel" aria-labelledby="gestao-pacientes-tab">
-                <div class="item-card">
-                    <i class="fa fa-users"></i>
+    <!-- Funcionalidades Section -->
+    <section class="funcionalidades">
+        <div class="container">
+            <h2 id="explicacao">Como funciona o sistema?</h2>
+            <div class="funcionalidades-grid">
+                <div class="funcionalidade-card">
+                    <i class="fas fa-users"></i>
                     <h3 id="gestão">Gestão de Pacientes</h3>
-                    <hr>
-                    <h6 id="hist">
-                    Histórico de consultas, anamnese, evolução, prescrição, controle de retornos e mensagens personalizadas. Mantenha todas as informações do paciente organizadas em um só lugar, facilitando o acompanhamento e gestão.
-                    </h6>
+                    <p id="hist">Histórico de consultas, anamnese, evolução, prescrição, controle de retornos e mensagens personalizadas. Mantenha todas as informações do paciente organizadas em um só lugar, facilitando o acompanhamento e gestão.</p>
                 </div>
-            </div>
-
-            <!-- Aba de Prontuário Eletrônico -->
-            <div class="tab-pane fade" id="prontuario" role="tabpanel" aria-labelledby="prontuario-tab">
-                <div class="item-card">
-                    <i class="fa fa-file-medical"></i>
+                <div class="funcionalidade-card">
+                    <i class="fas fa-file-medical"></i>
                     <h3 id="pront">Prontuário Eletrônico</h3>
-                    <hr>
-                    <h6 id="org">
-                    Organização, acesso rápido e segurança para informações dos pacientes, facilitando e melhorando a tomada de decisão com base em dados precisos e atualizados.
-                    </h6>
+                    <p id="org">Organização, acesso rápido e segurança para informações dos pacientes, facilitando e melhorando a tomada de decisão com base em dados precisos e atualizados.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Seção de Download do App com Abas -->
-    <div class="container">
-        <h3 id="app">Baixe o aplicativo</h3>
-        <ul class="nav nav-tabs" id="downloadTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="playstore-tab" data-toggle="tab" href="#playstore" role="tab" aria-controls="playstore" aria-selected="true">Google Play</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="appstore-tab" data-toggle="tab" href="#appstore" role="tab" aria-controls="appstore" aria-selected="false">App Store</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="downloadTabContent">
-            <div class="tab-pane fade show active" id="playstore" role="tabpanel" aria-labelledby="playstore-tab">
-                <div class="text-center">
-                    <a href="https://play.google.com/store/apps/details?id=me.consultorio" target="_blank">
-                        <a href="/" tabIndex="0"><img class="bn45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="bn45"/></a>
-                    </a>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="appstore" role="tabpanel" aria-labelledby="appstore-tab">
-                <div class="text-center">
-                    <a href="https://apps.apple.com/app/consultorio/id1219450013" target="_blank">
-                        <a href="/" tabIndex="0"><img class="bn46" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"alt="bn46"/></a>
-                    </a>
-                </div>
+    <!-- Download Section -->
+    <section class="download">
+        <div class="container">
+            <h2 id="app">Baixe o aplicativo</h2>
+            <div class="download-buttons">
+                <a href="https://play.google.com/store/apps/details?id=me.consultorio" target="_blank" class="download-button">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="Google Play">
+                </a>
+                <a href="https://apps.apple.com/app/consultorio/id1219450013" target="_blank" class="download-button">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store">
+                </a>
             </div>
         </div>
-    </div>
-</div>
-    <!-- Botão do WhatsApp -->
-        <div class="whats-float">
-            <a href="https://wa.me/5599999999999" target="_blank">
-                <i class="fab fa-whatsapp"></i><span>WhatsApp<br><small>+55 11 97123456</small></span>
-            </a>
-        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p id="copyright">&copy; 2024 Heal - Todos os direitos reservados.</p>
-            <div>
+            <div class="footer-links">
                 <a href="#" id="policies">Política de Privacidade</a> | 
                 <a href="#" id="terms">Termos de Uso</a> | 
-                <a href="#contato" id="contact">Contato</a>
+                <a href="#" id="contact">Contato</a>
             </div>
         </div>
     </footer>
-    
+
+    <!-- Botão do WhatsApp -->
+    <div class="whats-float">
+        <a href="https://wa.me/5599999999999" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp<br><small>+55 11 97123456</small></span>
+        </a>
+    </div>
+
+    <script>
+       var animateButton = function(e) {
+
+        e.preventDefault;
+        //reset animation
+        e.target.classList.remove('animate');
+
+        e.target.classList.add('animate');
+        setTimeout(function(){
+        e.target.classList.remove('animate');
+        },700);
+        };
+
+        var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+        for (var i = 0; i < bubblyButtons.length; i++) {
+        bubblyButtons[i].addEventListener('click', animateButton, false);
+        }
+      </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            function updateContent(language) {
+                const texts = {
+                    "pt-BR": {
+                        subtitle: "O aplicativo ideal para gerenciar o tratamento de feridas",
+                        text: "Eficiência no tratamento de feridas",
+                        subtext: "Com o Heal, você pode registrar, acompanhar e monitorar a evolução do tratamento de feridas de seus pacientes com facilidade. Acesse relatórios detalhados e mantenha seu consultório organizado.",
+                        btn: "Experimente Agora",
+                        explicacao: "Como funciona o sistema?",
+                        gestao: "Gestão de Pacientes",
+                        prontuario: "Prontuário Eletrônico",
+                        gestaoDesc: "Histórico de consultas, anamnese, evolução, prescrição, controle de retornos e mensagens personalizadas. Mantenha todas as informações do paciente organizadas em um só lugar, facilitando o acompanhamento e gestão.",
+                        prontuarioDesc: "Organização, acesso rápido e segurança para informações dos pacientes, facilitando e melhorando a tomada de decisão com base em dados precisos e atualizados.",
+                        app: "Baixe o aplicativo",
+                        copyright: "© 2024 Heal - Todos os direitos reservados.",
+                        policies: "Política de Privacidade",
+                        terms: "Termos de Uso",
+                        contact: "Contato"
+                    },
+                    "en-US": {
+                        subtitle: "The ideal app for managing wound care",
+                        text: "Wound care efficiency",
+                        subtext: "With Heal, you can easily register, track and monitor the progress of your patients' wound care. Access detailed reports and keep your office organized.",
+                        btn: "Try It Now",
+                        explicacao: "How does the system work?",
+                        gestao: "Patient Management",
+                        prontuario: "Electronic medical records",
+                        gestaoDesc: "Appointment history, anamnesis, evolution, prescription, return control and personalized messages. Keep all patient information organized in one place, making it easier to monitor and manage.",
+                        prontuarioDesc: "Organization, quick access and security for patient information, making decision-making easier and better based on accurate and up-to-date data.",
+                        app: "Download the app",
+                        copyright: "© 2024 Heal - All rights reserved.",
+                        policies: "Privacy Policy",
+                        terms: "Terms of use",
+                        contact: "Contact"
+                    }
+                };
+
+                const t = texts[language];
+
+                // Atualizar conteúdo
+                $("#subtitle").text(t.subtitle);
+                $(".language-selected").text(language);
+                $("#text").text(t.text);
+                $("#subtext").text(t.subtext);
+                $("#btn .button-text").text(t.btn); // Atualizar o texto do botão
+                $("#explicacao").text(t.explicacao);
+                $("#gestão").text(t.gestao);
+                $("#hist").text(t.gestaoDesc);
+                $("#pront").text(t.prontuario);
+                $("#org").text(t.prontuarioDesc);
+                $("#app").text(t.app);
+                $("#copyright").text(t.copyright);
+                $("#policies").text(t.policies);
+                $("#terms").text(t.terms);
+                $("#contact").text(t.contact);
+            }
+
+            $(".br").click(function(e) {
+                e.preventDefault();
+                updateContent("pt-BR");
+            });
+
+            $(".en").click(function(e) {
+                e.preventDefault();
+                updateContent("en-US");
+            });
+        });
+    </script>
 </body>
 </html>
