@@ -14,7 +14,7 @@ Landing page desenvolvida para apresentar o **Heal**, um aplicativo voltado a pr
 
 - **Guilherme Alves de Campos** — RA: 2920482411018
 - **Pedro Antonio Silvestre Tescaro** — RA: 2920482411010
-- **Paulo Henrique Leal dos Santos** — RA: 29204824110xx
+- **Paulo Henrique Leal dos Santos** — RA: 2920482411024
 
 ---
 
