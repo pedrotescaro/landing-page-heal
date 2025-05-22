@@ -290,7 +290,6 @@
         }
 
         .section-header h2 {
-            font-size: 2.25rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
@@ -555,7 +554,6 @@
 
         .faq-question {
             font-weight: 600;
-            font-size: 1.125rem;
             margin-bottom: 0.5rem;
             cursor: pointer;
             transition: color 0.3s;

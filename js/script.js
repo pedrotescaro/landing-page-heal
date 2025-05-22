@@ -91,21 +91,21 @@
     });
 
     document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const item = question.parentElement;
-        const isActive = item.classList.contains('active');
-        
-        // Fecha todos os itens
-        document.querySelectorAll('.faq-item').forEach(el => {
-            el.classList.remove('active');
-            el.querySelector('.faq-answer').style.maxHeight = '0';
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Fecha todos os itens
+            document.querySelectorAll('.faq-item').forEach(el => {
+                el.classList.remove('active');
+                el.querySelector('.faq-answer').style.maxHeight = '0';
+            });
+            
+            // Abre o item clicado se não estava ativo
+            if (!isActive) {
+                item.classList.add('active');
+                const answer = item.querySelector('.faq-answer');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
         });
-        
-        // Abre o item clicado se não estava ativo
-        if (!isActive) {
-            item.classList.add('active');
-            const answer = item.querySelector('.faq-answer');
-            answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
     });
-});
