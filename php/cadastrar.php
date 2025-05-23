@@ -14,10 +14,10 @@
 
     $stmt->execute(
         [
-            ':user_name'=> $name;
-            ':user_email'=> $email;
-            ':user_password'=>$password;
-            ':confirm_password'=>$confirm_password;        
+            ':user_name'=> $name,
+            ':user_email'=> $email,
+            ':user_password'=>$password,
+            ':confirm_password'=>$confirm_password,      
         ]
     );
 
