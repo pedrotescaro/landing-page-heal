@@ -10,6 +10,71 @@
             --radius: 0.75rem;
         }
 
+        #languageSwitcher {
+        background-color: transparent;
+        border: 1px solid hsl(var(--primary));
+        border-radius: var(--radius);
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem; /* text-sm */
+        color: hsl(var(--foreground));
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+        #languageSwitcher:focus {
+        outline: none;
+        border-color: hsl(var(--primary));
+        box-shadow: 0 0 0 2px hsl(var(--primary)/0.3);
+        }
+
+        @media (max-width: 1024px) {
+        #languageSwitcher {
+            max-width: 120px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+        }
+
+        @media (max-width: 820px) {
+        #languageSwitcher {
+            display: block;
+            width: 100%;
+            margin-top: 0.5rem;
+            order: 2;
+        }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Por padrão, botão por último */
+        .cta-buttons {
+            margin: 0;
+            padding: 0;
+            order: 5; /* ou o maior número da quantidade de itens */
+        }
+
+        /* Para telas pequenas: botão primeiro */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cta-buttons {
+                margin: 0;
+                padding: 0;
+                order: -1; /* faz ele aparecer primeiro */
+                
+            }
+        }
+
+
+
+
         * {
             margin: 0;
             padding: 0;
@@ -47,6 +112,7 @@
             align-items: center;
             padding: 1rem 2rem;
             position: relative;
+            flex-wrap: wrap;
         }
 
 
@@ -121,6 +187,8 @@
         }
 
         .cta-buttons {
+            margin: 0;
+            padding: 0;
             display: flex;
             gap: 1rem;
         }
@@ -157,6 +225,9 @@
             }
 
             .cta-buttons {
+                margin: 0;
+                padding: 0;
+                width: 100%;
                 flex-direction: column;
                 width: 100%;
                 padding: 0 2rem;
@@ -762,7 +833,8 @@
 
         .cta-buttons {
             margin-top: auto;
-            padding-bottom: 2rem;
+            margin: 0;
+            padding: 0;
         }
 
     }
