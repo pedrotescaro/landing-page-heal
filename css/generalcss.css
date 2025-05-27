@@ -98,7 +98,8 @@
 
      /* Header Styles */
      header {
-            background-color: white;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
@@ -107,6 +108,7 @@
         }
 
         .header-container {
+            
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -153,7 +155,13 @@
             z-index: 101;
         }
 
+        #navLinks.nav-links{
+            background-color: hsl(var(--background));
+        }
+
         .nav-links {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
             display: flex;
             gap: 2rem;
             transition: all 0.3s ease;
@@ -161,6 +169,7 @@
 
         .nav-links a {
             text-decoration: none;
+            background-color: hsl(var(--background));
             color: hsl(var(--foreground));
             font-weight: 500;
             transition: all 0.3s;
@@ -854,7 +863,7 @@
         }
 
         .language-selector option {
-            background: white;
+            background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
 
@@ -864,3 +873,43 @@
                 width: 100%;
             }
         }
+
+        body.dark {
+    --background: 222 47% 11%; /* fundo escuro */
+    --foreground: 210 40% 98%; /* texto claro */
+    --primary: 201 96% 60%;
+    --primary-foreground: 222 47% 10%;
+    --muted: 215 20% 20%;
+    --muted-foreground: 210 20% 70%;
+    --border: 215 20% 30%;
+}
+
+body.dark footer {
+    background-color: hsl(222 47% 8%);
+}
+
+body.dark .pricing-card,
+body.dark .feature-card,
+body.dark .testimonial-card,
+body.dark form,
+body.dark .nav-links {
+    background-color: hsl(222 47% 15%);
+    color: hsl(var(--foreground));
+}
+
+body.dark .btn-outline {
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+}
+
+body.dark .btn-outline:hover {
+    background-color: hsl(var(--primary) / 0.1);
+}
+
+body.dark .hero p,
+body.dark .section-header p,
+body.dark .faq-answer,
+body.dark .testimonial-card p,
+body.dark .testimonial-role {
+    color: hsl(var(--muted-foreground));
+}
