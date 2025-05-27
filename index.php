@@ -313,7 +313,10 @@ if (!isset($_SESSION['user_name'])) {
                 <a href="#footer" data-i18n="header.contact"></a>
                
       <div class="cta-buttons">
-
+        <button id="toggleDarkMode" class="btn btn-outline">
+            🌙
+        </button>
+        
     <?php if ($displayName): ?>
             <!-- Exibe o nome do usuário e botão logout -->
                 <span class="user-name me-2">
@@ -432,7 +435,7 @@ if (!isset($_SESSION['user_name'])) {
             <p data-i18n="pricing.subtitle"></p>
         </div>
         <div class="pricing-grid">
-            <div class="pricing-card">
+            <div class="pricing-card flex flex-col justify-between">
                 <div>
                     <h3 data-i18n="plan1.title"></h3>
                     <div class="price" data-i18n="plan1.price"></div>
@@ -662,6 +665,24 @@ if (!isset($_SESSION['user_name'])) {
     <script src="js/script.js"></script>
     <script src="js/script-geral.js"></script>
     <script src="js/script-mododark.js"></script>
+<script>
+    const toggleButton = document.getElementById('toggleDarkMode');
+    const bodyElement = document.body; // Renomeado para evitar conflito
+
+    // Verifica o modo salvo
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        bodyElement.classList.add('dark');
+    }
+
+    toggleButton.addEventListener('click', () => {
+        bodyElement.classList.toggle('dark');
+        const isDark = bodyElement.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        toggleButton.innerText = isDark ? '☀️' : '🌙';
+    });
+</script>
+
 
 </body>
 </html>
