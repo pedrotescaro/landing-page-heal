@@ -1,3 +1,26 @@
+<?php
+session_start();
+function formatUserName($fullName) {
+    $parts = explode(' ', trim($fullName));
+    if (count($parts) >= 2) {
+        return $parts[0] . ' ' . end($parts); // primeiro e último
+    }
+    return $fullName; // nome único
+}
+
+$userName = $_SESSION['user_name'] ?? null;
+$displayName = $userName ? formatUserName($userName) : null;
+
+// Se não está logado, redireciona para login
+/*
+if (!isset($_SESSION['user_name'])) {
+    header("Location: login.html");
+    exit;
+}
+*/
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">>
 <head>
@@ -294,6 +317,7 @@
     <?php if ($displayName): ?>
             <!-- Exibe o nome do usuário e botão logout -->
                 <span class="user-name me-2">
+                     <span data-i18n="header.hello">Olá</span>, <?= htmlspecialchars($displayName) ?>
                 </span>
             <form action="php/logout.php" method="POST" style="display: inline;">
                 <button type="submit" class="btn btn-primary">
@@ -408,7 +432,7 @@
             <p data-i18n="pricing.subtitle"></p>
         </div>
         <div class="pricing-grid">
-            <div class="pricing-card flex flex-col justify-between">
+            <div class="pricing-card">
                 <div>
                     <h3 data-i18n="plan1.title"></h3>
                     <div class="price" data-i18n="plan1.price"></div>
