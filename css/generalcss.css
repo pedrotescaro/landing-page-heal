@@ -913,3 +913,22 @@ body.dark .testimonial-card p,
 body.dark .testimonial-role {
     color: hsl(var(--muted-foreground));
 }
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* espaço entre os elementos */
+}
+
+.user-name {
+    font-weight: 500; /* peso da fonte médio */
+    color: hsl(var(--foreground));
+    padding: 4px 8px; /* leve preenchimento ao redor do texto */
+}
+
+
+.user-name {
+    font-weight: 500;
+    color: hsl(var(--foreground));
+}

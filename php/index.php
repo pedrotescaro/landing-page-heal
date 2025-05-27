@@ -1,22 +1,34 @@
 <?php
 session_start();
+function formatUserName($fullName) {
+    $parts = explode(' ', trim($fullName));
+    if (count($parts) >= 2) {
+        return $parts[0] . ' ' . end($parts); // primeiro e último
+    }
+    return $fullName; // nome único
+}
+
+$userName = $_SESSION['user_name'] ?? null;
+$displayName = $userName ? formatUserName($userName) : null;
 
 // Se não está logado, redireciona para login
+/*
 if (!isset($_SESSION['user_name'])) {
     header("Location: login.html");
     exit;
 }
+*/
 
-$userName = $_SESSION['user_name'];
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heal - Monitoramento Inteligente de Feridas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="icon" type="image/png" href="imgs/Logo_Heal4.png">
@@ -35,6 +47,8 @@ $userName = $_SESSION['user_name'];
                 "header.contact": "Contato",
                 "header.download": "Baixar Aplicativo",
                 "header.login": "Faça login",
+                "header.logout": "Sair",
+                "header.hello": "Olá",
                 
               // Hero
                 "hero.title": "<span class='heal-text'>Heal</span><br>Monitoramento Inteligente de Feridas",
@@ -143,6 +157,8 @@ $userName = $_SESSION['user_name'];
             "header.contact": "Contact",
             "header.download": "Download App",
             "header.login": "Sign In",
+            "header.logout": "Sign Out",
+            "header.hello": "Hello",
             
             // Hero
             
@@ -269,8 +285,8 @@ $userName = $_SESSION['user_name'];
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <div class="container header-container">
+<header>
+   <div class="container header-container">
         <!-- Grupo Logo + Menu Toggle -->
         <div class="flex items-center gap-4 relative z-50">
             <button class="menu-toggle" id="menuToggle">
@@ -290,28 +306,35 @@ $userName = $_SESSION['user_name'];
                     <option value="pt">🇧🇷 Português</option>
                     <option value="en">🇺🇸 English</option>
                 </select>
-
-         
+                
                 <a href="#recursos" data-i18n="header.features"></a>
                 <a href="#depoimentos" data-i18n="header.testimonials"></a>
                 <a href="#precos" data-i18n="header.pricing"></a>
                 <a href="#footer" data-i18n="header.contact"></a>
                
       <div class="cta-buttons">
-
-        <?php if (isset($_SESSION['user_name'])): ?>
-          <!-- Exibe o nome do usuário e botão logout -->
-          <span class="user-name" style="margin-right:10px;">Olá, <?= htmlspecialchars($userName) ?></span>
-          <form action="logout.php" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-primary">Logout</button>
-          </form>
+        
+    <?php if ($displayName): ?>
+            <!-- Exibe o nome do usuário e botão logout -->
+                <span class="user-name me-2">
+                     <span data-i18n="header.hello">Olá</span>, <?= htmlspecialchars($displayName) ?>
+                </span>
+            <form action="php/logout.php" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span data-i18n="header.logout">Logout</span>
+                </button>
+            </form>
         <?php else: ?>
-          <!-- Se não logado, mostra botão login -->
-          <button onclick="location.href='login.html'" class="btn btn-primary">
-            <span data-i18n="hero.login">Login</span>
-          </button>
+            <!-- Se não logado, mostra botão login -->
+            <button onclick="location.href='login.html'" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i>
+                <span data-i18n="header.login">Login</span>
+            </button>
         <?php endif; ?>
-                    
+                     <button id="toggleDarkMode" class="btn btn-outline">
+                        🌙
+                    </button>
                 </div>
             </nav>
         </div>
@@ -329,8 +352,8 @@ $userName = $_SESSION['user_name'];
                     <span data-i18n="hero.downloadButton"></span>
                 </button>
                <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
                 <span data-i18n="hero.login"></span>
-                <i class="fas fa-arrow-right"></i>
             </a>
 
             </div>
@@ -411,21 +434,23 @@ $userName = $_SESSION['user_name'];
             <p data-i18n="pricing.subtitle"></p>
         </div>
         <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3 data-i18n="plan1.title"></h3>
-                <div class="price" data-i18n="plan1.price"></div>
-                <div class="features-list">
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-i18n="plan1.feature1"></span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-i18n="plan1.feature2"></span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-i18n="plan1.feature3"></span>
+            <div class="pricing-card flex flex-col justify-between">
+                <div>
+                    <h3 data-i18n="plan1.title"></h3>
+                    <div class="price" data-i18n="plan1.price"></div>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-i18n="plan1.feature1"></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-i18n="plan1.feature2"></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-i18n="plan1.feature3"></span>
+                        </div>
                     </div>
                 </div>
                 <button class="btn btn-outline" style="width: 100%;" data-i18n="plan1.button"></button>
@@ -514,8 +539,7 @@ $userName = $_SESSION['user_name'];
             </div>
             <div>
                 <label class="block text-sm font-medium mb-2 text-gray-800" data-i18n="feedback.messageLabel"></label>
-                <textarea rows="4" required
-                    class="w-full px-4 py-3 rounded-lg bg-white border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 resize-none transition-all">
+                <textarea rows="4" required class="w-full px-4 py-3 rounded-lg bg-white border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 resize-none transition-all">
                 </textarea>
             </div>
             <button type="submit"
@@ -639,5 +663,25 @@ $userName = $_SESSION['user_name'];
     </script>
     <script src="js/script.js"></script>
     <script src="js/script-geral.js"></script>
+    <script src="js/script-mododark.js"></script>
+<script>
+    const toggleButton = document.getElementById('toggleDarkMode');
+    const bodyElement = document.body; // Renomeado para evitar conflito
+
+    // Verifica o modo salvo
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        bodyElement.classList.add('dark');
+    }
+
+    toggleButton.addEventListener('click', () => {
+        bodyElement.classList.toggle('dark');
+        const isDark = bodyElement.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        toggleButton.innerText = isDark ? '☀️' : '🌙';
+    });
+</script>
+
+
 </body>
 </html>

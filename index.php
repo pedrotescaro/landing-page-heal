@@ -313,9 +313,6 @@ if (!isset($_SESSION['user_name'])) {
                 <a href="#footer" data-i18n="header.contact"></a>
                
       <div class="cta-buttons">
-        <button id="toggleDarkMode" class="btn btn-outline">
-            🌙
-        </button>
         
     <?php if ($displayName): ?>
             <!-- Exibe o nome do usuário e botão logout -->
@@ -335,7 +332,9 @@ if (!isset($_SESSION['user_name'])) {
                 <span data-i18n="header.login">Login</span>
             </button>
         <?php endif; ?>
-                    
+                      <button id="toggleDarkMode" class="btn btn-outline">
+                        🌙
+                    </button>
                 </div>
             </nav>
         </div>
