@@ -433,20 +433,22 @@ if (!isset($_SESSION['user_name'])) {
         </div>
         <div class="pricing-grid">
             <div class="pricing-card">
-                <h3 data-i18n="plan1.title"></h3>
-                <div class="price" data-i18n="plan1.price"></div>
-                <div class="features-list">
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-i18n="plan1.feature1"></span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-i18n="plan1.feature2"></span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-i18n="plan1.feature3"></span>
+                <div>
+                    <h3 data-i18n="plan1.title"></h3>
+                    <div class="price" data-i18n="plan1.price"></div>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-i18n="plan1.feature1"></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-i18n="plan1.feature2"></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-i18n="plan1.feature3"></span>
+                        </div>
                     </div>
                 </div>
                 <button class="btn btn-outline" style="width: 100%;" data-i18n="plan1.button"></button>
