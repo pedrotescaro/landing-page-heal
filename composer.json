@@ -1,0 +1,15 @@
+{
+    "name": "aluno/aula10",
+    "autoload": {
+        "psr-4": {
+            "Aluno\\Aula10\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pedro Tescaro",
+            "email": "pedroatescaro@gmail.com"
+        }
+    ],
+    "require": {}
+}
