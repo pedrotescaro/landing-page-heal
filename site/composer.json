@@ -1,0 +1,15 @@
+{
+    "name": "paulo/site",
+   "autoload": {
+    "psr-4": {
+        "src\\": "src/"
+    }
+},
+    "authors": [
+        {
+            "name": "PaulinhoLeal",
+            "email": "paulonagasumileal@gmail.com"
+        }
+    ],
+    "require": {}
+}
