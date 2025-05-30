@@ -41,63 +41,73 @@
 
   <div class="flex flex-col md:flex-row full-screen">
 
-    <!-- Lado Esquerdo: Formulário de Cadastro -->
-    <div class="w-full md:w-1/2 register-left bg-white flex flex-col justify-center p-8 md:p-16">
-      <div class="flex items-center gap-2">
-        <img src="imgs/Logo_Heal4.png" alt="Heal Logo" class="w-12 object-contain">
-        <div class="logo">Heal</div>
-      </div>
-      <h2 class="text-2xl font-bold text-[#111827] mb-2">Crie sua conta</h2>
-      <p class="text-gray-600 mb-6">Preencha os dados abaixo para começar</p>
-      
-      <form action="php/cadastrar.php" method="POST" class="space-y-5">
-        <div>
-          <label for="nome" class="block text-sm font-medium text-[#111827] mb-1">Nome Completo</label>
-          <input type="text" id="name" name="name" required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
-          <input type="email" id="email" name="email" required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-        </div>
-        <div>
-          <label for="senha" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
-          <input type="password" id="password" name="password" required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-        </div>
-        <div>
-          <label for="confirmar_senha" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
-          <input type="password" id="confirm-password" name="confirm-password" required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-        </div>
-       
-        <button type="submit"
-          class="w-full bg-[#1E77EA] hover:bg-[#0369A0] text-white font-medium py-3 rounded-lg transition-colors">
-          Cadastrar
-        </button>
-      </form>
-      <p class="text-center text-sm text-gray-500 mt-6">
-        Já possui uma conta? <a href="login.html" class="text-[#0D82E8] hover:underline">Entrar</a>
-      </p>
+   <!-- Lado Esquerdo: Formulário de Cadastro -->
+<div class="w-full md:w-1/2 register-left bg-white flex flex-col justify-center p-8 md:p-12">
+  <div class="flex items-center gap-2">
+    <img src="imgs/Logo_Heal4.png" alt="Heal Logo" class="w-10 object-contain">
+    <div class="logo ml-2">Heal</div>
+  </div>
+  <h2 class="text-xl font-bold text-[#111827] mb-2">Crie sua conta</h2>
+  <p class="text-gray-600 mb-4">Preencha os dados abaixo para começar</p>
+  
+  <form action="php/cadastrar.php" method="POST" class="space-y-4">
+    <div>
+      <label for="nome" class="block text-sm font-medium text-[#111827] mb-1">Nome Completo</label>
+      <input type="text" id="name" name="name" required
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
     </div>
+    <div>
+      <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
+      <input type="email" id="email" name="email" required
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+    </div>
+    <div>
+      <label for="senha" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
+      <input type="password" id="password" name="password" required
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+    </div>
+    <div>
+      <label for="confirmar_senha" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
+      <input type="password" id="confirm-password" name="confirm-password" required
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+    </div>
+   
+    <button type="submit"
+      class="w-full bg-[#1E77EA] hover:bg-[#0369A0] text-white font-medium py-2 rounded-md transition-colors">
+      Cadastrar
+    </button>
+  </form>
+  
+  <p class="text-center text-sm text-gray-500 mt-4">
+    Já possui uma conta? <a href="login.html" class="text-[#0D82E8] hover:underline">Entrar</a>
+  </p>
+</div>
 
     <!-- Lado Direito: Informações do App -->
-    <div class="register-right w-full md:w-1/2 bg-gradient-to-b from-[#0FA3E9] to-[#1E77EA] text-white p-10 relative flex items-center">
+    <div class="register-right w-full md:w-1/2 bg-gradient-to-b from-[#15518a] to-[#1a3a5d] text-white p-10 relative f</div>lex items-center">
       <div class="z-10 max-w-md">
-        <h2 class="text-2xl font-bold mb-6">Benefícios do Heal</h2>
-        <div class="space-y-6">
-          <div>
-            <h3 class="font-semibold text-lg">Monitoramento inteligente</h3>
-            <p class="text-blue-100">Acompanhe a evolução do tratamento de forma visual e organizada</p>
+        <h2 class="text-3xl font-extrabold mb-8">Acompanhamento completo de feridas</h2>
+        <div class="space-y-8">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-camera-retro text-2xl text-[#4FC3F7]"></i>
+            <div>
+              <h3 class="font-semibold text-lg">Registro fotográfico</h3>
+              <p class="text-blue-100">Capture e organize fotos para acompanhar a evolução visual do tratamento.</p>
+            </div>
           </div>
-          <div>
-            <h3 class="font-semibold text-lg">Segurança de dados</h3>
-            <p class="text-blue-100">Seus dados e dos pacientes protegidos com tecnologia de ponta</p>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-ruler-combined text-2xl text-[#4FC3F7]"></i>
+            <div>
+              <h3 class="font-semibold text-lg">Medidas e observações</h3>
+              <p class="text-blue-100">Registre dimensões, características e notas importantes sobre cada ferida.</p>
+            </div>
           </div>
-          <div>
-            <h3 class="font-semibold text-lg">Suporte especializado</h3>
-            <p class="text-blue-100">Nossa equipe está pronta para ajudar sempre que precisar</p>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-file-medical text-2xl text-[#4FC3F7]"></i>
+            <div>
+              <h3 class="font-semibold text-lg">Relatórios automáticos</h3>
+              <p class="text-blue-100">Gere relatórios detalhados de evolução para compartilhar com a equipe médica.</p>
+            </div>
           </div>
         </div>
       </div>
