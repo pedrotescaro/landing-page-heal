@@ -76,11 +76,11 @@ class AnamneseController {
     /**
      * Exclui uma anamnese (DELETE)
      */
-    public function excluir($id) {
+    public function deletar($id) {
         if ($this->service->excluirAnamnese((int)$id)) {
             echo json_encode([
                 "status" => "success",
-                "message" => "Anamnese excluída com sucesso"
+                "message" => "Anamnese excluida com sucesso"
             ]);
         } else {
             http_response_code(500);
@@ -89,5 +89,9 @@ class AnamneseController {
                 "message" => "Erro ao excluir anamnese"
             ]);
         }
+    }
+    //funçao de teste 
+    public function hello() {
+        echo "Olá! Método hello() funcionando.";
     }
 }

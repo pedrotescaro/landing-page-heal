@@ -33,4 +33,4 @@ $router->add('GET', '/site/public/index.php/hello',
     [new AnamneseController(), 'hello']);
 
 // Iniciar o roteador
-$router->handleRequest();
+$router->handlerRequest();
