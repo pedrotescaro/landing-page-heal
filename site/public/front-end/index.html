@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Anamnese</title>
+    <style>
+        @import url("css/style.css");
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <h1>Ficha de Anamnese</h1>
+
+    <div id="form-container">
+        <form id="anamnese-form">
+
+            <!--
+            <fieldset>
+                <legend>Tamanho da ferida</legend>
+                <p>Tire uma foto para guardar a imagem da ferida do paciente</p>
+                <button type="button" class="photo-button">
+                    Tire uma foto <i class="fas fa-camera"></i>
+                </button>
+            </fieldset>
+            -->
+
+            <fieldset>
+                <legend>Dados Pessoais</legend>
+                <div class="input-group">
+                    <label for="nome_cliente">Nome do Cliente:</label>
+                    <input type="text" id="nome_cliente" name="nome_cliente" placeholder="Nome Completo" required>
+                </div>
+                <div class="input-group">
+                    <label for="data_nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data_nascimento" name="data_nascimento">
+                </div>
+                <div class="input-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" id="telefone" name="telefone" placeholder="Telefone">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <label for="profissao">Profissão:</label>
+                    <input type="text" id="profissao" name="profissao" placeholder="Profissão">
+                </div>
+                <div class="input-group">
+                    <label for="estado_civil">Estado Civil:</label>
+                    <select id="estado_civil" name="estado_civil">
+                        <option value="">Selecione</option>
+                        <option value="Solteiro(a)">Solteiro(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                        <option value="Viúvo(a)">Viúvo(a)</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Dados Clínicos</legend>
+                <div class="input-group">
+                    <label for="objetivo_tratamento">Objetivo do Tratamento:</label>
+                    <textarea id="objetivo_tratamento" name="objetivo_tratamento" placeholder="Descreva o objetivo do tratamento"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="usa_medicacao">Usa Medicação:</label>
+                    <select id="usa_medicacao" name="usa_medicacao">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="qual_medicacao">Qual Medicação:</label>
+                    <input type="text" id="qual_medicacao" name="qual_medicacao" placeholder="Nome da medicação">
+                </div>
+                <div class="input-group">
+                    <label for="possui_doenca">Possui Doença:</label>
+                    <select id="possui_doenca" name="possui_doenca">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="qual_doenca">Qual Doença:</label>
+                    <input type="text" id="qual_doenca" name="qual_doenca" placeholder="Nome da doença">
+                </div>
+                <div class="input-group">
+                    <label for="possui_alergia">Possui Alergia:</label>
+                    <select id="possui_alergia" name="possui_alergia">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="qual_alergia">Qual Alergia:</label>
+                    <input type="text" id="qual_alergia" name="qual_alergia" placeholder="Tipo de alergia">
+                </div>
+                <div class="input-group">
+                    <label for="pratica_atividade_fisica">Pratica Atividade Física:</label>
+                    <select id="pratica_atividade_fisica" name="pratica_atividade_fisica">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="qual_atividade">Qual Atividade:</label>
+                    <input type="text" id="qual_atividade" name="qual_atividade" placeholder="Tipo de atividade">
+                </div>
+                <div class="input-group">
+                    <label for="frequencia_atividade">Frequência Atividade:</label>
+                    <input type="text" id="frequencia_atividade" name="frequencia_atividade"
+                        placeholder="Frequência da atividade">
+                </div>
+                <div class="input-group">
+                    <label for="ingestao_agua_dia">Ingestão Água/Dia:</label>
+                    <input type="text" id="ingestao_agua_dia" name="ingestao_agua_dia"
+                        placeholder="Quantidade de água por dia">
+                </div>
+                <div class="input-group">
+                    <label for="ingestao_alcool">Ingestão Álcool:</label>
+                    <select id="ingestao_alcool" name="ingestao_alcool">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="frequencia_alcool">Frequência Álcool:</label>
+                    <input type="text" id="frequencia_alcool" name="frequencia_alcool"
+                        placeholder="Frequência do consumo de álcool">
+                </div>
+                <div class="input-group">
+                    <label for="ciclo_menstrual_regular">Ciclo Menstrual Regular:</label>
+                    <select id="ciclo_menstrual_regular" name="ciclo_menstrual_regular">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="usa_anticoncepcional">Usa Anticoncepcional:</label>
+                    <select id="usa_anticoncepcional" name="usa_anticoncepcional">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="tem_filhos">Tem Filhos:</label>
+                    <select id="tem_filhos" name="tem_filhos">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="quantos_filhos">Quantos Filhos:</label>
+                    <input type="number" id="quantos_filhos" name="quantos_filhos" placeholder="Número de filhos">
+                </div>
+                <div class="input-group">
+                    <label for="realizou_cirurgias">Realizou Cirurgias:</label>
+                    <select id="realizou_cirurgias" name="realizou_cirurgias">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="quais_cirurgias">Quais Cirurgias:</label>
+                    <input type="text" id="quais_cirurgias" name="quais_cirurgias" placeholder="Nome das cirurgias">
+                </div>
+                <div class="input-group">
+                    <label for="marca_pacemaker">Marca Pacemaker:</label>
+                    <select id="marca_pacemaker" name="marca_pacemaker">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="diabetes">Diabetes:</label>
+                    <select id="diabetes" name="diabetes">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="hipertensao">Hipertensão:</label>
+                    <select id="hipertensao" name="hipertensao">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="problemas_cardiacos">Problemas Cardíacos:</label>
+                    <select id="problemas_cardiacos" name="problemas_cardiacos">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="problemas_respiratorios">Problemas Respiratórios:</label>
+                    <select id="problemas_respiratorios" name="problemas_respiratorios">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="problemas_renais">Problemas Renais:</label>
+                    <select id="problemas_renais" name="problemas_renais">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="problemas_hepaticos">Problemas Hepáticos:</label>
+                    <select id="problemas_hepaticos" name="problemas_hepaticos">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="fumante">Fumante:</label>
+                    <select id="fumante" name="fumante">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="historico_estetico">Histórico Estético:</label>
+                    <textarea id="historico_estetico" name="historico_estetico" placeholder="Descreva o histórico estético"></textarea>
+                </div>
+            <!--
+
+                             <fieldset>
+                            <legend>HPP e Comorbidades</legend>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dmi" name="dmi" value="1">
+                                <label for="dmi">DMI</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dmii" name="dmii" value="1">
+                                <label for="dmii">DMII</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="has" name="has" value="1">
+                                <label for="has">HAS</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="neoplasia" name="neoplasia" value="1">
+                                <label for="neoplasia">Neoplasia</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="hiv_aids" name="hiv_aids" value="1">
+                                <label for="hiv_aids">HIV/SIDA</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="obesidade" name="obesidade" value="1">
+                                <label for="obesidade">Obesidade</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="cardiopatia" name="cardiopatia" value="1">
+                                <label for="cardiopatia">Cardiopatia</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dpoc" name="dpoc" value="1">
+                                <label for="dpoc">DPOC</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="doenca_hematologica" name="doenca_hematologica" value="1">
+                                <label for="doenca_hematologica">Doença Hematológica</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="doenca_vascular" name="doenca_vascular" value="1">
+                                <label for="doenca_vascular">Doença Vascular</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="demencia_senil" name="demencia_senil" value="1">
+                                <label for="demencia_senil">Demência Senil</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="insuficiencia_renal" name="insuficiencia_renal" value="1">
+                                <label for="insuficiencia_renal">Insuficiência renal</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="hanseniase" name="hanseniase" value="1">
+                                <label for="hanseniase">Hanseníase</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="insuficiencia_hepatica" name="insuficiencia_hepatica" value="1">
+                                <label for="insuficiencia_hepatica">Insuficiência Hepática</label>
+                            </div>
+                            <div class="input-group">
+                                <label for="outros_hpp">Outros:</label>
+                                <input type="text" id="outros_hpp" name="outros_hpp" placeholder="Especifique...">
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Medicamento em uso</legend>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="anti_hipertensivo" name="anti_hipertensivo" value="1">
+                                <label for="anti_hipertensivo">Anti-hipertensivo</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="corticoides" name="corticoides" value="1">
+                                <label for="corticoides">Corticoides</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="hipoglicemiantes_orais" name="hipoglicemiantes_orais" value="1">
+                                <label for="hipoglicemiantes_orais">Hipoglicemiantes orais</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="aines" name="aines" value="1">
+                                <label for="aines">AINES</label>
+                            </div>
+                            <div class="input-group">
+                                <label for="insulina">Insulina UI/dia:</label>
+                                <input type="text" id="insulina" name="insulina" placeholder="Insulina UI/dia">
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="drogas_vasoativa" name="drogas_vasoativa" value="1">
+                                <label for="drogas_vasoativa">Drogas vasoativa</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="suplemento" name="suplemento" value="1">
+                                <label for="suplemento">Suplemento</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="anticoagulante" name="anticoagulante" value="1">
+                                <label for="anticoagulante">Anticoagulante</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="vitaminico" name="vitaminico" value="1">
+                                <label for="vitaminico">Vitamínico</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="antirretroviral" name="antirretroviral" value="1">
+                                <label for="antirretroviral">Antirretroviral</label>
+                            </div>
+                            <div class="input-group">
+                                <label for="outros_medicamento">Outros:</label>
+                                <input type="text" id="outros_medicamento" name="outros_medicamento" placeholder="Especifique...">
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Informações Adicionais</legend>
+                            <div class="input-group">
+                                <label for="observacoes">Observações:</label>
+                                <textarea id="observacoes" name="observacoes" placeholder="Observações adicionais"></textarea>
+                            </div>
+            -->
+            </fieldset>
+            <div class="action-buttons">
+             <button type="reset" id="apagar-tudo">Apagar tudo <i class="fas fa-sync-alt"></i></button>
+            <button type="submit"id="finalizar-documentacao">Salvar Anamnese<i class="fas fa-file-pdf"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div id="finalizacao-container">
+        <fieldset>
+            <legend>Finalização da Documentação</legend>
+            <p>Após preencher os dados da anamnese, finalize a documentação e gere um PDF com as informações.</p>
+            <p>Adicione anotações e escolha um paciente para incluir os dados no relatório em PDF.</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Anamneses Cadastradas</legend>
+            <p>Selecione uma anamnese para visualizar ou editar:</p>
+            <ul id="anamneses-list-ul"></ul>
+        </fieldset>
+
+        <fieldset>
+            <legend>Nota</legend>
+            <label for="nota">Adicione uma nota para incluí-la no PDF:</label>
+            <textarea id="nota" name="nota" placeholder="Insira o texto aqui"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Escolha o paciente</legend>
+            <label for="paciente">Escolha o paciente para incluir os dados no relatório em PDF (opcional):</label>
+            <select id="paciente" name="paciente">
+                <option value="">Inserir paciente</option>
+            </select>
+        </fieldset>
+
+        <div class="action-buttons">
+            <button type="reset" id="apagar-tudo">Apagar tudo <i class="fas fa-sync-alt"></i></button>
+            <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i class="fas fa-check"></i></button>
+        </div>
+    </div>
+
+<footer>
+    <nav class="bottom-nav">
+        <a href="#" title="Home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" title="Agenda">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
+        </a>
+        <a href="#" title="Chat">
+            <i class="fas fa-comment-dots"></i>
+            <span>Chat</span>
+        </a>
+        <a href="#" title="Perfil">
+            <i class="fas fa-user-circle"></i>
+            <span>Perfil</span>
+        </a>
+    </nav>
+</footer>
+
+    <script src="/site/public/front-end/js/script.js"></script>
+</body>
+
+</html>
