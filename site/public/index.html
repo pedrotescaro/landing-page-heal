@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha de Anamnese</title>
+    <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
+    <link rel="stylesheet" href="/site/public/css/estilo_mobile.css">
+    <link rel="stylesheet" href="/site/public/css/style.css">
     <style>
-        @import url("css/style.css");
+        @import url("/site/public/css/estilo_pc.css");
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -17,15 +20,71 @@
     <div id="form-container">
         <form id="anamnese-form">
 
-            <!--
+    
             <fieldset>
-                <legend>Tamanho da ferida</legend>
-                <p>Tire uma foto para guardar a imagem da ferida do paciente</p>
-                <button type="button" class="photo-button">
-                    Tire uma foto <i class="fas fa-camera"></i>
-                </button>
+                <legend>Tamanho da Ferida</legend>
+                <p>Capture ou insira manualmente as informações sobre a ferida do paciente.</p>
+
+                <div class="input-group">
+                    <label for="foto_ferida">Foto da Ferida:</label>
+                    <input type="file" id="foto_ferida" name="foto_ferida" accept="image/*" capture="environment" style="display:none;">
+                    <button type="button" class="photo-button" id="abrir-camera">
+                        <i class="fas fa-camera"></i> Tirar/Selecionar Foto
+                    </button>
+                </div>
+
+                <div class="photo-preview" style="margin-top:10px;">
+                    <img id="photo-preview-img" src="" alt="Preview da foto" style="display: none; max-width: 200px; border-radius: 8px;">
+                    <p id="photo-preview-text" style="display: none;">Foto da ferida do paciente</p>
+                    <button type="button" id="remover-foto" style="display:none; margin-top:5px;">Remover Foto <i class="fas fa-times"></i></button>
+                </div>
+
+                <div class="input-group" style="margin-top:15px;">
+                    <label>Medidas da Ferida (cm):</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" step="0.1" min="0" name="ferida_largura" placeholder="Largura">
+                        <input type="number" step="0.1" min="0" name="ferida_comprimento" placeholder="Comprimento">
+                        <input type="number" step="0.1" min="0" name="ferida_profundidade" placeholder="Profundidade">
+                    </div>
+                </div>
             </fieldset>
-            -->
+            <script>
+            document.getElementById('abrir-camera').addEventListener('click', function() {
+                document.getElementById('foto_ferida').click();
+            });
+
+            document.getElementById('foto_ferida').addEventListener('change', function(event) {
+                const img = document.getElementById('photo-preview-img');
+                const text = document.getElementById('photo-preview-text');
+                const removerBtn = document.getElementById('remover-foto');
+                if (event.target.files && event.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        img.src = e.target.result;
+                        img.style.display = 'block';
+                        text.style.display = 'block';
+                        removerBtn.style.display = 'inline-block';
+                    };
+                    reader.readAsDataURL(event.target.files[0]);
+                } else {
+                    img.style.display = 'none';
+                    text.style.display = 'none';
+                    removerBtn.style.display = 'none';
+                }
+            });
+
+            document.getElementById('remover-foto').addEventListener('click', function() {
+                const fileInput = document.getElementById('foto_ferida');
+                const img = document.getElementById('photo-preview-img');
+                const text = document.getElementById('photo-preview-text');
+                fileInput.value = '';
+                img.src = '';
+                img.style.display = 'none';
+                text.style.display = 'none';
+                this.style.display = 'none';
+            });
+            </script>
+     
 
             <fieldset>
                 <legend>Dados Pessoais</legend>
@@ -229,8 +288,7 @@
                     <label for="historico_estetico">Histórico Estético:</label>
                     <textarea id="historico_estetico" name="historico_estetico" placeholder="Descreva o histórico estético"></textarea>
                 </div>
-            <!--
-
+            </fieldset>
                              <fieldset>
                             <legend>HPP e Comorbidades</legend>
                             <div class="checkbox-group">
@@ -349,11 +407,81 @@
                                 <label for="observacoes">Observações:</label>
                                 <textarea id="observacoes" name="observacoes" placeholder="Observações adicionais"></textarea>
                             </div>
-            -->
-            </fieldset>
+                            <div class="input-group">
+                                <label for="data_consulta">Data da Consulta:</label>
+                                <input type="date" id="data_consulta" name="data_consulta" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="hora_consulta">Hora da Consulta:</label>
+                                <input type="time" id="hora_consulta" name="hora_consulta" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="profissional_responsavel">Profissional Responsável:</label>
+                                <input type="text" id="profissional_responsavel" name="profissional_responsavel" placeholder="Nome do profissional">
+                            </div>
+                            <div class="input-group">
+                                <label for="coren">COREN/CRM:</label>
+                                <input type="text" id="coren" name="coren" placeholder="COREN/CRM do profissional">
+                            </div>
+                            <div class="input-group">
+                                <label for="assinatura">Assinatura do Profissional:</label>
+                                <input type="file" id="assinatura" name="assinatura" accept="image/*" style="display:none;">
+                                <button type="button" class="photo-button" id="abrir-assinatura">
+                                    <i class="fas fa-pen-nib"></i> Tirar/Selecionar Assinatura
+                                </button>
+                            </div>
+                            <div class="photo-preview" style="margin-top:10px;">
+                                <img id="assinatura-preview-img" src="" alt="Preview da assinatura" style="display: none; max-width: 200px; border-radius: 8px;">
+                                <p id="assinatura-preview-text" style="display: none;">Assinatura do profissional</p>
+                                <button type="button" id="remover-assinatura" style="display:none; margin-top:5px;">Remover Assinatura <i class="fas fa-times"></i></button>
+                            </div>
+                            <script>
+                            document.getElementById('abrir-assinatura').addEventListener('click', function() {
+                                document.getElementById('assinatura').click();
+                            });
+
+                            document.getElementById('assinatura').addEventListener('change', function(event) {
+                                const img = document.getElementById('assinatura-preview-img');
+                                const text = document.getElementById('assinatura-preview-text');
+                                const removerBtn = document.getElementById('remover-assinatura');
+                                if (event.target.files && event.target.files[0]) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        img.src = e.target.result;
+                                        img.style.display = 'block';
+                                        text.style.display = 'block';
+                                        removerBtn.style.display = 'inline-block';
+                                    };
+                                    reader.readAsDataURL(event.target.files[0]);
+                                } else {
+                                    img.style.display = 'none';
+                                    text.style.display = 'none';
+                                    removerBtn.style.display = 'none';
+                                }
+                            });
+
+                            document.getElementById('remover-assinatura').addEventListener('click', function() {
+                                const fileInput = document.getElementById('assinatura');
+                                const img = document.getElementById('assinatura-preview-img');
+                                const text = document.getElementById('assinatura-preview-text');
+                                fileInput.value = '';
+                                img.src = '';
+                                img.style.display = 'none';
+                                text.style.display = 'none';
+                                this.style.display = 'none';
+                            });
+                            </script>
+                            <div class="input-group">
+                                <label for="data_atualizacao">Data de Atualização:</label>
+                                <input type="date" id="data_atualizacao" name="data_atualizacao" required>
+                            </div>
+                            
+                        </fieldset>
             <div class="action-buttons">
-             <button type="reset" id="apagar-tudo">Apagar tudo <i class="fas fa-sync-alt"></i></button>
-            <button type="submit"id="finalizar-documentacao">Salvar Anamnese<i class="fas fa-file-pdf"></i></button>
+                <button type="reset" id="apagar-tudo">Apagar tudo <i class="fas fa-trash-alt"></i></button>
+            <button type="submit" id="finalizar-documentacao">
+                Salvar Anamnese <i class="fas fa-save"></i>
+            </button>
             </div>
         </form>
     </div>
