@@ -18,11 +18,11 @@ $router->add('GET', '/site/public/index.php/api/anamnese',
 
 // Visualizar um Anamnese pelo ID (GET)
 $router->add('GET', '/site/public/index.php/api/anamnese/{id}', 
-    [new AnamneseController(), 'visualizar']);
+    [new AnamneseController(), 'buscarPorId']);
 
 // Atualizar um Anamnese (PUT)
 $router->add('PUT', '/site/public/index.php/api/anamnese/{id}', 
-    [new AnamneseController(), 'atualizar']);
+    [new AnamneseController(), 'update']);
 
 // Deletar um Anamnese (DELETE)
 $router->add('DELETE', '/site/public/index.php/api/anamnese/{id}', 

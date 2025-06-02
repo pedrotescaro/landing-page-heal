@@ -57,7 +57,7 @@ class AnamneseController {
     /**
      * Atualiza uma anamnese existente (PUT)
      */
-    public function atualizar($id) {
+    public function update($id) {
         $dados = json_decode(file_get_contents("php://input"), true);
         if ($this->service->atualizarAnamnese((int)$id, $dados)) {
             echo json_encode([

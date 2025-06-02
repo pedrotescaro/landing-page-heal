@@ -92,4 +92,34 @@ class AnamneseRepository{
         return $stmt->rowCount(); 
     }
 
+    public function getById($id) {
+    $query = "SELECT * FROM $this->table WHERE id = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_CLASS, Anamnese::class);
+    return $stmt->fetch(); // retorna um objeto Anamnese ou false
+}
+
+public function updatePartial($id, array $dados) {
+    $campos = [];
+    foreach ($dados as $campo => $valor) {
+        $campos[] = "$campo = :$campo";
+    }
+
+    $query = "UPDATE $this->table SET " . implode(", ", $campos) . " WHERE id = :id";
+    $stmt = $this->conn->prepare($query);
+
+    foreach ($dados as $campo => $valor) {
+        $stmt->bindValue(":$campo", $valor);
+    }
+
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
+
+   
+
 }

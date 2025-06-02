@@ -39,7 +39,7 @@ class AnamneseService {
      * @return Anamnese|null
      */
     public function buscarPorId(int $id): ?Anamnese {
-        return $this->repository->buscarPorId($id);
+        return $this->repository->getById($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class AnamneseService {
     public function atualizarAnamnese(int $id, array $dados): bool {
         $anamnese = new Anamnese($dados);
         $anamnese->id = $id;
-        return $this->repository->atualizar($anamnese);
+        return $this->repository->updatePartial($id, $dados);
     }
 
     /**
