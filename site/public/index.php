@@ -1,4 +1,16 @@
 <?php
+// CORS headers – adicione no topo do arquivo
+header("Access-Control-Allow-Origin: *"); // ou substitua * pelo domínio específico, ex: http://localhost:3000
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Max-Age: 86400");
+
+// Responder requisição OPTIONS (pré-flight)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204); // Sem conteúdo
+    exit();
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use src\routes\Routes;

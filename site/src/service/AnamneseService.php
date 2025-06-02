@@ -17,7 +17,7 @@ class AnamneseService {
      * @param array $dados Dados do formulário (geralmente $_POST sanitizado).
      * @return bool True sea inserido com sucesso, false caso contrário.
      */
-    public function saveAnamnese(array $dados): bool {
+    public function saveAnamnese(array $dados): int|false{
         $anamnese = new Anamnese($dados);
         $anamnese->data_cadastro = date('Y-m-d H:i:s'); // Adiciona a data atual
         return $this->repository->save($anamnese);

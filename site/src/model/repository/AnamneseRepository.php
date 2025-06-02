@@ -23,7 +23,7 @@ class AnamneseRepository{
             ingestao_agua_dia, ingestao_alcool, frequencia_alcool, ciclo_menstrual_regular,
             usa_anticoncepcional, tem_filhos, quantos_filhos, realizou_cirurgias, quais_cirurgias,
             marca_pacemaker, diabetes, hipertensao, problemas_cardiacos, problemas_respiratorios,
-            problemas_renais, problemas_hepaticos, fumante, historico_estetico
+            problemas_renais, problemas_hepaticos, fumante, historico_estetico, data_cadastro
         ) VALUES (
             :nome_cliente, :data_nascimento, :telefone, :email, :profissao, :estado_civil,
             :objetivo_tratamento, :usa_medicacao, :qual_medicacao, :possui_doenca, :qual_doenca,
@@ -31,7 +31,7 @@ class AnamneseRepository{
             :ingestao_agua_dia, :ingestao_alcool, :frequencia_alcool, :ciclo_menstrual_regular,
             :usa_anticoncepcional, :tem_filhos, :quantos_filhos, :realizou_cirurgias, :quais_cirurgias,
             :marca_pacemaker, :diabetes, :hipertensao, :problemas_cardiacos, :problemas_respiratorios,
-            :problemas_renais, :problemas_hepaticos, :fumante, :historico_estetico
+            :problemas_renais, :problemas_hepaticos, :fumante, :historico_estetico, :data_cadastro
         )";
 
         $stmt = $this->conn->prepare($query);
@@ -71,12 +71,13 @@ class AnamneseRepository{
         $stmt->bindParam(':problemas_hepaticos', $Anamnese->problemas_hepaticos);
         $stmt->bindParam(':fumante', $Anamnese->fumante);
         $stmt->bindParam(':historico_estetico', $Anamnese->historico_estetico);
+        $stmt->bindParam(':data_cadastro', $Anamnese->data_cadastro);
         // Executa
         if ($stmt->execute()) {
-            return true;
+            return $this->conn->lastInsertId(); // Retorna o ID inserido com sucesso
         }
 
-        return $this->conn->lastInsertId();
+        return false; // Falhou
     }
 
      public function findAll() {

@@ -3,8 +3,10 @@ namespace src\controller;
 
 use src\service\AnamneseService;
 
+header('Content-Type: application/json');
 class AnamneseController {
     private AnamneseService $service;
+
 
     public function __construct() {
         $this->service = new AnamneseService();
@@ -16,11 +18,20 @@ class AnamneseController {
     public function save() {
         $dados = json_decode(file_get_contents("php://input"), true);
 
-        if ($this->service->saveAnamnese($dados)) {
+        $success = $this->service->saveAnamnese($dados);
+
+        if ($success) {
+
+            $id = $success;
+
+            $anamneseSalva = $this->service->buscarPorId($id);
+
             echo json_encode([
                 "status" => "success",
-                "message" => "Anamnese criada com sucesso"
+                "message" => "Anamnese criada com sucesso",
+                "data" => $anamneseSalva    
             ]);
+
         } else {
             http_response_code(500);
             echo json_encode([
