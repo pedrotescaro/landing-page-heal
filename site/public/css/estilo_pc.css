@@ -372,3 +372,18 @@ input[type="checkbox"]:checked::before {
     color: #fff;
     transform: translateY(-2px);
 }
+.checkbox-container {
+    display: grid; /* Cria um layout de grade */
+    grid-template-columns: repeat(auto-fit, minmax(150px, auto)); /* Cria colunas responsivas com largura mínima de 150px */
+    gap: 10px; /* Espaço entre as colunas e linhas da grade */
+    margin-bottom: 10px;
+}
+
+.checkbox-container .checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container .checkbox-group input[type="checkbox"] {
+    margin-right: 5px;
+}

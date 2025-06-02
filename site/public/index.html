@@ -48,43 +48,291 @@
                     </div>
                 </div>
             </fieldset>
-            <script>
-            document.getElementById('abrir-camera').addEventListener('click', function() {
-                document.getElementById('foto_ferida').click();
-            });
+            <script src="/site/public/js/foto_script.js"> </script>
 
-            document.getElementById('foto_ferida').addEventListener('change', function(event) {
-                const img = document.getElementById('photo-preview-img');
-                const text = document.getElementById('photo-preview-text');
-                const removerBtn = document.getElementById('remover-foto');
-                if (event.target.files && event.target.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        img.src = e.target.result;
-                        img.style.display = 'block';
-                        text.style.display = 'block';
-                        removerBtn.style.display = 'inline-block';
-                    };
-                    reader.readAsDataURL(event.target.files[0]);
-                } else {
-                    img.style.display = 'none';
-                    text.style.display = 'none';
-                    removerBtn.style.display = 'none';
-                }
-            });
+            <fieldset>
+                <legend>Avaliação da Ferida (TIMERS)</legend>
+                <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
 
-            document.getElementById('remover-foto').addEventListener('click', function() {
-                const fileInput = document.getElementById('foto_ferida');
-                const img = document.getElementById('photo-preview-img');
-                const text = document.getElementById('photo-preview-text');
-                fileInput.value = '';
-                img.src = '';
-                img.style.display = 'none';
-                text.style.display = 'none';
-                this.style.display = 'none';
-            });
-            </script>
-     
+                <div class="input-group">
+                    <label for="tecido_leito" style="font-weight: bold; font-size: 1.1em;">
+                        <i class="fas fa-layer-group" style="color:#333333"></i>
+                        Tipo(s) de Tecido no Leito da Ferida:
+                    </label>
+                    <div class="checkbox-group" id="tecido_leito_group" style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 10px;">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_epitelizacao" name="tecido_leito[]" value="epitelizacao">
+                            <label for="tecido_epitelizacao" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-layer-group" style="color:#27ae60"></i> Epitelização
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_granulacao" name="tecido_leito[]" value="granulacao">
+                            <label for="tecido_granulacao" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-seedling" style="color:#e67e22"></i> Granulação
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_esfacelo_viavel" name="tecido_leito[]" value="esfacelo_viavel">
+                            <label for="tecido_esfacelo_viavel" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-water" style="color:#f1c40f"></i> Esfacelo (Viável)
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_esfacelo_nao_viavel" name="tecido_leito[]" value="esfacelo_nao_viavel">
+                            <label for="tecido_esfacelo_nao_viavel" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-exclamation-triangle" style="color:#e74c3c"></i> Esfacelo (Não Viável)
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_necrose_seca" name="tecido_leito[]" value="necrose_seca">
+                            <label for="tecido_necrose_seca" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-burn" style="color:#7f8c8d"></i> Necrose Seca (Escara)
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_necrose_umida" name="tecido_leito[]" value="necrose_umida">
+                            <label for="tecido_necrose_umida" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-tint" style="color:#2980b9"></i> Necrose Úmida
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_muscular" name="tecido_leito[]" value="tecido_muscular">
+                            <label for="tecido_muscular" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-dumbbell" style="color:#c0392b"></i> Tecido Muscular Exposto
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_tendinoso" name="tecido_leito[]" value="tecido_tendinoso">
+                            <label for="tecido_tendinoso" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-link" style="color:#8e44ad"></i> Tecido Tendinoso Exposto
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_osseo" name="tecido_leito[]" value="tecido_osseo">
+                            <label for="tecido_osseo" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-bone" style="color:#f39c12"></i> Tecido Ósseo Exposto
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="tecido_sem_visivel" name="tecido_leito[]" value="sem_tecido_visivel">
+                            <label for="tecido_sem_visivel" style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-eye-slash" style="color:#34495e"></i> Sem Tecido Visível (Coberto)
+                            </label>
+                        </div>
+                    </div>
+                    <small style="color: #888; margin-top: 6px; display: block;">
+                        Selecione todos os tipos de tecido presentes no leito da ferida.
+                    </small>
+                </div>
+
+                <div class="input-group">
+                    <label for="percentual_nao_viavel">Percentual de Tecido Não Viável no Leito (%):</label>
+                    <input type="number" id="percentual_nao_viavel" name="percentual_nao_viavel" min="0" max="100"
+                        placeholder="0-100">
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        <i class="fas fa-exclamation-circle" style="color:#e67e22"></i>
+                        Sinais de Inflamação:
+                    </label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="inflamacao_rubor" name="inflamacao_rubor" value="1">
+                        <label for="inflamacao_rubor"><i class="fas fa-tint" style="color:#e74c3c"></i> Rubor (Vermelhidão)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="inflamacao_calor" name="inflamacao_calor" value="1">
+                        <label for="inflamacao_calor"><i class="fas fa-fire" style="color:#e67e22"></i> Calor</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="inflamacao_edema" name="inflamacao_edema" value="1">
+                        <label for="inflamacao_edema"><i class="fas fa-water" style="color:#3498db"></i> Edema (Inchaço)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="inflamacao_dor" name="inflamacao_dor" value="1">
+                        <label for="inflamacao_dor"><i class="fas fa-bolt" style="color:#f1c40f"></i> Dor</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="inflamacao_perda_funcao" name="inflamacao_perda_funcao" value="1">
+                        <label for="inflamacao_perda_funcao"><i class="fas fa-ban" style="color:#7f8c8d"></i> Perda de Função</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        <i class="fas fa-exclamation-triangle" style="color:#c0392b"></i>
+                        Sinais de Infecção Local:
+                    </label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_eritema_perilesional" name="infeccao_eritema_perilesional" value="1">
+                        <label for="infeccao_eritema_perilesional"><i class="fas fa-tint" style="color:#e74c3c"></i> Eritema Perilesional</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_calor_local" name="infeccao_calor_local" value="1">
+                        <label for="infeccao_calor_local"><i class="fas fa-fire" style="color:#e67e22"></i> Calor Local</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_edema" name="infeccao_edema" value="1">
+                        <label for="infeccao_edema"><i class="fas fa-water" style="color:#3498db"></i> Edema</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_dor" name="infeccao_dor" value="1">
+                        <label for="infeccao_dor"><i class="fas fa-bolt" style="color:#f1c40f"></i> Dor</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_exsudato" name="infeccao_exsudato" value="1">
+                        <label for="infeccao_exsudato"><i class="fas fa-vial" style="color:#f39c12"></i> Exsudato Purulento</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_odor" name="infeccao_odor" value="1">
+                        <label for="infeccao_odor"><i class="fas fa-wind" style="color:#8e44ad"></i> Odor Fétido</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="infeccao_retardo_cicatrizacao" name="infeccao_retardo_cicatrizacao" value="1">
+                        <label for="infeccao_retardo_cicatrizacao"><i class="fas fa-hourglass-half" style="color:#7f8c8d"></i> Retardo na Cicatrização</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="cultura_realizada">Cultura da Ferida Realizada?</label>
+                    <select id="cultura_realizada" name="cultura_realizada">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="resultado_cultura">Resultado da Cultura (se realizada):</label>
+                    <input type="text" id="resultado_cultura" name="resultado_cultura"
+                        placeholder="Microrganismos identificados">
+                </div>
+
+                <div class="input-group">
+                    <label for="quantidade_exsudato">
+                        <i class="fas fa-tint"></i> Quantidade de Exsudato:
+                    </label>
+                    <select id="quantidade_exsudato" name="quantidade_exsudato">
+                        <option value="">Selecione</option>
+                        <option value="ausente">&#10006; Ausente</option>
+                        <option value="escasso">&#128167; Escasso</option>
+                        <option value="minimo">&#128167;&#128167; Mínimo</option>
+                        <option value="moderado">&#128167;&#128167;&#128167; Moderado</option>
+                        <option value="abundante">&#128167;&#128167;&#128167;&#128167; Abundante</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="tipo_exsudato">
+                        <i class="fas fa-vial"></i> Tipo de Exsudato:
+                    </label>
+                    <select id="tipo_exsudato" name="tipo_exsudato">
+                        <option value="">Selecione</option>
+                        <option value="seroso">Seroso (Claro, aquoso)</option>
+                        <option value="sanguinolento">Sanguinolento (Vermelho)</option>
+                        <option value="serossanguinolento">Serossanguinolento (Claro com sangue)</option>
+                        <option value="purulento">Purulento (Amarelo, verde, turvo)</option>
+                        <option value="purulento_foul">Purulento com Odor Fétido</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="pele_perilesional_umidade">Pele Perilesional (Umidade):</label>
+                    <select id="pele_perilesional_umidade" name="pele_perilesional_umidade">
+                        <option value="">Selecione</option>
+                        <option value="seca">Seca</option>
+                        <option value="hidratada">Hidratada</option>
+                        <option value="macerada">Macerada</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="bordas_caracteristicas">Características das Bordas da Ferida:</label>
+                    <select id="bordas_caracteristicas" name="bordas_caracteristicas">
+                        <option value="">Selecione</option>
+                        <option value="regulares">Regulares</option>
+                        <option value="irregulares">Irregulares</option>
+                        <option value="aderidas">Aderidas</option>
+                        <option value="descoladas">Descoladas</option>
+                        <option value="hiperqueratosicas">Hiperqueratóticas</option>
+                        <option value="fibroticas">Fibroticas</option>
+                          <option value="erosao">Com Erosão</option>
+                        <option value="induradas">Induradas</option>
+                        <option value="em_tunel">Em Túnel</option>
+                        <option value="roladas">Roladas</option>
+                        <option value="bem_definidas">Bem Definidas</option>
+                        <option value="mal_definidas">Mal Definidas</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="tunel_fistula">Presença de Túneis ou Fístulas?</label>
+                    <select id="tunel_fistula" name="tunel_fistula">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="localizacao_tunel_fistula">Localização dos Túneis/Fístulas (se presente):</label>
+                    <input type="text" id="localizacao_tunel_fistula" name="localizacao_tunel_fistula"
+                        placeholder="Ex: 12 horas, 3 cm de profundidade">
+                </div>
+
+                <div class="input-group">
+                    <label for="velocidade_cicatrizacao">Velocidade de Cicatrização Observada:</label>
+                    <select id="velocidade_cicatrizacao" name="velocidade_cicatrizacao">
+                        <option value="">Selecione</option>
+                        <option value="rapida">Rápida</option>
+                        <option value="lenta">Lenta</option>
+                        <option value="estagnada">Estagnada</option>
+                        <option value="regredindo">Regredindo</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="percentual_granulacao">Percentual de Tecido de Granulação no Leito (%):</label>
+                    <input type="number" id="percentual_granulacao" name="percentual_granulacao" min="0" max="100"
+                        placeholder="0-100">
+                </div>
+
+                <div class="input-group">
+                    <label for="percentual_epitelizacao">Percentual de Epitelização nas Bordas (%):</label>
+                    <input type="number" id="percentual_epitelizacao" name="percentual_epitelizacao" min="0" max="100"
+                        placeholder="0-100">
+                </div>
+
+                <div class="input-group">
+                    <label for="pele_perilesional_condicao">Condição da Pele Perilesional:</label>
+                    <select id="pele_perilesional_condicao" name="pele_perilesional_condicao">
+                        <option value="">Selecione</option>
+                        <option value="integra">Íntegra</option>
+                        <option value="eritematosa">Eritematosa (Vermelha)</option>
+                        <option value="macerada">Macerada</option>
+                        <option value="seca_descamativa">Seca e Descamativa</option>
+                        <option value="eczematosa">Eczematosa</option>
+                        <option value="hiperpigmentada">Hiperpigmentada</option>
+                        <option value="hipopigmentada">Hipopigmentada</option>
+                        <option value="indurada">Indurada</option>
+                        <option value="sensivel">Sensível</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="edema_perilesional">Presença de Edema Perilesional?</label>
+                    <select id="edema_perilesional" name="edema_perilesional">
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="tipo_edema_perilesional">Tipo de Edema Perilesional (se presente):</label>
+                    <input type="text" id="tipo_edema_perilesional" name="tipo_edema_perilesional"
+                        placeholder="Ex: Mole, duro, com cacifo">
+                </div>
+
+            </fieldset>
 
             <fieldset>
                 <legend>Dados Pessoais</legend>
@@ -290,7 +538,9 @@
                 </div>
             </fieldset>
                              <fieldset>
+                                   
                             <legend>HPP e Comorbidades</legend>
+                            <div class="checkbox-container">
                             <div class="checkbox-group">
                                 <input type="checkbox" id="dmi" name="dmi" value="1">
                                 <label for="dmi">DMI</label>
@@ -347,10 +597,16 @@
                                 <input type="checkbox" id="insuficiencia_hepatica" name="insuficiencia_hepatica" value="1">
                                 <label for="insuficiencia_hepatica">Insuficiência Hepática</label>
                             </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="doenca_autoimune" name="doenca_autoimune" value="1">
+                                <label for="doenca_autoimune">Doença Autoimune</label>
+                            </div>
+                            <br>
                             <div class="input-group">
                                 <label for="outros_hpp">Outros:</label>
                                 <input type="text" id="outros_hpp" name="outros_hpp" placeholder="Especifique...">
                             </div>
+                        </div>
                         </fieldset>
 
                         <fieldset>
@@ -401,7 +657,12 @@
                             </div>
                         </fieldset>
 
+
+                        
+
                         <fieldset>
+
+                            
                             <legend>Informações Adicionais</legend>
                             <div class="input-group">
                                 <label for="observacoes">Observações:</label>
@@ -435,42 +696,7 @@
                                 <p id="assinatura-preview-text" style="display: none;">Assinatura do profissional</p>
                                 <button type="button" id="remover-assinatura" style="display:none; margin-top:5px;">Remover Assinatura <i class="fas fa-times"></i></button>
                             </div>
-                            <script>
-                            document.getElementById('abrir-assinatura').addEventListener('click', function() {
-                                document.getElementById('assinatura').click();
-                            });
-
-                            document.getElementById('assinatura').addEventListener('change', function(event) {
-                                const img = document.getElementById('assinatura-preview-img');
-                                const text = document.getElementById('assinatura-preview-text');
-                                const removerBtn = document.getElementById('remover-assinatura');
-                                if (event.target.files && event.target.files[0]) {
-                                    const reader = new FileReader();
-                                    reader.onload = function(e) {
-                                        img.src = e.target.result;
-                                        img.style.display = 'block';
-                                        text.style.display = 'block';
-                                        removerBtn.style.display = 'inline-block';
-                                    };
-                                    reader.readAsDataURL(event.target.files[0]);
-                                } else {
-                                    img.style.display = 'none';
-                                    text.style.display = 'none';
-                                    removerBtn.style.display = 'none';
-                                }
-                            });
-
-                            document.getElementById('remover-assinatura').addEventListener('click', function() {
-                                const fileInput = document.getElementById('assinatura');
-                                const img = document.getElementById('assinatura-preview-img');
-                                const text = document.getElementById('assinatura-preview-text');
-                                fileInput.value = '';
-                                img.src = '';
-                                img.style.display = 'none';
-                                text.style.display = 'none';
-                                this.style.display = 'none';
-                            });
-                            </script>
+                            <script src="/site/public/js/assinatura_script.js">  </script>
                             <div class="input-group">
                                 <label for="data_atualizacao">Data de Atualização:</label>
                                 <input type="date" id="data_atualizacao" name="data_atualizacao" required>
