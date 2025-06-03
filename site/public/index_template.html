@@ -1,1237 +1,1535 @@
 <!DOCTYPE html>
- <html lang="pt-BR">
-
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ficha de Anamnese</title>
-  <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
-  <link rel="stylesheet" href="/site/public/css/estilo_mobile.css">
-  <link rel="stylesheet" href="/site/public/css/style.css">
-  <style>
-  @import url("/site/public/css/estilo_pc.css");
-
-  /* Styles for the multi-step form */
-  #progress-bar-container {
-  width: 100%;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  }
-
-  #progress-bar {
-  background-color: #4CAF50;
-  height: 10px;
-  width: 0%;
-  border-radius: 5px;
-  }
-
-  #step-counter {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 0.9em;
-  color: #555;
-  }
-
-  .step {
-  display: none;
-  }
-
-  .step.active {
-  display: block;
-  }
-
-  .action-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  }
-
-  .action-buttons button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  }
-
-  #prevBtn {
-  background-color: #f44336;
-  color: white;
-  }
-
-  #nextBtn {
-  background-color: #008CBA;
-  color: white;
-  }
-
-  #submitBtn {
-  background-color: #4CAF50;
-  color: white;
-  display: none;
-  }
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
- </head>
-
- <body>
-  <h1>Ficha de Anamnese</h1>
-
-  <div id="progress-bar-container">
-  <div id="progress-bar"></div>
-  </div>
-  <div id="step-counter"></div>
-
-  <div id="form-container">
-  <form id="anamnese-form">
-  <div class="step active">
-  <fieldset>
-  <legend>Tamanho da Ferida</legend>
-  <p>Capture ou insira manualmente as informações sobre a ferida do paciente.</p>
-
-  <div class="input-group">
-  <label for="foto_ferida">Foto da Ferida:</label>
-  <input type="file" id="foto_ferida" name="foto_ferida" accept="image/*" capture="environment" style="display:none;">
-  <button type="button" class="photo-button" id="abrir-camera">
-  <i class="fas fa-camera"></i> Tirar/Selecionar Foto
-  </button>
-  </div>
-
-  <div class="photo-preview" style="margin-top:10px;">
-  <img id="photo-preview-img" src="" alt="Preview da foto" style="display: none; max-width: 200px; border-radius: 8px;">
-  <p id="photo-preview-text" style="display: none;">Foto da ferida do paciente</p>
-  <button type="button" id="remover-foto" style="display:none; margin-top:5px;">Remover Foto <i class="fas fa-times"></i></button>
-  </div>
-
-  <div class="input-group" style="margin-top:15px;">
-  <label>Medidas da Ferida (cm):</label>
-  <div style="display: flex; gap: 10px;">
-  <input type="number" step="0.1" min="0" name="ferida_largura" placeholder="Largura" required>
-  <input type="number" step="0.1" min="0" name="ferida_comprimento" placeholder="Comprimento" required>
-  <input type="number" step="0.1" min="0" name="ferida_profundidade" placeholder="Profundidade" required>
-  </div>
-  </div>
-  </fieldset>
-  <script src="/site/public/js/foto_script.js"></script>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Avaliação da Ferida (TIMERS) - Parte 1</legend>
-  <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
-
-  <div class="input-group">
-  <label for="localizacao_ferida" style="font-weight: bold; font-size: 1.1em;">
-  <i class="fas fa-map-marker-alt" style="color:#333333"></i>
-  Localização Anatômica da Ferida:
-  </label>
-  <input type="text" id="localizacao_ferida" name="localizacao_ferida" placeholder="Ex: Maléolo medial direito" required>
-  </div>
-
-  <div class="input-group">
-  <label for="etiologia_ferida" style="font-weight: bold; font-size: 1.1em;">
-  <i class="fas fa-question-circle" style="color:#333333"></i>
-  Etiologia da Ferida:
-  </label>
-  <select id="etiologia_ferida" name="etiologia_ferida" required>
-  <option value="">Selecione</option>
-  <option value="pressao">Pressão</option>
-  <option value="vascular_arterial">Vascular Arterial</option>
-  <option value="vascular_venosa">Vascular Venosa</option>
-  <option value="neuropatica">Neuropática</option>
-  <option value="traumatica">Traumática</option>
-  <option value="cirurgica">Cirúrgica</option>
-  <option value="queimadura">Queimadura</option>
-  <option value="outra">Outra</option>
-  </select>
-  <input type="text" id="etiologia_outra" name="etiologia_outra" placeholder="Especificar outra etiologia" style="display: none; margin-top: 5px;">
-  </div>
-
-  <div class="input-group">
-  <label for="tempo_evolucao" style="font-weight: bold; font-size: 1.1em;">
-  <i class="fas fa-clock" style="color:#333333"></i>
-  Tempo de Evolução da Ferida:
-  </label>
-  <input type="text" id="tempo_evolucao" name="tempo_evolucao" placeholder="Ex: 3 semanas, 1 mês" required>
-  </div>
-
-  <div class="input-group" style="margin-bottom: 2px;">
-  <label style="font-weight: bold; font-size: 1.15em; display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-  <i class="fas fa-thermometer-half" style="color:#e67e22; font-size: 1.4em;"></i>
-  Intensidade da Dor <span style="font-size:0.95em; color:#888;">(Escala EVA 0-10)</span>
-  </label>
-  <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap; background: #fff8ef; border-radius: 10px; padding: 18px 16px 14px 16px; box-shadow: 0 2px 8px rgba(230,126,34,0.07);">
-  <input
-  type="range"
-  id="dor_escala"
-  name="dor_escala"
-  min="0"
-  max="10"
-  step="1"
-  style="width: 180px; accent-color: #e67e22; height: 4px;"
-  oninput="document.getElementById('eva-value').textContent = this.value">
-  <span id="eva-value" style="font-weight: bold; color: #e67e22; font-size: 1.5em; margin-left: 8px; min-width: 32px; text-align: center;">0</span>
-  <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 5px; flex: 1 1 45px;">
-  <label for="dor_fatores" style="font-weight: 500; color: #2980b9; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
-  <i class="fas fa-info-circle"></i>
-  Fatores que Aliviam/Pioram a Dor:
-  </label>
-  <input
-  type="text"
-  id="dor_fatores"
-  name="dor_fatores"
-  placeholder="Ex: Repouso alivia, deambulação piora"
-  style="padding: 7px 12px; border: 1px solid #e1e4ea; border-radius: 6px; font-size: 1em; background: #f9fafb; margin-bottom: 0; margin-top: 0;"
-  >
-
-  </div>
-  <span style="color: #888; margin-top: 8px; display: block; font-size: 0.98em;">
-  <i class="fas fa-arrows-alt-h" style="color:#e67e22"></i>
-  Arraste para selecionar a intensidade da dor (0 = sem dor, 10 = pior dor possível).
-  </span>
-  </div>
-
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Avaliação da Ferida (TIMERS) - Parte 2</legend>
-  <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
-
-  <div class="input-group">
-  <label for="tecido_leito" style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
-  <i class="fas fa-layer-group" style="color:#333333"></i>
-  Percentual de Tecido no Leito da Ferida (%):
-  </label>
-  <div id="tecido_leito_group" style="
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px 24px;
-  margin-top: 16px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 18px 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  ">
-  <div class="tecido-item">
-  <label for="percentual_epitelizacao_leito" class="tecido-label">
-  <i class="fas fa-layer-group" style="color:#27ae60"></i>
-  Epitelização
-  </label>
-  <input type="number" id="percentual_epitelizacao_leito" name="percentual_epitelizacao_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_granulacao_leito" class="tecido-label">
-  <i class="fas fa-seedling" style="color:#e67e22"></i>
-  Granulação
-  </label>
-  <input type="number" id="percentual_granulacao_leito" name="percentual_granulacao_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_esfacelo_viavel_leito" class="tecido-label">
-  <i class="fas fa-water" style="color:#f1c40f"></i>
-  Esfacelo (Viável)
-  </label>
-  <input type="number" id="percentual_esfacelo_viavel_leito" name="percentual_esfacelo_viavel_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_esfacelo_nao_viavel_leito" class="tecido-label">
-  <i class="fas fa-exclamation-triangle" style="color:#e74c3c"></i>
-  Esfacelo (Não Viável)
-  </label>
-  <input type="number" id="percentual_esfacelo_nao_viavel_leito" name="percentual_esfacelo_nao_viavel_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_necrose_seca_leito" class="tecido-label">
-  <i class="fas fa-burn" style="color:#7f8c8d"></i>
-  Necrose Seca (Escara)
-  </label>
-  <input type="number" id="percentual_necrose_seca_leito" name="percentual_necrose_seca_leitomin="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_necrose_umida_leito" class="tecido-label">
-  <i class="fas fa-tint" style="color:#2980b9"></i>
-  Necrose Úmida
-  </label>
-  <input type="number" id="percentual_necrose_umida_leito" name="percentual_necrose_umida_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_muscular_leito" class="tecido-label">
-  <i class="fas fa-dumbbell" style="color:#c0392b"></i>
-  Tecido Muscular Exposto
-  </label>
-  <input type="number" id="percentual_muscular_leito" name="percentual_muscular_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_tendinoso_leito" class="tecido-label">
-  <i class="fas fa-link" style="color:#8e44ad"></i>
-  Tecido Tendinoso Exposto
-  </label>
-  <input type="number" id="percentual_tendinoso_leito" name="percentual_tendinoso_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_osseo_leito" class="tecido-label">
-  <i class="fas fa-bone" style="color:#f39c12"></i>
-  Tecido Ósseo Exposto
-  </label>
-  <input type="number" id="percentual_osseo_leito" name="percentual_osseo_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  <div class="tecido-item">
-  <label for="percentual_sem_visivel_leito" class="tecido-label">
-  <i class="fas fa-eye-slash" style="color:#34495e"></i>
-  Sem Tecido Visível
-  </label>
-  <input type="number" id="percentual_sem_visivel_leito" name="percentual_sem_visivel_leito" min="0" max="100" placeholder="0-100" class="tecido-input" required>
-  </div>
-  </div>
-  <small style="color: #888; margin-top: 10px; display: block; font-size: 0.98em;">
-  <i class="fas fa-info-circle" style="color:#2980b9"></i>
-  Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma deve ser 100%.
-  </small>
-  </div>
-  <div class="input-group">
-  <label style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
-  <i class="fas fa-exclamation-circle" style="color:#e67e22"></i>
-  Sinais de Inflamação:
-  </label>
-  <div class="checkbox-container" style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="inflamacao_rubor" name="inflamacao_rubor" value="1">
-  <label for="inflamacao_rubor">
-  <i class="fas fa-tint" style="color:#e74c3c"></i>
-  <span style="margin-left: 6px;">Rubor <span style="color:#888; font-size:0.95em;">(Vermelhidão)</span></span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="inflamacao_calor" name="inflamacao_calor" value="1">
-  <label for="inflamacao_calor">
-  <i class="fas fa-fire" style="color:#e67e22"></i>
-  <span style="margin-left: 6px;">Calor</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="inflamacao_edema" name="inflamacao_edema" value="1">
-  <label for="inflamacao_edema">
-  <i class="fas fa-water" style="color:#3498db"></i>
-  <span style="margin-left: 6px;">Edema <span style="color:#888; font-size:0.95em;">(Inchaço)</span></span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="inflamacao_dor_local" name="inflamacao_dor_local" value="1">
-  <label for="inflamacao_dor_local">
-  <i class="fas fa-bolt" style="color:#f1c40f"></i>
-  <span style="margin-left: 6px;">Dor Local</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="inflamacao_perda_funcao" name="inflamacao_perda_funcao" value="1">
-  <label for="inflamacao_perda_funcao">
-  <i class="fas fa-ban" style="color:#7f8c8d"></i>
-  <span style="margin-left: 6px;">Perda de Função</span>
-  </label>
-  </div>
-  </div>
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Avaliação da Ferida (TIMERS) - Parte 3</legend>
-  <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
-
-  <div class="input-group">
-  <label style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
-  <i class="fas fa-exclamation-triangle" style="color:#c0392b"></i>
-  Sinais de Infecção Local:
-  </label>
-  <div class="checkbox-container" style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="infeccao_eritema_perilesional" name="infeccao_eritema_perilesional" value="1">
-  <label for="infeccao_eritema_perilesional">
-  <i class="fas fa-tint" style="color:#e74c3c"></i>
-  <span style="margin-left: 6px;">Eritema Perilesional</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="infeccao_calor_local" name="infeccao_calor_local" value="1">
-  <label for="infeccao_calor_local">
-  <i class="fas fa-fire" style="color:#e67e22"></i>
-  <span style="margin-left: 6px;">Calor Local</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px">
-  <input type="checkbox" id="infeccao_edema" name="infeccao_edema" value="1">
-  <label for="infeccao_edema">
-  <i class="fas fa-water" style="color:#3498db"></i>
-  <span style="margin-left: 6px;">Edema</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px">
-  <input type="checkbox" id="infeccao_dor_local" name="infeccao_dor_local" value="1">
-  <label for="infeccao_dor_local">
-  <i class="fas fa-bolt" style="color:#f1c40f"></i>
-  <span style="margin-left: 6px;">Dor Local</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px;">
-  <input type="checkbox" id="infeccao_exsudato" name="infeccao_exsudato" value="1">
-  <label for="infeccao_exsudato">
-  <i class="fas fa-vial" style="color:#f39c12"></i>
-  <span style="margin-left: 6px;">Exsudato Purulento</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px">
-  <input type="checkbox" id="infeccao_odor" name="infeccao_odor" value="1">
-  <label for="infeccao_odor">
-  <i class="fas fa-wind" style="color:#8e44ad"></i>
-  <span style="margin-left: 6px;">Odor Fétido</span>
-  </label>
-  </div>
-  <div class="checkbox-group" style="min-width: 180px">
-  <input type="checkbox" id="infeccao_retardo_cicatrizacao" name="infeccao_retardo_cicatrizacao" value="1">
-  <label for="infeccao_retardo_cicatrizacao">
-  <i class="fas fa-hourglass-half" style="color:#7f8c8d"></i>
-  <span style="margin-left: 6px;">Retardo na Cicatrização</span>
-  </label>
-  </div>
-  </div>
-  </div>
-
-
-  <div class="input-group">
-  <label for="cultura_realizada">Cultura da Ferida Realizada?</label>
-  <select id="cultura_realizada" name="cultura_realizada" required>
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="resultado_cultura">Resultado da Cultura (se realizada):</label>
-  <input type="text" id="resultado_cultura" name="resultado_cultura"
-  placeholder="Microrganismos identificados">
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Avaliação da Ferida (TIMERS) - Parte 4</legend>
-  <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
-
-  <div class="input-group">
-  <label for="quantidade_exsudato">
-  <i class="fas fa-tint"></i> Quantidade de Exsudato:
-  </label>
-  <select id="quantidade_exsudato" name="quantidade_exsudato" required>
-  <option value="">Selecione</option>
-  <option value="ausente">&#10006; Ausente</option>
-  <option value="escasso">&#128167; Escasso</option>
-  <option value="minimo">&#128167;&#128167; Mínimo</option>
-  <option value="moderado">&#128167;&#128167;&#128167; Moderado</option>
-  <option value="abundante">&#128167;&#128167;&#128167;&#128167; Abundante</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="tipo_exsudato">
-  <i class="fas fa-vial"></i> Tipo de Exsudato:
-  </label>
-  <select id="tipo_exsudato" name="tipo_exsudato" required>
-  <option value="">Selecione</option>
-  <option value="seroso">Seroso (Claro, aquoso)</option>
-  <option value="sanguinolento">Sanguinolento (Vermelho)</option>
-  <option value="serossanguinolento">Serossanguinolento (Claro com sangue)</option>
-  <option value="purulento">Purulento (Amarelo, verde, turvo)</option>
-  <option value="purulento_foul">Purulento com Odor Fétido</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="consistencia_exsudato">Consistência do Exsudato:</label>
-  <select id="consistencia_exsudato" name="consistencia_exsudato" required>
-  <option value="">Selecione</option>
-  <option value="fina">Fina/Fluida</option>
-  <option value="viscosa">Viscosa</option>
-  <option value="espessa">Espessa</option>
-  <option value="gelatinosa">Gelatinosa</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="pele_perilesional_umidade">Pele Perilesional (Umidade):</label>
-  <select id="pele_perilesional_umidade" name="pele_perilesional_umidade" required>
-  <option value="">Selecione</option>
-  <option value="seca">Seca</option>
-  <option value="hidratada">Hidratada</option>
-  <option value="macerada">Macerada</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="pele_perilesional_extensao">Extensão da Alteração Perilesional:</label>
-  <input type="text" id="pele_perilesional_extensao" name="pele_perilesional_extensao" placeholder="Ex: 2 cm ao redor da borda">
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Avaliação da Ferida (TIMERS) - Parte 5</legend>
-  <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
-
-  <div class="input-group">
-  <label for="bordas_caracteristicas">Características das Bordas da Ferida:</label>
-  <select id="bordas_caracteristicas" name="bordas_caracteristicas" required>
-  <option value="">Selecione</option>
-  <option value="regulares">Regulares</option>
-  <option value="irregulares">Irregulares</option>
-  <option value="aderidas">Aderidas</option>
-  <option value="descoladas">Descoladas</option>
-  <option value="hiperqueratosicas">Hiperqueratóticas</option>
-  <option value="fibroticas">Fibroticas</option>
-  <option value="erosao">Com Erosão</option>
-  <option value="induradas">Induradas</option>
-  <option value="em_tunel">Em Túnel</option>
-  <option value="roladas">Roladas</option>
-  <option value="bem_definidas">Bem Definidas</option>
-  <option value="mal_definidas">Mal Definidas</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="fixacao_bordas">Fixação das Bordas ao Leito:</label>
-  <select id="fixacao_bordas" name="fixacao_bordas" required>
-  <option value="">Selecione</option>
-  <option value="aderidas">Aderidas</option>
-  <option value="nao_aderidas">Não Aderidas</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="tunel_fistula">Presença de Túneis ou Fístulas?</label>
-  <select id="tunel_fistula" name="tunel_fistula" required>
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="localizacao_tunel_fistula">Localização dos Túneis/Fístulas (se presente):</label>
-  <input type="text" id="localizacao_tunel_fistula" name="localizacao_tunel_fistula"
-  placeholder="Ex: 12 horas, 3 cm de profundidade">
-  </div>
-
-  <div class="input-group">
-  <label for="velocidade_cicatrizacao">Velocidade de Cicatrização Observada:</label>
-  <select id="velocidade_cicatrizacao" name="velocidade_cicatrizacao" required>
-  <option value="">Selecione</option>
-  <option value="rapida">Rápida</option>
-  <option value="lenta">Lenta</option>
-  <option value="estagnada">Estagnada</option>
-  <option value="regredindo">Regredindo</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="percentual_epitelizacao_bordas">Percentual de Epitelização nas Bordas (%):</label>
-  <input type="number" id="percentual_epitelizacao_bordas" name="percentual_epitelizacao_bordas" min="0" max="100"
-  placeholder="0-100">
-  </div>
-
-  <div class="input-group">
-  <label for="pele_perilesional_condicao">Condição da Pele Perilesional:</label>
-  <select id="pele_perilesional_condicao" name="pele_perilesional_condicao" required>
-  <option value="">Selecione</option>
-  <option value="integra">Íntegra</option>
-  <option value="eritematosa">Eritematosa (Vermelha)</option>
-  <option value="macerada">Macerada</option>
-  <option value="seca_descamativa">Seca e Descamativa</option>
-  <option value="eczematosa">Eczematosa</option>
-  <option value="hiperpigmentada">Hiperpigmentada</option>
-  <option value="hipopigmentada">Hipopigmentada</option>
-  <option value="indurada">Indurada</option>
-  <option value="sensivel">Sensível</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="edema_perilesional">Presença de Edema Perilesional?</label>
-  <select id="edema_perilesional" name="edema_perilesional" required>
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-
-  <div class="input-group">
-  <label for="tipo_edema_perilesional">Tipo de Edema Perilesional (se presente):</label>
-  <input type="text" id="tipo_edema_perilesional" name="tipo_edema_perilesional"
-  placeholder="Ex: Mole, duro, com cacifo">
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Dados Pessoais</legend>
-  <div class="input-group">
-  <label for="nome_cliente">Nome do Cliente:</label>
-  <input type="text" id="nome_cliente" name="nome_cliente" placeholder="Nome Completo" required>
-  </div>
-  <div class="input-group">
-  <label for="data_nascimento">Data de Nascimento:</label>
-  <input type="date" id="data_nascimento" name="data_nascimento">
-  </div>
-  <div class="input-group">
-  <label for="telefone">Telefone:</label>
-  <input type="text" id="telefone" name="telefone" placeholder="Telefone">
-  </div>
-  <div class="input-group">
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" placeholder="Email">
-  </div>
-  <div class="input-group">
-  <label for="profissao">Profissão:</label>
-  <input type="text" id="profissao" name="profissao" placeholder="Profissão">
-  </div>
-  <div class="input-group">
-  <label for="estado_civil">Estado Civil:</label>
-  <select id="estado_civil" name="estado_civil">
-  <option value="">Selecione</option>
-  <option value="Solteiro(a)">Solteiro(a)</option>
-  <option value="Casado(a)">Casado(a)</option>
-  <option value="Divorciado(a)">Divorciado(a)</option>
-  <option value="Viúvo(a)">Viúvo(a)</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="nivel_atividade">Nível de Atividade/Mobilidade:</label>
-  <select id="nivel_atividade" name="nivel_atividade">
-  <option value="">Selecione</option>
-  <option value="acama">Acamado</option>
-  <option value="cadeira_rodas">Cadeira de Rodas</option>
-  <option value="deambulacao_limitada">Deambulação Limitada</option>
-  <option value="deambulacao_independente">Deambulação Independente</option>
-  <option value="ativo">Ativo</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="suporte_social">Suporte Social:</label>
-  <textarea id="suporte_social" name="suporte_social" placeholder="Descreva o suporte social e cuidadores"></textarea>
-  </div>
-  <div class="input-group">
-  <label for="compreensao_adesao">Nível de Compreensão e Adesão ao Tratamento:</label>
-  <select id="compreensao_adesao" name="compreensao_adesao">
-  <option value="">Selecione</option>
-  <option value="boa">Boa</option>
-  <option value="regular">Regular</option>
-  <option value="baixa">Baixa</option>
-  </select>
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Dados Clínicos</legend>
-  <div class="input-group">
-  <label for="objetivo_tratamento">Objetivo do Tratamento:</label>
-  <textarea id="objetivo_tratamento" name="objetivo_tratamento" placeholder="Descreva o objetivo do tratamento"></textarea>
-  </div>
-  <div class="input-group">
-  <label for="historico_cicatrizacao">Histórico de Cicatrização:</label>
-  <textarea id="historico_cicatrizacao" name="historico_cicatrizacao" placeholder="Experiências anteriores de cicatrização"></textarea>
-  </div>
-  <div class="input-group">
-  <label for="estado_nutricional">Avaliação do Estado Nutricional:</label>
-  <textarea id="estado_nutricional" name="estado_nutricional" placeholder="Informações sobre alimentação, peso, etc."></textarea>
-  </div>
-  <div class="input-group">
-  <label for="usa_medicacao">Usa Medicação:</label>
-  <select id="usa_medicacao" name="usa_medicacao">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="qual_medicacao">Qual Medicação:</label>
-  <input type="text" id="qual_medicacao" name="qual_medicacao" placeholder="Nome da medicação" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="possui_doenca">Possui Doença:</label>
-  <select id="possui_doenca" name="possui_doenca">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="qual_doenca">Qual Doença:</label>
-  <input type="text" id="qual_doenca" name="qual_doenca" placeholder="Nome da doença" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="possui_alergia">Possui Alergia:</label>
-  <select id="possui_alergia" name="possui_alergia">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="qual_alergia">Qual Alergia:</label>
-  <input type="text" id="qual_alergia" name="qual_alergia" placeholder="Tipo de alergia" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="pratica_atividade_fisica">Pratica Atividade Física:</label>
-  <select id="pratica_atividade_fisica" name="pratica_atividade_fisica">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="qual_atividade">Qual Atividade:</label>
-  <input type="text" id="qual_atividade" name="qual_atividade" placeholder="Tipo de atividade" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="frequencia_atividade">Frequência Atividade:</label>
-  <input type="text" id="frequencia_atividade" name="frequencia_atividade"
-  placeholder="Frequência da atividade" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="ingestao_agua_dia">Ingestão Água/Dia:</label>
-  <input type="text" id="ingestao_agua_dia" name="ingestao_agua_dia"
-  placeholder="Quantidade de água por dia">
-  </div>
-  <div class="input-group">
-  <label for="ingestao_alcool">Ingestão Álcool:</label>
-  <select id="ingestao_alcool" name="ingestao_alcool">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="frequencia_alcool">Frequência Álcool:</label>
-  <input type="text" id="frequencia_alcool" name="frequencia_alcool"
-  placeholder="Frequência do consumo de álcool" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="ciclo_menstrual_regular">Ciclo Menstrual Regular:</label>
-  <select id="ciclo_menstrual_regular" name="ciclo_menstrual_regular">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="usa_anticoncepcional">Usa Anticoncepcional:</label>
-  <select id="usa_anticoncepcional" name="usa_anticoncepcional">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="tem_filhos">Tem Filhos:</label>
-  <select id="tem_filhos" name="tem_filhos">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="quantos_filhos">Quantos Filhos:</label>
-  <input type="number" id="quantos_filhos" name="quantos_filhos" placeholder="Número de filhos" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="realizou_cirurgias">Realizou Cirurgias:</label>
-  <select id="realizou_cirurgias" name="realizou_cirurgias">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="quais_cirurgias">Quais Cirurgias:</label>
-  <input type="text" id="quais_cirurgias" name="quais_cirurgias" placeholder="Nome das cirurgias" style="display: none;">
-  </div>
-  <div class="input-group">
-  <label for="marca_pacemaker">Marca Pacemaker:</label>
-  <select id="marca_pacemaker" name="marca_pacemaker">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="diabetes">Diabetes:</label>
-  <select id="diabetes" name="diabetes">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group" style="display: none;" id="controle_glicemico_group">
-  <label for="controle_glicemico">Controle Glicêmico (HbA1c, Glicemia Capilar):</label>
-  <input type="text" id="controle_glicemico" name="controle_glicemico" placeholder="Ex: HbA1c 7%, Glicemia 120">
-  </div>
-  <div class="input-group">
-  <label for="hipertensao">Hipertensão:</label>
-  <select id="hipertensao" name="hipertensao">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="problemas_cardiacos">Problemas Cardíacos:</label>
-  <select id="problemas_cardiacos" name="problemas_cardiacos">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="problemas_respiratorios">Problemas Respiratórios:</label>
-  <select id="problemas_respiratorios" name="problemas_respiratorios">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="problemas_renais">Problemas Renais:</label>
-  <select id="problemas_renais" name="problemas_renais">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="problemas_hepaticos">Problemas Hepáticos:</label>
-  <select id="problemas_hepaticos" name="problemas_hepaticos">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group" style="display: none;" id="funcao_vascular_group">
-  <label>Função Vascular:</label>
-  <div class="checkbox-group">
-  <input type="checkbox" id="claudicacao_intermitente" name="claudicacao_intermitente" value="1">
-  <label for="claudicacao_intermitente">Claudicação Intermitente</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="dor_repouso" name="dor_repouso" value="1">
-  <label for="dor_repouso">Dor em Repouso</label>
-  </div>
-  <div class="input-group">
-  <label for="pulsos_perifericos">Pulsos Periféricos:</label>
-  <input type="text" id="pulsos_perifericos" name="pulsos_perifericos" placeholder="Ex: Pedioso presente, Tibial posterior diminuído">
-  </div>
-  </div>
-  <div class="input-group">
-  <label for="fumante">Fumante:</label>
-  <select id="fumante" name="fumante">
-  <option value="0">Não</option>
-  <option value="1">Sim</option>
-  </select>
-  </div>
-  <div class="input-group">
-  <label for="historico_estetico">Histórico Estético:</label>
-  <textarea id="historico_estetico" name="historico_estetico" placeholder="Descreva o histórico estético"></textarea>
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>HPP e Comorbidades</legend>
-  <div class="checkbox-container">
-  <div class="checkbox-group">
-  <input type="checkbox" id="dmi" name="dmi" value="1">
-  <label for="dmi">DMI</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="dmii" name="dmii" value="1">
-  <label for="dmii">DMII</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="has" name="has" value="1">
-  <label for="has">HAS</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="neoplasia" name="neoplasia" value="1">
-  <label for="neoplasia">Neoplasia</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="hiv_aids" name="hiv_aids" value="1">
-  <label for="hiv_aids">HIV/SIDA</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="obesidade" name="obesidade" value="1">
-  <label for="obesidade">Obesidade</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="cardiopatia" name="cardiopatia" value="1">
-  <label for="cardiopatia">Cardiopatia</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="dpoc" name="dpoc" value="1">
-  <label for="dpoc">DPOC</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="doenca_hematologica" name="doenca_hematologica" value="1">
-  <label for="doenca_hematologica">Doença Hematológica</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="doenca_vascular" name="doenca_vascular" value="1">
-  <label for="doenca_vascular">Doença Vascular</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="demencia_senil" name="demencia_senil" value="1">
-  <label for="demencia_senil">Demência Senil</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="insuficiencia_renal" name="insuficiencia_renal" value="1">
-  <label for="insuficiencia_renal">Insuficiência renal</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="hanseniase" name="hanseniase" value="1">
-  <label for="hanseniase">Hanseníase</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="insuficiencia_hepatica" name="insuficiencia_hepatica" value="1">
-  <label for="insuficiencia_hepatica">Insuficiência Hepática</label>
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="doenca_autoimune" name="doenca_autoimune" value="1">
-  <label for="doenca_autoimune">Doença Autoimune</label>
-  </div>
-  <br>
-  <div class="input-group">
-  <label for="outros_hpp">Outros:</label>
-  <input type="text" id="outros_hpp" name="outros_hpp" placeholder="Especifique...">
-  </div>
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Medicamento em uso</legend>
-  <div class="checkbox-container ">
-  <div class="checkbox-group">
-  <input type="checkbox" id="anti_hipertensivo" name="anti_hipertensivo" value="1">
-  <label for="anti_hipertensivo">Anti-hipertensivo</label>
-  <input type="text" name="anti_hipertensivo_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="corticoides" name="corticoides" value="1">
-  <label for="corticoides">Corticoides</label>
-  <input type="text" name="corticoides_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="hipoglicemiantes_orais" name="hipoglicemiantes_orais" value="1">
-  <label for="hipoglicemiantes_orais">Hipoglicemiantes orais</label>
-  <input type="text" name="hipoglicemiantes_orais_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="aines" name="aines" value="1">
-  <label for="aines">AINES</label>
-  <input type="text" name="aines_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="insulina" name="insulina" value="1">
-  <label for="insulina">Insulina UI/dia:</label>
-  <input type="text" name="insulina_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="drogas_vasoativa" name="drogas_vasoativa" value="1">
-  <label for="drogas_vasoativa">Drogas vasoativa</label>
-  <input type="text" name="drogas_vasoativa_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="suplemento" name="suplemento" value="1">
-  <label for="suplemento">Suplemento</label>
-  <input type="text" name="suplemento_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="anticoagulante" name="anticoagulante" value="1">
-  <label for="anticoagulante">Anticoagulante</label>
-  <input type="text" name="anticoagulante_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="vitaminico" name="vitaminico" value="1">
-  <label for="vitaminico">Vitamínico</label>
-  <input type="text" name="vitaminico_nome" placeholder="Nome edose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="checkbox-group">
-  <input type="checkbox" id="antirretroviral" name="antirretroviral" value="1">
-  <label for="antirretroviral">Antirretroviral</label>
-  <input type="text" name="antirretroviral_nome" placeholder="Nome e dose" style="display: block; margin-left: 20px;">
-  </div>
-  <div class="input-group">
-  <label for="outros_medicamento">Outros:</label>
-  <input type="text" id="outros_medicamento" name="outros_medicamento" placeholder="Especifique...">
-  </div>
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="step">
-  <fieldset>
-  <legend>Informações Adicionais</legend>
-  <div class="input-group">
-  <label for="observacoes">Observações:</label>
-  <textarea id="observacoes" name="observacoes" placeholder="Observações adicionais"></textarea>
-  </div>
-  <div class="input-group">
-  <label for="data_consulta">Data da Consulta:</label>
-  <input type="date" id="data_consulta" name="data_consulta" required>
-  </div>
-  <div class="input-group">
-  <label for="hora_consulta">Hora da Consulta:</label>
-  <input type="time" id="hora_consulta" name="hora_consulta" required>
-  </div>
-  <div class="input-group">
-  <label for="profissional_responsavel">Profissional Responsável:</label>
-  <input type="text" id="profissional_responsavel" name="profissional_responsavel" placeholder="Nome do profissional">
-  </div>
-  <div class="input-group">
-  <label for="coren">COREN/CRM:</label>
-  <input type="text" id="coren" name="coren" placeholder="COREN/CRM do profissional">
-  </div>
-  <div class="input-group">
-  <label for="assinatura">Assinatura do Profissional:</label>
-  <input type="file" id="assinatura" name="assinatura" accept="image/*" style="display:none;">
-  <button type="button" class="photo-button" id="abrir-assinatura">
-  <i class="fas fa-pen-nib"></i> Tirar/Selecionar Assinatura
-  </button></div>
-  <div class="photo-preview" style="margin-top:10px;">
-  <img id="assinatura-preview-img" src="" alt="Preview da assinatura" style="display: none; max-width: 200px; border-radius: 8px;">
-  <p id="assinatura-preview-text" style="display: none;">Assinatura do profissional</p>
-  <button type="button" id="remover-assinatura" style="display:none; margin-top:5px;">Remover Assinatura <i class="fas fa-times"></i></button>
-  </div>
-  <script src="/site/public/js/assinatura_script.js"> </script>
-  <div class="input-group">
-  <label for="data_atualizacao">Data de Atualização:</label>
-  <input type="date" id="data_atualizacao" name="data_atualizacao" required>
-  </div>
-  </fieldset>
-  </div>
-
-  <div class="action-buttons">
-  <button type="button" id="prevBtn">Voltar <i class="fas fa-arrow-left"></i></button>
-  <button type="button" id="nextBtn">Avançar <i class="fas fa-arrow-right"></i></button>
-  <button type="submit" id="submitBtn">Salvar Anamnese <i class="fas fa-save"></i></button>
-  </div>
-  </form>
-  </div>
-
-  <div id="finalizacao-container" style="display: none;">
-  <fieldset>
-  <legend>Finalização da Documentação</legend>
-  <p>Após preencher os dados da anamnese, finalize a documentação e gere um PDF com as informações.</p>
-  <p>Adicione anotações e escolha um paciente para incluir os dados no relatório em PDF.</p>
-  </fieldset>
-
-  <fieldset>
-  <legend>Anamneses Cadastradas</legend>
-  <p>Selecione uma anamnese para visualizar ou editar:</p>
-  <ul id="anamneses-list-ul"></ul>
-  </fieldset>
-
-  <fieldset>
-  <legend>Nota</legend>
-  <label for="nota">Adicione uma nota para incluí-la no PDF:</label>
-  <textarea id="nota" name="nota" placeholder="Insira o texto aqui"></textarea>
-  </fieldset>
-
-  <fieldset>
-  <legend>Escolha o paciente</legend>
-  <label for="paciente">Escolha o paciente para incluir os dados no relatório em PDF (opcional):</label>
-  <select id="paciente" name="paciente">
-  <option value="">Inserir paciente</option>
-  </select>
-  </fieldset>
-
-  <div class="action-buttons">
-  <button type="reset" id="apagar-tudo-finalizar">Apagar tudo <i class="fas fa-sync-alt"></i></button>
-  <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i class="fas fa-check"></i></button>
-  </div>
-  </div>
-
-  <footer>
-  <nav class="bottom-nav">
-  <a href="#" title="Home">
-  <i class="fas fa-home"></i>
-  <span>Home</span>
-  </a>
-  <a href="#" title="Agenda">
-  <i class="fas fa-calendar-alt"></i>
-  <span>Agenda</span>
-  </a>
-  <a href="#" title="Chat">
-  <i class="fas fa-comment-dots"></i>
-  <span>Chat</span>
-  </a>
-  <a href="#" title="Perfil">
-  <i class="fas fa-user-circle"></i>
-  <span>Perfil</span>
-  </a>
-  </nav>
-  </footer>
-
-  <script>
-  const steps = document.querySelectorAll('.step');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const submitBtn = document.getElementById('submitBtn');
-  const progressBar = document.getElementById('progress-bar');
-  const stepCounter = document.getElementById('step-counter');
-  const formContainer = document.getElementById('form-container');
-  const finalizacaoContainer = document.getElementById('finalizacao-container');
-  let currentStep = 0;
-
-  const fotoFeridaInput = document.getElementById('foto_ferida');
-  const larguraFeridaInput = document.querySelector('input[name="ferida_largura"]');
-  const comprimentoFeridaInput = document.querySelector('input[name="ferida_comprimento"]');
-  const profundidadeFeridaInput = document.querySelector('input[name="ferida_profundidade"]');
-
-  function toggleTamanhoFeridaRequired() {
-  if (fotoFeridaInput.files.length > 0) {
-  larguraFeridaInput.removeAttribute('required');
-  comprimentoFeridaInput.removeAttribute('required');
-  profundidadeFeridaInput.removeAttribute('required');
-  } else {
-  larguraFeridaInput.setAttribute('required', '');
-  comprimentoFeridaInput.setAttribute('required', '');
-  profundidadeFeridaInput.setAttribute('required', '');
-  }
-  }
-
-  function updateProgressBar() {
-  const progress = ((currentStep + 1) / steps.length) * 100;
-  progressBar.style.width = progress + '%';
-  }
-
-  function updateStepCounter() {
-  stepCounter.textContent = `Tela ${currentStep + 1} de ${steps.length}`;
-  }
-
-  function showStep(n) {
-  steps.forEach(step => step.classList.remove('active'));
-  steps[n].classList.add('active');
-  currentStep = n;
-
-  if (currentStep === 0) {
-  prevBtn.style.display = 'none';
-  } else {
-  prevBtn.style.display = 'inline-block';
-  }
-
-  if (currentStep === steps.length - 1) {
-  nextBtn.style.display = 'none';
-  submitBtn.style.display = 'inline-block';
-  } else {
-  nextBtn.style.display = 'inline-block';
-  submitBtn.style.display = 'none';
-  }
-
-  updateProgressBar();
-  updateStepCounter();
-  }
-
-  prevBtn.addEventListener('click', () => {
-  currentStep--;
-  showStep(currentStep);
-  });
-
-  nextBtn.addEventListener('click', () => {
-  const activeStep = steps[currentStep];
-  const requiredFields = activeStep.querySelectorAll('input[required], select[required], textarea[required]');
-  let allFieldsValid = true;
-
-  requiredFields.forEach(field => {
-  if (!field.value.trim()) {
-  allFieldsValid = false;
-  }
-  });
-
-  if (allFieldsValid) {
-  currentStep++;
-  showStep(currentStep);
-  } else {
-  alert('Por favor, preencha todos os campos obrigatórios nesta tela antes de avançar.');
-  }
-  });
-
-  document.getElementById('anamnese-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  formContainer.style.display = 'none';
-  finalizacaoContainer.style.display = 'block';
-  progressBar.style.display = 'none';
-  stepCounter.style.display = 'none';
-  document.querySelector('h1').textContent = 'Finalizar Anamnese';
-  });
-
-  fotoFeridaInput.addEventListener('change', toggleTamanhoFeridaRequired);
-  toggleTamanhoFeridaRequired(); // Initial call
-
-  showStep(currentStep);
-
-  // Existing JavaScript for conditional field display
-  document.getElementById('diabetes').addEventListener('change', function() {
-  document.getElementById('controle_glicemico_group').style.display = this.value === '1' ? 'block' : 'none';
-  });
-  const etiologiaSelect = document.getElementById('etiologia_ferida');
-  const outraEtiologiaInput = document.getElementById('etiologia_outra');
-  etiologiaSelect.addEventListener('change', function() {
-  outraEtiologiaInput.style.display = this.value === 'outra' ? 'block' : 'none';
-  });
-  const doencaVascularCheckbox = document.getElementById('doenca_vascular');
-  const funcaoVascularGroup = document.getElementById('funcao_vascular_group');
-  const possuiDoencaSelect = document.getElementById('possui_doenca');
-  possuiDoencaSelect.addEventListener('change', function() {
-  const temDoenca = this.value === '1';
-  const doencaText = document.getElementById('qual_doenca');
-  doencaText.style.display = temDoenca ? 'block' : 'none';
-  if (!temDoenca) {
-  doencaText.value = '';
-  }
-  });
-  const usaMedicacaoSelect = document.getElementById('usa_medicacao');
-  const qualMedicacaoInput = document.getElementById('qual_medicacao');
-  usaMedicacaoSelect.addEventListener('change', function() {
-  qualMedicacaoInput.style.display = this.value === '1' ? 'block' : 'none';
-  if (!this.value === '1') {
-  qualMedicacaoInput.value = '';
-  }
-  });
-  const possuiAlergiaSelect = document.getElementById('possui_alergia');
-  const qualAlergiaInput = document.getElementById('qual_alergia');
-  possuiAlergiaSelect.addEventListener('change', function() {
-  qualAlergiaInput.style.display = this.value === '1' ? 'block' : 'none';
-  if (!this.value === '1') {
-  qualAlergiaInput.value = '';
-  }
-  });
-  const praticaAtividadeFisicaSelect = document.getElementById('pratica_atividade_fisica');
-  const qualAtividadeInput = document.getElementById('qual_atividade');
-  const frequenciaAtividadeInput = document.getElementById('frequencia_atividade');
-  praticaAtividadeFisicaSelect.addEventListener('change', function() {
-  const pratica = this.value === '1';
-  qualAtividadeInput.style.display = pratica ? 'block' : 'none';
-  frequenciaAtividadeInput.style.display = pratica ? 'block' : 'none';
-  if (!pratica) {
-  qualAtividadeInput.value = '';
-  frequenciaAtividadeInput.value = '';
-  }
-  });
-  const ingestaAlcoolSelect = document.getElementById('ingestao_alcool');
-  const frequenciaAlcoolInput = document.getElementById('frequencia_alcool');
-  ingestaAlcoolSelect.addEventListener('change', function() {
-  frequenciaAlcoolInput.style.display = this.value === '1' ? 'block' : 'none';
-  if (!this.value === '1') {
-  frequenciaAlcoolInput.value = '';
-  }
-  });
-  document.getElementById('doenca_vascular').addEventListener('change', function() {
-  document.getElementById('funcao_vascular_group').style.display = this.checked ? 'block' : 'none';
-  });
-  </script>
- </body>
-
- </html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Anamnese</title>
+    <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
+    <link rel="stylesheet" href="/site/public/css/style.css">
+    <style>
+        @import url("/site/public/css/estilo_pc.css");
+
+        /* Progress Bar Styles */
+        #progress-bar-container {
+            width: 100%;
+            background: linear-gradient(90deg, #e3eafc 0%, #eaf1fb 100%);
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.10);
+            height: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            /* Novo degrade azul mais vibrante e moderno */
+            background: linear-gradient(90deg, #2563eb 0%, #3b82f6 40%, #60a5fa 80%, #a5d8ff 100%);
+            height: 100%;
+            width: 0%;
+            border-radius: 14px 0 0 14px;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.18);
+            transition: width 0.5s cubic-bezier(.4,2,.6,1), background 0.3s;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #progress-bar::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 22px;
+            height: 100%;
+            /* Efeito de brilho mais suave e translúcido */
+            background: linear-gradient(90deg, rgba(255,255,255,0.45) 0%, rgba(96,165,250,0.18) 100%);
+            border-radius: 0 14px 14px 0;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        #step-counter {
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 1.08em;
+            color: #2563eb;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-shadow: 0 1px 0 #e3eafc;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeInStep 0.5s;
+        }
+
+        @keyframes fadeInStep {
+            from { opacity: 0; transform: translateY(16px);}
+            to { opacity: 1; transform: none;}
+        }
+
+        .action-buttons {
+            margin-top: 28px;
+            display: flex;
+            gap: 14px;
+            justify-content: space-between;
+        }
+
+        .action-buttons button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.08em;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.09);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        
+        #prevBtn {
+            background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
+            color: #fff;
+        }
+
+        #prevBtn:hover, #prevBtn:focus {
+            background: linear-gradient(90deg, #c62828 0%, #f44336 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(244,67,54,0.18);
+        }
+
+        #nextBtn {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        #nextBtn:hover, #nextBtn:focus {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+        }
+
+        #submitBtn {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+            display: none;
+        }
+
+        #submitBtn:hover, #submitBtn:focus {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+        }
+
+        /* Custom message box styles */
+        .message-box {
+            position: fixed;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.08em;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 6px 24px rgba(37,99,235,0.18), 0 2px 8px rgba(0,0,0,0.10);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, top 0.3s;
+            pointer-events: none;
+        }
+
+        .message-box.success {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        .message-box.error {
+            background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 600px) {
+            #progress-bar-container {
+                height: 14px;
+                border-radius: 8px;
+            }
+            #progress-bar {
+                border-radius: 8px 0 0 8px;
+            }
+            #progress-bar::after {
+                border-radius: 0 8px 8px 0;
+                width: 12px;
+            }
+            .action-buttons button {
+                padding: 10px 12px;
+                font-size: 0.98em;
+            }
+            .action-buttons {
+                gap: 6px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <h1>Ficha de Anamnese</h1>
+
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+    <div id="step-counter"></div>
+
+    <div id="form-container">
+        <form id="anamnese-form">
+            <div class="step active">
+                <fieldset>
+                    <legend>Tamanho e Características da Ferida</legend>
+                    <p>Capture ou insira manualmente as informações sobre a ferida do paciente.</p>
+
+                    <div class="input-group">
+                        <label for="foto_ferida">Foto da Ferida:</label>
+                        <input type="file" id="foto_ferida" name="foto_ferida" accept="image/*" capture="environment"
+                            style="display:none;">
+                        <button type="button" class="photo-button" id="abrir-camera">
+                            <i class="fas fa-camera"></i> Tirar/Selecionar Foto
+                        </button>
+                    </div>
+
+                    <div class="photo-preview" style="margin-top:10px;">
+                        <img id="photo-preview-img" src="" alt="Preview da foto"
+                            style="display: none; max-width: 200px; border-radius: 8px;">
+                        <p id="photo-preview-text" style="display: none;">Foto da ferida do paciente</p>
+                        <button type="button" id="remover-foto" style="display:none; margin-top:5px;">Remover Foto <i
+                                class="fas fa-times"></i></button>
+                    </div>
+
+                    <div class="input-group" style="margin-top:15px;">
+                        <label>Medidas da Ferida (cm):</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" step="0.1" min="0" name="ferida_largura" placeholder="Largura"
+                                required>
+                            <input type="number" step="0.1" min="0" name="ferida_comprimento" placeholder="Comprimento"
+                                required>
+                            <input type="number" step="0.1" min="0" name="ferida_profundidade" placeholder="Profundidade"
+                                required>
+                        </div>
+                    </div>
+                </fieldset>
+                <script src="/site/public/js/foto_script.js"></script>
+
+                <fieldset>
+                    <legend>Avaliação da Ferida (TIMERS) - Parte 1</legend>
+                    <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
+
+                    <div class="input-group">
+                        <label for="localizacao_ferida" style="font-weight: bold; font-size: 1.1em;">
+                            <i class="fas fa-map-marker-alt" style="color:#333333"></i>
+                            Localização Anatômica da Ferida:
+                        </label>
+                        <input type="text" id="localizacao_ferida" name="localizacao_ferida"
+                            placeholder="Ex: Maléolo medial direito" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="etiologia_ferida" style="font-weight: bold; font-size: 1.1em;">
+                            <i class="fas fa-question-circle" style="color:#333333"></i>
+                            Etiologia da Ferida:
+                        </label>
+                        <select id="etiologia_ferida" name="etiologia_ferida" required>
+                            <option value="">Selecione</option>
+                            <option value="pressao">Pressão</option>
+                            <option value="vascular_arterial">Vascular Arterial</option>
+                            <option value="vascular_venosa">Vascular Venosa</option>
+                            <option value="neuropatica">Neuropática</option>
+                            <option value="traumatica">Traumática</option>
+                            <option value="cirurgica">Cirúrgica</option>
+                            <option value="queimadura">Queimadura</option>
+                            <option value="outra">Outra</option>
+                        </select>
+                        <input type="text" id="etiologia_outra" name="etiologia_outra"
+                            placeholder="Especificar outra etiologia" style="display: none; margin-top: 5px;">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tempo_evolucao" style="font-weight: bold; font-size: 1.1em;">
+                            <i class="fas fa-clock" style="color:#333333"></i>
+                            Tempo de Evolução da Ferida:
+                        </label>
+                        <input type="text" id="tempo_evolucao" name="tempo_evolucao" placeholder="Ex: 3 semanas, 1 mês"
+                            required>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 2px;">
+                        <label
+                            style="font-weight: bold; font-size: 1.15em; display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-thermometer-half" style="color:#e67e22; font-size: 1.4em;"></i>
+                            Intensidade da Dor <span style="font-size:0.95em; color:#888;">(Escala EVA 0-10)</span>
+                        </label>
+                        <div
+                            style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap; background: #fff8ef; border-radius: 10px; padding: 18px 16px 14px 16px; box-shadow: 0 2px 8px rgba(230,126,34,0.07);">
+                            <input type="range" id="dor_escala" name="dor_escala" min="0" max="10" step="1"
+                                style="width: 180px; accent-color: #e67e22; height: 4px;"
+                                oninput="document.getElementById('eva-value').textContent = this.value">
+                            <span id="eva-value"
+                                style="font-weight: bold; color: #e67e22; font-size: 1.5em; margin-left: 8px; min-width: 32px; text-align: center;">0</span>
+                            <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 5px; flex: 1 1 45px;">
+                                <label for="dor_fatores"
+                                    style="font-weight: 500; color: #2980b9; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+                                    <i class="fas fa-info-circle"></i>
+                                    Fatores que Aliviam/Pioram a Dor:
+                                </label>
+                                <input type="text" id="dor_fatores" name="dor_fatores"
+                                    placeholder="Ex: Repouso alivia, deambulação piora"
+                                    style="padding: 7px 12px; border: 1px solid #e1e4ea; border-radius: 6px; font-size: 1em; background: #f9fafb; margin-bottom: 0; margin-top: 0;">
+
+                            </div>
+                            <span style="color: #888; margin-top: 8px; display: block; font-size: 0.98em;">
+                                <i class="fas fa-arrows-alt-h" style="color:#e67e22"></i>
+                                Arraste para selecionar a intensidade da dor (0 = sem dor, 10 = pior dor possível).
+                            </span>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="step">
+                <fieldset>
+                    <legend>Avaliação da Ferida (TIMERS) - Tecido e Inflamação</legend>
+                    <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
+
+                    <div class="input-group">
+                        <label style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-layer-group" style="color:#333333"></i>
+                            Percentual de Tecido no Leito da Ferida (%):
+                        </label>
+                        <div id="tecido_leito_group" style="
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                            gap: 18px 24px;
+                            margin-top: 16px;
+                            background: #f8f9fa;
+                            border-radius: 12px;
+                            padding: 18px 12px;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+                            ">
+                            <div class="tecido-item">
+                                <label for="percentual_epitelizacao_leito" class="tecido-label">
+                                    <i class="fas fa-layer-group" style="color:#27ae60"></i>
+                                    Epitelização
+                                </label>
+                                <input type="number" id="percentual_epitelizacao_leito"
+                                    name="percentual_epitelizacao_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_granulacao_leito" class="tecido-label">
+                                    <i class="fas fa-seedling" style="color:#e67e22"></i>
+                                    Granulação
+                                </label>
+                                <input type="number" id="percentual_granulacao_leito"
+                                    name="percentual_granulacao_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_esfacelo_viavel_leito" class="tecido-label">
+                                    <i class="fas fa-water" style="color:#f1c40f"></i>
+                                    Esfacelo (Viável)
+                                </label>
+                                <input type="number" id="percentual_esfacelo_viavel_leito"
+                                    name="percentual_esfacelo_viavel_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_esfacelo_nao_viavel_leito" class="tecido-label">
+                                    <i class="fas fa-exclamation-triangle" style="color:#e74c3c"></i>
+                                    Esfacelo (Não Viável)
+                                </label>
+                                <input type="number" id="percentual_esfacelo_nao_viavel_leito"
+                                    name="percentual_esfacelo_nao_viavel_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_necrose_seca_leito" class="tecido-label">
+                                    <i class="fas fa-burn" style="color:#7f8c8d"></i>
+                                    Necrose Seca (Escara)
+                                </label>
+                                <input type="number" id="percentual_necrose_seca_leito"
+                                    name="percentual_necrose_seca_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_necrose_umida_leito" class="tecido-label">
+                                    <i class="fas fa-tint" style="color:#2980b9"></i>
+                                    Necrose Úmida
+                                </label>
+                                <input type="number" id="percentual_necrose_umida_leito"
+                                    name="percentual_necrose_umida_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_muscular_leito" class="tecido-label">
+                                    <i class="fas fa-dumbbell" style="color:#c0392b"></i>
+                                    Tecido Muscular Exposto
+                                </label>
+                                <input type="number" id="percentual_muscular_leito" name="percentual_muscular_leito"
+                                    min="0" max="100" placeholder="0-100" class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_tendinoso_leito" class="tecido-label">
+                                    <i class="fas fa-link" style="color:#8e44ad"></i>
+                                    Tecido Tendinoso Exposto
+                                </label>
+                                <input type="number" id="percentual_tendinoso_leito" name="percentual_tendinoso_leito"
+                                    min="0" max="100" placeholder="0-100" class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_osseo_leito" class="tecido-label">
+                                    <i class="fas fa-bone" style="color:#f39c12"></i>
+                                    Tecido Ósseo Exposto
+                                </label>
+                                <input type="number" id="percentual_osseo_leito" name="percentual_osseo_leito" min="0"
+                                    max="100" placeholder="0-100" class="tecido-input" required>
+                            </div>
+                            <div class="tecido-item">
+                                <label for="percentual_sem_visivel_leito" class="tecido-label">
+                                    <i class="fas fa-eye-slash" style="color:#34495e"></i>
+                                    Sem Tecido Visível
+                                </label>
+                                <input type="number" id="percentual_sem_visivel_leito"
+                                    name="percentual_sem_visivel_leito" min="0" max="100" placeholder="0-100"
+                                    class="tecido-input" required>
+                            </div>
+                        </div>
+                        <small style="color: #888; margin-top: 10px; display: block; font-size: 0.98em;">
+                            <i class="fas fa-info-circle" style="color:#2980b9"></i>
+                            Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma
+                            deve ser 100%.
+                        </small>
+                    </div>
+                    <div class="input-group">
+                        <label
+                            style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-exclamation-circle" style="color:#e67e22"></i>
+                            Sinais de Inflamação:
+                        </label>
+                        <div class="checkbox-container"
+                            style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="inflamacao_rubor" name="inflamacao_rubor" value="1">
+                                <label for="inflamacao_rubor">
+                                    <i class="fas fa-tint" style="color:#e74c3c"></i>
+                                    <span style="margin-left: 6px;">Rubor <span
+                                            style="color:#888; font-size:0.95em;">(Vermelhidão)</span></span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="inflamacao_calor" name="inflamacao_calor" value="1">
+                                <label for="inflamacao_calor">
+                                    <i class="fas fa-fire" style="color:#e67e22"></i>
+                                    <span style="margin-left: 6px;">Calor</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="inflamacao_edema" name="inflamacao_edema" value="1">
+                                <label for="inflamacao_edema">
+                                    <i class="fas fa-water" style="color:#3498db"></i>
+                                    <span style="margin-left: 6px;">Edema <span
+                                            style="color:#888; font-size:0.95em;">(Inchaço)</span></span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="inflamacao_dor_local" name="inflamacao_dor_local" value="1">
+                                <label for="inflamacao_dor_local">
+                                    <i class="fas fa-bolt" style="color:#f1c40f"></i>
+                                    <span style="margin-left: 6px;">Dor Local</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="inflamacao_perda_funcao" name="inflamacao_perda_funcao"
+                                    value="1">
+                                <label for="inflamacao_perda_funcao">
+                                    <i class="fas fa-ban" style="color:#7f8c8d"></i>
+                                    <span style="margin-left: 6px;">Perda de Função</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Avaliação da Ferida (TIMERS) - Infecção e Exsudato</legend>
+                    <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
+
+                    <div class="input-group">
+                        <label
+                            style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-exclamation-triangle" style="color:#c0392b"></i>
+                            Sinais de Infecção Local:
+                        </label>
+                        <div class="checkbox-container"
+                            style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="infeccao_eritema_perilesional"
+                                    name="infeccao_eritema_perilesional" value="1">
+                                <label for="infeccao_eritema_perilesional">
+                                    <i class="fas fa-tint" style="color:#e74c3c"></i>
+                                    <span style="margin-left: 6px;">Eritema Perilesional</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="infeccao_calor_local" name="infeccao_calor_local" value="1">
+                                <label for="infeccao_calor_local">
+                                    <i class="fas fa-fire" style="color:#e67e22"></i>
+                                    <span style="margin-left: 6px;">Calor Local</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px">
+                                <input type="checkbox" id="infeccao_edema" name="infeccao_edema" value="1">
+                                <label for="infeccao_edema">
+                                    <i class="fas fa-water" style="color:#3498db"></i>
+                                    <span style="margin-left: 6px;">Edema</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px">
+                                <input type="checkbox" id="infeccao_dor_local" name="infeccao_dor_local" value="1">
+                                <label for="infeccao_dor_local">
+                                    <i class="fas fa-bolt" style="color:#f1c40f"></i>
+                                    <span style="margin-left: 6px;">Dor Local</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px;">
+                                <input type="checkbox" id="infeccao_exsudato" name="infeccao_exsudato" value="1">
+                                <label for="infeccao_exsudato">
+                                    <i class="fas fa-vial" style="color:#f39c12"></i>
+                                    <span style="margin-left: 6px;">Exsudato Purulento</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px">
+                                <input type="checkbox" id="infeccao_odor" name="infeccao_odor" value="1">
+                                <label for="infeccao_odor">
+                                    <i class="fas fa-wind" style="color:#8e44ad"></i>
+                                    <span style="margin-left: 6px;">Odor Fétido</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group" style="min-width: 180px">
+                                <input type="checkbox" id="infeccao_retardo_cicatrizacao"
+                                    name="infeccao_retardo_cicatrizacao" value="1">
+                                <label for="infeccao_retardo_cicatrizacao">
+                                    <i class="fas fa-hourglass-half" style="color:#7f8c8d"></i>
+                                    <span style="margin-left: 6px;">Retardo na Cicatrização</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label for="cultura_realizada">Cultura da Ferida Realizada?</label>
+                        <select id="cultura_realizada" name="cultura_realizada" required>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="resultado_cultura">Resultado da Cultura (se realizada):</label>
+                        <input type="text" id="resultado_cultura" name="resultado_cultura"
+                            placeholder="Microrganismos identificados">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Avaliação da Ferida (TIMERS) - Exsudato e Pele Perilesional</legend>
+                    <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
+
+                    <div class="input-group">
+                        <label for="quantidade_exsudato">
+                            <i class="fas fa-tint"></i> Quantidade de Exsudato:
+                        </label>
+                        <select id="quantidade_exsudato" name="quantidade_exsudato" required>
+                            <option value="">Selecione</option>
+                            <option value="ausente">&#10006; Ausente</option>
+                            <option value="escasso">&#128167; Escasso</option>
+                            <option value="minimo">&#128167;&#128167; Mínimo</option>
+                            <option value="moderado">&#128167;&#128167;&#128167; Moderado</option>
+                            <option value="abundante">&#128167;&#128167;&#128167;&#128167; Abundante</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tipo_exsudato">
+                            <i class="fas fa-vial"></i> Tipo de Exsudato:
+                        </label>
+                        <select id="tipo_exsudato" name="tipo_exsudato" required>
+                            <option value="">Selecione</option>
+                            <option value="seroso">Seroso (Claro, aquoso)</option>
+                            <option value="sanguinolento">Sanguinolento (Vermelho)</option>
+                            <option value="serossanguinolento">Serossanguinolento (Claro com sangue)</option>
+                            <option value="purulento">Purulento (Amarelo, verde, turvo)</option>
+                            <option value="purulento_foul">Purulento com Odor Fétido</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="consistencia_exsudato">Consistência do Exsudato:</label>
+                        <select id="consistencia_exsudato" name="consistencia_exsudato" required>
+                            <option value="">Selecione</option>
+                            <option value="fina">Fina/Fluida</option>
+                            <option value="viscosa">Viscosa</option>
+                            <option value="espessa">Espessa</option>
+                            <option value="gelatinosa">Gelatinosa</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pele_perilesional_umidade">Pele Perilesional (Umidade):</label>
+                        <select id="pele_perilesional_umidade" name="pele_perilesional_umidade" required>
+                            <option value="">Selecione</option>
+                            <option value="seca">Seca</option>
+                            <option value="hidratada">Hidratada</option>
+                            <option value="macerada">Macerada</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pele_perilesional_extensao">Extensão da Alteração Perilesional:</label>
+                        <input type="text" id="pele_perilesional_extensao" name="pele_perilesional_extensao"
+                            placeholder="Ex: 2 cm ao redor da borda">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Avaliação da Ferida (TIMERS) - Bordas e Cicatrização</legend>
+                    <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
+
+                    <div class="input-group">
+                        <label for="bordas_caracteristicas">Características das Bordas da Ferida:</label>
+                        <select id="bordas_caracteristicas" name="bordas_caracteristicas" required>
+                            <option value="">Selecione</option>
+                            <option value="regulares">Regulares</option>
+                            <option value="irregulares">Irregulares</option>
+                            <option value="aderidas">Aderidas</option>
+                            <option value="descoladas">Descoladas</option>
+                            <option value="hiperqueratosicas">Hiperqueratóticas</option>
+                            <option value="fibroticas">Fibroticas</option>
+                            <option value="erosao">Com Erosão</option>
+                            <option value="induradas">Induradas</option>
+                            <option value="em_tunel">Em Túnel</option>
+                            <option value="roladas">Roladas</option>
+                            <option value="bem_definidas">Bem Definidas</option>
+                            <option value="mal_definidas">Mal Definidas</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="fixacao_bordas">Fixação das Bordas ao Leito:</label>
+                        <select id="fixacao_bordas" name="fixacao_bordas" required>
+                            <option value="">Selecione</option>
+                            <option value="aderidas">Aderidas</option>
+                            <option value="nao_aderidas">Não Aderidas</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tunel_fistula">Presença de Túneis ou Fístulas?</label>
+                        <select id="tunel_fistula" name="tunel_fistula" required>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="localizacao_tunel_fistula">Localização dos Túneis/Fístulas (se presente):</label>
+                        <input type="text" id="localizacao_tunel_fistula" name="localizacao_tunel_fistula"
+                            placeholder="Ex: 12 horas, 3 cm de profundidade">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="velocidade_cicatrizacao">Velocidade de Cicatrização Observada:</label>
+                        <select id="velocidade_cicatrizacao" name="velocidade_cicatrizacao" required>
+                            <option value="">Selecione</option>
+                            <option value="rapida">Rápida</option>
+                            <option value="lenta">Lenta</option>
+                            <option value="estagnada">Estagnada</option>
+                            <option value="regredindo">Regredindo</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="percentual_epitelizacao_bordas">Percentual de Epitelização nas Bordas (%):</label>
+                        <input type="number" id="percentual_epitelizacao_bordas" name="percentual_epitelizacao_bordas"
+                            min="0" max="100" placeholder="0-100">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pele_perilesional_condicao">Condição da Pele Perilesional:</label>
+                        <select id="pele_perilesional_condicao" name="pele_perilesional_condicao" required>
+                            <option value="">Selecione</option>
+                            <option value="integra">Íntegra</option>
+                            <option value="eritematosa">Eritematosa (Vermelha)</option>
+                            <option value="macerada">Macerada</option>
+                            <option value="seca_descamativa">Seca e Descamativa</option>
+                            <option value="eczematosa">Eczematosa</option>
+                            <option value="hiperpigmentada">Hiperpigmentada</option>
+                            <option value="hipopigmentada">Hipopigmentada</option>
+                            <option value="indurada">Indurada</option>
+                            <option value="sensivel">Sensível</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="edema_perilesional">Presença de Edema Perilesional?</label>
+                        <select id="edema_perilesional" name="edema_perilesional" required>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tipo_edema_perilesional">Tipo de Edema Perilesional (se presente):</label>
+                        <input type="text" id="tipo_edema_perilesional" name="tipo_edema_perilesional"
+                            placeholder="Ex: Mole, duro, com cacifo">
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="step">
+                <fieldset>
+                    <legend>Dados Pessoais</legend>
+                    <div class="input-group">
+                        <label for="nome_cliente">Nome do Cliente:</label>
+                        <input type="text" id="nome_cliente" name="nome_cliente" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="data_nascimento">Data de Nascimento:</label>
+                        <input type="date" id="data_nascimento" name="data_nascimento">
+                    </div>
+                    <div class="input-group">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" name="telefone" placeholder="Telefone">
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="input-group">
+                        <label for="profissao">Profissão:</label>
+                        <input type="text" id="profissao" name="profissao" placeholder="Profissão">
+                    </div>
+                    <div class="input-group">
+                        <label for="estado_civil">Estado Civil:</label>
+                        <select id="estado_civil" name="estado_civil">
+                            <option value="">Selecione</option>
+                            <option value="Solteiro(a)">Solteiro(a)</option>
+                            <option value="Casado(a)">Casado(a)</option>
+                            <option value="Divorciado(a)">Divorciado(a)</option>
+                            <option value="Viúvo(a)">Viúvo(a)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="nivel_atividade">Nível de Atividade/Mobilidade:</label>
+                        <select id="nivel_atividade" name="nivel_atividade">
+                            <option value="">Selecione</option>
+                            <option value="acama">Acamado</option>
+                            <option value="cadeira_rodas">Cadeira de Rodas</option>
+                            <option value="deambulacao_limitada">Deambulação Limitada</option>
+                            <option value="deambulacao_independente">Deambulacao Independente</option>
+                            <option value="ativo">Ativo</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="suporte_social">Suporte Social:</label>
+                        <textarea id="suporte_social" name="suporte_social"
+                            placeholder="Descreva o suporte social e cuidadores"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="compreensao_adesao">Nível de Compreensão e Adesão ao Tratamento:</label>
+                        <select id="compreensao_adesao" name="compreensao_adesao">
+                            <option value="">Selecione</option>
+                            <option value="boa">Boa</option>
+                            <option value="regular">Regular</option>
+                            <option value="baixa">Baixa</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Dados Clínicos</legend>
+                    <div class="input-group">
+                        <label for="objetivo_tratamento">Objetivo do Tratamento:</label>
+                        <textarea id="objetivo_tratamento" name="objetivo_tratamento"
+                            placeholder="Descreva o objetivo do tratamento"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="historico_cicatrizacao">Histórico de Cicatrização:</label>
+                        <textarea id="historico_cicatrizacao" name="historico_cicatrizacao"
+                            placeholder="Experiências anteriores de cicatrização"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="estado_nutricional">Avaliação do Estado Nutricional:</label>
+                        <textarea id="estado_nutricional" name="estado_nutricional"
+                            placeholder="Informações sobre alimentação, peso, etc."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="usa_medicacao">Usa Medicação:</label>
+                        <select id="usa_medicacao" name="usa_medicacao">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="qual_medicacao">Qual Medicação:</label>
+                        <input type="text" id="qual_medicacao" name="qual_medicacao" placeholder="Nome da medicação"
+                            style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="possui_doenca">Possui Doença:</label>
+                        <select id="possui_doenca" name="possui_doenca">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="qual_doenca">Qual Doença:</label>
+                        <input type="text" id="qual_doenca" name="qual_doenca" placeholder="Nome da doença"
+                            style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="possui_alergia">Possui Alergia:</label>
+                        <select id="possui_alergia" name="possui_alergia">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="qual_alergia">Qual Alergia:</label>
+                        <input type="text" id="qual_alergia" name="qual_alergia" placeholder="Tipo de alergia"
+                            style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="pratica_atividade_fisica">Pratica Atividade Física:</label>
+                        <select id="pratica_atividade_fisica" name="pratica_atividade_fisica">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="qual_atividade">Qual Atividade:</label>
+                        <input type="text" id="qual_atividade" name="qual_atividade" placeholder="Tipo de atividade"
+                            style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="frequencia_atividade">Frequência Atividade:</label>
+                        <input type="text" id="frequencia_atividade" name="frequencia_atividade"
+                            placeholder="Frequência da atividade" style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="ingestao_agua_dia">Ingestão Água/Dia:</label>
+                        <input type="text" id="ingestao_agua_dia" name="ingestao_agua_dia"
+                            placeholder="Quantidade de água por dia">
+                    </div>
+                    <div class="input-group">
+                        <label for="ingestao_alcool">Ingestão Álcool:</label>
+                        <select id="ingestao_alcool" name="ingestao_alcool">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="frequencia_alcool">Frequência Álcool:</label>
+                        <input type="text" id="frequencia_alcool" name="frequencia_alcool"
+                            placeholder="Frequência do consumo de álcool" style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="ciclo_menstrual_regular">Ciclo Menstrual Regular:</label>
+                        <select id="ciclo_menstrual_regular" name="ciclo_menstrual_regular">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="usa_anticoncepcional">Usa Anticoncepcional:</label>
+                        <select id="usa_anticoncepcional" name="usa_anticoncepcional">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="tem_filhos">Tem Filhos:</label>
+                        <select id="tem_filhos" name="tem_filhos">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="quantos_filhos">Quantos Filhos:</label>
+                        <input type="number" id="quantos_filhos" name="quantos_filhos" placeholder="Número de filhos"
+                            style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="realizou_cirurgias">Realizou Cirurgias:</label>
+                        <select id="realizou_cirurgias" name="realizou_cirurgias">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="quais_cirurgias">Quais Cirurgias:</label>
+                        <input type="text" id="quais_cirurgias" name="quais_cirurgias" placeholder="Nome das cirurgias"
+                            style="display: none;">
+                    </div>
+                    <div class="input-group">
+                        <label for="marca_pacemaker">Marca Pacemaker:</label>
+                        <select id="marca_pacemaker" name="marca_pacemaker">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="diabetes">Diabetes:</label>
+                        <select id="diabetes" name="diabetes">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="display: none;" id="controle_glicemico_group">
+                        <label for="controle_glicemico">Controle Glicêmico (HbA1c, Glicemia Capilar):</label>
+                        <input type="text" id="controle_glicemico" name="controle_glicemico"
+                            placeholder="Ex: HbA1c 7%, Glicemia 120">
+                    </div>
+                    <div class="input-group">
+                        <label for="hipertensao">Hipertensão:</label>
+                        <select id="hipertensao" name="hipertensao">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="problemas_cardiacos">Problemas Cardíacos:</label>
+                        <select id="problemas_cardiacos" name="problemas_cardiacos">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="problemas_respiratorios">Problemas Respiratórios:</label>
+                        <select id="problemas_respiratorios" name="problemas_respiratorios">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="problemas_renais">Problemas Renais:</label>
+                        <select id="problemas_renais" name="problemas_renais">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="problemas_hepaticos">Problemas Hepáticos:</label>
+                        <select id="problemas_hepaticos" name="problemas_hepaticos">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="display: none;" id="funcao_vascular_group">
+                        <label>Função Vascular:</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="claudicacao_intermitente" name="claudicacao_intermitente"
+                                value="1">
+                            <label for="claudicacao_intermitente">Claudicação Intermitente</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="dor_repouso" name="dor_repouso" value="1">
+                            <label for="dor_repouso">Dor em Repouso</label>
+                        </div>
+                        <div class="input-group">
+                            <label for="pulsos_perifericos">Pulsos Periféricos:</label>
+                            <input type="text" id="pulsos_perifericos" name="pulsos_perifericos"
+                                placeholder="Ex: Pedioso presente, Tibial posterior diminuído">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="fumante">Fumante:</label>
+                        <select id="fumante" name="fumante">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="historico_estetico">Histórico Estético:</label>
+                        <textarea id="historico_estetico" name="historico_estetico"
+                            placeholder="Descreva o histórico estético"></textarea>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="step">
+                <fieldset>
+                    <legend>HPP e Comorbidades</legend>
+                    <div class="checkbox-container">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="dmi" name="dmi" value="1">
+                            <label for="dmi">DMI</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="dmii" name="dmii" value="1">
+                            <label for="dmii">DMII</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="has" name="has" value="1">
+                            <label for="has">HAS</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="neoplasia" name="neoplasia" value="1">
+                            <label for="neoplasia">Neoplasia</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="hiv_aids" name="hiv_aids" value="1">
+                            <label for="hiv_aids">HIV/SIDA</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="obesidade" name="obesidade" value="1">
+                            <label for="obesidade">Obesidade</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cardiopatia" name="cardiopatia" value="1">
+                            <label for="cardiopatia">Cardiopatia</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="dpoc" name="dpoc" value="1">
+                            <label for="dpoc">DPOC</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doenca_hematologica" name="doenca_hematologica" value="1">
+                            <label for="doenca_hematologica">Doença Hematológica</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doenca_vascular" name="doenca_vascular" value="1">
+                            <label for="doenca_vascular">Doença Vascular</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="demencia_senil" name="demencia_senil" value="1">
+                            <label for="demencia_senil">Demência Senil</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="insuficiencia_renal" name="insuficiencia_renal" value="1">
+                            <label for="insuficiencia_renal">Insuficiência renal</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="hanseniase" name="hanseniase" value="1">
+                            <label for="hanseniase">Hanseníase</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="insuficiencia_hepatica" name="insuficiencia_hepatica" value="1">
+                            <label for="insuficiencia_hepatica">Insuficiência Hepática</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doenca_autoimune" name="doenca_autoimune" value="1">
+                            <label for="doenca_autoimune">Doença Autoimune</label>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="outros_hpp">Outros:</label>
+                            <input type="text" id="outros_hpp" name="outros_hpp" placeholder="Especifique...">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Medicamento em uso</legend>
+                    <div class="checkbox-container ">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="anti_hipertensivo" name="anti_hipertensivo" value="1">
+                            <label for="anti_hipertensivo">Anti-hipertensivo</label>
+                            <input type="text" name="anti_hipertensivo_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="corticoides" name="corticoides" value="1">
+                            <label for="corticoides">Corticoides</label>
+                            <input type="text" name="corticoides_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="hipoglicemiantes_orais" name="hipoglicemiantes_orais" value="1">
+                            <label for="hipoglicemiantes_orais">Hipoglicemiantes orais</label>
+                            <input type="text" name="hipoglicemiantes_orais_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="aines" name="aines" value="1">
+                            <label for="aines">AINES</label>
+                            <input type="text" name="aines_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="insulina" name="insulina" value="1">
+                            <label for="insulina">Insulina UI/dia:</label>
+                            <input type="text" name="insulina_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="drogas_vasoativa" name="drogas_vasoativa" value="1">
+                            <label for="drogas_vasoativa">Drogas vasoativa</label>
+                            <input type="text" name="drogas_vasoativa_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="suplemento" name="suplemento" value="1">
+                            <label for="suplemento">Suplemento</label>
+                            <input type="text" name="suplemento_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="anticoagulante" name="anticoagulante" value="1">
+                            <label for="anticoagulante">Anticoagulante</label>
+                            <input type="text" name="anticoagulante_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="vitaminico" name="vitaminico" value="1">
+                            <label for="vitaminico">Vitamínico</label>
+                            <input type="text" name="vitaminico_nome" placeholder="Nome edose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="antirretroviral" name="antirretroviral" value="1">
+                            <label for="antirretroviral">Antirretroviral</label>
+                            <input type="text" name="antirretroviral_nome" placeholder="Nome e dose"
+                                style="display: block; margin-left: 20px;">
+                        </div>
+                        <div class="input-group">
+                            <label for="outros_medicamento">Outros:</label>
+                            <input type="text" id="outros_medicamento" name="outros_medicamento"
+                                placeholder="Especifique...">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Informações Adicionais</legend>
+                    <div class="input-group">
+                        <label for="observacoes">Observações:</label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Observações adicionais"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="data_consulta">Data da Consulta:</label>
+                        <input type="date" id="data_consulta" name="data_consulta" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="hora_consulta">Hora da Consulta:</label>
+                        <input type="time" id="hora_consulta" name="hora_consulta" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="profissional_responsavel">Profissional Responsável:</label>
+                        <input type="text" id="profissional_responsavel" name="profissional_responsavel"
+                            placeholder="Nome do profissional">
+                    </div>
+                    <div class="input-group">
+                        <label for="coren">COREN/CRM:</label>
+                        <input type="text" id="coren" name="coren" placeholder="COREN/CRM do profissional">
+                    </div>
+                    <div class="input-group">
+                        <label for="assinatura">Assinatura do Profissional:</label>
+                        <input type="file" id="assinatura" name="assinatura" accept="image/*" style="display:none;">
+                        <button type="button" class="photo-button" id="abrir-assinatura">
+                            <i class="fas fa-pen-nib"></i> Tirar/Selecionar Assinatura
+                        </button>
+                    </div>
+                    <div class="photo-preview" style="margin-top:10px;">
+                        <img id="assinatura-preview-img" src="" alt="Preview da assinatura"
+                            style="display: none; max-width: 200px; border-radius: 8px;">
+                        <p id="assinatura-preview-text" style="display: none;">Assinatura do profissional</p>
+                        <button type="button" id="remover-assinatura" style="display:none; margin-top:5px;">Remover
+                            Assinatura <i class="fas fa-times"></i></button>
+                    </div>
+                    <script src="/site/public/js/assinatura_script.js"> </script>
+                    <div class="input-group">
+                        <label for="data_atualizacao">Data de Atualização:</label>
+                        <input type="date" id="data_atualizacao" name="data_atualizacao" required>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" id="prevBtn"><i class="fas fa-arrow-left"></i>  Voltar</button>
+                <button type="button" id="nextBtn">Avançar <i class="fas fa-arrow-right"></i></button>
+                <button type="submit" id="submitBtn">Salvar Anamnese <i class="fas fa-save"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div id="finalizacao-container" style="display: none;">
+        <fieldset>
+            <legend>Finalização da Documentação</legend>
+            <p>Após preencher os dados da anamnese, finalize a documentação e gere um PDF com as informações.</p>
+            <p>Adicione anotações e escolha um paciente para incluir os dados no relatório em PDF.</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Anamneses Cadastradas</legend>
+            <p>Selecione uma anamnese para visualizar ou editar:</p>
+            <ul id="anamneses-list-ul"></ul>
+        </fieldset>
+
+        <fieldset>
+            <legend>Nota</legend>
+            <label for="nota">Adicione uma nota para incluí-la no PDF:</label>
+            <textarea id="nota" name="nota" placeholder="Insira o texto aqui"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Escolha o paciente</legend>
+            <label for="paciente">Escolha o paciente para incluir os dados no relatório em PDF (opcional):</label>
+            <select id="paciente" name="paciente">
+                <option value="">Inserir paciente</option>
+            </select>
+        </fieldset>
+
+        <div class="action-buttons">
+            <button type="reset" id="apagar-tudo-finalizar">Apagar tudo <i class="fas fa-sync-alt"></i></button>
+            <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i
+                    class="fas fa-check"></i></button>
+        </div>
+    </div>
+
+    <footer>
+        <nav class="bottom-nav">
+            <a href="#" title="Home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" title="Agenda">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Agenda</span>
+            </a>
+            <a href="#" title="Chat">
+                <i class="fas fa-comment-dots"></i>
+                <span>Chat</span>
+            </a>
+            <a href="#" title="Perfil">
+                <i class="fas fa-user-circle"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const steps = document.querySelectorAll('.step');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressBar = document.getElementById('progress-bar');
+    const stepCounter = document.getElementById('step-counter');
+    const formContainer = document.getElementById('form-container');
+    const finalizacaoContainer = document.getElementById('finalizacao-container');
+    const listaAnamneses = document.getElementById('anamneses-list-ul'); // Get list element
+    let currentStep = 0;
+
+    const fotoFeridaInput = document.getElementById('foto_ferida');
+    const larguraFeridaInput = document.querySelector('input[name="ferida_largura"]');
+    const comprimentoFeridaInput = document.querySelector('input[name="ferida_comprimento"]');
+    const profundidadeFeridaInput = document.querySelector('input[name="ferida_profundidade"]');
+
+    // Function to display custom messages (replaces alert())
+    function showMessageBox(message, type) {
+        const messageBox = document.createElement('div');
+        messageBox.classList.add('message-box', type);
+        messageBox.textContent = message;
+        document.body.appendChild(messageBox);
+
+        setTimeout(() => {
+            messageBox.style.opacity = 1;
+        }, 10); // Small delay to trigger transition
+
+        setTimeout(() => {
+            messageBox.style.opacity = 0;
+            messageBox.addEventListener('transitionend', () => messageBox.remove());
+        }, 3000); // Message disappears after 3 seconds
+    }
+
+    function toggleTamanhoFeridaRequired() {
+        if (fotoFeridaInput.files.length > 0) {
+            larguraFeridaInput.removeAttribute('required');
+            comprimentoFeridaInput.removeAttribute('required');
+            profundidadeFeridaInput.removeAttribute('required');
+        } else {
+            larguraFeridaInput.setAttribute('required', '');
+            comprimentoFeridaInput.setAttribute('required', '');
+            profundidadeFeridaInput.setAttribute('required', '');
+        }
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentStep + 1) / steps.length) * 100;
+        progressBar.style.width = progress + '%';
+    }
+
+    function updateStepCounter() {
+        stepCounter.textContent = `Tela ${currentStep + 1} de ${steps.length}`;
+    }
+
+    function showStep(n) {
+        // Ensure 'n' is within valid bounds
+        if (n < 0 || n >= steps.length) {
+            console.error(`Attempted to show invalid step: ${n}. Total steps: ${steps.length}`);
+            return; // Exit function if n is out of bounds
+        }
+
+        // Remove 'active' class from all steps
+        steps.forEach(step => step.classList.remove('active'));
+
+        // Remove 'required' from all fields in all steps
+        document.querySelectorAll('[data-original-required]').forEach(field => {
+            field.removeAttribute('required');
+        });
+
+        // Set the new active step
+        steps[n].classList.add('active');
+        currentStep = n;
+
+        // Apply 'required' only to fields in the *newly active* step that had it originally
+        steps[n].querySelectorAll('[data-original-required]').forEach(field => {
+            field.setAttribute('required', '');
+        });
+
+        // Special handling for the first step's required fields (photo/measurements)
+        if (currentStep === 0) {
+            toggleTamanhoFeridaRequired();
+        }
+
+        updateProgressBar();
+        updateStepCounter();
+
+        // Update button visibility based on current step
+        if (currentStep === 0) {
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'inline-block';
+        }
+
+        if (currentStep === steps.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'inline-block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    // Store original 'required' state for all elements on load
+    document.querySelectorAll('.step input[required], .step select[required], .step textarea[required]').forEach(field => {
+        field.setAttribute('data-original-required', 'true');
+    });
+
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) { // Only go back if not on the first step
+            currentStep--;
+            window.scrollTo(0, 0); // Voltar ao topo ao ir para o passo anterior (opcional)
+            showStep(currentStep);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        const activeStep = steps[currentStep];
+        const requiredFields = activeStep.querySelectorAll('input[required], select[required], textarea[required]');
+        let allFieldsValid = true;
+        let firstInvalidField = null;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                allFieldsValid = false;
+                field.classList.add('is-invalid'); // Adiciona classe para estilo de erro
+                if (!firstInvalidField) {
+                    firstInvalidField = field;
+                }
+            } else {
+                field.classList.remove('is-invalid'); // Remove classe se preenchido
+            }
+        });
+
+        if (allFieldsValid) {
+            if (currentStep < steps.length - 1) { // Só avança se não estiver no último passo
+                currentStep++;
+                window.scrollTo(0, 0); // Voltar ao topo ao avançar
+                showStep(currentStep);
+            }
+        } else {
+            showMessageBox('Por favor, preencha todos os campos obrigatórios nesta tela antes de avançar.', 'error');
+            if (firstInvalidField) {
+                firstInvalidField.focus(); // Foca no primeiro campo inválido
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Rola para o campo
+            }
+        }
+    });
+
+    document.getElementById('anamnese-form').addEventListener('submit', async (event) => {
+        // Antes de submeter, garantir que todos os campos obrigatórios estejam visíveis e habilitados
+        const invalidField = event.target.querySelector('input[required]:invalid, select[required]:invalid, textarea[required]:invalid');
+        if (invalidField && (invalidField.offsetParent === null || invalidField.disabled)) {
+            // Tenta mostrar o passo onde está o campo inválido
+            const stepWithInvalid = invalidField.closest('.step');
+            if (stepWithInvalid) {
+                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                stepWithInvalid.classList.add('active');
+                invalidField.focus();
+                invalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            event.preventDefault();
+            return false;
+        }
+
+        event.preventDefault(); // Previne o envio padrão do formulário
+
+        const createAnamneseForm = event.target; // O formulário que disparou o evento
+        const formData = new FormData(createAnamneseForm);
+        const data = {};
+
+        // Converte FormData para um objeto JSON.
+        // ATENÇÃO: Campos de arquivo (foto_ferida, assinatura) não serão enviados como dados binários
+        // com 'Content-Type: application/json'. Eles serão representados como strings vazias ou [object File].
+        // Se precisar enviar arquivos, você precisará codificá-los em Base64 ou mudar o método de envio
+        // para FormData diretamente (sem JSON.stringify e sem Content-Type: application/json).
+        for (let [key, value] of formData.entries()) {
+            // Trata valores de checkboxes: FormData retorna "on", mas queremos 1 ou 0
+            const inputElement = createAnamneseForm.querySelector(`[name="${key}"]`);
+            if (inputElement && inputElement.type === 'checkbox') {
+                data[key] = inputElement.checked ? 1 : 0;
+            } else {
+                data[key] = value;
+            }
+        }
+
+        // Exemplo de como você poderia lidar com arquivos em Base64 (descomente e adapte se necessário)
+        // if (fotoFeridaInput.files.length > 0) {
+        //     const reader = new FileReader();
+        //     reader.onload = function(e) {
+        //         data['foto_ferida_base64'] = e.target.result; // Armazena a string Base64
+        //         // Se você tiver múltiplos arquivos ou precisar esperar a leitura,
+        //         // considere usar Promises para sincronizar.
+        //     };
+        //     reader.readAsDataURL(fotoFeridaInput.files[0]);
+        // }
+
+        try {
+            const response = await fetch('/site/public/index.php/api/anamnese', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text(); // Tenta ler a mensagem de erro do backend
+                throw new Error(`Erro HTTP! status: ${response.status} - ${errorText}`);
+            }
+
+            const result = await response.json();
+            const novaAnamnese = result.data;
+
+            // Transições de UI e exibição da lista APENAS em caso de sucesso
+            formContainer.style.display = 'none';
+            finalizacaoContainer.style.display = 'block';
+            progressBar.style.display = 'none';
+            stepCounter.style.display = 'none';
+            document.querySelector('h1').textContent = 'Finalizar Anamnese';
+
+            // Insere a nova anamnese na lista (se o elemento existir e houver dados)
+            if (listaAnamneses && novaAnamnese) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${novaAnamnese.nome_cliente || 'Anamnese sem nome'}</strong> -
+                    Data: ${novaAnamnese.data_nascimento || 'N/A'} -
+                    Email: ${novaAnamnese.email || 'N/A'}
+                `;
+                listaAnamneses.appendChild(li);
+            }
+
+            showMessageBox('Anamnese salva com sucesso!', 'success');
+            createAnamneseForm.reset(); // Limpa o formulário após o sucesso
+
+        } catch (error) {
+            console.error('Erro ao salvar anamnese:', error);
+            showMessageBox(`Erro ao salvar anamnese: ${error.message}`, 'error');
+        }
+    });
+
+    fotoFeridaInput.addEventListener('change', toggleTamanhoFeridaRequired);
+    // Initial call to set required fields for the first step and show it
+    showStep(currentStep);
+
+    // JavaScript existente para exibição condicional de campos
+    document.getElementById('diabetes').addEventListener('change', function () {
+        document.getElementById('controle_glicemico_group').style.display = this.value === '1' ? 'block' : 'none';
+    });
+    const etiologiaSelect = document.getElementById('etiologia_ferida');
+    const outraEtiologiaInput = document.getElementById('etiologia_outra');
+    etiologiaSelect.addEventListener('change', function () {
+        outraEtiologiaInput.style.display = this.value === 'outra' ? 'block' : 'none';
+    });
+    const doencaVascularCheckbox = document.getElementById('doenca_vascular');
+    const funcaoVascularGroup = document.getElementById('funcao_vascular_group');
+    doencaVascularCheckbox.addEventListener('change', function () {
+        funcaoVascularGroup.style.display = this.checked ? 'block' : 'none';
+    });
+
+    const possuiDoencaSelect = document.getElementById('possui_doenca');
+    possuiDoencaSelect.addEventListener('change', function () {
+        const temDoenca = this.value === '1';
+        const doencaText = document.getElementById('qual_doenca');
+        doencaText.style.display = temDoenca ? 'block' : 'none';
+        if (!temDoenca) {
+            doencaText.value = '';
+        }
+    });
+    const usaMedicacaoSelect = document.getElementById('usa_medicacao');
+    const qualMedicacaoInput = document.getElementById('qual_medicacao');
+    usaMedicacaoSelect.addEventListener('change', function () {
+        qualMedicacaoInput.style.display = this.value === '1' ? 'block' : 'none';
+        if (this.value !== '1') {
+            qualMedicacaoInput.value = '';
+        }
+    });
+    const possuiAlergiaSelect = document.getElementById('possui_alergia');
+    const qualAlergiaInput = document.getElementById('qual_alergia');
+    possuiAlergiaSelect.addEventListener('change', function () {
+        qualAlergiaInput.style.display = this.value === '1' ? 'block' : 'none';
+        if (this.value !== '1') {
+            qualAlergiaInput.value = '';
+        }
+    });
+    const praticaAtividadeFisicaSelect = document.getElementById('pratica_atividade_fisica');
+    const qualAtividadeInput = document.getElementById('qual_atividade');
+    const frequenciaAtividadeInput = document.getElementById('frequencia_atividade');
+    praticaAtividadeFisicaSelect.addEventListener('change', function () {
+        const pratica = this.value === '1';
+        qualAtividadeInput.style.display = pratica ? 'block' : 'none';
+        frequenciaAtividadeInput.style.display = pratica ? 'block' : 'none';
+        if (!pratica) {
+            qualAtividadeInput.value = '';
+            frequenciaAtividadeInput.value = '';
+        }
+    });
+    const ingestaAlcoolSelect = document.getElementById('ingestao_alcool');
+    const frequenciaAlcoolInput = document.getElementById('frequencia_alcool');
+    ingestaAlcoolSelect.addEventListener('change', function () {
+        frequenciaAlcoolInput.style.display = this.value === '1' ? 'block' : 'none';
+        if (this.value !== '1') {
+            frequenciaAlfrequenciaAlcoolInput.value = '';
+        }
+    });
+});
+    </script>
+</body>
+
+</html>
