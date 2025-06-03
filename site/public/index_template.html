@@ -9,8 +9,76 @@
     <link rel="stylesheet" href="/site/public/css/style.css">
     <style>
         @import url("/site/public/css/estilo_pc.css");
+        /* Bottom navigation styles */
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: #fff;
+            box-shadow: 0 -4px 24px rgba(37,99,235,0.10), 0 -1px 8px rgba(0,0,0,0.06);
+            z-index: 100;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            transition: box-shadow 0.2s;
+        }
 
-        /* Progress Bar Styles */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 14px 0 10px;
+            gap: 8px;
+        }
+
+        .bottom-nav a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1.08em;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 18px 4px;
+            border-radius: 10px;
+            transition: 
+            color 0.18s,
+            background 0.18s,
+            transform 0.15s,
+            box-shadow 0.18s;
+            position: relative;
+        }
+
+        .bottom-nav a:hover, .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            transform: translateY(-2px) scale(1.07);
+            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
+            outline: none;
+        }
+
+        .bottom-nav a.active::after {
+            content: '';
+            display: block;
+            margin: 6px auto 0;
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        .bottom-nav i {
+            font-size: 1.5em;
+            transition: color 0.18s;
+        }
+
+        .bottom-nav span {
+            font-size: 0.97em;
+            letter-spacing: 0.01em;
+        }
+
+        /* Seus estilos de barra de progresso, botões de ação, e responsividade */
         #progress-bar-container {
             width: 100%;
             background: linear-gradient(90deg, #e3eafc 0%, #eaf1fb 100%);
@@ -23,7 +91,6 @@
         }
 
         #progress-bar {
-            /* Novo degrade azul mais vibrante e moderno */
             background: linear-gradient(90deg, #2563eb 0%, #3b82f6 40%, #60a5fa 80%, #a5d8ff 100%);
             height: 100%;
             width: 0%;
@@ -43,7 +110,6 @@
             top: 0;
             width: 22px;
             height: 100%;
-            /* Efeito de brilho mais suave e translúcido */
             background: linear-gradient(90deg, rgba(255,255,255,0.45) 0%, rgba(96,165,250,0.18) 100%);
             border-radius: 0 14px 14px 0;
             opacity: 0.85;
@@ -172,6 +238,33 @@
                 gap: 6px;
             }
         }
+
+        /* New: Button to go back to dashboard */
+        .back-to-dashboard-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            background-color: #6c757d; /* Gray for back button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-to-dashboard-button:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -205,7 +298,7 @@
                             style="display: none; max-width: 200px; border-radius: 8px;">
                         <p id="photo-preview-text" style="display: none;">Foto da ferida do paciente</p>
                         <button type="button" id="remover-foto" style="display:none; margin-top:5px;">Remover Foto <i
-                                class="fas fa-times"></i></button>
+                                    class="fas fa-times"></i></button>
                     </div>
 
                     <div class="input-group" style="margin-top:15px;">
@@ -288,13 +381,13 @@
                                     style="padding: 7px 12px; border: 1px solid #e1e4ea; border-radius: 6px; font-size: 1em; background: #f9fafb; margin-bottom: 0; margin-top: 0;">
 
                             </div>
-                            <span style="color: #888; margin-top: 8px; display: block; font-size: 0.98em;">
-                                <i class="fas fa-arrows-alt-h" style="color:#e67e22"></i>
-                                Arraste para selecionar a intensidade da dor (0 = sem dor, 10 = pior dor possível).
-                            </span>
                         </div>
-
+                        <span style="color: #888; margin-top: 8px; display: block; font-size: 0.98em;">
+                            <i class="fas fa-arrows-alt-h" style="color:#e67e22"></i>
+                            Arraste para selecionar a intensidade da dor (0 = sem dor, 10 = pior dor possível).
+                        </span>
                     </div>
+
                 </fieldset>
             </div>
 
@@ -1159,48 +1252,38 @@
             </div>
 
             <div class="action-buttons">
-                <button type="button" id="prevBtn"><i class="fas fa-arrow-left"></i>  Voltar</button>
+                <button type="button" id="prevBtn"><i class="fas fa-arrow-left"></i> Voltar</button>
                 <button type="button" id="nextBtn">Avançar <i class="fas fa-arrow-right"></i></button>
                 <button type="submit" id="submitBtn">Salvar Anamnese <i class="fas fa-save"></i></button>
             </div>
         </form>
     </div>
-
-    <div id="finalizacao-container" style="display: none;">
-        <fieldset>
-            <legend>Finalização da Documentação</legend>
-            <p>Após preencher os dados da anamnese, finalize a documentação e gere um PDF com as informações.</p>
-            <p>Adicione anotações e escolha um paciente para incluir os dados no relatório em PDF.</p>
-        </fieldset>
-
-        <fieldset>
-            <legend>Anamneses Cadastradas</legend>
-            <p>Selecione uma anamnese para visualizar ou editar:</p>
-            <ul id="anamneses-list-ul"></ul>
-        </fieldset>
-
-        <fieldset>
-            <legend>Nota</legend>
-            <label for="nota">Adicione uma nota para incluí-la no PDF:</label>
-            <textarea id="nota" name="nota" placeholder="Insira o texto aqui"></textarea>
-        </fieldset>
-
-        <fieldset>
-            <legend>Escolha o paciente</legend>
-            <label for="paciente">Escolha o paciente para incluir os dados no relatório em PDF (opcional):</label>
-            <select id="paciente" name="paciente">
-                <option value="">Inserir paciente</option>
-            </select>
-        </fieldset>
-
-        <div class="action-buttons">
-            <button type="reset" id="apagar-tudo-finalizar">Apagar tudo <i class="fas fa-sync-alt"></i></button>
-            <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i
-                    class="fas fa-check"></i></button>
-        </div>
+    <div style="display: flex; justify-content: center; margin: 32px 0;">
+        <a href="dashboard.html" class="back-to-dashboard-button" style="
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+            font-size: 1.13em;
+            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.08);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 50px;
+            margin-top: -20px;
+            transition: background 0.22s, box-shadow 0.22s, transform 0.18s;
+            letter-spacing: 0.01em;
+            border: none;
+        " onmouseover="this.style.background='linear-gradient(90deg, #1e40af 0%, #2563eb 100%)';this.style.transform='translateY(-2px) scale(1.04)';this.style.boxShadow='0 10px 28px rgba(37,99,235,0.18)';"
+        onmouseout="this.style.background='linear-gradient(90deg, #2563eb 0%, #60a5fa 100%)';this.style.transform='none';this.style.boxShadow='0 6px 24px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.08)';">
+            <i class="fas fa-arrow-left" style="font-size: 1.2em;"></i>
+            <span>Voltar ao Dashboard</span>
+        </a>
     </div>
 
-    <footer>
+       <footer>
         <nav class="bottom-nav">
             <a href="#" title="Home">
                 <i class="fas fa-home"></i>
@@ -1223,312 +1306,310 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    const steps = document.querySelectorAll('.step');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const progressBar = document.getElementById('progress-bar');
-    const stepCounter = document.getElementById('step-counter');
-    const formContainer = document.getElementById('form-container');
-    const finalizacaoContainer = document.getElementById('finalizacao-container');
-    const listaAnamneses = document.getElementById('anamneses-list-ul'); // Get list element
-    let currentStep = 0;
+            const steps = document.querySelectorAll('.step');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const progressBar = document.getElementById('progress-bar');
+            const stepCounter = document.getElementById('step-counter');
+            const anamneseForm = document.getElementById('anamnese-form');
+            
+            let currentStep = 0;
 
-    const fotoFeridaInput = document.getElementById('foto_ferida');
-    const larguraFeridaInput = document.querySelector('input[name="ferida_largura"]');
-    const comprimentoFeridaInput = document.querySelector('input[name="ferida_comprimento"]');
-    const profundidadeFeridaInput = document.querySelector('input[name="ferida_profundidade"]');
+            const fotoFeridaInput = document.getElementById('foto_ferida');
+            const larguraFeridaInput = document.querySelector('input[name="ferida_largura"]');
+            const comprimentoFeridaInput = document.querySelector('input[name="ferida_comprimento"]');
+            const profundidadeFeridaInput = document.querySelector('input[name="ferida_profundidade"]');
 
-    // Function to display custom messages (replaces alert())
-    function showMessageBox(message, type) {
-        const messageBox = document.createElement('div');
-        messageBox.classList.add('message-box', type);
-        messageBox.textContent = message;
-        document.body.appendChild(messageBox);
+            // Function to display custom messages
+            function showMessageBox(message, type) {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('message-box', type);
+                messageBox.textContent = message;
+                document.body.appendChild(messageBox);
 
-        setTimeout(() => {
-            messageBox.style.opacity = 1;
-        }, 10); // Small delay to trigger transition
+                setTimeout(() => {
+                    messageBox.style.opacity = 1;
+                }, 10);
 
-        setTimeout(() => {
-            messageBox.style.opacity = 0;
-            messageBox.addEventListener('transitionend', () => messageBox.remove());
-        }, 3000); // Message disappears after 3 seconds
-    }
+                setTimeout(() => {
+                    messageBox.style.opacity = 0;
+                    messageBox.addEventListener('transitionend', () => messageBox.remove());
+                }, 3000);
+            }
 
-    function toggleTamanhoFeridaRequired() {
-        if (fotoFeridaInput.files.length > 0) {
-            larguraFeridaInput.removeAttribute('required');
-            comprimentoFeridaInput.removeAttribute('required');
-            profundidadeFeridaInput.removeAttribute('required');
-        } else {
-            larguraFeridaInput.setAttribute('required', '');
-            comprimentoFeridaInput.setAttribute('required', '');
-            profundidadeFeridaInput.setAttribute('required', '');
-        }
-    }
-
-    function updateProgressBar() {
-        const progress = ((currentStep + 1) / steps.length) * 100;
-        progressBar.style.width = progress + '%';
-    }
-
-    function updateStepCounter() {
-        stepCounter.textContent = `Tela ${currentStep + 1} de ${steps.length}`;
-    }
-
-    function showStep(n) {
-        // Ensure 'n' is within valid bounds
-        if (n < 0 || n >= steps.length) {
-            console.error(`Attempted to show invalid step: ${n}. Total steps: ${steps.length}`);
-            return; // Exit function if n is out of bounds
-        }
-
-        // Remove 'active' class from all steps
-        steps.forEach(step => step.classList.remove('active'));
-
-        // Remove 'required' from all fields in all steps
-        document.querySelectorAll('[data-original-required]').forEach(field => {
-            field.removeAttribute('required');
-        });
-
-        // Set the new active step
-        steps[n].classList.add('active');
-        currentStep = n;
-
-        // Apply 'required' only to fields in the *newly active* step that had it originally
-        steps[n].querySelectorAll('[data-original-required]').forEach(field => {
-            field.setAttribute('required', '');
-        });
-
-        // Special handling for the first step's required fields (photo/measurements)
-        if (currentStep === 0) {
-            toggleTamanhoFeridaRequired();
-        }
-
-        updateProgressBar();
-        updateStepCounter();
-
-        // Update button visibility based on current step
-        if (currentStep === 0) {
-            prevBtn.style.display = 'none';
-        } else {
-            prevBtn.style.display = 'inline-block';
-        }
-
-        if (currentStep === steps.length - 1) {
-            nextBtn.style.display = 'none';
-            submitBtn.style.display = 'inline-block';
-        } else {
-            nextBtn.style.display = 'inline-block';
-            submitBtn.style.display = 'none';
-        }
-    }
-
-    // Store original 'required' state for all elements on load
-    document.querySelectorAll('.step input[required], .step select[required], .step textarea[required]').forEach(field => {
-        field.setAttribute('data-original-required', 'true');
-    });
-
-
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) { // Only go back if not on the first step
-            currentStep--;
-            window.scrollTo(0, 0); // Voltar ao topo ao ir para o passo anterior (opcional)
-            showStep(currentStep);
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        const activeStep = steps[currentStep];
-        const requiredFields = activeStep.querySelectorAll('input[required], select[required], textarea[required]');
-        let allFieldsValid = true;
-        let firstInvalidField = null;
-
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                allFieldsValid = false;
-                field.classList.add('is-invalid'); // Adiciona classe para estilo de erro
-                if (!firstInvalidField) {
-                    firstInvalidField = field;
+            function toggleTamanhoFeridaRequired() {
+                if (fotoFeridaInput.files.length > 0) {
+                    larguraFeridaInput.removeAttribute('required');
+                    comprimentoFeridaInput.removeAttribute('required');
+                    profundidadeFeridaInput.removeAttribute('required');
+                } else {
+                    larguraFeridaInput.setAttribute('required', '');
+                    comprimentoFeridaInput.setAttribute('required', '');
+                    profundidadeFeridaInput.setAttribute('required', '');
                 }
-            } else {
-                field.classList.remove('is-invalid'); // Remove classe se preenchido
             }
-        });
 
-        if (allFieldsValid) {
-            if (currentStep < steps.length - 1) { // Só avança se não estiver no último passo
-                currentStep++;
-                window.scrollTo(0, 0); // Voltar ao topo ao avançar
-                showStep(currentStep);
+            function updateProgressBar() {
+                const progress = ((currentStep + 1) / steps.length) * 100;
+                progressBar.style.width = progress + '%';
             }
-        } else {
-            showMessageBox('Por favor, preencha todos os campos obrigatórios nesta tela antes de avançar.', 'error');
-            if (firstInvalidField) {
-                firstInvalidField.focus(); // Foca no primeiro campo inválido
-                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Rola para o campo
+
+            function updateStepCounter() {
+                stepCounter.textContent = `Tela ${currentStep + 1} de ${steps.length}`;
             }
-        }
-    });
 
-    document.getElementById('anamnese-form').addEventListener('submit', async (event) => {
-        // Antes de submeter, garantir que todos os campos obrigatórios estejam visíveis e habilitados
-        const invalidField = event.target.querySelector('input[required]:invalid, select[required]:invalid, textarea[required]:invalid');
-        if (invalidField && (invalidField.offsetParent === null || invalidField.disabled)) {
-            // Tenta mostrar o passo onde está o campo inválido
-            const stepWithInvalid = invalidField.closest('.step');
-            if (stepWithInvalid) {
-                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-                stepWithInvalid.classList.add('active');
-                invalidField.focus();
-                invalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            function showStep(n) {
+                if (n < 0 || n >= steps.length) {
+                    console.error(`Attempted to show invalid step: ${n}. Total steps: ${steps.length}`);
+                    return;
+                }
+
+                steps.forEach(step => step.classList.remove('active'));
+                document.querySelectorAll('[data-original-required]').forEach(field => {
+                    field.removeAttribute('required');
+                });
+
+                steps[n].classList.add('active');
+                currentStep = n;
+
+                steps[n].querySelectorAll('[data-original-required]').forEach(field => {
+                    field.setAttribute('required', '');
+                });
+
+                if (currentStep === 0) {
+                    toggleTamanhoFeridaRequired();
+                }
+
+                updateProgressBar();
+                updateStepCounter();
+
+                if (currentStep === 0) {
+                    prevBtn.style.display = 'none';
+                } else {
+                    prevBtn.style.display = 'inline-block';
+                }
+
+                if (currentStep === steps.length - 1) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'inline-block';
+                } else {
+                    nextBtn.style.display = 'inline-block';
+                    submitBtn.style.display = 'none';
+                }
             }
-            event.preventDefault();
-            return false;
-        }
 
-        event.preventDefault(); // Previne o envio padrão do formulário
-
-        const createAnamneseForm = event.target; // O formulário que disparou o evento
-        const formData = new FormData(createAnamneseForm);
-        const data = {};
-
-        // Converte FormData para um objeto JSON.
-        // ATENÇÃO: Campos de arquivo (foto_ferida, assinatura) não serão enviados como dados binários
-        // com 'Content-Type: application/json'. Eles serão representados como strings vazias ou [object File].
-        // Se precisar enviar arquivos, você precisará codificá-los em Base64 ou mudar o método de envio
-        // para FormData diretamente (sem JSON.stringify e sem Content-Type: application/json).
-        for (let [key, value] of formData.entries()) {
-            // Trata valores de checkboxes: FormData retorna "on", mas queremos 1 ou 0
-            const inputElement = createAnamneseForm.querySelector(`[name="${key}"]`);
-            if (inputElement && inputElement.type === 'checkbox') {
-                data[key] = inputElement.checked ? 1 : 0;
-            } else {
-                data[key] = value;
-            }
-        }
-
-        // Exemplo de como você poderia lidar com arquivos em Base64 (descomente e adapte se necessário)
-        // if (fotoFeridaInput.files.length > 0) {
-        //     const reader = new FileReader();
-        //     reader.onload = function(e) {
-        //         data['foto_ferida_base64'] = e.target.result; // Armazena a string Base64
-        //         // Se você tiver múltiplos arquivos ou precisar esperar a leitura,
-        //         // considere usar Promises para sincronizar.
-        //     };
-        //     reader.readAsDataURL(fotoFeridaInput.files[0]);
-        // }
-
-        try {
-            const response = await fetch('/site/public/index.php/api/anamnese', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+            // Store original 'required' state for all elements on load
+            document.querySelectorAll('.step input[required], .step select[required], .step textarea[required]').forEach(field => {
+                field.setAttribute('data-original-required', 'true');
             });
 
-            if (!response.ok) {
-                const errorText = await response.text(); // Tenta ler a mensagem de erro do backend
-                throw new Error(`Erro HTTP! status: ${response.status} - ${errorText}`);
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    window.scrollTo(0, 0);
+                    showStep(currentStep);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const activeStep = steps[currentStep];
+                const requiredFields = activeStep.querySelectorAll('input[required], select[required], textarea[required]');
+                let allFieldsValid = true;
+                let firstInvalidField = null;
+
+                requiredFields.forEach(field => {
+                    // Check if field is visible and not disabled, and if it's empty
+                    if (!field.value.trim() && field.offsetParent !== null && !field.disabled) {
+                        allFieldsValid = false;
+                        field.classList.add('is-invalid');
+                        if (!firstInvalidField) {
+                            firstInvalidField = field;
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+
+                if (allFieldsValid) {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        window.scrollTo(0, 0);
+                        showStep(currentStep);
+                    }
+                } else {
+                    showMessageBox('Por favor, preencha todos os campos obrigatórios nesta tela antes de avançar.', 'error');
+                    if (firstInvalidField) {
+                        firstInvalidField.focus();
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+
+            anamneseForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(anamneseForm);
+                const data = {};
+
+                // Process form data
+                for (let [key, value] of formData.entries()) {
+                    const inputElement = anamneseForm.querySelector(`[name="${key}"]`);
+                    if (inputElement && inputElement.type === 'checkbox') {
+                        data[key] = inputElement.checked ? 1 : 0;
+                    } else {
+                        data[key] = value;
+                    }
+                }
+
+                // Handle hidden inputs that might not be in formData if they were hidden
+                anamneseForm.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+                    if (input.id.endsWith('_nome') || input.id.endsWith('_dose') || input.id === 'qual_doenca' || input.id === 'qual_alergia' || input.id === 'qual_atividade' || input.id === 'frequencia_atividade' || input.id === 'frequencia_alcool' || input.id === 'localizacao_tunel_fistula' || input.id === 'tipo_edema_perilesional' || input.id === 'controle_glicemico' || input.id === 'pulsos_perifericos' || input.id === 'etiologia_outra' || input.id === 'pele_perilesional_extensao' || input.id === 'outros_hpp' || input.id === 'outros_medicamento' || input.id === 'quantos_filhos' || input.id === 'quais_cirurgias') {
+                        if (input.style.display === 'none') {
+                            data[input.name] = ''; // Clear value if input is hidden
+                        }
+                    }
+                });
+
+                let storedAnamneses = JSON.parse(localStorage.getItem('anamneses')) || [];
+                const editingIndex = localStorage.getItem('editingAnamneseIndex'); // Get index from localStorage
+
+                try {
+                    if (editingIndex !== null) {
+                        // Editing existing anamnese
+                        storedAnamneses[parseInt(editingIndex)] = data;
+                        showMessageBox('Anamnese atualizada com sucesso!', 'success');
+                    } else {
+                        // Adding new anamnese
+                        storedAnamneses.push(data);
+                        showMessageBox('Anamnese salva com sucesso!', 'success');
+                    }
+                    localStorage.setItem('anamneses', JSON.stringify(storedAnamneses));
+
+                    // Clear temporary data used for editing
+                    localStorage.removeItem('editingAnamneseData');
+                    localStorage.removeItem('editingAnamneseIndex');
+                    
+                    // Redirect back to dashboard with a success message
+                    const encodedMessage = encodeURIComponent('Anamnese salva/atualizada com sucesso!');
+                    window.location.href = `dashboard.html?messageType=success&messageText=${encodedMessage}`;
+
+                } catch (error) {
+                    console.error('Erro ao salvar/atualizar anamnese:', error);
+                    const encodedError = encodeURIComponent(`Erro ao salvar/atualizar anamnese: ${error.message}`);
+                    window.location.href = `dashboard.html?messageType=error&messageText=${encodedError}`;
+                }
+            });
+
+            fotoFeridaInput.addEventListener('change', toggleTamanhoFeridaRequired);
+            
+            // Initial call to set required fields for the first step and show it
+            showStep(currentStep);
+
+            // Conditional display for form fields (copied from your original script)
+            document.getElementById('diabetes').addEventListener('change', function () {
+                document.getElementById('controle_glicemico_group').style.display = this.value === '1' ? 'block' : 'none';
+            });
+            const etiologiaSelect = document.getElementById('etiologia_ferida');
+            const outraEtiologiaInput = document.getElementById('etiologia_outra');
+            etiologiaSelect.addEventListener('change', function () {
+                outraEtiologiaInput.style.display = this.value === 'outra' ? 'block' : 'none';
+            });
+            const doencaVascularCheckbox = document.getElementById('doenca_vascular');
+            const funcaoVascularGroup = document.getElementById('funcao_vascular_group');
+            doencaVascularCheckbox.addEventListener('change', function () {
+                funcaoVascularGroup.style.display = this.checked ? 'block' : 'none';
+            });
+
+            const possuiDoencaSelect = document.getElementById('possui_doenca');
+            possuiDoencaSelect.addEventListener('change', function () {
+                const temDoenca = this.value === '1';
+                const doencaText = document.getElementById('qual_doenca');
+                doencaText.style.display = temDoenca ? 'block' : 'none';
+                if (!temDoenca) {
+                    doencaText.value = '';
+                }
+            });
+            const usaMedicacaoSelect = document.getElementById('usa_medicacao');
+            const qualMedicacaoInput = document.getElementById('qual_medicacao');
+            usaMedicacaoSelect.addEventListener('change', function () {
+                qualMedicacaoInput.style.display = this.value === '1' ? 'block' : 'none';
+                if (this.value !== '1') {
+                    qualMedicacaoInput.value = '';
+                }
+            });
+            const possuiAlergiaSelect = document.getElementById('possui_alergia');
+            const qualAlergiaInput = document.getElementById('qual_alergia');
+            possuiAlergiaSelect.addEventListener('change', function () {
+                qualAlergiaInput.style.display = this.value === '1' ? 'block' : 'none';
+                if (this.value !== '1') {
+                    qualAlergiaInput.value = '';
+                }
+            });
+            const praticaAtividadeFisicaSelect = document.getElementById('pratica_atividade_fisica');
+            const qualAtividadeInput = document.getElementById('qual_atividade');
+            const frequenciaAtividadeInput = document.getElementById('frequencia_atividade');
+            praticaAtividadeFisicaSelect.addEventListener('change', function () {
+                const pratica = this.value === '1';
+                qualAtividadeInput.style.display = pratica ? 'block' : 'none';
+                frequenciaAtividadeInput.style.display = pratica ? 'block' : 'none';
+                if (!pratica) {
+                    qualAtividadeInput.value = '';
+                    frequenciaAtividadeInput.value = '';
+                }
+            });
+            const ingestaAlcoolSelect = document.getElementById('ingestao_alcool');
+            const frequenciaAlcoolInput = document.getElementById('frequencia_alcool');
+            ingestaAlcoolSelect.addEventListener('change', function () {
+                frequenciaAlcoolInput.style.display = this.value === '1' ? 'block' : 'none';
+                if (this.value !== '1') {
+                    frequenciaAlcoolInput.value = ''; // Corrected variable name
+                }
+            });
+
+            // Populate form if in edit mode
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') === 'edit') {
+                const editingAnamneseData = JSON.parse(localStorage.getItem('editingAnamneseData'));
+                if (editingAnamneseData) {
+                    document.querySelector('h1').textContent = 'Editar Anamnese';
+                    for (const key in editingAnamneseData) {
+                        const input = anamneseForm.elements[key];
+                        if (input) {
+                            if (input.type === 'checkbox') {
+                                input.checked = editingAnamneseData[key] === 1;
+                            } else {
+                                input.value = editingAnamneseData[key];
+                            }
+                            // Trigger change event for dynamic fields
+                            if (input.tagName === 'SELECT' || input.type === 'checkbox') {
+                                input.dispatchEvent(new Event('change'));
+                            }
+                        }
+                    }
+                    // Special handling for text inputs associated with checkboxes
+                    anamneseForm.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(checkbox => {
+                        const associatedInputName = checkbox.name + '_nome' || checkbox.name + '_dose';
+                        const associatedInput = anamneseForm.elements[associatedInputName];
+                        if (associatedInput) {
+                            if (checkbox.checked && editingAnamneseData[associatedInputName]) {
+                                associatedInput.value = editingAnamneseData[associatedInputName];
+                                associatedInput.style.display = 'block'; // Ensure it's visible
+                            } else {
+                                associatedInput.style.display = 'none'; // Ensure it's hidden if checkbox not checked
+                            }
+                        }
+                    });
+
+                } else {
+                    showMessageBox('Erro: Dados da anamnese para edição não encontrados.', 'error');
+                }
+            } else {
+                 // For new anamnese, clear any lingering editing data
+                 localStorage.removeItem('editingAnamneseData');
+                 localStorage.removeItem('editingAnamneseIndex');
             }
-
-            const result = await response.json();
-            const novaAnamnese = result.data;
-
-            // Transições de UI e exibição da lista APENAS em caso de sucesso
-            formContainer.style.display = 'none';
-            finalizacaoContainer.style.display = 'block';
-            progressBar.style.display = 'none';
-            stepCounter.style.display = 'none';
-            document.querySelector('h1').textContent = 'Finalizar Anamnese';
-
-            // Insere a nova anamnese na lista (se o elemento existir e houver dados)
-            if (listaAnamneses && novaAnamnese) {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <strong>${novaAnamnese.nome_cliente || 'Anamnese sem nome'}</strong> -
-                    Data: ${novaAnamnese.data_nascimento || 'N/A'} -
-                    Email: ${novaAnamnese.email || 'N/A'}
-                `;
-                listaAnamneses.appendChild(li);
-            }
-
-            showMessageBox('Anamnese salva com sucesso!', 'success');
-            createAnamneseForm.reset(); // Limpa o formulário após o sucesso
-
-        } catch (error) {
-            console.error('Erro ao salvar anamnese:', error);
-            showMessageBox(`Erro ao salvar anamnese: ${error.message}`, 'error');
-        }
-    });
-
-    fotoFeridaInput.addEventListener('change', toggleTamanhoFeridaRequired);
-    // Initial call to set required fields for the first step and show it
-    showStep(currentStep);
-
-    // JavaScript existente para exibição condicional de campos
-    document.getElementById('diabetes').addEventListener('change', function () {
-        document.getElementById('controle_glicemico_group').style.display = this.value === '1' ? 'block' : 'none';
-    });
-    const etiologiaSelect = document.getElementById('etiologia_ferida');
-    const outraEtiologiaInput = document.getElementById('etiologia_outra');
-    etiologiaSelect.addEventListener('change', function () {
-        outraEtiologiaInput.style.display = this.value === 'outra' ? 'block' : 'none';
-    });
-    const doencaVascularCheckbox = document.getElementById('doenca_vascular');
-    const funcaoVascularGroup = document.getElementById('funcao_vascular_group');
-    doencaVascularCheckbox.addEventListener('change', function () {
-        funcaoVascularGroup.style.display = this.checked ? 'block' : 'none';
-    });
-
-    const possuiDoencaSelect = document.getElementById('possui_doenca');
-    possuiDoencaSelect.addEventListener('change', function () {
-        const temDoenca = this.value === '1';
-        const doencaText = document.getElementById('qual_doenca');
-        doencaText.style.display = temDoenca ? 'block' : 'none';
-        if (!temDoenca) {
-            doencaText.value = '';
-        }
-    });
-    const usaMedicacaoSelect = document.getElementById('usa_medicacao');
-    const qualMedicacaoInput = document.getElementById('qual_medicacao');
-    usaMedicacaoSelect.addEventListener('change', function () {
-        qualMedicacaoInput.style.display = this.value === '1' ? 'block' : 'none';
-        if (this.value !== '1') {
-            qualMedicacaoInput.value = '';
-        }
-    });
-    const possuiAlergiaSelect = document.getElementById('possui_alergia');
-    const qualAlergiaInput = document.getElementById('qual_alergia');
-    possuiAlergiaSelect.addEventListener('change', function () {
-        qualAlergiaInput.style.display = this.value === '1' ? 'block' : 'none';
-        if (this.value !== '1') {
-            qualAlergiaInput.value = '';
-        }
-    });
-    const praticaAtividadeFisicaSelect = document.getElementById('pratica_atividade_fisica');
-    const qualAtividadeInput = document.getElementById('qual_atividade');
-    const frequenciaAtividadeInput = document.getElementById('frequencia_atividade');
-    praticaAtividadeFisicaSelect.addEventListener('change', function () {
-        const pratica = this.value === '1';
-        qualAtividadeInput.style.display = pratica ? 'block' : 'none';
-        frequenciaAtividadeInput.style.display = pratica ? 'block' : 'none';
-        if (!pratica) {
-            qualAtividadeInput.value = '';
-            frequenciaAtividadeInput.value = '';
-        }
-    });
-    const ingestaAlcoolSelect = document.getElementById('ingestao_alcool');
-    const frequenciaAlcoolInput = document.getElementById('frequencia_alcool');
-    ingestaAlcoolSelect.addEventListener('change', function () {
-        frequenciaAlcoolInput.style.display = this.value === '1' ? 'block' : 'none';
-        if (this.value !== '1') {
-            frequenciaAlfrequenciaAlcoolInput.value = '';
-        }
-    });
-});
+        });
     </script>
 </body>
 
