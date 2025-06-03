@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
+    <link rel="stylesheet" href="/site/public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url("/site/public/css/estilo_pc.css");
+
+        body {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            color: #22223b;
+            padding-bottom: 80px;
+        }
+
+        h1 {
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 32px;
+            padding-top: 32px;
+            font-size: 2.3em;
+            letter-spacing: 0.01em;
+            font-weight: 800;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 32px auto 0 auto;
+            padding: 32px 28px 28px 28px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.10), 0 1.5px 4px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 28px;
+            width: 100%;
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 14px auto;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-avatar .fas {
+            font-size: 4.2em;
+            color: #e0e7ff;
+        }
+
+        .profile-header h2 {
+            margin: 0;
+            color: #22223b;
+            font-size: 1.7em;
+            font-weight: 700;
+        }
+
+        .profile-header p {
+            color: #64748b;
+            font-size: 1em;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .profile-details {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 13px 18px;
+            background: #f1f5f9;
+            border-radius: 9px;
+            border: 1px solid #e0e7ef;
+            box-shadow: 0 1px 3px rgba(37,99,235,0.03);
+        }
+
+        .detail-item .icon {
+            color: #2563eb;
+            margin-right: 16px;
+            font-size: 1.25em;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .detail-item label {
+            font-weight: 600;
+            color: #334155;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-size: 1em;
+        }
+
+        .detail-item span {
+            color: #22223b;
+            flex-grow: 1;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .profile-actions {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            width: 100%;
+            margin-top: 18px;
+        }
+
+        .profile-actions button {
+            padding: 11px 28px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 1.08em;
+            font-weight: 700;
+            transition: all 0.18s cubic-bezier(.4,0,.2,1);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.07);
+        }
+
+        .profile-actions button.edit-button {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        .profile-actions button.edit-button:hover {
+            background: linear-gradient(90deg, #1d4ed8 70%, #2563eb 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        .profile-actions button.logout-button {
+            background: linear-gradient(90deg, #ef4444 70%, #f87171 100%);
+            color: #fff;
+        }
+
+        .profile-actions button.logout-button:hover {
+            background: linear-gradient(90deg, #dc2626 70%, #ef4444 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.18);
+        }
+
+        /* Mensagem customizada (igual dashboard) */
+        .message-box {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 260px;
+            max-width: 90vw;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 1.08em;
+            font-weight: 600;
+            color: #fff;
+            background: #2563eb;
+            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
+            opacity: 0;
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+        .message-box.info {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+        }
+        .message-box.success {
+            background: linear-gradient(90deg, #22c55e 70%, #4ade80 100%);
+        }
+        .message-box.error {
+            background: linear-gradient(90deg, #ef4444 70%, #f87171 100%);
+        }
+
+        /* Rodapé fixo igual dashboard - NOVO ESTILO */
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: #fff;
+            box-shadow: 0 -4px 24px rgba(37,99,235,0.10), 0 -1px 8px rgba(0,0,0,0.06);
+            z-index: 100;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            transition: box-shadow 0.2s;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 14px 0 10px;
+            gap: 8px;
+        }
+
+        .bottom-nav a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1.08em;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 18px 4px;
+            border-radius: 10px;
+            transition: 
+            color 0.18s,
+            background 0.18s,
+            transform 0.15s,
+            box-shadow 0.18s;
+            position: relative;
+        }
+
+        .bottom-nav a:hover, .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            transform: translateY(-2px) scale(1.07);
+            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
+            outline: none;
+        }
+
+        .bottom-nav a.active::after {
+            content: '';
+            display: block;
+            margin: 6px auto 0;
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        .bottom-nav i {
+            font-size: 1.5em;
+            transition: color 0.18s;
+        }
+
+        .bottom-nav span {
+            font-size: 0.97em;
+            letter-spacing: 0.01em;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-bottom: 62px;
+            }
+            .profile-container {
+                max-width: 100vw;
+                width: 98vw;
+                padding: 10px 2vw 18px 2vw;
+                margin: 10px auto 0 auto;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(37,99,235,0.06);
+            }
+            h1 {
+                font-size: 1.15em;
+                padding-top: 12px;
+                margin-bottom: 12px;
+            }
+            .profile-header h2 {
+                font-size: 1em;
+            }
+            .profile-header p {
+                font-size: 0.9em;
+            }
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+            }
+            .profile-avatar .fas {
+                font-size: 2.5em;
+            }
+            .profile-details {
+                gap: 10px;
+            }
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 8px 4px;
+                font-size: 0.97em;
+            }
+            .detail-item .icon {
+                margin-bottom: 2px;
+                margin-right: 0;
+                font-size: 1.1em;
+            }
+            .detail-item label {
+                margin-bottom: 2px;
+                font-size: 0.97em;
+            }
+            .detail-item span {
+                font-size: 0.97em;
+            }
+            .profile-actions {
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 10px;
+            }
+            .profile-actions button {
+                width: 100%;
+                font-size: 0.95em;
+                justify-content: center;
+                padding: 9px 0;
+            }
+            .bottom-nav {
+                height: 54px;
+                font-size: 0.97em;
+            }
+            .bottom-nav a i {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Meu Perfil</h1>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <img id="profile-avatar-img" src="" alt="Foto de Perfil" style="display: none;">
+                <i id="profile-avatar-placeholder" class="fas fa-user-circle"></i>
+            </div>
+            <h2 id="profile-name">Nome do Usuário</h2>
+            <p id="profile-email">email@example.com</p>
+        </div>
+
+        <div class="profile-details">
+            <div class="detail-item">
+                <i class="fas fa-phone icon"></i>
+                <label>Telefone:</label>
+                <span id="profile-phone">(XX) XXXX-XXXX</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar-alt icon"></i>
+                <label>Data de Nascimento:</label>
+                <span id="profile-dob">DD/MM/AAAA</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-briefcase icon"></i>
+                <label>Profissão:</label>
+                <span id="profile-profession">Enfermeiro(a)</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-heart icon"></i>
+                <label>Estado Civil:</label>
+                <span id="profile-marital-status">Não Informado</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-user-md icon"></i>
+                <label>COREN/CRM:</label>
+                <span id="profile-coren">XXXXXX</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-file-alt icon"></i>
+                <label>Última Anamnese:</label>
+                <span id="profile-last-anamnese">Nunca</span>
+            </div>
+            </div>
+
+        <div class="profile-actions">
+            <button class="edit-button" id="edit-profile-btn">
+                <i class="fas fa-edit"></i> Editar Perfil
+            </button>
+            <button class="logout-button" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <nav class="bottom-nav">
+            <a href="dashboard.html" title="Home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" title="Agenda">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Agenda</span>
+            </a>
+            <a href="#" title="Chat">
+                <i class="fas fa-comment-dots"></i>
+                <span>Chat</span>
+            </a>
+            <a href="profile.html" title="Perfil">
+                <i class="fas fa-user-circle"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileName = document.getElementById('profile-name');
+            const profileEmail = document.getElementById('profile-email');
+            const profilePhone = document.getElementById('profile-phone');
+            const profileDob = document.getElementById('profile-dob');
+            const profileProfession = document.getElementById('profile-profession');
+            const profileMaritalStatus = document.getElementById('profile-marital-status');
+            const profileCoren = document.getElementById('profile-coren');
+            const profileLastAnamnese = document.getElementById('profile-last-anamnese');
+            const profileAvatarImg = document.getElementById('profile-avatar-img');
+            const profileAvatarPlaceholder = document.getElementById('profile-avatar-placeholder');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            // Function to display custom messages (replaces alert() for better UX)
+            function showMessageBox(message, type) {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('message-box', type);
+                messageBox.textContent = message;
+                document.body.appendChild(messageBox);
+
+                setTimeout(() => {
+                    messageBox.style.opacity = 1;
+                }, 10);
+
+                setTimeout(() => {
+                    messageBox.style.opacity = 0;
+                    messageBox.addEventListener('transitionend', () => messageBox.remove());
+                }, 3000);
+            }
+
+            // --- User Data Handling (Simulated with localStorage) ---
+            // In a real application, this data would come from a backend API after authentication.
+            let userData = JSON.parse(localStorage.getItem('currentUserProfile')) || {
+                name: 'Profissional da Saúde',
+                email: 'profissional@clinica.com',
+                phone: '(11) 98765-4321',
+                dob: '1985-05-15', // YYYY-MM-DD for consistency
+                profession: 'Enfermeiro(a)',
+                maritalStatus: 'Casado(a)',
+                coren: 'COREN-SP 123456',
+                avatarUrl: '', // Can be a URL to an image
+                lastAnamneseDate: '' // Date of the most recent anamnesis completed
+            };
+
+            function loadProfileData() {
+                profileName.textContent = userData.name;
+                profileEmail.textContent = userData.email;
+                profilePhone.textContent = userData.phone || 'Não Informado';
+                profileProfession.textContent = userData.profession || 'Não Informado';
+                profileMaritalStatus.textContent = userData.maritalStatus || 'Não Informado';
+                profileCoren.textContent = userData.coren || 'Não Informado';
+
+                // Format Date of Birth
+                if (userData.dob) {
+                    const dobParts = userData.dob.split('-'); // Assumes YYYY-MM-DD
+                    profileDob.textContent = `${dobParts[2]}/${dobParts[1]}/${dobParts[0]}`;
+                } else {
+                    profileDob.textContent = 'Não Informado';
+                }
+
+                // Load avatar image
+                if (userData.avatarUrl) {
+                    profileAvatarImg.src = userData.avatarUrl;
+                    profileAvatarImg.style.display = 'block';
+                    profileAvatarPlaceholder.style.display = 'none';
+                } else {
+                    profileAvatarImg.style.display = 'none';
+                    profileAvatarPlaceholder.style.display = 'block';
+                }
+
+                // Get last anamnese date from stored anamneses (if any)
+                const storedAnamneses = JSON.parse(localStorage.getItem('anamneses')) || [];
+                let latestDate = null;
+                storedAnamneses.forEach(anamnese => {
+                    if (anamnese.data_consulta) {
+                        const currentAnamneseDate = new Date(anamnese.data_consulta);
+                        if (!latestDate || currentAnamneseDate > latestDate) {
+                            latestDate = currentAnamneseDate;
+                        }
+                    }
+                });
+
+                if (latestDate) {
+                    profileLastAnamnese.textContent = latestDate.toLocaleDateString('pt-BR');
+                } else {
+                    profileLastAnamnese.textContent = 'Nenhuma anamnese registrada.';
+                }
+            }
+
+            // --- Event Listeners ---
+            editProfileBtn.addEventListener('click', () => {
+                // In a real application, this would redirect to an "edit profile" form
+                // or open a modal to allow editing profile fields.
+                // For this example, we'll just show a message.
+                showMessageBox('Funcionalidade de edição de perfil ainda não implementada.', 'info');
+                console.log('Implementar lógica de edição de perfil aqui.');
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                // Clear user data (simulated logout)
+                localStorage.removeItem('currentUserProfile');
+                localStorage.removeItem('anamneses'); // Optionally clear all data on logout
+                showMessageBox('Sessão encerrada com sucesso!', 'success');
+                // Redirect to login page or home page
+                setTimeout(() => {
+                    window.location.href = 'index_template.html'; // Assuming index.html is your login/landing page
+                }, 1000);
+            });
+
+            // Load data when the page is ready
+            loadProfileData();
+
+            // Handle messages from other pages (e.g., login success)
+            const urlParams = new URLSearchParams(window.location.search);
+            const messageType = urlParams.get('messageType');
+            const messageText = urlParams.get('messageText');
+            if (messageType && messageText) {
+                showMessageBox(decodeURIComponent(messageText), messageType);
+                history.replaceState(null, '', window.location.pathname); // Clear URL params
+            }
+        });
+    </script>
+</body>
+
+</html>
