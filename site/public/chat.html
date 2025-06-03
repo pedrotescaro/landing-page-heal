@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
+    <link rel="stylesheet" href="/site/public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url("/site/public/css/estilo_pc.css");
+
+        body {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            color: #22223b;
+            padding-bottom: 80px;
+        }
+
+        h1 {
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 32px;
+            padding-top: 32px;
+            font-size: 2.3em;
+            letter-spacing: 0.01em;
+            font-weight: 800;
+        }
+
+        .chat-container {
+            max-width: 700px;
+            margin: 32px auto 0 auto;
+            padding: 25px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.10), 0 1.5px 4px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-height: 400px;
+            justify-content: flex-end;
+        }
+
+        #chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-bubble {
+            background-color: #f1f5f9;
+            color: #22223b;
+            border-radius: 10px;
+            padding: 10px 15px;
+            width: fit-content;
+            max-width: 80%;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.03);
+            font-size: 1em;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            word-break: break-word;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .message-bubble.sent {
+            background-color: #dbeafe;
+            color: #2563eb;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            background-color: #f1f5f9;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            padding: 15px 0;
+            border-top: 1px solid #e0e7ef;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #e0e7ef;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #334155;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+            outline: none;
+            transition: border-color 0.18s, box-shadow 0.18s;
+        }
+
+        .chat-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .send-button {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .send-button i {
+            font-size: 1.1em;
+        }
+
+        .send-button:hover {
+            background: linear-gradient(90deg, #1d4ed8 70%, #2563eb 100%);
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        .send-button:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 1px 4px rgba(37, 99, 235, 0.10);
+        }
+
+        .message-box {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 260px;
+            max-width: 90vw;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 1.08em;
+            font-weight: 600;
+            color: #fff;
+            background: #2563eb;
+            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.13);
+            opacity: 0;
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+
+        .message-box.info {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+        }
+
+        .message-box.success {
+            background: linear-gradient(90deg, #22c55e 70%, #4ade80 100%);
+        }
+
+        .message-box.error {
+            background: linear-gradient(90deg, #ef4444 70%, #f87171 100%);
+        }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: #fff;
+            box-shadow: 0 -4px 24px rgba(37, 99, 235, 0.10), 0 -1px 8px rgba(0, 0, 0, 0.06);
+            z-index: 100;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            transition: box-shadow 0.2s;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 14px 0 10px;
+            gap: 8px;
+        }
+
+        .bottom-nav a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1.08em;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 18px 4px;
+            border-radius: 10px;
+            transition:
+                color 0.18s,
+                background 0.18s,
+                transform 0.15s,
+                box-shadow 0.18s;
+            position: relative;
+        }
+
+        .bottom-nav a:hover,
+        .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            transform: translateY(-2px) scale(1.07);
+            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.13);
+            outline: none;
+        }
+
+        .bottom-nav a.active::after {
+            content: '';
+            display: block;
+            margin: 6px auto 0;
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        .bottom-nav i {
+            font-size: 1.5em;
+            transition: color 0.18s;
+        }
+
+        .bottom-nav span {
+            font-size: 0.97em;
+            letter-spacing: 0.01em;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-bottom: 62px;
+            }
+
+            .chat-container {
+                max-width: 100vw;
+                width: 98vw;
+                padding: 15px;
+                margin: 10px auto 0 auto;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+                gap: 10px;
+                min-height: calc(100vh - 180px);
+            }
+
+            h1 {
+                font-size: 1.8em;
+                padding-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .message-bubble {
+                font-size: 0.95em;
+                padding: 8px 12px;
+                border-radius: 8px;
+            }
+
+            .chat-input-container {
+                padding: 10px 0;
+                gap: 8px;
+            }
+
+            .chat-input {
+                padding: 8px 12px;
+                font-size: 0.95em;
+                border-radius: 6px;
+            }
+
+            .send-button {
+                padding: 8px 15px;
+                font-size: 0.95em;
+                border-radius: 6px;
+            }
+
+            .bottom-nav {
+                height: 54px;
+                font-size: 0.97em;
+            }
+
+            .bottom-nav a i {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Chat</h1>
+
+    <div class="chat-container">
+        <div id="chat-messages" aria-live="polite" aria-label="Mensagens do chat">
+            <!-- Mensagens serão inseridas aqui dinamicamente -->
+        </div>
+        <form class="chat-input-container" id="chat-form" autocomplete="off">
+            <input type="text" id="message-input" class="chat-input" placeholder="Digite sua mensagem..." aria-label="Digite sua mensagem" maxlength="500" required>
+            <button id="send-button" class="send-button" type="submit" aria-label="Enviar mensagem">
+                <i class="fas fa-paper-plane"></i>
+                <span class="sr-only">Enviar</span>
+            </button>
+        </form>
+    </div>
+
+    <footer>
+        <nav class="bottom-nav" aria-label="Navegação inferior">
+            <a href="dashboard.html" title="Home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" title="Agenda">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Agenda</span>
+            </a>
+            <a href="chat.html" class="active" title="Chat" aria-current="page">
+                <i class="fas fa-comment-dots"></i>
+                <span>Chat</span>
+            </a>
+            <a href="profile.html" title="Perfil">
+                <i class="fas fa-user-circle"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Função para exibir mensagens de notificação (info, success, error)
+            function showMessageBox(message, type) {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('message-box', type);
+                messageBox.textContent = message;
+                document.body.appendChild(messageBox);
+
+                setTimeout(() => {
+                    messageBox.style.opacity = 1;
+                }, 10);
+
+                setTimeout(() => {
+                    messageBox.style.opacity = 0;
+                    messageBox.addEventListener('transitionend', () => messageBox.remove());
+                }, 3000);
+            }
+
+            // Função para adicionar uma bolha de mensagem ao chat
+            function addMessage(text, isSent) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message-bubble', isSent ? 'sent' : 'received');
+                messageDiv.textContent = text;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Rola para a última mensagem
+            }
+
+            // Event listener para o botão de enviar
+            sendButton.addEventListener('click', () => {
+                const messageText = messageInput.value.trim();
+                if (messageText !== '') {
+                    addMessage(messageText, true); // Adiciona a mensagem do usuário
+                    // Aqui você integraria a lógica para enviar a mensagem a um backend
+                    // e, após receber a resposta, chamaria addMessage(resposta, false);
+                    
+                    // Exemplo de resposta simulada:
+                    setTimeout(() => {
+                        addMessage(`Sua mensagem "${messageText}" foi recebida. Em breve um atendente irá responder.`, false);
+                    }, 1000);
+
+                    messageInput.value = ''; // Limpa o campo de input
+                }
+            });
+
+            // Event listener para a tecla "Enter" no campo de input
+            messageInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    sendButton.click(); // Simula o clique no botão de enviar
+                }
+            });
+
+            // Adiciona uma mensagem de exemplo recebida após um pequeno atraso ao carregar a página
+            setTimeout(() => {
+                addMessage('Sua consulta está agendada para o dia 10 de agosto às 14h. Há mais alguma dúvida?', false);
+            }, 1500);
+
+            // Verifica se há mensagens na URL (ex: de um redirecionamento) e as exibe
+            const urlParams = new URLSearchParams(window.location.search);
+            const messageType = urlParams.get('messageType');
+            const messageText = urlParams.get('messageText');
+            if (messageType && messageText) {
+                showMessageBox(decodeURIComponent(messageText), messageType);
+                history.replaceState(null, '', window.location.pathname); // Limpa os parâmetros da URL
+            }
+        });
+    </script>
+</body>
+
+</html>
