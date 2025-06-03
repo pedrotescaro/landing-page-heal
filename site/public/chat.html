@@ -275,30 +275,26 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Footer Navigation */
+              /* Bottom navigation styles */
         footer {
             position: fixed;
             left: 0;
             bottom: 0;
-            width: 100%; /* Use 100% instead of 100vw for better cross-browser compatibility */
+            width: 100vw;
             background: #fff;
-            box-shadow: 0 -4px 24px rgba(37, 99, 235, 0.10), 0 -1px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 -4px 24px rgba(37,99,235,0.10), 0 -1px 8px rgba(0,0,0,0.06);
             z-index: 100;
             border-top-left-radius: 18px;
             border-top-right-radius: 18px;
             transition: box-shadow 0.2s;
-            flex-shrink: 0; /* Prevent footer from shrinking */
         }
 
         .bottom-nav {
             display: flex;
-            justify-content: space-evenly;
-            height: 60px;
+            justify-content: space-around;
             align-items: center;
-            padding: 10px 0; /* Adjusted padding */
+            padding: 14px 0 10px;
             gap: 8px;
-            max-width: 700px; /* Constrain footer links for larger screens */
-            margin: 0 auto;
         }
 
         .bottom-nav a {
@@ -312,18 +308,19 @@
             gap: 3px;
             padding: 6px 18px 4px;
             border-radius: 10px;
-            transition: color 0.18s, background 0.18s, transform 0.15s, box-shadow 0.18s;
+            transition: 
+            color 0.18s,
+            background 0.18s,
+            transform 0.15s,
+            box-shadow 0.18s;
             position: relative;
-            flex: 1; /* Distribute space evenly */
-            text-align: center;
         }
 
-        .bottom-nav a:hover,
-        .bottom-nav a:focus {
+        .bottom-nav a:hover, .bottom-nav a:focus {
             color: #fff;
             background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
             transform: translateY(-2px) scale(1.07);
-            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.13);
+            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
             outline: none;
         }
 
@@ -335,10 +332,6 @@
             height: 3px;
             border-radius: 2px;
             background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-            position: absolute; /* Position relative to the parent link */
-            bottom: -5px; /* Adjust as needed */
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .bottom-nav i {
@@ -440,13 +433,13 @@
         </div>
 
     </div>
-    <footer>
+        <footer>
         <nav class="bottom-nav">
             <a href="dashboard.html" title="Home">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
-            <a href="#" title="Agenda">
+            <a href="agenda.html" title="Agenda">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Agenda</span>
             </a>
