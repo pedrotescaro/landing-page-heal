@@ -1,138 +1,244 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
+    <title>Chat com Opções Guiadas</title>
     <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
     <link rel="stylesheet" href="/site/public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url("/site/public/css/estilo_pc.css");
-
+        /* Base Styles */
         body {
             background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
-            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            font-family: 'Inter', sans-serif;
             color: #22223b;
-            padding-bottom: 80px;
+            margin: 0;
+            padding-bottom: 90px; /* Space for the fixed footer */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         h1 {
             color: #2563eb;
             text-align: center;
-            margin-bottom: 32px;
+            margin: 0; /* Remove default margin */
             padding-top: 32px;
-            font-size: 2.3em;
+            font-size: clamp(1.8em, 5vw, 2.3em); /* Responsive font size */
             letter-spacing: 0.01em;
             font-weight: 800;
         }
 
+        /* Chat Container */
         .chat-container {
             max-width: 700px;
+            width: 95%; /* Responsive width */
             margin: 32px auto 0 auto;
-            padding: 25px;
             background: #fff;
             border-radius: 18px;
             box-shadow: 0 8px 32px rgba(37, 99, 235, 0.10), 0 1.5px 4px rgba(0, 0, 0, 0.03);
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            min-height: 400px;
-            justify-content: flex-end;
+            min-height: 480px;
+            overflow: hidden;
+            flex-grow: 1; /* Allows container to grow and fill space */
         }
 
+        /* Chat Header */
+        .chat-header {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+            color: #fff;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .chat-header i {
+            font-size: 2em;
+        }
+
+        .chat-header .chat-title {
+            font-size: clamp(1em, 3vw, 1.25em); /* Responsive font size */
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        /* Chat Messages */
         #chat-messages {
             flex-grow: 1;
             overflow-y: auto;
-            padding-right: 10px;
+            padding: 24px 18px 10px 18px;
             display: flex;
             flex-direction: column;
+            gap: 8px;
+            background: #f8fafc;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #a7b7d1 #f8fafc; /* Firefox */
         }
 
-        .message-bubble {
-            background-color: #f1f5f9;
-            color: #22223b;
+        /* Webkit scrollbar (Chrome, Safari) */
+        #chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chat-messages::-webkit-scrollbar-track {
+            background: #f8fafc;
             border-radius: 10px;
-            padding: 10px 15px;
-            width: fit-content;
-            max-width: 80%;
-            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.03);
-            font-size: 1em;
-            line-height: 1.4;
-            margin-bottom: 10px;
-            word-break: break-word;
-            transition: background 0.2s, color 0.2s;
         }
 
-        .message-bubble.sent {
-            background-color: #dbeafe;
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: #a7b7d1;
+            border-radius: 10px;
+            border: 2px solid #f8fafc;
+        }
+
+        .message-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            margin-bottom: 4px; /* Slightly more space between messages */
+        }
+
+        .message-row.sent {
+            flex-direction: row-reverse;
+            align-self: flex-end; /* Push sent messages to the right */
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
             color: #2563eb;
-            align-self: flex-end;
+            border: 2px solid #dbeafe;
+            flex-shrink: 0;
+        }
+
+        .avatar.bot {
+            background: #f1f5f9;
+            color: #6366f1;
+            border-color: #e2e8f0;
+        }
+
+        .avatar.prof {
+            background: #d1fae5;
+            color: #059669;
+            border-color: #a7f3d0;
+        }
+
+        .avatar.patient {
+            background: #ffe0e7;
+            color: #eb2563;
+            border-color: #fecdd3;
+        }
+
+        /* Message Bubble */
+        .message-bubble {
+            background-color: #fff;
+            color: #22223b;
+            border-radius: 12px;
+            padding: 12px 18px;
+            max-width: 75%;
+            font-size: 1em;
+            line-height: 1.5;
+            box-shadow: 0 1px 4px rgba(37, 99, 235, 0.06);
+            word-break: break-word;
+            position: relative;
+        }
+
+        .message-row.sent .message-bubble {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+            color: #fff;
             border-bottom-right-radius: 4px;
         }
 
-        .message-bubble.received {
-            background-color: #f1f5f9;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
+        .message-row.received .message-bubble.bot {
+            background: #f1f5f9;
+            color: #6366f1;
         }
 
-        .chat-input-container {
-            display: flex;
-            gap: 10px;
-            padding: 15px 0;
+        .message-row.received .message-bubble.prof {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .message-row.received .message-bubble.patient {
+            background: #ffe0e7;
+            color: #eb2563;
+        }
+
+        .message-meta {
+            font-size: 0.85em;
+            color: #64748b;
+            margin-top: 2px;
+            margin-left: 4px;
+            text-align: right; /* Align time to the right for sent messages */
+        }
+        .message-row.received .message-meta {
+            text-align: left; /* Align time to the left for received messages */
+        }
+
+
+        /* Quick Reply Options */
+        .quick-options-container {
+            padding: 10px 18px;
+            background: #f8fafc;
             border-top: 1px solid #e0e7ef;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-bottom: 15px; /* Add some padding bottom for scrolling content */
         }
 
-        .chat-input {
-            flex-grow: 1;
-            padding: 10px 15px;
-            border: 1px solid #e0e7ef;
-            border-radius: 8px;
-            font-size: 1em;
-            color: #334155;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-            outline: none;
-            transition: border-color 0.18s, box-shadow 0.18s;
-        }
-
-        .chat-input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .send-button {
-            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
+        .quick-option-button {
+            background: #e0e7ff;
+            color: #2563eb;
+            border: 1px solid #c3d4ff;
+            border-radius: 20px;
             padding: 10px 18px;
             font-size: 1em;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.18s cubic-bezier(.4, 0, .2, 1);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 2px 5px rgba(37, 99, 235, 0.08);
+            user-select: none; /* Prevent text selection */
         }
 
-        .send-button i {
-            font-size: 1.1em;
+        .quick-option-button:hover {
+            background: #c3d4ff;
+            transform: translateY(-2px); /* Slightly more pronounced hover effect */
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
         }
 
-        .send-button:hover {
-            background: linear-gradient(90deg, #1d4ed8 70%, #2563eb 100%);
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        .quick-option-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.1);
+            background: #aaccff; /* Even darker on active */
         }
 
-        .send-button:active {
-            transform: translateY(0) scale(1);
-            box-shadow: 0 1px 4px rgba(37, 99, 235, 0.10);
+        .quick-option-button:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
         }
 
+        /* Message Box (Toast) */
         .message-box {
             position: fixed;
             top: 24px;
@@ -149,7 +255,8 @@
             box-shadow: 0 4px 18px rgba(37, 99, 235, 0.13);
             opacity: 0;
             z-index: 9999;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            text-align: center;
         }
 
         .message-box.info {
@@ -163,26 +270,35 @@
         .message-box.error {
             background: linear-gradient(90deg, #ef4444 70%, #f87171 100%);
         }
+        .message-box.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
 
+        /* Footer Navigation */
         footer {
             position: fixed;
             left: 0;
             bottom: 0;
-            width: 100vw;
+            width: 100%; /* Use 100% instead of 100vw for better cross-browser compatibility */
             background: #fff;
             box-shadow: 0 -4px 24px rgba(37, 99, 235, 0.10), 0 -1px 8px rgba(0, 0, 0, 0.06);
             z-index: 100;
             border-top-left-radius: 18px;
             border-top-right-radius: 18px;
             transition: box-shadow 0.2s;
+            flex-shrink: 0; /* Prevent footer from shrinking */
         }
 
         .bottom-nav {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly;
+            height: 60px;
             align-items: center;
-            padding: 14px 0 10px;
+            padding: 10px 0; /* Adjusted padding */
             gap: 8px;
+            max-width: 700px; /* Constrain footer links for larger screens */
+            margin: 0 auto;
         }
 
         .bottom-nav a {
@@ -196,12 +312,10 @@
             gap: 3px;
             padding: 6px 18px 4px;
             border-radius: 10px;
-            transition:
-                color 0.18s,
-                background 0.18s,
-                transform 0.15s,
-                box-shadow 0.18s;
+            transition: color 0.18s, background 0.18s, transform 0.15s, box-shadow 0.18s;
             position: relative;
+            flex: 1; /* Distribute space evenly */
+            text-align: center;
         }
 
         .bottom-nav a:hover,
@@ -221,6 +335,10 @@
             height: 3px;
             border-radius: 2px;
             background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            position: absolute; /* Position relative to the parent link */
+            bottom: -5px; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .bottom-nav i {
@@ -233,81 +351,97 @@
             letter-spacing: 0.01em;
         }
 
+        /* Responsive Adjustments */
         @media (max-width: 600px) {
             body {
-                padding-bottom: 62px;
-            }
-
-            .chat-container {
-                max-width: 100vw;
-                width: 98vw;
-                padding: 15px;
-                margin: 10px auto 0 auto;
-                border-radius: 12px;
-                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
-                gap: 10px;
-                min-height: calc(100vh - 180px);
+                padding-bottom: 70px; /* Adjust for smaller footer on mobile */
             }
 
             h1 {
-                font-size: 1.8em;
                 padding-top: 20px;
-                margin-bottom: 20px;
+            }
+
+            .chat-container {
+                width: 98%;
+                margin: 10px auto 0 auto;
+                border-radius: 12px;
+                min-height: calc(100vh - 160px); /* Adjust height for mobile viewport */
+            }
+
+            .chat-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+                gap: 10px;
+            }
+
+            .chat-header i {
+                font-size: 1.8em;
+            }
+
+            #chat-messages {
+                padding: 12px 8px 6px 8px;
             }
 
             .message-bubble {
-                font-size: 0.95em;
+                padding: 10px 14px;
+                max-width: 80%; /* Allow bubbles to take more width on small screens */
+            }
+
+            .quick-options-container {
+                padding: 8px 10px;
+                min-height: 60px;
+                max-height: 120px;
+            }
+
+            .quick-option-button {
                 padding: 8px 12px;
-                border-radius: 8px;
-            }
-
-            .chat-input-container {
-                padding: 10px 0;
-                gap: 8px;
-            }
-
-            .chat-input {
-                padding: 8px 12px;
-                font-size: 0.95em;
-                border-radius: 6px;
-            }
-
-            .send-button {
-                padding: 8px 15px;
-                font-size: 0.95em;
-                border-radius: 6px;
+                font-size: 0.9em;
+                min-width: unset; /* Remove min-width on small screens */
+                flex-grow: 1; /* Allow buttons to grow and fill space */
             }
 
             .bottom-nav {
-                height: 54px;
-                font-size: 0.97em;
+                height: 50px; /* Smaller height for mobile footer */
+                padding: 8px 0;
             }
 
-            .bottom-nav a i {
-                font-size: 1.1em;
+            .bottom-nav a {
+                padding: 4px 10px; /* Smaller padding */
+                font-size: 0.95em;
+            }
+
+            .bottom-nav i {
+                font-size: 1.3em;
+            }
+
+            .bottom-nav span {
+                font-size: 0.85em;
+            }
+
+            .bottom-nav a.active::after {
+                margin: 4px auto 0;
+                width: 18px;
+                height: 2px;
+                bottom: -3px;
             }
         }
     </style>
 </head>
-
 <body>
     <h1>Chat</h1>
-
     <div class="chat-container">
-        <div id="chat-messages" aria-live="polite" aria-label="Mensagens do chat">
-            <!-- Mensagens serão inseridas aqui dinamicamente -->
+        <div class="chat-header">
+            <i class="fas fa-comments"></i>
+            <span class="chat-title" id="chat-header-title"></span>
         </div>
-        <form class="chat-input-container" id="chat-form" autocomplete="off">
-            <input type="text" id="message-input" class="chat-input" placeholder="Digite sua mensagem..." aria-label="Digite sua mensagem" maxlength="500" required>
-            <button id="send-button" class="send-button" type="submit" aria-label="Enviar mensagem">
-                <i class="fas fa-paper-plane"></i>
-                <span class="sr-only">Enviar</span>
-            </button>
-        </form>
-    </div>
+        <div id="chat-messages" aria-live="polite" aria-label="Mensagens do chat"></div>
 
+        <div id="quick-options-container" class="quick-options-container">
+        </div>
+
+    </div>
     <footer>
-        <nav class="bottom-nav" aria-label="Navegação inferior">
+        <nav class="bottom-nav">
             <a href="dashboard.html" title="Home">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
@@ -316,7 +450,7 @@
                 <i class="fas fa-calendar-alt"></i>
                 <span>Agenda</span>
             </a>
-            <a href="chat.html" class="active" title="Chat" aria-current="page">
+            <a href="chat.html" title="Chat">
                 <i class="fas fa-comment-dots"></i>
                 <span>Chat</span>
             </a>
@@ -328,76 +462,293 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const messageInput = document.getElementById('message-input');
-            const sendButton = document.getElementById('send-button');
-            const chatMessages = document.getElementById('chat-messages');
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- CONFIGURAÇÕES E DADOS ---
+        const chatMessages = document.getElementById('chat-messages');
+        const chatHeaderTitle = document.getElementById('chat-header-title');
+        const quickOptionsContainer = document.getElementById('quick-options-container');
 
-            // Função para exibir mensagens de notificação (info, success, error)
-            function showMessageBox(message, type) {
-                const messageBox = document.createElement('div');
-                messageBox.classList.add('message-box', type);
-                messageBox.textContent = message;
-                document.body.appendChild(messageBox);
+        // Troque para 'professional' para testar o outro papel
+        const currentUserRole = 'professional'; // 'patient' ou 'professional'
+        chatHeaderTitle.textContent = currentUserRole === 'patient' ? 'Assistente Virtual' : 'Chatbot do Aplicativo';
+ 
 
-                setTimeout(() => {
-                    messageBox.style.opacity = 1;
-                }, 10);
+        const avatars = {
+            user: '<div class="avatar"><i class="fas fa-user"></i></div>',
+            bot: '<div class="avatar bot"><i class="fas fa-robot"></i></div>',
+            professional: '<div class="avatar prof"><i class="fas fa-user-md"></i></div>',
+            patient: '<div class="avatar patient"><i class="fas fa-user"></i></div>'
+        };
 
-                setTimeout(() => {
-                    messageBox.style.opacity = 0;
-                    messageBox.addEventListener('transitionend', () => messageBox.remove());
-                }, 3000);
+        const names = {
+            user: currentUserRole === 'patient' ? 'Você' : 'Você (Profissional)',
+            bot: 'Assistente Virtual',
+            professional: 'Dr. João',
+            patient: 'Sra. Maria'
+        };
+
+        // --- RESPOSTAS E OPÇÕES ---
+        const chatbotResponses = {
+            patientBot: {
+                "agendar consulta": "Para <b>agendar uma consulta</b>, acesse a aba 'Agenda' ou me diga o dia e horário desejados.",
+                "ver minha agenda": "Para ver sua agenda, clique na aba 'Agenda' na parte inferior da tela.",
+                "lembrete de medicação": "Para configurar um lembrete, acesse 'Perfil' e depois 'Lembretes de Medicação'.",
+                "dúvidas sobre o app": "Sou seu <b>Assistente Virtual</b>. Posso ajudar com dúvidas sobre consultas, agenda, medicamentos e mais! Tente perguntar sobre <b>'consulta'</b> ou <b>'remédio'</b>.",
+                "preciso de ajuda": "Claro, posso ajudar! Poderia ser mais específico sobre o que precisa?",
+                "oi": "Olá! Como posso ajudar você hoje?",
+                "voltar": "Ok, em que mais posso te ajudar?",
+                "padrão": "Sou seu <b>Assistente Virtual</b>. Posso ajudar com dúvidas sobre consultas, agenda, medicamentos e mais!"
+            },
+            appChatbot: {
+                "como usar a agenda": "Na aba 'Agenda', você pode visualizar seus compromissos, adicionar novas consultas e gerenciar horários disponíveis. Tente 'Adicionar compromisso?'",
+                "adicionar novo paciente": "Para adicionar um novo paciente, vá para a seção 'Pacientes' no seu perfil e clique em 'Adicionar Novo'.",
+                "ver relatórios": "Relatórios de atendimentos e estatísticas de uso podem ser encontrados na aba 'Dashboard' ou 'Análises'.",
+                "gerenciar horários": "Você pode gerenciar seus horários e disponibilidades na seção 'Configurações de Agenda'.",
+                "ajuda geral": "Sou o <b>chatbot de suporte do aplicativo</b>. Posso te guiar pelas funcionalidades. Pergunte 'como usar a agenda' ou 'como adicionar um novo paciente'.",
+                "oi": "Bem-vindo(a) ao chatbot de suporte do aplicativo. Como posso te guiar?",
+                "voltar": "Certo, em que mais posso auxiliar com o aplicativo?",
+                "padrão": "Sou o <b>chatbot de suporte do aplicativo</b>. Posso te guiar pelas funcionalidades."
             }
+        };
 
-            // Função para adicionar uma bolha de mensagem ao chat
-            function addMessage(text, isSent) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message-bubble', isSent ? 'sent' : 'received');
-                messageDiv.textContent = text;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight; // Rola para a última mensagem
+        const professionalReplies = {
+            "agendar nova consulta": `Olá ${names.patient}, para agendar uma nova <b>consulta</b>, por favor, me informe sua disponibilidade nos próximos dias.`,
+            "reagendar consulta": `Olá ${names.patient}, por favor, me diga qual a melhor data e horário para <b>reagendar</b> sua consulta.`,
+            "resultados de exame": `Olá ${names.patient}, seus <b>resultados</b> de exame já estão disponíveis no seu perfil.`,
+            "pedir nova receita": `Olá ${names.patient}, sua nova <b>receita</b> será enviada digitalmente em breve.`,
+            "tenho sintomas": `${names.patient}, entendi. Para que eu possa te ajudar melhor, por favor, descreva seus <b>sintomas</b> com mais detalhes.`,
+            "oi": `Olá ${names.patient}, sou o ${names.professional}. Como posso ajudar você hoje?`,
+            "voltar": "Certo, qual outra dúvida você tem?"
+        };
+
+        const patientReplies = {
+            "como você está?": `Olá ${names.professional}. Eu estou bem, obrigado. E o senhor(a)?`,
+            "agendar retorno": `Olá ${names.professional}, preciso <b>agendar um retorno</b>. Qual a sua disponibilidade?`,
+            "enviar receita": `Olá ${names.professional}, preciso que o senhor(a) me <b>envie a receita</b> do meu medicamento.`,
+            "pedir informações": `Olá ${names.professional}, tenho algumas <b>dúvidas</b> sobre meu tratamento.`,
+            "sobre os sintomas": `Olá ${names.professional}, meus <b>sintomas</b> não melhoraram muito.`,
+            "oi": `Olá ${names.professional}, estou bem, obrigado.`,
+            "voltar": "Certo, qual outra dúvida você tem?"
+        };
+
+        const interactionOptions = {
+            patient: {
+                initial: [
+                    { text: "Falar com Assistente Virtual", target: "bot" },
+                    { text: `Falar com ${names.professional}`, target: "professional" }
+                ],
+                bot: [
+                    "Agendar consulta", "Ver minha agenda", "Lembrete de medicação",
+                    "Dúvidas sobre o app", "Preciso de ajuda", "Voltar"
+                ],
+                professional: [
+                    "Agendar nova consulta", "Reagendar consulta", "Resultados de exame",
+                    "Pedir nova receita", "Tenho sintomas", "Voltar"
+                ]
+            },
+            professional: {
+                initial: [
+                    { text: `Falar com ${names.patient}`, target: "patient" },
+                    { text: "Ajuda com o Aplicativo", target: "app_chatbot" }
+                ],
+                patient: [
+                    "Como você está?", "Agendar retorno", "Enviar receita",
+                    "Pedir informações", "Sobre os sintomas", "Voltar"
+                ],
+                app_chatbot: [
+                    "Como usar a agenda?", "Adicionar novo paciente", "Ver relatórios",
+                    "Gerenciar horários", "Ajuda geral", "Voltar"
+                ]
             }
+        };
 
-            // Event listener para o botão de enviar
-            sendButton.addEventListener('click', () => {
-                const messageText = messageInput.value.trim();
-                if (messageText !== '') {
-                    addMessage(messageText, true); // Adiciona a mensagem do usuário
-                    // Aqui você integraria a lógica para enviar a mensagem a um backend
-                    // e, após receber a resposta, chamaria addMessage(resposta, false);
-                    
-                    // Exemplo de resposta simulada:
-                    setTimeout(() => {
-                        addMessage(`Sua mensagem "${messageText}" foi recebida. Em breve um atendente irá responder.`, false);
-                    }, 1000);
+        // --- FUNÇÕES AUXILIARES ---
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
 
-                    messageInput.value = ''; // Limpa o campo de input
-                }
-            });
-
-            // Event listener para a tecla "Enter" no campo de input
-            messageInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    sendButton.click(); // Simula o clique no botão de enviar
-                }
-            });
-
-            // Adiciona uma mensagem de exemplo recebida após um pequeno atraso ao carregar a página
+        function showMessageBox(message, type) {
+            const messageBox = document.createElement('div');
+            messageBox.className = `message-box ${type}`;
+            messageBox.textContent = message;
+            document.body.appendChild(messageBox);
+            // Força reflow para animação
+            void messageBox.offsetWidth;
+            messageBox.classList.add('show');
             setTimeout(() => {
-                addMessage('Sua consulta está agendada para o dia 10 de agosto às 14h. Há mais alguma dúvida?', false);
-            }, 1500);
+                messageBox.classList.remove('show');
+                messageBox.addEventListener('transitionend', () => messageBox.remove(), { once: true });
+            }, 3000);
+        }
 
-            // Verifica se há mensagens na URL (ex: de um redirecionamento) e as exibe
-            const urlParams = new URLSearchParams(window.location.search);
-            const messageType = urlParams.get('messageType');
-            const messageText = urlParams.get('messageText');
-            if (messageType && messageText) {
-                showMessageBox(decodeURIComponent(messageText), messageType);
-                history.replaceState(null, '', window.location.pathname); // Limpa os parâmetros da URL
+        function addMessage(text, senderType, metaName = '') {
+            const row = document.createElement('div');
+            const isSent = (senderType === 'user');
+            row.className = `message-row ${isSent ? 'sent' : 'received'}`;
+            let avatarHTML = isSent ? avatars.user : avatars[senderType];
+            let bubbleClass = 'message-bubble';
+            if (!isSent) bubbleClass += ` ${senderType}`;
+            row.innerHTML = `
+                ${avatarHTML}
+                <div>
+                    <div class="${bubbleClass}">${text}</div>
+                    <div class="message-meta">${metaName} - ${getCurrentTime()}</div>
+                </div>
+            `;
+            chatMessages.appendChild(row);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function getReplyFromKeywords(choiceText, responseMap) {
+            const key = choiceText.toLowerCase().replace(/[^\wçãõáéíóúâêîôûàèìòùäëïöü\s]/gi, '').trim();
+            for (const k in responseMap) {
+                if (key.includes(k.toLowerCase())) return responseMap[k];
             }
+            return responseMap["padrão"];
+        }
+
+        function getProfessionalReply(choiceText) {
+            const key = choiceText.toLowerCase();
+            return professionalReplies[key] || professionalReplies["oi"];
+        }
+
+        function getPatientReply(choiceText) {
+            const key = choiceText.toLowerCase();
+            return patientReplies[key] || patientReplies["oi"];
+        }
+
+        function displayQuickReplyOptions(options) {
+            quickOptionsContainer.innerHTML = '';
+            if (options && options.length > 0) {
+                options.forEach(optionConfig => {
+                    const button = document.createElement('button');
+                    button.className = 'quick-option-button';
+                    const buttonText = typeof optionConfig === 'string' ? optionConfig : optionConfig.text;
+                    const buttonTarget = typeof optionConfig === 'object' && optionConfig.target ? optionConfig.target : currentChatTarget;
+                    button.textContent = buttonText;
+                    button.tabIndex = 0;
+                    button.setAttribute('role', 'button');
+                    button.addEventListener('click', () => handleUserChoice(buttonText, buttonTarget));
+                    button.addEventListener('keyup', e => {
+                        if (e.key === 'Enter' || e.key === ' ') button.click();
+                    });
+                    quickOptionsContainer.appendChild(button);
+                });
+            }
+        }
+
+        // --- LÓGICA PRINCIPAL ---
+        let currentChatTarget = '';
+
+        function handleUserChoice(choiceText, target = currentChatTarget) {
+            addMessage(choiceText, 'user', names.user);
+
+            let replyText = '', replySenderType = '', replyMetaName = '', nextOptions = [];
+
+            if (target !== currentChatTarget) {
+                currentChatTarget = target;
+                chatMessages.innerHTML = '';
+                chatHeaderTitle.textContent = currentChatTarget === 'bot' ? 'Assistente Virtual' :
+                                                currentChatTarget === 'professional' ? names.professional :
+                                                currentChatTarget === 'patient' ? names.patient :
+                                                'Chatbot do Aplicativo';
+
+                if (currentUserRole === 'patient') {
+                    if (currentChatTarget === 'bot') {
+                        replyText = chatbotResponses.patientBot["oi"];
+                        replySenderType = 'bot';
+                        replyMetaName = names.bot;
+                        nextOptions = interactionOptions.patient.bot;
+                    } else if (currentChatTarget === 'professional') {
+                        replyText = professionalReplies["oi"];
+                        replySenderType = 'professional';
+                        replyMetaName = names.professional;
+                        nextOptions = interactionOptions.patient.professional;
+                    }
+                } else if (currentUserRole === 'professional') {
+                    if (currentChatTarget === 'patient') {
+                        replyText = patientReplies["oi"];
+                        replySenderType = 'patient';
+                        replyMetaName = names.patient;
+                        nextOptions = interactionOptions.professional.patient;
+                    } else if (currentChatTarget === 'app_chatbot') {
+                        replyText = chatbotResponses.appChatbot["oi"];
+                        replySenderType = 'bot';
+                        replyMetaName = 'Chatbot do Aplicativo';
+                        nextOptions = interactionOptions.professional.app_chatbot;
+                    }
+                }
+            } else {
+                if (currentUserRole === 'patient') {
+                    if (currentChatTarget === 'bot') {
+                        replyText = getReplyFromKeywords(choiceText, chatbotResponses.patientBot);
+                        replySenderType = 'bot';
+                        replyMetaName = names.bot;
+                        nextOptions = interactionOptions.patient.bot;
+                    } else if (currentChatTarget === 'professional') {
+                        replyText = getProfessionalReply(choiceText);
+                        replySenderType = 'professional';
+                        replyMetaName = names.professional;
+                        nextOptions = interactionOptions.patient.professional;
+                    }
+                } else if (currentUserRole === 'professional') {
+                    if (currentChatTarget === 'patient') {
+                        replyText = getPatientReply(choiceText);
+                        replySenderType = 'patient';
+                        replyMetaName = names.patient;
+                        nextOptions = interactionOptions.professional.patient;
+                    } else if (currentChatTarget === 'app_chatbot') {
+                        replyText = getReplyFromKeywords(choiceText, chatbotResponses.appChatbot);
+                        replySenderType = 'bot';
+                        replyMetaName = 'Chatbot do Aplicativo';
+                        nextOptions = interactionOptions.professional.app_chatbot;
+                    }
+                }
+                if (choiceText.toLowerCase() === "voltar") {
+                    chatMessages.innerHTML = '';
+                    currentChatTarget = '';
+                    setupInitialInteraction();
+                    return;
+                }
+            }
+
+            setTimeout(() => {
+                if (replyText) addMessage(replyText, replySenderType, replyMetaName);
+                displayQuickReplyOptions(nextOptions);
+            }, 500);
+        }
+
+        function setupInitialInteraction() {
+            chatMessages.innerHTML = '';
+            chatHeaderTitle.textContent = 'Escolha com quem conversar:';
+            if (currentUserRole === 'patient') {
+                displayQuickReplyOptions(interactionOptions.patient.initial);
+            } else if (currentUserRole === 'professional') {
+                displayQuickReplyOptions(interactionOptions.professional.initial);
+            }
+        }
+
+        setupInitialInteraction();
+
+        // Mensagens via URL (mantido)
+        const urlParams = new URLSearchParams(window.location.search);
+        const messageType = urlParams.get('messageType');
+        const messageText = urlParams.get('messageText');
+        if (messageType && messageText) {
+            showMessageBox(decodeURIComponent(messageText), messageType);
+            history.replaceState(null, '', window.location.pathname);
+        }
+
+        // Debounce para resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 200);
         });
+    });
     </script>
 </body>
-
 </html>
