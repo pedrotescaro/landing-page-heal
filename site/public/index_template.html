@@ -735,10 +735,12 @@
                         <div
                             style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap; background: #fff8ef; border-radius: 10px; padding: 18px 16px 14px 16px; box-shadow: 0 2px 8px rgba(230,126,34,0.07);">
                             <input type="range" id="dor_escala" name="dor_escala" min="0" max="10" step="1"
-                                style="width: 180px; accent-color: #e67e22; height: 4px;"
-                                oninput="document.getElementById('eva-value').textContent = this.value">
+                                style="width: 180px; accent-color: #14532d; height: 4px;"
+                                oninput="updateEvaLabel(this.value)">
                             <span id="eva-value"
-                                style="font-weight: bold; color: #e67e22; font-size: 1.5em; margin-left: 8px; min-width: 32px; text-align: center;">0</span>
+                                style="font-weight: bold; color: #14532d; font-size: 1.5em; margin-left: 8px; min-width: 32px; text-align: center;">0</span>
+                            <span id="eva-label"
+                                style="font-weight: 600; margin-left: 10px; font-size: 1.08em; color: #14532d;">Sem dor</span>
                             <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 5px; flex: 1 1 45px;">
                                 <label for="dor_fatores"
                                     style="font-weight: 500; color: #2980b9; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
@@ -751,12 +753,75 @@
 
                             </div>
                         </div>
+                        <!-- Escala visual padronizada: linha única, texto só nos pares -->
                         <span style="color: #888; margin-top: 8px; display: block; font-size: 0.98em;">
                             <i class="fas fa-arrows-alt-h" style="color:#e67e22"></i>
-                            Arraste para selecionar a intensidade da dor (0 = sem dor, 10 = pior dor possível).
+                            Arraste para selecionar a intensidade da dor.
                         </span>
+                     
                     </div>
-
+                    <script>
+                        // Escala EVA customizada: só muda texto nos pares, mantém cores
+                        function updateEvaLabel(val) {
+                            val = parseInt(val, 10);
+                            const evaValue = document.getElementById('eva-value');
+                            const evaLabel = document.getElementById('eva-label');
+                            const range = document.getElementById('dor_escala');
+                            let label = '';
+                            let color = '';
+                            let accent = '';
+                            switch (val) {
+                                case 0:
+                                    label = 'Sem dor';
+                                    color = '#14532d'; // verde escuro
+                                    accent = '#14532d';
+                                    break;
+                                case 2:
+                                    label = 'Dor leve';
+                                    color = '#22c55e'; // verde claro
+                                    accent = '#22c55e';
+                                    break;
+                                case 4:
+                                    label = 'Moderada';
+                                    color = '#eab308'; // amarelo
+                                    accent = '#eab308';
+                                    break;
+                                case 6:
+                                    label = 'Severa';
+                                    color = '#fb923c'; // laranja
+                                    accent = '#fb923c';
+                                    break;
+                                case 8:
+                                    label = 'Dor muito severa';
+                                    color = '#ef4444'; // vermelho
+                                    accent = '#ef4444';
+                                    break;
+                                case 10:
+                                    label = 'Pior dor possível';
+                                    color = '#991b1b'; // vermelho escuro
+                                    accent = '#991b1b';
+                                    break;
+                                default:
+                                    label = '';
+                                    // Cores intermediárias para impares
+                                    if (val === 1)      { color = '#22c55e'; accent = '#22c55e'; label = 'Dor leve'; }
+                                    else if (val === 3) { color = '#eab308'; accent = '#eab308'; label = 'Moderada'; }
+                                    else if (val === 5) { color = '#fb923c'; accent = '#fb923c'; label = 'Severa'; }
+                                    else if (val === 7) { color = '#ef4444'; accent = '#ef4444'; label = 'Muito severa'; }
+                                    else if (val === 9) { color = '#991b1b'; accent = '#991b1b'; label = 'Pior dor possível'; }
+                                    else                { color = '#14532d'; accent = '#14532d'; }
+                            }
+                            evaValue.textContent = val;
+                            evaValue.style.color = color;
+                            evaLabel.textContent = label;
+                            evaLabel.style.color = color;
+                            range.style.accentColor = accent;
+                        }
+                        // Inicializa ao carregar
+                        document.addEventListener('DOMContentLoaded', function () {
+                            updateEvaLabel(document.getElementById('dor_escala').value);
+                        });
+                    </script>
                 </fieldset>
             </div>
 
@@ -818,6 +883,7 @@
                             outline: none;
                             opacity: 0.7;
                             transition: opacity .2s;
+                            min-width: 0;
                         }
                         #tecido_leito_group .tecido-input[type="range"]:hover {
                             opacity: 1;
@@ -863,7 +929,98 @@
                             gap: 10px;
                             margin-bottom: 8px;
                         }
+
+                        /* BARRA DE PROGRESSO DO PERCENTUAL DE TECIDO */
+                        .tecido-progress-bar-container {
+                            width: 100%;
+                            height: 18px;
+                            background: #e3eafc;
+                            border-radius: 8px;
+                            margin: 18px 0 8px 0;
+                            overflow: hidden;
+                            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+                            display: flex;
+                        }
+                        .tecido-progress-bar-segment {
+                            height: 100%;
+                            transition: width 0.4s cubic-bezier(.4,2,.6,1);
+                        }
+                        .tecido-progress-epitelizacao { background: #27ae60; }
+                        .tecido-progress-granulacao { background: #e67e22; }
+                        .tecido-progress-necrose-seca { background: #7f8c8d; }
+                        .tecido-progress-necrose-umida { background: #2980b9; }
+                        .tecido-progress-muscular { background: #c0392b; }
+                        .tecido-progress-tendinoso { background: #8e44ad; }
+                        .tecido-progress-osseo { background: #f39c12; }
+                        .tecido-progress-sem-visivel { background: #34495e; }
+
+                        /* Responsivo barra de progresso */
+                        @media (max-width: 900px) {
+                            #tecido_leito_group {
+                                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                                gap: 14px 12px;
+                                padding: 16px 8px 8px 8px;
+                            }
+                            #tecido_leito_group .tecido-label {
+                                font-size: 0.98em;
+                            }
+                            .tecido-progress-bar-container {
+                                height: 14px;
+                            }
+                        }
+                        @media (max-width: 600px) {
+                            #tecido_leito_group {
+                                grid-template-columns: 1fr;
+                                gap: 10px 0;
+                                padding: 10px 4px 6px 4px;
+                            }
+                            #tecido_leito_group .tecido-item {
+                                gap: 2px;
+                            }
+                            #tecido_leito_group .tecido-label {
+                                font-size: 0.97em;
+                            }
+                            #tecido_leito_group .tecido-input-wrapper {
+                                gap: 6px;
+                            }
+                            #tecido_leito_group .tecido-input[type="range"] {
+                                height: 6px;
+                            }
+                            #tecido_leito_group .tecido-value {
+                                font-size: 0.97em;
+                                min-width: 30px;
+                            }
+                            .tecido-progress-bar-container {
+                                height: 10px;
+                            }
+                        }
                     </style>
+
+                    <!-- Barra de Progresso Visual dos Percentuais -->
+                    <div class="tecido-progress-bar-container" id="tecido-progress-bar">
+                        <div class="tecido-progress-bar-segment tecido-progress-epitelizacao" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-granulacao" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-necrose-seca" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-necrose-umida" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-muscular" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-tendinoso" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-osseo" style="width:0%"></div>
+                        <div class="tecido-progress-bar-segment tecido-progress-sem-visivel" style="width:0%"></div>
+                    </div>
+                    <div style="font-size:0.98em; margin-bottom: 8px; color:#444;">
+                        <b>Base de cálculo:</b> O percentual de cada tecido é estimado visualmente sobre o <b>leito total da ferida</b> (100%).<br>
+                        <span style="display:inline-block;margin-top:4px;">
+                            <span style="display:inline-block;width:14px;height:14px;background:#27ae60;border-radius:3px;margin-right:4px;vertical-align:middle;"></span> Epitelização
+                            <span style="display:inline-block;width:14px;height:14px;background:#e67e22;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Granulação
+                            <span style="display:inline-block;width:14px;height:14px;background:#7f8c8d;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Necrose Seca
+                            <span style="display:inline-block;width:14px;height:14px;background:#2980b9;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Necrose Úmida
+                            <span style="display:inline-block;width:14px;height:14px;background:#c0392b;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Muscular
+                            <span style="display:inline-block;width:14px;height:14px;background:#8e44ad;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Tendinoso
+                            <span style="display:inline-block;width:14px;height:14px;background:#f39c12;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Ósseo
+                            <span style="display:inline-block;width:14px;height:14px;background:#34495e;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Sem visível
+                        </span>
+                    </div>
+
                     <div id="tecido_leito_group">
 
                         <div class="tecido-item">
@@ -998,51 +1155,74 @@
                     </small>
                 </div>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tecidoIds = [
-                'percentual_epitelizacao_leito',
-                'percentual_granulacao_leito',
-                'percentual_necrose_seca_leito',
-                'percentual_necrose_umida_leito',
-                'percentual_muscular_leito',
-                'percentual_tendinoso_leito',
-                'percentual_osseo_leito',
-                'percentual_sem_visivel_leito'
-            ];
-            const tecidoInputs = tecidoIds.map(id => document.getElementById(id));
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const tecidoIds = [
+                        'percentual_epitelizacao_leito',
+                        'percentual_granulacao_leito',
+                        'percentual_necrose_seca_leito',
+                        'percentual_necrose_umida_leito',
+                        'percentual_muscular_leito',
+                        'percentual_tendinoso_leito',
+                        'percentual_osseo_leito',
+                        'percentual_sem_visivel_leito'
+                    ];
+                    const progressClasses = [
+                        'tecido-progress-epitelizacao',
+                        'tecido-progress-granulacao',
+                        'tecido-progress-necrose-seca',
+                        'tecido-progress-necrose-umida',
+                        'tecido-progress-muscular',
+                        'tecido-progress-tendinoso',
+                        'tecido-progress-osseo',
+                        'tecido-progress-sem-visivel'
+                    ];
+                    const tecidoInputs = tecidoIds.map(id => document.getElementById(id));
+                    const progressBar = document.getElementById('tecido-progress-bar');
+                    const progressSegments = Array.from(progressBar.children);
 
-            tecidoInputs.forEach((input, idx) => {
-                input.addEventListener('input', function () {
-                    // Update the span text for the current input
-                    const valSpan = document.getElementById(this.id + '_val_range');
-                    if (valSpan) valSpan.textContent = this.value + '%';
-
-                    // If the current value is 100, set others to 0
-                    if (parseInt(this.value, 10) === 100) {
-                        tecidoInputs.forEach((otherInput, otherIdx) => {
-                            if (otherIdx !== idx) {
-                                otherInput.value = 0;
-                                const otherValSpan = document.getElementById(otherInput.id + '_val_range');
-                                if (otherValSpan) otherValSpan.textContent = '0%';
+                    function updateProgressBar() {
+                        let total = 0;
+                        tecidoInputs.forEach((input, idx) => {
+                            const val = parseInt(input.value, 10) || 0;
+                            progressSegments[idx].style.width = val + '%';
+                            total += val;
+                        });
+                        // Visual feedback: green border if sum == 100, red otherwise
+                        tecidoInputs.forEach(el => {
+                            const parentDiv = el.closest('.tecido-item');
+                            if (parentDiv) {
+                                parentDiv.style.boxShadow = (total === 100)
+                                    ? '0 0 0 2px #27ae60'
+                                    : '0 0 0 2px #e74c3c';
                             }
                         });
                     }
 
-                    // Visual feedback: green border if sum == 100, red otherwise
-                    const soma = tecidoInputs.reduce((acc, el) => acc + (parseInt(el.value, 10) || 0), 0);
-                    tecidoInputs.forEach(el => {
-                        const parentDiv = el.closest('.tecido-item');
-                        if (parentDiv) {
-                            parentDiv.style.boxShadow = (soma === 100)
-                                ? '0 0 0 2px #27ae60'
-                                : '0 0 0 2px #e74c3c';
-                        }
+                    tecidoInputs.forEach((input, idx) => {
+                        input.addEventListener('input', function () {
+                            // Update the span text for the current input
+                            const valSpan = document.getElementById(this.id + '_val_range');
+                            if (valSpan) valSpan.textContent = this.value + '%';
+
+                            // If the current value is 100, set others to 0
+                            if (parseInt(this.value, 10) === 100) {
+                                tecidoInputs.forEach((otherInput, otherIdx) => {
+                                    if (otherIdx !== idx) {
+                                        otherInput.value = 0;
+                                        const otherValSpan = document.getElementById(otherInput.id + '_val_range');
+                                        if (otherValSpan) otherValSpan.textContent = '0%';
+                                    }
+                                });
+                            }
+                            updateProgressBar();
+                        });
                     });
+
+                    // Inicializa barra ao carregar
+                    updateProgressBar();
                 });
-            });
-        });
-        </script>
+                </script>
                     <div class="input-group">
                         <label
                             style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
