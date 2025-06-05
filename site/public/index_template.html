@@ -829,15 +829,111 @@
                 <fieldset>
                     <legend>Avaliação da Ferida (TIMERS) - Tecido e Inflamação</legend>
                     <p>Avalie as características da ferida utilizando a ferramenta TIMERS.</p>
-
-                <div class="input-group">
-                    <label style="color:#2563eb;">
-                        <i class="fas fa-layer-group" style="font-size: 1.2em;"></i>
-                        Percentual de Tecido no Leito da Ferida (%):
-                    </label>
+                    <div class="tecido-leito-wrapper">
+                        <div class="input-group tecido-leito-section">
+                            <label>
+                                <i class="fas fa-layer-group"></i>
+                                Percentual de Tecido no Leito da Ferida (%):
+                            </label>
+                            <div class="tecido-progress-bar-container" id="tecido-progress-bar">
+                                <div class="tecido-progress-bar-segment tecido-progress-granulacao" style="width:0%"></div>
+                                <div class="tecido-progress-bar-segment tecido-progress-epitelizacao" style="width:0%"></div>
+                                <div class="tecido-progress-bar-segment tecido-progress-esfacelo" style="width:0%"></div>
+                                <div class="tecido-progress-bar-segment tecido-progress-necrose-seca" style="width:0%"></div>
+                            </div>
+                            <div style="font-size:0.98em; margin-bottom: 8px; color:#444;">
+                                <b>Base de cálculo:</b> O percentual de cada tecido é estimado visualmente sobre o <b>leito total da ferida</b> (100%).<br>
+                                    <span style="display:inline-block;margin-top:4px;">
+                                    <br>
+                                    <span style="display:inline-block;width:14px;height:14px;background:#d32f2f;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Granulação (vermelho vivo, úmido)
+                                     <br>
+                                    <span style="display:inline-block;width:14px;height:14px;background:#f8bbd0;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Epitelização (rosa ou branco perolado)
+                                    <br>
+                                    <span style="display:inline-block;width:14px;height:14px;background:#fbc02d;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Esfacelo (amarelo, branco, bronzeado, cinza ou marrom)
+                                     <br>
+                                    <span style="display:inline-block;width:14px;height:14px;background:#212121;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Necrose Seca (preto, marrom, duro e seco)
+                                </span>
+                            </div>
+                            <div id="tecido_leito_group">
+                                <div class="tecido-item">
+                                    <label for="percentual_granulacao_leito" class="tecido-label granulacao">
+                                        <i class="fas fa-seedling"></i>
+                                        Granulação
+                                    </label>
+                                    <div class="tecido-input-wrapper">
+                                        <input type="range" id="percentual_granulacao_leito"
+                                            name="percentual_granulacao_leito" min="0" max="100" value="0"
+                                            class="tecido-input"
+                                            style="accent-color: #d32f2f;"
+                                            required
+                                            oninput="document.getElementById('percentual_granulacao_leito_val_range').textContent = this.value + '%'">
+                                        <span id="percentual_granulacao_leito_val_range" class="tecido-value" style="color: #d32f2f;">0%</span>
+                                    </div>
+                                </div>
+                                <div class="tecido-item">
+                                    <label for="percentual_epitelizacao_leito" class="tecido-label epitelizacao">
+                                        <i class="fas fa-layer-group"></i>
+                                        Epitelização
+                                    </label>
+                                    <div class="tecido-input-wrapper">
+                                        <input type="range" id="percentual_epitelizacao_leito"
+                                            name="percentual_epitelizacao_leito" min="0" max="100" value="0"
+                                            class="tecido-input"
+                                            style="accent-color: #f8bbd0;"
+                                            required
+                                            oninput="document.getElementById('percentual_epitelizacao_leito_val_range').textContent = this.value + '%'">
+                                        <span id="percentual_epitelizacao_leito_val_range" class="tecido-value" style="color: #f8bbd0;">0%</span>
+                                    </div>
+                                </div>
+                                <div class="tecido-item">
+                                    <label for="percentual_esfacelo_leito" class="tecido-label esfacelo">
+                                        <i class="fas fa-biohazard"></i>
+                                        Esfacelo (Slough)
+                                    </label>
+                                    <div class="tecido-input-wrapper">
+                                        <input type="range" id="percentual_esfacelo_leito"
+                                            name="percentual_esfacelo_leito" min="0" max="100" value="0"
+                                            class="tecido-input"
+                                            style="accent-color: #fbc02d;"
+                                            required
+                                            oninput="document.getElementById('percentual_esfacelo_leito_val_range').textContent = this.value + '%'">
+                                        <span id="percentual_esfacelo_leito_val_range" class="tecido-value" style="color: #fbc02d;">0%</span>
+                                    </div>
+                                </div>
+                                <div class="tecido-item">
+                                    <label for="percentual_necrose_seca_leito" class="tecido-label necrose-seca">
+                                        <i class="fas fa-burn"></i>
+                                        Necrose Seca (Escara)
+                                    </label>
+                                    <div class="tecido-input-wrapper">
+                                        <input type="range" id="percentual_necrose_seca_leito"
+                                            name="percentual_necrose_seca_leito" min="0" max="100" value="0"
+                                            class="tecido-input"
+                                            style="accent-color: #212121;"
+                                            required
+                                            oninput="document.getElementById('percentual_necrose_seca_leito_val_range').textContent = this.value + '%'">
+                                        <span id="percentual_necrose_seca_leito_val_range" class="tecido-value" style="color: #212121;">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="info-message">
+                                <i class="fas fa-info-circle"></i>
+                                Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma deve ser 100%.
+                            </small>
+                        </div>
+                    </div>
                     <style>
-                        /* Escopo apenas para o campo de Percentual de Tecido */
-                        #tecido_leito_group {
+                        .tecido-leito-wrapper .input-group { margin-bottom: 20px; }
+                        .tecido-leito-wrapper .input-group > label {
+                            color: #2563eb;
+                            font-weight: bold;
+                            font-size: 1.2em;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            margin-bottom: 10px;
+                        }
+                        .tecido-leito-wrapper #tecido_leito_group {
                             display: grid;
                             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
                             gap: 20px 28px;
@@ -847,34 +943,31 @@
                             padding: 22px 16px 10px 16px;
                             box-shadow: 0 4px 18px rgba(37,99,235,0.08);
                         }
-                        #tecido_leito_group .tecido-item {
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-item {
                             display: flex;
                             flex-direction: column;
                             align-items: flex-start;
                             gap: 6px;
+                            transition: box-shadow 0.3s ease-in-out;
                         }
-                        #tecido_leito_group .tecido-label {
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-label {
                             font-weight: 600;
                             display: flex;
                             align-items: center;
                             gap: 7px;
                         }
-                        #tecido_leito_group .tecido-label.epitelizacao { color: #27ae60; }
-                        #tecido_leito_group .tecido-label.granulacao { color: #e67e22; }
-                        #tecido_leito_group .tecido-label.necrose-seca { color: #7f8c8d; }
-                        #tecido_leito_group .tecido-label.necrose-umida { color: #2980b9; }
-                        #tecido_leito_group .tecido-label.muscular { color: #c0392b; }
-                        #tecido_leito_group .tecido-label.tendinoso { color: #8e44ad; }
-                        #tecido_leito_group .tecido-label.osseo { color: #f39c12; }
-                        #tecido_leito_group .tecido-label.sem-visivel { color: #34495e; }
-                        #tecido_leito_group .tecido-input-wrapper {
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.granulacao { color: #d32f2f; }
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.epitelizacao { color: #f8bbd0; }
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.esfacelo { color: #fbc02d; }
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.necrose-seca { color: #212121; }
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-input-wrapper {
                             display: flex;
                             align-items: center;
                             gap: 10px;
                             width: 100%;
                         }
-                        #tecido_leito_group .tecido-input[type="range"] {
-                            flex: 1 1 120px;
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"] {
+                            flex: 1 1 8px;
                             height: 8px;
                             border-radius: 4px;
                             appearance: none;
@@ -885,344 +978,192 @@
                             transition: opacity .2s;
                             min-width: 0;
                         }
-                        #tecido_leito_group .tecido-input[type="range"]:hover {
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"]:hover {
                             opacity: 1;
                         }
-                        #tecido_leito_group .tecido-input[type="range"]::-webkit-slider-thumb {
-                            -webkit-appearance: none;
-                            appearance: none;
-                            width: 18px;
-                            height: 18px;
-                            border-radius: 50%;
-                            background: var(--accent-color, #2563eb);
-                            cursor: pointer;
-                            border: 1px solid #fff;
-                            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-                            margin-top: -5px;
-                        }
-                        #tecido_leito_group .tecido-input[type="range"]::-moz-range-thumb {
-                            width: 18px;
-                            height: 18px;
-                            border-radius: 50%;
-                            background: var(--accent-color, #2563eb);
-                            cursor: pointer;
-                            border: 1px solid #fff;
-                            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-                        }
-                        #tecido_leito_group .tecido-value {
+                        .tecido-leito-wrapper #tecido_leito_group .tecido-value {
                             min-width: 38px;
                             font-weight: 600;
                         }
-                        #tecido_leito_group .info-message {
-                            color: #2563eb;
-                            margin-top: 12px;
-                            display: block;
-                            font-size: 1.01em;
-                            font-weight: 500;
-                        }
-                        /* Label do grupo */
-                        #tecido_leito_group_label {
-                            font-weight: bold;
-                            font-size: 1.13em;
-                            display: flex;
-                            align-items: center;
-                            gap: 10px;
-                            margin-bottom: 8px;
-                        }
+                       
+                    .tecido-leito-wrapper .tecido-progress-bar-container {
+                        width: 100%;
+                        min-width: 0;
+                        height: 18px;
+                        background: #e3eafc;
+                        border-radius: 8px;
+                        margin: 18px 0 8px 0;
+                        overflow: hidden;
+                        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 2px 8px rgba(37,99,235,0.08);
+                        display: flex;
+                        align-items: stretch;
+                        flex-wrap: nowrap;
+                        flex-direction: row;
+                    }
 
-                        /* BARRA DE PROGRESSO DO PERCENTUAL DE TECIDO */
-                        .tecido-progress-bar-container {
-                            width: 100%;
-                            height: 18px;
-                            background: #e3eafc;
-                            border-radius: 8px;
-                            margin: 18px 0 8px 0;
-                            overflow: hidden;
-                            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
-                            display: flex;
-                        }
-                        .tecido-progress-bar-segment {
-                            height: 100%;
-                            transition: width 0.4s cubic-bezier(.4,2,.6,1);
-                        }
-                        .tecido-progress-epitelizacao { background: #27ae60; }
-                        .tecido-progress-granulacao { background: #e67e22; }
-                        .tecido-progress-necrose-seca { background: #7f8c8d; }
-                        .tecido-progress-necrose-umida { background: #2980b9; }
-                        .tecido-progress-muscular { background: #c0392b; }
-                        .tecido-progress-tendinoso { background: #8e44ad; }
-                        .tecido-progress-osseo { background: #f39c12; }
-                        .tecido-progress-sem-visivel { background: #34495e; }
+                    .tecido-leito-wrapper .tecido-progress-bar-segment {
+                        height: 100%;
+                        transition: width 0.4s cubic-bezier(.4,2,.6,1);
+                        flex-shrink: 0;
+                        /* Ensure segments don't wrap */
+                        min-width: 0;
+                    }
 
-                        /* Responsivo barra de progresso */
+                    .tecido-leito-wrapper .tecido-progress-granulacao { background: #d32f2f; }
+                    .tecido-leito-wrapper .tecido-progress-epitelizacao { background: #f8bbd0; }
+                    .tecido-leito-wrapper .tecido-progress-esfacelo { background: #fbc02d; }
+                    .tecido-leito-wrapper .tecido-progress-necrose-seca { background: #212121; }
+
+                    .tecido-leito-wrapper .tecido-leito-section > div:nth-of-type(2) {
+                        font-size: 0.98em;
+                        margin-bottom: 15px;
+                        color: #444;
+                        line-height: 1.4;
+                    }
+                    .tecido-leito-wrapper .tecido-leito-section > div:nth-of-type(2) span {
+                        display: flex;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        margin-top: 6px;
+                        gap: 16px;
+                    }
+                    .tecido-leito-wrapper .tecido-leito-section > div:nth-of-type(2) span span:first-child {
+                        display: inline-block;
+                        min-width: 18px;
+                        height: 18px;
+                        border-radius: 4px;
+                        margin-right: 6px;
+                        vertical-align: middle;
+                        flex-shrink: 0;
+                    }
+
+                    /* Impede quebra de linha dos segmentos da barra até 600px */
+                    @media (max-width: 900px) {
+                        .tecido-leito-wrapper .tecido-progress-bar-container {
+                            flex-wrap: nowrap !important;
+                        }
+                    }
+                    @media (max-width: 600px) {
+                        .tecido-leito-wrapper .tecido-progress-bar-container {
+                            flex-wrap: nowrap !important;
+                        }
+                    }
                         @media (max-width: 900px) {
-                            #tecido_leito_group {
+                            .tecido-leito-wrapper #tecido_leito_group {
                                 grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
                                 gap: 14px 12px;
                                 padding: 16px 8px 8px 8px;
                             }
-                            #tecido_leito_group .tecido-label {
+                            .tecido-leito-wrapper #tecido_leito_group .tecido-label {
                                 font-size: 0.98em;
                             }
-                            .tecido-progress-bar-container {
+                            .tecido-leito-wrapper .tecido-progress-bar-container {
                                 height: 14px;
                             }
                         }
                         @media (max-width: 600px) {
-                            #tecido_leito_group {
+                            .tecido-leito-wrapper #tecido_leito_group {
                                 grid-template-columns: 1fr;
                                 gap: 10px 0;
                                 padding: 10px 4px 6px 4px;
                             }
-                            #tecido_leito_group .tecido-item {
+                            .tecido-leito-wrapper #tecido_leito_group .tecido-item {
                                 gap: 2px;
                             }
-                            #tecido_leito_group .tecido-label {
+                            .tecido-leito-wrapper #tecido_leito_group .tecido-label {
                                 font-size: 0.97em;
                             }
-                            #tecido_leito_group .tecido-input-wrapper {
+                            .tecido-leito-wrapper #tecido_leito_group .tecido-input-wrapper {
                                 gap: 6px;
                             }
-                            #tecido_leito_group .tecido-input[type="range"] {
+                            .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"] {
                                 height: 6px;
                             }
-                            #tecido_leito_group .tecido-value {
+                            .tecido-leito-wrapper #tecido_leito_group .tecido-value {
                                 font-size: 0.97em;
                                 min-width: 30px;
                             }
-                            .tecido-progress-bar-container {
+                            .tecido-leito-wrapper .tecido-progress-bar-container {
                                 height: 10px;
                             }
                         }
+                        
                     </style>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const tecidoIds = [
+                            'percentual_granulacao_leito',
+                            'percentual_epitelizacao_leito',
+                            'percentual_esfacelo_leito',
+                            'percentual_necrose_seca_leito'
+                        ];
+                        const progressBar = document.getElementById('tecido-progress-bar');
+                        const progressSegments = Array.from(progressBar.children);
+                        const tecidoInputs = tecidoIds.map(id => document.getElementById(id));
+                        const infoMessage = document.querySelector('.tecido-leito-wrapper .info-message');
 
-                    <!-- Barra de Progresso Visual dos Percentuais -->
-                    <div class="tecido-progress-bar-container" id="tecido-progress-bar">
-                        <div class="tecido-progress-bar-segment tecido-progress-epitelizacao" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-granulacao" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-necrose-seca" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-necrose-umida" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-muscular" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-tendinoso" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-osseo" style="width:0%"></div>
-                        <div class="tecido-progress-bar-segment tecido-progress-sem-visivel" style="width:0%"></div>
-                    </div>
-                    <div style="font-size:0.98em; margin-bottom: 8px; color:#444;">
-                        <b>Base de cálculo:</b> O percentual de cada tecido é estimado visualmente sobre o <b>leito total da ferida</b> (100%).<br>
-                        <span style="display:inline-block;margin-top:4px;">
-                            <span style="display:inline-block;width:14px;height:14px;background:#27ae60;border-radius:3px;margin-right:4px;vertical-align:middle;"></span> Epitelização
-                            <span style="display:inline-block;width:14px;height:14px;background:#e67e22;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Granulação
-                            <span style="display:inline-block;width:14px;height:14px;background:#7f8c8d;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Necrose Seca
-                            <span style="display:inline-block;width:14px;height:14px;background:#2980b9;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Necrose Úmida
-                            <span style="display:inline-block;width:14px;height:14px;background:#c0392b;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Muscular
-                            <span style="display:inline-block;width:14px;height:14px;background:#8e44ad;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Tendinoso
-                            <span style="display:inline-block;width:14px;height:14px;background:#f39c12;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Ósseo
-                            <span style="display:inline-block;width:14px;height:14px;background:#34495e;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Sem visível
-                        </span>
-                    </div>
+                        function updateProgressBar() {
+                            let total = 0;
+                            const values = tecidoInputs.map(input => parseInt(input.value, 10) || 0);
+                            total = values.reduce((a, b) => a + b, 0);
 
-                    <div id="tecido_leito_group">
-
-                        <div class="tecido-item">
-                            <label for="percentual_epitelizacao_leito" class="tecido-label epitelizacao">
-                                <i class="fas fa-layer-group"></i>
-                                Epitelização
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_epitelizacao_leito"
-                                    name="percentual_epitelizacao_leito" min="0" max="100" value="0"
-                                    class="tecido-input"
-                                    style="accent-color: #27ae60;"
-                                    required
-                                    oninput="document.getElementById('percentual_epitelizacao_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_epitelizacao_leito_val_range" class="tecido-value" style="color: #27ae60;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_granulacao_leito" class="tecido-label granulacao">
-                                <i class="fas fa-seedling"></i>
-                                Granulação
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_granulacao_leito"
-                                    name="percentual_granulacao_leito" min="0" max="100" value="0"
-                                    class="tecido-input"
-                                    style="accent-color: #e67e22;"
-                                    required
-                                    oninput="document.getElementById('percentual_granulacao_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_granulacao_leito_val_range" class="tecido-value" style="color: #e67e22;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_necrose_seca_leito" class="tecido-label necrose-seca">
-                                <i class="fas fa-burn"></i>
-                                Necrose Seca (Escara)
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_necrose_seca_leito"
-                                    name="percentual_necrose_seca_leito" min="0" max="100" value="0"
-                                    class="tecido-input"
-                                    style="accent-color: #7f8c8d;"
-                                    required
-                                    oninput="document.getElementById('percentual_necrose_seca_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_necrose_seca_leito_val_range" class="tecido-value" style="color: #7f8c8d;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_necrose_umida_leito" class="tecido-label necrose-umida">
-                                <i class="fas fa-tint"></i>
-                                Necrose Úmida
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_necrose_umida_leito"
-                                    name="percentual_necrose_umida_leito" min="0" max="100" value="0"
-                                    class="tecido-input"
-                                    style="accent-color: #2980b9;"
-                                    required
-                                    oninput="document.getElementById('percentual_necrose_umida_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_necrose_umida_leito_val_range" class="tecido-value" style="color: #2980b9;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_muscular_leito" class="tecido-label muscular">
-                                <i class="fas fa-dumbbell"></i>
-                                Tecido Muscular Exposto
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_muscular_leito" name="percentual_muscular_leito"
-                                    min="0" max="100" value="0" class="tecido-input"
-                                    style="accent-color: #c0392b;"
-                                    required
-                                    oninput="document.getElementById('percentual_muscular_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_muscular_leito_val_range" class="tecido-value" style="color: #c0392b;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_tendinoso_leito" class="tecido-label tendinoso">
-                                <i class="fas fa-link"></i>
-                                Tecido Tendinoso Exposto
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_tendinoso_leito" name="percentual_tendinoso_leito"
-                                    min="0" max="100" value="0" class="tecido-input"
-                                    style="accent-color: #8e44ad;"
-                                    required
-                                    oninput="document.getElementById('percentual_tendinoso_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_tendinoso_leito_val_range" class="tecido-value" style="color: #8e44ad;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_osseo_leito" class="tecido-label osseo">
-                                <i class="fas fa-bone"></i>
-                                Tecido Ósseo Exposto
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_osseo_leito" name="percentual_osseo_leito" min="0"
-                                    max="100" value="0" class="tecido-input"
-                                    style="accent-color: #f39c12;"
-                                    required
-                                    oninput="document.getElementById('percentual_osseo_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_osseo_leito_val_range" class="tecido-value" style="color: #f39c12;">0%</span>
-                            </div>
-                        </div>
-
-                        <div class="tecido-item">
-                            <label for="percentual_sem_visivel_leito" class="tecido-label sem-visivel">
-                                <i class="fas fa-eye-slash"></i>
-                                Sem Tecido Visível
-                            </label>
-                            <div class="tecido-input-wrapper">
-                                <input type="range" id="percentual_sem_visivel_leito"
-                                    name="percentual_sem_visivel_leito" min="0" max="100" value="0"
-                                    class="tecido-input"
-                                    style="accent-color: #34495e;"
-                                    required
-                                    oninput="document.getElementById('percentual_sem_visivel_leito_val_range').textContent = this.value + '%'">
-                                <span id="percentual_sem_visivel_leito_val_range" class="tecido-value" style="color: #34495e;">0%</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <small class="info-message">
-                        <i class="fas fa-info-circle"></i>
-                        Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma deve ser 100%.
-                    </small>
-                </div>
-
-                <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const tecidoIds = [
-                        'percentual_epitelizacao_leito',
-                        'percentual_granulacao_leito',
-                        'percentual_necrose_seca_leito',
-                        'percentual_necrose_umida_leito',
-                        'percentual_muscular_leito',
-                        'percentual_tendinoso_leito',
-                        'percentual_osseo_leito',
-                        'percentual_sem_visivel_leito'
-                    ];
-                    const progressClasses = [
-                        'tecido-progress-epitelizacao',
-                        'tecido-progress-granulacao',
-                        'tecido-progress-necrose-seca',
-                        'tecido-progress-necrose-umida',
-                        'tecido-progress-muscular',
-                        'tecido-progress-tendinoso',
-                        'tecido-progress-osseo',
-                        'tecido-progress-sem-visivel'
-                    ];
-                    const tecidoInputs = tecidoIds.map(id => document.getElementById(id));
-                    const progressBar = document.getElementById('tecido-progress-bar');
-                    const progressSegments = Array.from(progressBar.children);
-
-                    function updateProgressBar() {
-                        let total = 0;
-                        tecidoInputs.forEach((input, idx) => {
-                            const val = parseInt(input.value, 10) || 0;
-                            progressSegments[idx].style.width = val + '%';
-                            total += val;
-                        });
-                        // Visual feedback: green border if sum == 100, red otherwise
-                        tecidoInputs.forEach(el => {
-                            const parentDiv = el.closest('.tecido-item');
-                            if (parentDiv) {
-                                parentDiv.style.boxShadow = (total === 100)
-                                    ? '0 0 0 2px #27ae60'
-                                    : '0 0 0 2px #e74c3c';
+                            let normalized = [0, 0, 0, 0];
+                            if (total > 0) {
+                                normalized = values.map(v => (v / total) * 100);
                             }
-                        });
-                    }
 
-                    tecidoInputs.forEach((input, idx) => {
-                        input.addEventListener('input', function () {
-                            // Update the span text for the current input
-                            const valSpan = document.getElementById(this.id + '_val_range');
-                            if (valSpan) valSpan.textContent = this.value + '%';
+                            progressSegments.forEach((seg, idx) => {
+                                seg.style.width = normalized[idx] + '%';
+                            });
 
-                            // If the current value is 100, set others to 0
-                            if (parseInt(this.value, 10) === 100) {
-                                tecidoInputs.forEach((otherInput, otherIdx) => {
-                                    if (otherIdx !== idx) {
-                                        otherInput.value = 0;
-                                        const otherValSpan = document.getElementById(otherInput.id + '_val_range');
-                                        if (otherValSpan) otherValSpan.textContent = '0%';
+                            tecidoInputs.forEach(el => {
+                                const parentDiv = el.closest('.tecido-item');
+                                if (parentDiv) {
+                                    if (total === 100) {
+                                        parentDiv.style.boxShadow = '0 0 0 2px #27ae60';
+                                        infoMessage.style.color = '#2563eb';
+                                    } else {
+                                        parentDiv.style.boxShadow = '0 0 0 2px #e74c3c';
+                                        infoMessage.style.color = '#e74c3c';
                                     }
-                                });
-                            }
-                            updateProgressBar();
-                        });
-                    });
+                                }
+                            });
 
-                    // Inicializa barra ao carregar
-                    updateProgressBar();
-                });
-                </script>
+                            if (total !== 100) {
+                                infoMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> A soma dos percentuais deve ser 100%. Soma atual: ' + total + '%';
+                            } else {
+                                infoMessage.innerHTML = '<i class="fas fa-info-circle"></i> Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma deve ser 100%.';
+                            }
+                        }
+
+                        tecidoInputs.forEach((input, idx) => {
+                            input.addEventListener('input', function () {
+                                let currentValue = parseInt(this.value, 10) || 0;
+                                let otherTotal = tecidoInputs.reduce((sum, el, i) => i !== idx ? sum + (parseInt(el.value, 10) || 0) : sum, 0);
+                                if (currentValue + otherTotal > 100) {
+                                    currentValue = 100 - otherTotal;
+                                    this.value = currentValue;
+                                }
+                                const valSpan = document.getElementById(this.id + '_val_range');
+                                if (valSpan) valSpan.textContent = this.value + '%';
+                                if (parseInt(this.value, 10) === 100) {
+                                    tecidoInputs.forEach((otherInput, otherIdx) => {
+                                        if (otherIdx !== idx) {
+                                            otherInput.value = 0;
+                                            const otherValSpan = document.getElementById(otherInput.id + '_val_range');
+                                            if (otherValSpan) otherValSpan.textContent = '0%';
+                                        }
+                                    });
+                                }
+                                updateProgressBar();
+                            });
+                        });
+
+                        updateProgressBar();
+                    });
+                    </script>
+                </fieldset>
+        
                     <div class="input-group">
                         <label
                             style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
