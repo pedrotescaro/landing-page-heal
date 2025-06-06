@@ -10,262 +10,6 @@
     <style>
         @import url("/site/public/css/estilo_pc.css");
         /* Bottom navigation styles */
-        footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100vw;
-            background: #fff;
-            box-shadow: 0 -4px 24px rgba(37,99,235,0.10), 0 -1px 8px rgba(0,0,0,0.06);
-            z-index: 100;
-            border-top-left-radius: 18px;
-            border-top-right-radius: 18px;
-            transition: box-shadow 0.2s;
-        }
-
-         .bottom-nav {
-            display: flex;
-            justify-content: space-evenly;
-            height: 60px;
-            align-items: center;
-            padding: 14px 0 10px;
-            gap: 8px;
-        }
-
-        .bottom-nav a {
-            color: #2563eb;
-            text-decoration: none;
-            font-size: 1.08em;
-            font-weight: 600;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            padding: 6px 18px 4px;
-            border-radius: 10px;
-            transition: 
-            color 0.18s,
-            background 0.18s,
-            transform 0.15s,
-            box-shadow 0.18s;
-            position: relative;
-        }
-
-        .bottom-nav a:hover, .bottom-nav a:focus {
-            color: #fff;
-            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-            transform: translateY(-2px) scale(1.07);
-            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
-            outline: none;
-        }
-
-        .bottom-nav a.active::after {
-            content: '';
-            display: block;
-            margin: 6px auto 0;
-            width: 22px;
-            height: 3px;
-            border-radius: 2px;
-            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-        }
-
-        .bottom-nav i {
-            font-size: 1.5em;
-            transition: color 0.18s;
-        }
-
-        .bottom-nav span {
-            font-size: 0.97em;
-            letter-spacing: 0.01em;
-        }
-
-        /* Seus estilos de barra de progresso, botões de ação, e responsividade */
-        #progress-bar-container {
-            width: 100%;
-            background: linear-gradient(90deg, #e3eafc 0%, #eaf1fb 100%);
-            border-radius: 14px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.10);
-            height: 22px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #progress-bar {
-            background: linear-gradient(90deg, #2563eb 0%, #3b82f6 40%, #60a5fa 80%, #a5d8ff 100%);
-            height: 100%;
-            width: 0%;
-            border-radius: 14px 0 0 14px;
-            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.18);
-            transition: width 0.5s cubic-bezier(.4,2,.6,1), background 0.3s;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        #progress-bar::after {
-            content: '';
-            display: block;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 22px;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.45) 0%, rgba(96,165,250,0.18) 100%);
-            border-radius: 0 14px 14px 0;
-            opacity: 0.85;
-            pointer-events: none;
-        }
-
-        #step-counter {
-            text-align: center;
-            margin-bottom: 28px;
-            font-size: 1.08em;
-            color: #2563eb;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            text-shadow: 0 1px 0 #e3eafc;
-        }
-
-        .step {
-            display: none;
-        }
-
-        .step.active {
-            display: block;
-            animation: fadeInStep 0.5s;
-        }
-
-        @keyframes fadeInStep {
-            from { opacity: 0; transform: translateY(16px);}
-            to { opacity: 1; transform: none;}
-        }
-
-        .action-buttons {
-            margin-top: 28px;
-            display: flex;
-            gap: 14px;
-            justify-content: space-between;
-        }
-
-        .action-buttons button {
-            padding: 12px 28px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.08em;
-            font-weight: 600;
-            box-shadow: 0 2px 12px rgba(37,99,235,0.09);
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            outline: none;
-        }
-        
-        #prevBtn {
-            background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
-            color: #fff;
-        }
-
-        #prevBtn:hover, #prevBtn:focus {
-            background: linear-gradient(90deg, #c62828 0%, #f44336 100%);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(244,67,54,0.18);
-        }
-
-        #nextBtn {
-            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-            color: #fff;
-        }
-
-        #nextBtn:hover, #nextBtn:focus {
-            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
-            box-shadow: 0 4px 16px rgba(37,99,235,0.18);
-        }
-
-        #submitBtn {
-            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-            color: #fff;
-            display: none;
-        }
-
-        #submitBtn:hover, #submitBtn:focus {
-            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
-            box-shadow: 0 4px 16px rgba(37,99,235,0.18);
-        }
-
-        /* Custom message box styles */
-        .message-box {
-            position: fixed;
-            top: 28px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 16px 32px;
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.08em;
-            color: white;
-            z-index: 1000;
-            box-shadow: 0 6px 24px rgba(37,99,235,0.18), 0 2px 8px rgba(0,0,0,0.10);
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out, top 0.3s;
-            pointer-events: none;
-        }
-
-        .message-box.success {
-            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-        }
-
-        .message-box.error {
-            background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
-        }
-
-        /* Responsive improvements */
-        @media (max-width: 600px) {
-            #progress-bar-container {
-                height: 14px;
-                border-radius: 8px;
-            }
-            #progress-bar {
-                border-radius: 8px 0 0 8px;
-            }
-            #progress-bar::after {
-                border-radius: 0 8px 8px 0;
-                width: 12px;
-            }
-            .action-buttons button {
-                padding: 10px 12px;
-                font-size: 0.98em;
-            }
-            .action-buttons {
-                gap: 6px;
-            }
-        }
-
-        /* New: Button to go back to dashboard */
-        .back-to-dashboard-button {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            background-color: #6c757d; /* Gray for back button */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .back-to-dashboard-button:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -1552,6 +1296,39 @@
             </div>
         </form>
     </div>
+      <div id="finalizacao-container">
+        <fieldset>
+            <legend>Finalização da Documentação</legend>
+            <p>Após preencher os dados da anamnese, finalize a documentação e gere um PDF com as informações.</p>
+            <p>Adicione anotações e escolha um paciente para incluir os dados no relatório em PDF.</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Anamneses Cadastradas</legend>
+            <p>Selecione uma anamnese para visualizar ou editar:</p>
+            <ul id="anamneses-list-ul"></ul>
+        </fieldset>
+
+        <fieldset>
+            <legend>Nota</legend>
+            <label for="nota">Adicione uma nota para incluí-la no PDF:</label>
+            <textarea id="nota" name="nota" placeholder="Insira o texto aqui"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Escolha o paciente</legend>
+            <label for="paciente">Escolha o paciente para incluir os dados no relatório em PDF (opcional):</label>
+            <select id="paciente" name="paciente">
+                <option value="">Inserir paciente</option>
+            </select>
+        </fieldset>
+
+        <div class="action-buttons">
+            <button type="reset" id="apagar-tudo">Apagar tudo <i class="fas fa-sync-alt"></i></button>
+            <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i class="fas fa-check"></i></button>
+        </div>
+    </div>
+
     <div style="display: flex; justify-content: center; margin: 32px 0;">
         <a href="dashboard.html" class="back-to-dashboard-button" style="
             background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
@@ -1576,6 +1353,8 @@
             <span>Voltar ao Dashboard</span>
         </a>
     </div>
+
+
     <footer>
         <nav class="bottom-nav">
             <a href="dashboard.html" title="Home">
