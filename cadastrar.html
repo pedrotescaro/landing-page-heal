@@ -61,17 +61,23 @@
           <input type="email" id="email" name="email" required
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
         </div>
-        <div>
+        <div class="relative">
           <label for="senha" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
           <input type="password" id="password" name="password" required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+          <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="password">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+          <div id="password-strength" class="text-sm mt-1 font-semibold"></div>
         </div>
-        <div>
+        <div class="relative">
           <label for="confirmar_senha" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
           <input type="password" id="confirm-password" name="confirm-password" required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+          <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="confirm-password">
+            <i class="fa-regular fa-eye"></i>
+          </button>
         </div>
-       
         <button type="submit"
           class="w-full bg-[#1E77EA] hover:bg-[#0369A0] text-white font-medium py-3 rounded-lg transition-colors">
           Cadastrar
@@ -124,5 +130,6 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
   <script src="js/script-geral.js"></script>
+  <script src="js/validar-cadastro.js"></script>
 </body>
 </html>
