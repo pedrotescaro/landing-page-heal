@@ -57,3 +57,11 @@ CREATE TABLE IF NOT EXISTS anamnese (
     historico_estetico TEXT,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_email VARCHAR(255) NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
