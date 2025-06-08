@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'php\connect.php';
 function formatUserName($fullName) {
     $parts = explode(' ', trim($fullName));
     if (count($parts) >= 2) {
@@ -11,6 +12,24 @@ function formatUserName($fullName) {
 $userName = $_SESSION['user_name'] ?? null;
 $displayName = $userName ? formatUserName($userName) : null;
 
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_token'])) {
+    $token = $_COOKIE['remember_token'];
+    $sql = "SELECT user_id, user_name FROM users WHERE remember_token = ?";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_name'] = $user['user_name'];
+        // Usuário autenticado automaticamente via cookie
+    } else {
+        // Token inválido, remover cookie
+        setcookie('remember_token', '', time() - 3600, "/");
+    }
+}
 // Se não está logado, redireciona para login
 /*
 if (!isset($_SESSION['user_name'])) {
