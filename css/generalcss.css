@@ -193,8 +193,43 @@
             gap: 1rem;
         }
 
+        /* Ajustes de altura para telas pequenas */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Suaviza os elementos decorativos */
+        .decorativo {
+            opacity: 0.1;
+            background-color: white;
+            border-radius: 9999px;
+        }
+
          /* Responsivo */
          @media (max-width: 768px) {
+            .register-right {
+                display: none;
+            }
+
+            .register-left {
+                padding: 2rem;
+            }
+
+            .login-right {
+                display: none;
+            }
+
+            .login-left {
+                padding: 2rem;
+            }
+
             .header-container {
                 padding: 1rem;
             }
