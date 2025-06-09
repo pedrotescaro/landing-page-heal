@@ -45,28 +45,30 @@
     <div class="w-full md:w-1/2 register-left flex flex-col justify-center p-4 md:p-8 shadow-lg transition-colors duration-300">
       <h2 class="text-xl font-bold mb-1 mt-[-10px]">Bem-vindo de volta</h2>
       <p class="mb-6">Faça login para acessar seu histórico de tratamentos</p>
-      <form action="php/login.php" method="POST" class="space-y-4">
+      <form action="php/login.php" method="POST" class="space-y-5">
         <div>
-          <label for="email" class="block text-sm font-medium mb-1">Email</label>
-          <input type="email" id="email" name="email" required
-            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]">
+          <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
         </div>
-        <div>
+
+        <div class="relative">
           <div class="flex justify-between items-center mb-1">
-            <label for="password" class="text-sm font-medium">Senha</label>
-            <a href="#" class="text-sm text-sky-600 hover:underline">Esqueceu a senha?</a>
+            <label for="password" class="text-sm font-medium text-[#111827]">Senha</label>
+            <a href="recuperar-senha.html" class="text-sm text-[#0FA3E9] hover:underline">Esqueceu a senha?</a>
           </div>
           <input type="password" id="password" name="password" required
-            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]">
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+          <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="password" tabindex="-1">
+            <i class="fa-regular fa-eye"></i>
+          </button>
         </div>
         <div class="flex items-center">
-          <input id="remember" type="checkbox" class="h-4 w-4 text-sky-600 border-gray-300 rounded">
-          <label for="remember" class="ml-2 text-sm">Lembrar de mim</label>
+          <input id="remember" type="checkbox" name="remember" class="h-4 w-4 text-[#1E77EA] border-gray-300 rounded">
+          <label for="remember" class="ml-2 text-sm text-[#111827]">Lembrar de mim</label>
         </div>
         <button type="submit"
-          class="w-full py-3 px-6 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-95 shadow-md hover:shadow-sky-200"
-        >
-          <i class="fas fa-sign-in-alt mr-2"></i>
+          class="w-full bg-[#1E77EA] hover:bg-[#0369A0] text-white font-medium py-3 rounded-lg transition-colors">
           Entrar
         </button>
       </form>
@@ -122,7 +124,9 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
   <script src="js/script.js"></script>
+  <script src="js/validar-cadastro.js"></script>
   <script src="js/script-geral.js"></script>
   <script src="js/script-mododark.js"></script>
+
 </body>
 </html>

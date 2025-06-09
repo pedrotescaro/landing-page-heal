@@ -48,41 +48,45 @@
             <h2 class="text-xl font-bold mb-2">Crie sua conta</h2>
             <p class="mb-6">Preencha os dados abaixo para começar</p>
 
-            <form action="php/cadastrar.php" method="POST" class="space-y-4">
-                <div>
-                    <label for="name" class="block text-sm font-medium mb-1">Nome Completo</label>
-                    <input type="text" id="name" name="name" required
-                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]">
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium mb-1">Email</label>
-                    <input type="email" id="email" name="email" required
-                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium mb-1">Senha</label>
-                    <input type="password" id="password" name="password" required
-                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]">
-                </div>
-                <div>
-                    <label for="confirm-password" class="block text-sm font-medium mb-1">Confirmar Senha</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required
-                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]">
-                </div>
-
-                <button type="submit"
-                    class="w-full py-3 px-6 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-95 shadow-md hover:shadow-sky-200"
-                >
-                    <i class="fas fa-user-plus mr-2"></i>
-                    Cadastrar
+            <form action="php/cadastrar.php" method="POST" class="space-y-5">
+              <div>
+                <label for="nome" class="block text-sm font-medium text-[#111827] mb-1">Nome Completo</label>
+                <input type="text" id="name" name="name" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
+                <input type="email" id="email" name="email" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+                <div id="email-check" class="text-sm mt-1"></div>
+              </div>
+              <div class="relative">
+                <label for="senha" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
+                <input type="password" id="password" name="password" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+                <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="password">
+                  <i class="fa-regular fa-eye"></i>
                 </button>
+                <div id="password-strength" class="text-sm mt-1 font-semibold"></div>
+              </div>
+              <div class="relative">
+                <label for="confirmar_senha" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
+                <input type="password" id="confirm-password" name="confirm-password" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+                <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="confirm-password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <div id="password-match-error" class="text-sm text-red-600 mt-1 hidden">As senhas não conferem</div>
+              </div>
+              <button type="submit"
+                class="w-full bg-[#1E77EA] hover:bg-[#0369A0] text-white font-medium py-3 rounded-lg transition-colors">
+                Cadastrar
+              </button>
             </form>
-
             <p class="text-center text-sm mt-4">
                 Já possui uma conta? <a href="login.html" class="hover:underline">Entrar</a>
             </p>
         </div>
-
         <div class="login-right w-full md:w-1/2 p-10 relative flex items-center justify-center min-h-64 md:min-h-auto">
             <div class="z-10 max-w-md text-center md:text-left">
                 <h2 class="text-3xl font-extrabold mb-8">Acompanhamento completo de feridas</h2>
@@ -124,6 +128,7 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="js/script.js"></script>
+    <script src="js/validar-cadastro.js"></script>
     <script src="js/script-geral.js"></script>
     <script src="js/script-mododark.js"></script>
 
