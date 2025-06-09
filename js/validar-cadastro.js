@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("form");
   const passwordInput = document.getElementById("password");
   const passwordStrength = document.getElementById("password-strength");
+  const confirmPasswordInput = document.getElementById("confirm-password");
+  const matchError = document.getElementById("password-match-error");
 
   passwordInput.addEventListener("input", function () {
     const strength = avaliarForcaSenha(passwordInput.value);
@@ -92,6 +94,23 @@ document.addEventListener("DOMContentLoaded", function () {
         icon.classList.remove("fa-eye-slash");
         icon.classList.add("fa-eye");
       }
+      
+      // Função que verifica se as senhas digitadas são iguais  
+      function checkPasswordMatch() {
+        if (confirmPasswordInput.value === "") {
+          matchError.classList.add("hidden");
+          return;
+        }
+
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          matchError.classList.remove("hidden");
+        } else {
+          matchError.classList.add("hidden");
+        }
+      }
+
+      passwordInput.addEventListener("input", checkPasswordMatch);
+      confirmPasswordInput.addEventListener("input", checkPasswordMatch);
     });
   });
 });
