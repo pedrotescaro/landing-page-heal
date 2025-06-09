@@ -924,10 +924,11 @@ body.dark {
     color: hsl(var(--foreground));
 }
 
-body.dark label{
-     background-color: hsl(var(--background));
+body.dark #feedback-type-select,
+body.dark #feedback-type-select option {
+    background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    
+    border-color: hsl(var(--primary));
 }
 
 body.dark footer {
