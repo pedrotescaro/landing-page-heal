@@ -43,6 +43,9 @@
                 <a href="#footer" data-i18n="header.contact"></a>
                
       <div class="cta-buttons">
+            <button id="toggleDarkMode" class="btn btn-outline">
+            🌙
+        </button>
 
     <?php if ($displayName): ?>
             <!-- Exibe o nome do usuário e botão logout -->
@@ -252,30 +255,30 @@
 </section>
 <!-- Feedback Section - Tema Claro -->
 <section id="feedback" class="container mx-auto px-4 mb-32">
-    <div class="max-w-2xl mx-auto">
-        <h2 class="text-3xl font-bold mb-8 text-center text-sky-600" data-i18n="feedback.title"></h2>
-        <form class="space-y-6 bg-white rounded-2xl p-6 border border-sky-200 shadow-lg">
-            <div>
-                <label class="block text-sm font-medium mb-2 text-gray-800" data-i18n="feedback.typeLabel"></label>
-                <select class="w-full px-4 py-3 rounded-lg bg-white border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 transition-all">
-                    <option data-i18n="feedback.options.suggestion"></option>
-                    <option data-i18n="feedback.options.problem"></option>
-                    <option data-i18n="feedback.options.praise"></option>
-                    <option data-i18n="feedback.options.other"></option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2 text-gray-800" data-i18n="feedback.messageLabel"></label>
-                <textarea rows="4" required class="w-full px-4 py-3 rounded-lg bg-white border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 resize-none transition-all">
-                </textarea>
-            </div>
-            <button type="submit"
-                class="w-full py-3 px-6 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-95 shadow-md hover:shadow-sky-200"
-                data-i18n="feedback.submitButton">
-            </button>
-        </form>
-    </div>
-</section>
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center text-sky-600" data-i18n="feedback.title">Your Opinion is Essential</h2>
+            <form class="space-y-6 bg-white rounded-2xl p-6 border border-sky-200 shadow-lg">
+                <div>
+                    <label for="feedback-type" id="feedback-type-label" class="block text-sm font-medium mb-2 text-gray-800" data-i18n="feedback.typeLabel">Feedback Type</label>
+                    <select id="feedback-type" class="w-full px-4 py-3 rounded-lg bg blue border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 transition-all">
+                        <option id="feedback-option-suggestion" data-i18n="feedback.options.suggestion">Suggestion</option>
+                        <option id="feedback-option-problem" data-i18n="feedback.options.problem">Problem</option>
+                        <option id="feedback-option-praise" data-i18n="feedback.options.praise">Praise</option>
+                        <option id="feedback-option-other" data-i18n="feedback.options.other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="feedback-message" id="feedback-message-label" class="block text-sm font-medium mb-2 text-gray-800" data-i18n="feedback.messageLabel">Message</label>
+                    <textarea id="feedback-message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-white border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 resize-none transition-all"></textarea>
+                </div>
+                <button id="feedback-submit" type="submit"
+                    class="w-full py-3 px-6 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-95 shadow-md hover:shadow-sky-200"
+                    data-i18n="feedback.submitButton">
+                    Send Feedback
+                </button>
+            </form>
+        </div>
+    </section>
 
 
 <footer id="footer" class="bg-gray-900 py-12 px-4 mt-32">

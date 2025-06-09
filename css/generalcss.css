@@ -73,8 +73,6 @@
         }
 
 
-
-
         * {
             margin: 0;
             padding: 0;
@@ -97,8 +95,14 @@
         }
 
      /* Header Styles */
+    #container header-container{
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+    }
+
      header {
-            background-color: white;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
@@ -106,7 +110,10 @@
             z-index: 100;
         }
 
+
         .header-container {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -154,6 +161,8 @@
         }
 
         .nav-links {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
             display: flex;
             gap: 2rem;
             transition: all 0.3s ease;
@@ -161,6 +170,7 @@
 
         .nav-links a {
             text-decoration: none;
+            background-color: hsl(var(--background));
             color: hsl(var(--foreground));
             font-weight: 500;
             transition: all 0.3s;
@@ -849,7 +859,7 @@
             left: 0;
             right: 0;
             height: calc(100vh - 70px);
-            background: white;
+            background-color: hsl(var(--background));
             padding: 2rem 1rem;
             flex-direction: column;
             transform: translateX(-100%);
@@ -888,8 +898,8 @@
             margin-left: 1rem;
         }
 
-        .language-selector option {
-            background: white;
+    .language-selector option {
+            background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
 
@@ -899,3 +909,167 @@
                 width: 100%;
             }
         }
+
+          body.dark {
+    --background: 222 47% 11%; /* fundo escuro */
+    --foreground: 210 40% 98%; /* texto claro */
+    --primary: 201 96% 60%;
+    --primary-foreground: 222 47% 10%;
+    --muted: 215 20% 20%;
+    --muted-foreground: 210 20% 70%;
+    --border: 215 20% 30%;
+}
+body.dark {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}
+
+body.dark label{
+     background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    
+}
+
+body.dark footer {
+    background-color: hsl(222 47% 8%);
+}
+
+body.dark header{
+    background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+}
+
+body.dark .feedback{
+    background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+}
+     /* Your provided CSS for dark mode */
+        body.dark textarea,
+        body.dark .feedback textarea,
+        body.dark .feedback input,
+        body.dark .feedback section,
+        body.dark .feedback form,
+        body.dark .feedback button,
+        body.dark .feedback .btn,
+        body.dark .feedback .btn-primary,
+        body.dark .feedback .btn-outline,
+        body.dark .feedback textarea,
+        body.dark .feedback input,
+        body.dark .feedback select,
+        body.dark .feedback option {
+            background-color: hsl(var(--muted));
+            color: hsl(var(--foreground));
+            border-color: hsl(var(--border));
+        }
+
+        body.dark .feedback label {
+            color: hsl(var(--foreground));
+        }
+
+        body.dark .feedback h2 {
+            color: hsl(var(--primary));
+        }
+
+        body.dark .feedback form {
+            background-color: hsl(var(--background));
+            border-color: hsl(var(--border));
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        body.dark .feedback label {
+            color: hsl(var(--primary));
+        }
+
+        body.dark .feedback select,
+        body.dark .feedback textarea,
+        body.dark .feedback input {
+            background-color: hsl(222 47% 16%); /* This is what you want for the dropdown in dark mode */
+            color: hsl(var(--primary));
+            border-color: hsl(var(--primary));
+        }
+
+        body.dark .feedback option {
+            background-color: hsl(222 47% 16%); /* Ensure options also have dark background */
+            color: hsl(var(--primary));
+        }
+
+        body.dark .feedback button,
+        body.dark .feedback .btn,
+        body.dark .feedback .btn-primary {
+            background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 1.2));
+            color: hsl(var(--primary-foreground));
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        body.dark .feedback button:hover,
+        body.dark .feedback .btn:hover,
+        body.dark .feedback .btn-primary:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        /* Define your HSL custom properties here if they are not already defined globally */
+        /* Example: */
+        :root {
+            --background: 0 0% 100%;    /* Light mode background */
+            --foreground: 222 47% 11%;  /* Light mode foreground */
+            --primary: 200 80% 50%;     /* Light mode primary color */
+            --primary-foreground: 0 0% 100%; /* Light mode primary foreground */
+            --muted: 210 20% 90%;       /* Light mode muted color */
+            --border: 210 20% 80%;      /* Light mode border color */
+        }
+
+        body.dark {
+            --background: 222 47% 11%;  /* Dark mode background */
+            --foreground: 210 20% 98%;  /* Dark mode foreground */
+            --primary: 200 80% 60%;     /* Dark mode primary color (slightly lighter for contrast) */
+            --primary-foreground: 210 20% 98%; /* Dark mode primary foreground */
+            --muted: 222 47% 16%;       /* Dark mode muted color */
+            --border: 222 47% 20%;      /* Dark mode border color */
+        }
+        
+body.dark .pricing-card,
+body.dark .feature-card,
+body.dark .testimonial-card,
+body.dark form,
+body.dark .nav-links {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}
+
+body.dark .btn-outline {
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+}
+
+body.dark .btn-outline:hover {
+    background-color: hsl(var(--primary) / 0.1);
+}
+
+body.dark .hero p,
+body.dark .section-header p,
+body.dark .faq-answer,
+body.dark .testimonial-card p,
+body.dark .testimonial-role {
+    color: hsl(var(--muted-foreground));
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* espaço entre os elementos */
+}
+
+.user-name {
+    font-weight: 500; /* peso da fonte médio */
+    color: hsl(var(--foreground));
+    padding: 4px 8px; /* leve preenchimento ao redor do texto */
+}
+
+
+.user-name {
+    font-weight: 500;
+    color: hsl(var(--foreground));
+}
