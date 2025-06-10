@@ -11,7 +11,9 @@
     <link rel="icon" type="image/png" href="imgs/Logo_Heal4.png">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/css_cadastro_login.css">
- 
+ <style>
+  @import url("css/css_cadastro_login.css");
+ </style>
 
 </head>
 <body class="transition-colors duration-300">
@@ -44,8 +46,16 @@
 
     <div class="header-spacer"></div>
 
+    <style>
+           /* Spacer div to push content below fixed header */
+        .header-spacer {
+            height: 50px; /* Must match header height */
+            width: 100%;
+        }
+    </style>
+
     <div class="main-content-wrapper flex-grow flex-col md:flex-row">
-        <div class="w-full md:w-1/2 register-left flex flex-col justify-center p-4 md:p-8 shadow-lg transition-colors duration-300">
+        <div class="w-full md:w-1/2 register-left flex flex-col justify-center p-8 md:p-12 shadow-lg transition-colors duration-300">
             <h2 class="text-xl font-bold mb-1 mt-[-10px]">Bem-vindo de volta</h2>
             <p class="mb-6">Faça login para acessar seu histórico de tratamentos</p>
             <form action="php/login.php" method="POST" class="space-y-5">
