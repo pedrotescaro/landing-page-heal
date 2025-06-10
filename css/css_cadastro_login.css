@@ -284,3 +284,18 @@
             header { height: 80px; } /* Adjust desktop header height */
         }
         .user-name { font-weight: 500; color: hsl(var(--foreground)); }
+
+        @media (max-width: 768px) {
+            .main-content-wrapper {
+                flex-direction: column-reverse;
+            }
+            .login-right {
+                display: block; /* Garante que apareça no mobile */
+            }
+            .login-left {
+                order: 1; /* Garante que apareça no mobile */
+            }
+            .register-left {
+                order: 1; /* Garante que o register fique abaixo do login-right no mobile */
+            }
+        }
