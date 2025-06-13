@@ -377,16 +377,20 @@
         </div>
     </div>
 </div>
-    <div class="hidden lg:flex flex-col gap-2 fixed right-3 top-40">
-        <button class="js-increase-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] px-2 text-2xl flex justify-center">+</button>
-        <button class="js-decrease-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] text-2xl flex justify-center">-</button>
-    </div>
+    <!-- VLibras Widget -->
     <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
     </div>
+
+    <!-- Font Size Controls -->
+    <div class="flex flex-col gap-2 fixed right-3 top-40 z-50">
+      <button class="js-increase-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] px-2 text-2xl flex justify-center">+</button>
+      <button class="js-decrease-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] text-2xl flex justify-center">-</button>
+    </div>
+
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');

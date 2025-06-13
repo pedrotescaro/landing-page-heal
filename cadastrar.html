@@ -1,113 +1,142 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - Heal - Monitoramento Inteligente de Feridas</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" type="image/png" href="imgs/Logo_Heal4.png">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="css/generalcss.css">
-  <link rel="stylesheet" href="css/style.css">
+<html lang="pt-BR" >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Heal - Monitoramento Inteligente de Feridas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="imgs/Logo_Heal4.png">
+    <Link:css> </Link:css>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      @import url("css/css_cadastro_login.css");
+    </style>
 </head>
-<body class="bg-[#F1F5F9]">
-
-  <div class="flex flex-col md:flex-row full-screen">
-
-   <!-- Lado Esquerdo: Formulário de Cadastro -->
-<div class="w-full md:w-1/2 register-left bg-white flex flex-col justify-center p-8 md:p-12">
-  <div class="flex items-center gap-2">
-    <img src="imgs/Logo_Heal4.png" alt="Heal Logo" class="w-10 object-contain">
-    <div class="logo ml-2">Heal</div>
-  </div>
-  <h2 class="text-xl font-bold text-[#111827] mb-2">Crie sua conta</h2>
-  <p class="text-gray-600 mb-4">Preencha os dados abaixo para começar</p>
-  
-  <form action="php/cadastrar.php" method="POST" class="space-y-4">
-    <div>
-      <label for="nome" class="block text-sm font-medium text-[#111827] mb-1">Nome Completo</label>
-      <input type="text" id="name" name="name" required
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-    </div>
-    <div>
-      <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
-      <input type="email" id="email" name="email" required
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-    </div>
-    <div>
-      <label for="senha" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
-      <input type="password" id="password" name="password" required
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-    </div>
-    <div>
-      <label for="confirmar_senha" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
-      <input type="password" id="confirm-password" name="confirm-password" required
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
-    </div>
-   
-    <button type="submit"
-      class="w-full bg-[#1E77EA] hover:bg-[#0369A0] text-white font-medium py-2 rounded-md transition-colors">
-      Cadastrar
-    </button>
-  </form>
-  
-  <p class="text-center text-sm text-gray-500 mt-4">
-    Já possui uma conta? <a href="login.html" class="text-[#0D82E8] hover:underline">Entrar</a>
-  </p>
-</div>
-
-    <!-- Lado Direito: Informações do App -->
-    <div class="register-right w-full md:w-1/2 bg-gradient-to-b from-[#15518a] to-[#1a3a5d] text-white p-10 relative f</div>lex items-center">
-      <div class="z-10 max-w-md">
-        <h2 class="text-3xl font-extrabold mb-8">Acompanhamento completo de feridas</h2>
-        <div class="space-y-8">
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-camera-retro text-2xl text-[#4FC3F7]"></i>
-            <div>
-              <h3 class="font-semibold text-lg">Registro fotográfico</h3>
-              <p class="text-blue-100">Capture e organize fotos para acompanhar a evolução visual do tratamento.</p>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="flex items-center gap-2 relative z-50">
+                <a href="index.html" class="mr-2 flex items-center text-sky-600 hover:text-sky-800 transition-colors" title="Voltar para a página inicial">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </a>
+                <div class="flex items-center gap-2">
+                    <img src="imgs/Logo_Heal4.png" alt="Heal Logo" class="w-12 object-contain">
+                    <div class="logo">Heal</div>
+                </div>
             </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-ruler-combined text-2xl text-[#4FC3F7]"></i>
-            <div>
-              <h3 class="font-semibold text-lg">Medidas e observações</h3>
-              <p class="text-blue-100">Registre dimensões, características e notas importantes sobre cada ferida.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-file-medical text-2xl text-[#4FC3F7]"></i>
-            <div>
-              <h3 class="font-semibold text-lg">Relatórios automáticos</h3>
-              <p class="text-blue-100">Gere relatórios detalhados de evolução para compartilhar com a equipe médica.</p>
-            </div>
-          </div>
+
+            <nav class="nav-links" id="navLinks">
+                <select id="languageSwitcher" onchange="changeLanguage(this.value)"
+                    class="language-selector bg-transparent border border-sky-300 rounded-lg px-2 py-1 text-sm">
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="en">🇺🇸 English</option>
+                </select>
+
+                <div class="cta-buttons">
+                    <button id="toggleDarkMode" class="btn btn-outline">
+                        🌙
+                    </button>
+                </div>
+            </nav>
         </div>
+    </header>
+
+    <div class="header-spacer"></div>
+
+    <div class="main-content-wrapper flex-grow flex-col md:flex-row">
+        <div class="w-full md:w-1/2 register-left flex flex-col justify-center p-8 md:p-12 shadow-lg transition-colors duration-300">
+            <h2 class="text-xl font-bold mb-2">Crie sua conta</h2>
+            <p class="mb-6">Preencha os dados abaixo para começar</p>
+
+            <form action="php/cadastrar.php" method="POST" class="space-y-5">
+              <div>
+                <label for="nome" class="block text-sm font-medium text-[#111827] mb-1">Nome Completo</label>
+                <input type="text" id="name" name="name" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
+                <input type="email" id="email" name="email" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+                <div id="email-check" class="text-sm mt-1"></div>
+              </div>
+              <div class="relative">
+                <label for="senha" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
+                <input type="password" id="password" name="password" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+                <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <div id="password-strength" class="text-sm mt-1 font-semibold"></div>
+              </div>
+              <div class="relative">
+                <label for="confirmar_senha" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
+                <input type="password" id="confirm-password" name="confirm-password" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+                <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="confirm-password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <div id="password-match-error" class="text-sm text-red-600 mt-1 hidden">As senhas não conferem</div>
+              </div>
+                    <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-95 shadow-md hover:shadow-sky-200">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Cadastrar
+                  </button>
+            </form>
+            <p class="text-center text-sm mt-4">
+                Já possui uma conta? <a href="login.html" class="hover:underline">Entrar</a>
+            </p>
+        </div>
+        <div class="login-right w-full md:w-1/2 p-10 relative flex items-center justify-center min-h-64 md:min-h-auto">
+            <div class="z-10 max-w-md text-center md:text-left">
+                <h2 class="text-3xl font-extrabold mb-8">Acompanhamento completo de feridas</h2>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-camera-retro text-2xl"></i> <div>
+                            <h3 class="font-semibold text-lg">Registro fotográfico</h3>
+                            <p>Capture e organize fotos para acompanhar a evolução visual do tratamento.</p> </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-ruler-combined text-2xl"></i> <div>
+                            <h3 class="font-semibold text-lg">Medidas e observações</h3>
+                            <p>Registre dimensões, características e notas importantes sobre cada ferida.</p> </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-file-medical text-2xl"></i> <div>
+                            <h3 class="font-semibold text-lg">Relatórios automáticos</h3>
+                            <p>Gere relatórios detalhados de evolução para compartilhar com a equipe médica.</p> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute top-8 right-8 w-24 h-24 md:w-40 md:h-40 decorativo opacity-20"></div>
+            <div class="absolute bottom-8 left-8 w-16 h-16 md:w-32 md:h-32 decorativo opacity-20"></div>
+        </div>
+    </div>
+
+ <!-- VLibras Widget -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
       </div>
-      <div class="absolute top-8 right-8 w-40 h-40 decorativo"></div>
-      <div class="absolute bottom-8 left-8 w-32 h-32 decorativo"></div>
     </div>
-  </div>
 
-  <!-- Botões de acessibilidade -->
-  <div class="hidden lg:flex flex-col gap-2 fixed right-3 top-40">
-    <button class="js-increase-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] px-2 text-2xl flex justify-center">+</button>
-    <button class="js-decrease-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] text-2xl flex justify-center">-</button>
-  </div>
-
-  <!-- VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
+    <!-- Font Size Controls -->
+    <div class="flex flex-col gap-2 fixed right-3 top-40 z-50">
+      <button class="js-increase-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] px-2 text-2xl flex justify-center">+</button>
+      <button class="js-decrease-font-size text-white bg-[#1F71D0] border border-solid border-white/50 hover:bg-white hover:text-[#1F71D0] hover:border-[#1F71D0]/50 transition-colors duration-300 h-[40px] rounded w-[40px] text-2xl flex justify-center">-</button>
     </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <script src="js/script-geral.js"></script>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="js/script.js"></script>
+    <script src="js/script-geral.js"></script>
+    <script src="js/validar-cadastro.js"></script>
+    <script src="js/script-mododark.js"></script>
+    </body>
 </body>
 </html>

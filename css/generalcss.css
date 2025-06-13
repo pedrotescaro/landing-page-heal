@@ -140,20 +140,23 @@
 
 .btn {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     font-weight: 600;
     border-radius: 0.5rem;
     transition: all 0.3s;
 }
 
 .btn-primary {
-    background-color: #0369A0;
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: background 0.3s;
+  background-color: #0369A0;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s;
 }
 .btn-primary:hover {
-    background-color: #025b8c;
+  background-color: #025b8c;
 }
 
 
