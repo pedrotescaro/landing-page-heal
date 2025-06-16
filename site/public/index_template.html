@@ -5,12 +5,1436 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha de Anamnese</title>
-    <link rel="stylesheet" href="/site/public/css/estilo_pc.css">
-    <link rel="stylesheet" href="/site/public/css/style.css">
+    <link rel="stylesheet" href="public/css/estilo_pc.css">
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/tecido.css">
+    
+
+    
     <style>
-        @import url("/site/public/css/estilo_pc.css");
-        /* Bottom navigation styles */
+
+        /* estilo_pc.css */
+:root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 201 96% 32%;
+    --primary-light: 201 96% 45%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --radius: 0.75rem;
+    --success: 120 70% 40%;
+    --danger: 0 70% 50%;
+}
+
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0; /* Um cinza bem claro para o fundo geral */
+}
+
+h1 {
+    color: #1a237e; /* Azul escuro do cabeçalho */
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+/* Contêiner do formulário */
+#form-container {
+    background-color: #ffffff;
+    max-width: 800px; /* Ajuste conforme necessário */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilos dos Fieldsets */
+fieldset {
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+legend {
+    font-weight: bold;
+    color: #1a237e;
+    padding: 5px 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+/* Estilos dos Grupos de Input */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.input-group input[type="text"],
+.input-group input[type="date"],
+.input-group input[type="email"],
+.input-group input[type="number"],
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.input-group textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+/* Estilos dos Botões de Ação */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.action-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    background-color: #1a237e; /* Azul */
+}
+
+
+.action-buttons button#apagar-tudo {
+    background-color: #f44336; /* Vermelho para apagar */
+}
+
+.action-buttons button#apagar-tudo:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilos da Finalização do Documento */
+#finalizacao-container {
+    background-color: #ffffff;
+    max-width: 800px; /* Ajuste conforme necessário */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#finalizacao-container fieldset {
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+#finalizacao-container legend {
+    font-weight: bold;
+    color: #1a237e;
+    padding: 5px 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+#finalizacao-container p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#finalizacao-container ul#anamneses-list-ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#finalizacao-container ul#anamneses-list-ul li {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+#finalizacao-container textarea#nota {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+#finalizacao-container select#paciente {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Rodapé (simulando a barra de navegação inferior) */
+footer {
+    padding: 0.75rem 0;
+    background-color: hsl(var(--background));
+    border-top: 1px solid hsl(var(--border));
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.07);
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    gap: 1.5rem;
+    padding-left: 0.5rem; /* Adiciona espaço à esquerda */
+    padding-right: 0.5rem; /* Opcional: também pode adicionar à direita */
+}
+
+.bottom-nav a {
+    color: hsl(var(--muted-foreground));
+    text-decoration: none;
+    font-size: 1.6rem;
+    opacity: 0.85;
+    transition: color 0.2s, opacity 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    flex-direction: row;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius);
+}
+
+.bottom-nav a:hover,
+.bottom-nav a:focus {
+    color: hsl(var(--primary));
+    opacity: 1;
+    background: hsl(var(--primary) / 0.07);
+    transform: translateY(-2px) scale(1.05);
+    outline: none;
+}
+
+.bottom-nav a span {
+    display: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    background-color: hsl(var(--background));
+    color: hsl(var(--primary));
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, left 0.2s;
+    position: absolute;
+    top: 50%;
+    left: 110%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.bottom-nav a:hover span,
+.bottom-nav a:focus span {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 600px) {
+    .bottom-nav {
+        max-width: 100vw;
+        gap: 0.5rem;
+        padding-left: 0.25rem; /* Menos espaço em telas pequenas */
+        padding-right: 0.25rem;
+    }
+    .bottom-nav a {
+        font-size: 1.25rem;
+        padding: 0.25rem 0.4rem;
+    }
+    .bottom-nav a span {
+        font-size: 0.7rem;
+        left: 100%;
+        padding: 0.18rem 0.5rem;
+    }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 3.5rem;
+    }
+
+    footer {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+
+    .bottom-nav a {
+        font-size: 1.2rem;
+    }
+
+    .bottom-nav a span {
+        font-size: 0.65rem;
+    }
+}
+
+/* Estilos para Checkboxes (inspirado na imagem "Pacients ABA") */
+/* Esconde o checkbox nativo */
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(var(--muted-foreground)); /* Cor da borda mais escura */
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+
+/* Estilo do checkbox quando marcado */
+input[type="checkbox"]:checked {
+    background-color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+}
+
+/* Ícone de check quando marcado */
+input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: block;
+    color: hsl(var(--primary-foreground));
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Estilo do label para checkboxes */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: 400;
+    color: hsl(var(--foreground));
+}
+
+/* Estilo para input "qtd" (Exames Laboratoriais) */
+.qtd-input {
+    width: 50px;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 8px;
+    font-size: 0.8rem;
+}
+
+
+#finalizacao-container #apagar-tudo:hover,
+#finalizacao-container #finalizar-documentacao:hover,
+#form-container #finalizar-documentacao:hover,
+#finalizacao-container #finalizar-documentacao:hover{
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2); /* Sombra mais forte no hover */
+    background-color: hsl(var(--primary-light));
+    color: hsl(var(--primary-foreground));
+    transform: translateY(-2px);
+}
+
+#form-container #apagar-tudo:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2); /* Sombra mais forte no hover */
+    background-color: #d32f2f; /* Vermelho mais escuro no hover */
+    color: #fff;
+    transform: translateY(-2px);
+}
+.checkbox-container {
+    display: grid; /* Cria um layout de grade */
+    grid-template-columns: repeat(auto-fit, minmax(150px, auto)); /* Cria colunas responsivas com largura mínima de 150px */
+    gap: 10px; /* Espaço entre as colunas e linhas da grade */
+    margin-bottom: 10px;
+}
+
+.checkbox-container .checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container .checkbox-group input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+\\ESTILO DO FOOTER
+footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: #fff;
+            box-shadow: 0 -4px 24px rgba(37,99,235,0.10), 0 -1px 8px rgba(0,0,0,0.06);
+            z-index: 100;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            transition: box-shadow 0.2s;
+        }
+
+         .bottom-nav {
+            display: flex;
+            justify-content: space-evenly;
+            height: 60px;
+            align-items: center;
+            padding: 14px 0 10px;
+            gap: 8px;
+        }
+
+        .bottom-nav a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1.08em;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 18px 4px;
+            border-radius: 10px;
+            transition: 
+            color 0.18s,
+            background 0.18s,
+            transform 0.15s,
+            box-shadow 0.18s;
+            position: relative;
+        }
+
+        .bottom-nav a:hover, .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            transform: translateY(-2px) scale(1.07);
+            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
+            outline: none;
+        }
+
+        .bottom-nav a.active::after {
+            content: '';
+            display: block;
+            margin: 6px auto 0;
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        .bottom-nav i {
+            font-size: 1.5em;
+            transition: color 0.18s;
+        }
+
+        .bottom-nav span {
+            font-size: 0.97em;
+            letter-spacing: 0.01em;
+        }
+
+        /* Seus estilos de barra de progresso, botões de ação, e responsividade */
+        #progress-bar-container {
+            width: 100%;
+            background: linear-gradient(90deg, #e3eafc 0%, #eaf1fb 100%);
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.10);
+            height: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            background: linear-gradient(90deg, #2563eb 0%, #3b82f6 40%, #60a5fa 80%, #a5d8ff 100%);
+            height: 100%;
+            width: 0%;
+            border-radius: 14px 0 0 14px;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.18);
+            transition: width 0.5s cubic-bezier(.4,2,.6,1), background 0.3s;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #progress-bar::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 22px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.45) 0%, rgba(96,165,250,0.18) 100%);
+            border-radius: 0 14px 14px 0;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        #step-counter {
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 1.08em;
+            color: #2563eb;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-shadow: 0 1px 0 #e3eafc;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeInStep 0.5s;
+        }
+
+        @keyframes fadeInStep {
+            from { opacity: 0; transform: translateY(16px);}
+            to { opacity: 1; transform: none;}
+        }
+
+        .action-buttons {
+            margin-top: 28px;
+            display: flex;
+            gap: 14px;
+            justify-content: space-between;
+        }
+
+        .action-buttons button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.08em;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.09);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        
+        #prevBtn {
+            background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
+            color: #fff;
+        }
+
+        #prevBtn:hover, #prevBtn:focus {
+            background: linear-gradient(90deg, #c62828 0%, #f44336 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(244,67,54,0.18);
+        }
+
+        #nextBtn {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        #nextBtn:hover, #nextBtn:focus {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+        }
+
+        #submitBtn {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+            display: none;
+        }
+
+        #submitBtn:hover, #submitBtn:focus {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+        }
+
+        /* Custom message box styles */
+        .message-box {
+            position: fixed;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.08em;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 6px 24px rgba(37,99,235,0.18), 0 2px 8px rgba(0,0,0,0.10);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, top 0.3s;
+            pointer-events: none;
+        }
+
+        .message-box.success {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        .message-box.error {
+            background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 600px) {
+            #progress-bar-container {
+                height: 14px;
+                border-radius: 8px;
+            }
+            #progress-bar {
+                border-radius: 8px 0 0 8px;
+            }
+            #progress-bar::after {
+                border-radius: 0 8px 8px 0;
+                width: 12px;
+            }
+            .action-buttons button {
+                padding: 10px 12px;
+                font-size: 0.98em;
+            }
+            .action-buttons {
+                gap: 6px;
+            }
+        }
+
+        /* New: Button to go back to dashboard */
+        .back-to-dashboard-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            background-color: #6c757d; /* Gray for back button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-to-dashboard-button:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+  /* Estilos para o sistema de anamnese - Front-end */
+
+:root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 201 96% 32%;
+    --primary-light: 201 96% 45%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --radius: 0.75rem;
+    --success: 120 70% 40%;
+    --danger: 0 70% 50%;
+}
+
+/* Estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: hsl(var(--foreground));
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    color: hsl(var(--foreground));
+    font-weight: 600;
+    font-size: 1.6rem;
+    width: 100%;
+    padding-left: 10px;
+}
+
+/* Contêineres de formulário (Cards) */
+#form-container,
+#finalizacao-container {
+    background-color: hsl(var(--background));
+    margin: 15px auto;
+    padding: 25px;
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Sombra mais forte */
+    max-width: 90%;
+    width: 100%;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease; /* Adiciona transição suave para a sombra */
+}
+
+#form-container:hover,
+#finalizacao-container:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); /* Sombra ainda mais forte no hover */
+}
+
+/* Fieldset e Legend */
+fieldset {
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+legend {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    padding: 0 10px;
+}
+
+/* Estilos de formulário */
+form label,
+#finalizacao-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    font-size: 0.95rem;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="email"],
+form input[type="number"],
+form select,
+form textarea,
+#finalizacao-container input[type="text"],
+#finalizacao-container select,
+#finalizacao-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}
+
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form input[type="email"]:focus,
+form input[type="number"]:focus,
+form select:focus,
+form textarea:focus,
+#finalizacao-container input[type="text"]:focus,
+#finalizacao-container select:focus,
+#finalizacao-container textarea:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2);
+}
+
+/* Estilos de botões */
+button[type="submit"],
+button[type="reset"],
+button[type="button"],
+.photo-button {
+    padding: 14px 25px;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra um pouco mais forte para os botões */
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 10px;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover,
+.photo-button:hover {
+    background-color: hsl(var(--primary-light));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2); /* Sombra ainda mais forte no hover */
+}
+
+/* Estilos para Checkboxes (inspirado na imagem "Pacients ABA") */
+/* Esconde o checkbox nativo */
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(var(--muted-foreground)); /* Cor da borda mais escura */
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+
+/* Estilo do checkbox quando marcado */
+input[type="checkbox"]:checked {
+    background-color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+}
+
+/* Ícone de check quando marcado */
+input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: block;
+    color: hsl(var(--primary-foreground));
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Estilo do label para checkboxes */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: 400;
+    color: hsl(var(--foreground));
+}
+
+/* Estilo para input "qtd" (Exames Laboratoriais) */
+.qtd-input {
+    width: 50px;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 8px;
+    font-size: 0.8rem;
+}
+
+/* Mensagens de erro */
+.error {
+    color: hsl(var(--danger));
+    text-align: center;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+/* Rodapé (simulando a barra de navegação inferior) */
+footer {
+    background-color: hsl(var(--background));
+    border-top: 1px solid hsl(var(--border));
+    padding: 15px 0;
+    text-align: center;
+    margin-top: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+footer a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+footer a:hover {
+    opacity: 1;
+}
+
+/* Estilos para a seção de finalização */
+#finalizacao-container {
+    margin-top: 20px;
+}
+
+#finalizacao-container .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#finalizacao-container .action-buttons button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra para os botões de ação */
+    transition: box-shadow 0.3s ease;
+}
+
+#finalizacao-container #apagar-tudo {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: var(--radius);
+}
+
+#finalizacao-container #finalizar-documentacao {
+    background-color: hsl(var(--background));
+    color: hsl(var(--primary));
+    border: 2px solid hsl(var(--primary));
+    border-radius: var(--radius);
+}
+
+#form-container #finalizar-documentacao{
+     background-color: hsl(var(--background));
+    color: hsl(var(--primary));
+    border: 2px solid hsl(var(--primary));
+    border-radius: var(--radius);
+} 
+
+#finalizacao-container #apagar-tudo:hover,
+#finalizacao-container #finalizar-documentacao:hover,
+#form-container #finalizar-documentacao:hover,
+#finalizacao-container #finalizar-documentacao:hover,
+#form-container #apagar-tudo:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2); /* Sombra mais forte no hover */
+    background-color: hsl(var(--primary-light));
+    color: hsl(var(--primary-foreground));
+    transform: translateY(-2px);
+}
+#finalizacao-container .action-buttons button:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2); /* Sombra mais forte no hover */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    #form-container,
+    #finalizacao-container {
+        padding: 15px;
+        margin: 10px auto;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra um pouco mais forte em mobile */
+    }
+
+    form input[type="text"],
+    form input[type="date"],
+    form input[type="email"],
+    form input[type="number"],
+    form select,
+    form textarea,
+    #finalizacao-container input[type="text"],
+    #finalizacao-container select,
+    #finalizacao-container textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    button[type="submit"],
+    button[type="reset"],
+    button[type="button"],
+    .anamnese-actions button,
+    .photo-button {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+    fieldset {
+        padding: 10px;
+    }
+
+    legend {
+        font-size: 1.1rem;
+    }
+
+    form div,
+    #finalizacao-container .action-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    form div label {
+        margin-bottom: 5px;
+    }
+
+    .qtd-input {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    footer {
+        padding: 10px 0;
+        font-size: 0.9rem;
+    }
+
+    footer a {
+        margin: 0 15px;
+        font-size: 1rem;
+    }
+
+    #finalizacao-container .action-buttons button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ... (Seu CSS anterior) ... */
+
+/* Rodapé (simulando a barra de navegação inferior) */
+footer {
+    padding: 0.75rem 0;
+    background-color: hsl(var(--background));
+    border-top: 1px solid hsl(var(--border));
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.07);
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    gap: 1.5rem;
+    padding-left: 0.5rem; /* Adiciona espaço à esquerda */
+    padding-right: 0.5rem; /* Opcional: também pode adicionar à direita */
+}
+
+.bottom-nav a {
+    color: hsl(var(--muted-foreground));
+    text-decoration: none;
+    font-size: 1.6rem;
+    opacity: 0.85;
+    transition: color 0.2s, opacity 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    flex-direction: row;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius);
+}
+
+.bottom-nav a:hover,
+.bottom-nav a:focus {
+    color: hsl(var(--primary));
+    opacity: 1;
+    background: hsl(var(--primary) / 0.07);
+    transform: translateY(-2px) scale(1.05);
+    outline: none;
+}
+
+.bottom-nav a span {
+    display: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    background-color: hsl(var(--background));
+    color: hsl(var(--primary));
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, left 0.2s;
+    position: absolute;
+    top: 50%;
+    left: 110%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.bottom-nav a:hover span,
+.bottom-nav a:focus span {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 600px) {
+    .bottom-nav {
+        max-width: 100vw;
+        gap: 0.5rem;
+        padding-left: 0.25rem; /* Menos espaço em telas pequenas */
+        padding-right: 0.25rem;
+    }
+    .bottom-nav a {
+        font-size: 1.25rem;
+        padding: 0.25rem 0.4rem;
+    }
+    .bottom-nav a span {
+        font-size: 0.7rem;
+        left: 100%;
+        padding: 0.18rem 0.5rem;
+    }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 3.5rem;
+    }
+
+    footer {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+
+    .bottom-nav a {
+        font-size: 1.2rem;
+    }
+
+    .bottom-nav a span {
+        font-size: 0.65rem;
+    }
+}
+
+#anamneses-list {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    background-color: hsl(var(--background));
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#anamneses-list h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#anamneses-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#anamneses-list li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid hsl(var(--border));
+}
+
+#anamneses-list li:last-child {
+    border-bottom: none;
+}
+
+.anamnese-item {
+    font-size: 0.9rem;
+}
+
+.anamnese-item strong {
+    font-weight: bold;
+    color: hsl(var(--primary));
+}
+
+.tecido-leito-wrapper .input-group {
+    margin-bottom: 20px;
+}
+
+.tecido-leito-wrapper .input-group>label {
+    color: #2563eb;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tecido-leito-wrapper #tecido_leito_group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px 28px;
+    margin-top: 14px;
+    background: linear-gradient(90deg, #e3eafc 0%, #eaf1fb 100%);
+    border-radius: 16px;
+    padding: 22px 16px 10px 16px;
+    box-shadow: 0 4px 18px rgba(37, 99, 235, 0.08);
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-label {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-label.granulacao {
+    color: #d32f2f;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-label.epitelizacao {
+    color: #f8bbd0;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-label.esfacelo {
+    color: #fbc02d;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-label.necrose-seca {
+    color: #212121;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"] {
+    flex: 1 1 8px;
+    height: 8px;
+    border-radius: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    min-width: 0;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"]:hover {
+    opacity: 1;
+}
+
+.tecido-leito-wrapper #tecido_leito_group .tecido-value {
+    min-width: 38px;
+    font-weight: 600;
+}
+
+.tecido-leito-wrapper .tecido-progress-bar-container {
+    width: 100%;
+    min-width: 0;
+    height: 18px;
+    background: #e3eafc;
+    border-radius: 8px;
+    margin: 18px 0 8px 0;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(37, 99, 235, 0.08);
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.tecido-leito-wrapper .tecido-progress-bar-segment {
+    height: 100%;
+    transition: width 0.4s cubic-bezier(.4, 2, .6, 1);
+    flex-shrink: 0;
+    /* Ensure segments don't wrap */
+    min-width: 0;
+}
+
+.tecido-leito-wrapper .tecido-progress-granulacao {
+    background: #d32f2f;
+}
+
+.tecido-leito-wrapper .tecido-progress-epitelizacao {
+    background: #f8bbd0;
+}
+
+.tecido-leito-wrapper .tecido-progress-esfacelo {
+    background: #fbc02d;
+}
+
+.tecido-leito-wrapper .tecido-progress-necrose-seca {
+    background: #212121;
+}
+
+.tecido-leito-wrapper .tecido-leito-section>div:nth-of-type(2) {
+    font-size: 0.98em;
+    margin-bottom: 15px;
+    color: #444;
+    line-height: 1.4;
+}
+
+.tecido-leito-wrapper .tecido-leito-section>div:nth-of-type(2) span {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 6px;
+    gap: 16px;
+}
+
+.tecido-leito-wrapper .tecido-leito-section>div:nth-of-type(2) span span:first-child {
+    display: inline-block;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* Impede quebra de linha dos segmentos da barra até 600px */
+@media (max-width: 900px) {
+    .tecido-leito-wrapper .tecido-progress-bar-container {
+        flex-wrap: nowrap !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .tecido-leito-wrapper .tecido-progress-bar-container {
+        flex-wrap: nowrap !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .tecido-leito-wrapper #tecido_leito_group {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 14px 12px;
+        padding: 16px 8px 8px 8px;
+    }
+
+    .tecido-leito-wrapper #tecido_leito_group .tecido-label {
+        font-size: 0.98em;
+    }
+
+    .tecido-leito-wrapper .tecido-progress-bar-container {
+        height: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tecido-leito-wrapper #tecido_leito_group {
+        grid-template-columns: 1fr;
+        gap: 10px 0;
+        padding: 10px 4px 6px 4px;
+    }
+
+    .tecido-leito-wrapper #tecido_leito_group .tecido-item {
+        gap: 2px;
+    }
+
+    .tecido-leito-wrapper #tecido_leito_group .tecido-label {
+        font-size: 0.97em;
+    }
+
+    .tecido-leito-wrapper #tecido_leito_group .tecido-input-wrapper {
+        gap: 6px;
+    }
+
+    .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"] {
+        height: 6px;
+    }
+
+    .tecido-leito-wrapper #tecido_leito_group .tecido-value {
+        font-size: 0.97em;
+        min-width: 30px;
+    }
+
+    .tecido-leito-wrapper .tecido-progress-bar-container {
+        height: 10px;
+    }
+}
+
     </style>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
@@ -171,7 +1595,7 @@
                         <input type="text" id="frequencia_alcool" name="frequencia_alcool"
                             placeholder="Frequência do consumo de álcool" style="display: none;">
                     </div>
-               
+
                     <div class="input-group">
                         <label for="tem_filhos">Tem Filhos:</label>
                         <select id="tem_filhos" name="tem_filhos">
@@ -222,32 +1646,7 @@
                     </div>
                 </fieldset>
             </div>
-            <script>
-                // Exibe ou oculta campos de acordo com SIM/NÃO
-                document.addEventListener('DOMContentLoaded', function () {
-                    function toggleField(selectId, inputId) {
-                        const select = document.getElementById(selectId);
-                        const input = document.getElementById(inputId);
-                        if (!select || !input) return;
-                        function update() {
-                            input.style.display = select.value === '1' ? 'block' : 'none';
-                            if (select.value !== '1') input.value = '';
-                        }
-                        select.addEventListener('change', update);
-                        update();
-                    }
-                    toggleField('usa_medicacao', 'qual_medicacao');
-                    toggleField('possui_doenca', 'qual_doenca');
-                    toggleField('possui_alergia', 'qual_alergia');
-                    toggleField('pratica_atividade_fisica', 'qual_atividade');
-                    toggleField('pratica_atividade_fisica', 'frequencia_atividade');
-                    toggleField('ingestao_alcool', 'frequencia_alcool');
-                    toggleField('tem_filhos', 'quantos_filhos');
-                    toggleField('realizou_cirurgias', 'quais_cirurgias');
-                });
-            </script>
-
-             <div class="step">
+            <div class="step">
                 <fieldset>
                     <legend>HPP e Comorbidades</legend>
                     <div class="checkbox-container">
@@ -319,77 +1718,98 @@
                     </div>
                 </fieldset>
 
-               <fieldset>
+                <fieldset>
                     <legend>Medicamento em uso</legend>
                     <div class="checkbox-container ">
                         <div class="checkbox-group">
                             <input type="checkbox" id="anti_hipertensivo" name="anti_hipertensivo" value="1">
                             <label for="anti_hipertensivo">Anti-hipertensivo</label>
-                            <input type="text" name="anti_hipertensivo_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="anti_hipertensivo_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="anti_hipertensivo_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="anti_hipertensivo_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="corticoides" name="corticoides" value="1">
                             <label for="corticoides">Corticoides</label>
-                            <input type="text" name="corticoides_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="corticoides_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="corticoides_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="corticoides_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="hipoglicemiantes_orais" name="hipoglicemiantes_orais" value="1">
                             <label for="hipoglicemiantes_orais">Hipoglicemiantes orais</label>
-                            <input type="text" name="hipoglicemiantes_orais_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="hipoglicemiantes_orais_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="hipoglicemiantes_orais_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="hipoglicemiantes_orais_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="aines" name="aines" value="1">
                             <label for="aines">AINES</label>
-                            <input type="text" name="aines_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="aines_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="aines_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="aines_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="insulina" name="insulina" value="1">
                             <label for="insulina">Insulina UI/dia:</label>
-                            <input type="text" name="insulina_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="insulina_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="insulina_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="insulina_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="drogas_vasoativa" name="drogas_vasoativa" value="1">
                             <label for="drogas_vasoativa">Drogas vasoativa</label>
-                            <input type="text" name="drogas_vasoativa_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="drogas_vasoativa_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="drogas_vasoativa_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="drogas_vasoativa_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="suplemento" name="suplemento" value="1">
                             <label for="suplemento">Suplemento</label>
-                            <input type="text" name="suplemento_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="suplemento_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="suplemento_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="suplemento_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="anticoagulante" name="anticoagulante" value="1">
                             <label for="anticoagulante">Anticoagulante</label>
-                            <input type="text" name="anticoagulante_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="anticoagulante_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="anticoagulante_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="anticoagulante_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="vitaminico" name="vitaminico" value="1">
                             <label for="vitaminico">Vitamínico</label>
-                            <input type="text" name="vitaminico_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="vitaminico_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="vitaminico_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="vitaminico_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="antirretroviral" name="antirretroviral" value="1">
                             <label for="antirretroviral">Antirretroviral</label>
-                            <input type="text" name="antirretroviral_nome" placeholder="Nome" style="display: block; margin-left: 20px;">
-                            <input type="text" name="antirretroviral_dose" placeholder="Dose" style="display: block; margin-left: 20px;">
+                            <input type="text" name="antirretroviral_nome" placeholder="Nome"
+                                style="display: block; margin-left: 20px;">
+                            <input type="text" name="antirretroviral_dose" placeholder="Dose"
+                                style="display: block; margin-left: 20px;">
                         </div>
                         <div class="input-group">
                             <label for="outros_medicamento">Outros:</label>
-                            <input type="text" id="outros_medicamento" name="outros_medicamento" placeholder="Especifique...">
+                            <input type="text" id="outros_medicamento" name="outros_medicamento"
+                                placeholder="Especifique...">
                         </div>
                     </div>
                 </fieldset>
 
-                </div>
+            </div>
 
             <div class="step">
                 <fieldset>
@@ -410,7 +1830,7 @@
                             style="display: none; max-width: 200px; border-radius: 8px;">
                         <p id="photo-preview-text" style="display: none;">Foto da ferida do paciente</p>
                         <button type="button" id="remover-foto" style="display:none; margin-top:5px;">Remover Foto <i
-                                    class="fas fa-times"></i></button>
+                                class="fas fa-times"></i></button>
                     </div>
 
                     <div class="input-group" style="margin-top:15px;">
@@ -420,8 +1840,8 @@
                                 required>
                             <input type="number" step="0.1" min="0" name="ferida_comprimento" placeholder="Comprimento"
                                 required>
-                            <input type="number" step="0.1" min="0" name="ferida_profundidade" placeholder="Profundidade"
-                                required>
+                            <input type="number" step="0.1" min="0" name="ferida_profundidade"
+                                placeholder="Profundidade" required>
                         </div>
                     </div>
                 </fieldset>
@@ -483,8 +1903,10 @@
                             <span id="eva-value"
                                 style="font-weight: bold; color: #14532d; font-size: 1.5em; margin-left: 8px; min-width: 32px; text-align: center;">0</span>
                             <span id="eva-label"
-                                style="font-weight: 600; margin-left: 10px; font-size: 1.08em; color: #14532d;">Sem dor</span>
-                            <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 5px; flex: 1 1 45px;">
+                                style="font-weight: 600; margin-left: 10px; font-size: 1.08em; color: #14532d;">Sem
+                                dor</span>
+                            <div
+                                style="display: flex; flex-direction: column; gap: 5px; margin-left: 5px; flex: 1 1 45px;">
                                 <label for="dor_fatores"
                                     style="font-weight: 500; color: #2980b9; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
                                     <i class="fas fa-info-circle"></i>
@@ -501,70 +1923,9 @@
                             <i class="fas fa-arrows-alt-h" style="color:#e67e22"></i>
                             Arraste para selecionar a intensidade da dor.
                         </span>
-                     
+
                     </div>
-                    <script>
-                        // Escala EVA customizada: só muda texto nos pares, mantém cores
-                        function updateEvaLabel(val) {
-                            val = parseInt(val, 10);
-                            const evaValue = document.getElementById('eva-value');
-                            const evaLabel = document.getElementById('eva-label');
-                            const range = document.getElementById('dor_escala');
-                            let label = '';
-                            let color = '';
-                            let accent = '';
-                            switch (val) {
-                                case 0:
-                                    label = 'Sem dor';
-                                    color = '#14532d'; // verde escuro
-                                    accent = '#14532d';
-                                    break;
-                                case 2:
-                                    label = 'Dor leve';
-                                    color = '#22c55e'; // verde claro
-                                    accent = '#22c55e';
-                                    break;
-                                case 4:
-                                    label = 'Moderada';
-                                    color = '#eab308'; // amarelo
-                                    accent = '#eab308';
-                                    break;
-                                case 6:
-                                    label = 'Severa';
-                                    color = '#fb923c'; // laranja
-                                    accent = '#fb923c';
-                                    break;
-                                case 8:
-                                    label = 'Dor muito severa';
-                                    color = '#ef4444'; // vermelho
-                                    accent = '#ef4444';
-                                    break;
-                                case 10:
-                                    label = 'Pior dor possível';
-                                    color = '#991b1b'; // vermelho escuro
-                                    accent = '#991b1b';
-                                    break;
-                                default:
-                                    label = '';
-                                    // Cores intermediárias para impares
-                                    if (val === 1)      { color = '#22c55e'; accent = '#22c55e'; label = 'Dor leve'; }
-                                    else if (val === 3) { color = '#eab308'; accent = '#eab308'; label = 'Moderada'; }
-                                    else if (val === 5) { color = '#fb923c'; accent = '#fb923c'; label = 'Severa'; }
-                                    else if (val === 7) { color = '#ef4444'; accent = '#ef4444'; label = 'Muito severa'; }
-                                    else if (val === 9) { color = '#991b1b'; accent = '#991b1b'; label = 'Pior dor possível'; }
-                                    else                { color = '#14532d'; accent = '#14532d'; }
-                            }
-                            evaValue.textContent = val;
-                            evaValue.style.color = color;
-                            evaLabel.textContent = label;
-                            evaLabel.style.color = color;
-                            range.style.accentColor = accent;
-                        }
-                        // Inicializa ao carregar
-                        document.addEventListener('DOMContentLoaded', function () {
-                            updateEvaLabel(document.getElementById('dor_escala').value);
-                        });
-                    </script>
+
                 </fieldset>
             </div>
 
@@ -579,22 +1940,35 @@
                                 Percentual de Tecido no Leito da Ferida (%):
                             </label>
                             <div class="tecido-progress-bar-container" id="tecido-progress-bar">
-                                <div class="tecido-progress-bar-segment tecido-progress-granulacao" style="width:0%"></div>
-                                <div class="tecido-progress-bar-segment tecido-progress-epitelizacao" style="width:0%"></div>
-                                <div class="tecido-progress-bar-segment tecido-progress-esfacelo" style="width:0%"></div>
-                                <div class="tecido-progress-bar-segment tecido-progress-necrose-seca" style="width:0%"></div>
+                                <div class="tecido-progress-bar-segment tecido-progress-granulacao" style="width:0%">
+                                </div>
+                                <div class="tecido-progress-bar-segment tecido-progress-epitelizacao" style="width:0%">
+                                </div>
+                                <div class="tecido-progress-bar-segment tecido-progress-esfacelo" style="width:0%">
+                                </div>
+                                <div class="tecido-progress-bar-segment tecido-progress-necrose-seca" style="width:0%">
+                                </div>
                             </div>
                             <div style="font-size:0.98em; margin-bottom: 8px; color:#444;">
-                                <b>Base de cálculo:</b> O percentual de cada tecido é estimado visualmente sobre o <b>leito total da ferida</b> (100%).<br>
-                                    <span style="display:inline-block;margin-top:4px;">
+                                <b>Base de cálculo:</b> O percentual de cada tecido é estimado visualmente sobre o
+                                <b>leito total da ferida</b> (100%).<br>
+                                <span style="display:inline-block;margin-top:4px;">
                                     <br>
-                                    <span style="display:inline-block;width:14px;height:14px;background:#d32f2f;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Granulação (vermelho vivo, úmido)
-                                     <br>
-                                    <span style="display:inline-block;width:14px;height:14px;background:#f8bbd0;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Epitelização (rosa ou branco perolado)
+                                    <span
+                                        style="display:inline-block;width:14px;height:14px;background:#d32f2f;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span>
+                                    Granulação (vermelho vivo, úmido)
                                     <br>
-                                    <span style="display:inline-block;width:14px;height:14px;background:#fbc02d;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Esfacelo (amarelo, branco, bronzeado, cinza ou marrom)
-                                     <br>
-                                    <span style="display:inline-block;width:14px;height:14px;background:#212121;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span> Necrose Seca (preto, marrom, duro e seco)
+                                    <span
+                                        style="display:inline-block;width:14px;height:14px;background:#f8bbd0;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span>
+                                    Epitelização (rosa ou branco perolado)
+                                    <br>
+                                    <span
+                                        style="display:inline-block;width:14px;height:14px;background:#fbc02d;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span>
+                                    Esfacelo (amarelo, branco, bronzeado, cinza ou marrom)
+                                    <br>
+                                    <span
+                                        style="display:inline-block;width:14px;height:14px;background:#212121;border-radius:3px;margin:0 4px 0 12px;vertical-align:middle;"></span>
+                                    Necrose Seca (preto, marrom, duro e seco)
                                 </span>
                             </div>
                             <div id="tecido_leito_group">
@@ -606,11 +1980,10 @@
                                     <div class="tecido-input-wrapper">
                                         <input type="range" id="percentual_granulacao_leito"
                                             name="percentual_granulacao_leito" min="0" max="100" value="0"
-                                            class="tecido-input"
-                                            style="accent-color: #d32f2f;"
-                                            required
+                                            class="tecido-input" style="accent-color: #d32f2f;" required
                                             oninput="document.getElementById('percentual_granulacao_leito_val_range').textContent = this.value + '%'">
-                                        <span id="percentual_granulacao_leito_val_range" class="tecido-value" style="color: #d32f2f;">0%</span>
+                                        <span id="percentual_granulacao_leito_val_range" class="tecido-value"
+                                            style="color: #d32f2f;">0%</span>
                                     </div>
                                 </div>
                                 <div class="tecido-item">
@@ -621,11 +1994,10 @@
                                     <div class="tecido-input-wrapper">
                                         <input type="range" id="percentual_epitelizacao_leito"
                                             name="percentual_epitelizacao_leito" min="0" max="100" value="0"
-                                            class="tecido-input"
-                                            style="accent-color: #f8bbd0;"
-                                            required
+                                            class="tecido-input" style="accent-color: #f8bbd0;" required
                                             oninput="document.getElementById('percentual_epitelizacao_leito_val_range').textContent = this.value + '%'">
-                                        <span id="percentual_epitelizacao_leito_val_range" class="tecido-value" style="color: #f8bbd0;">0%</span>
+                                        <span id="percentual_epitelizacao_leito_val_range" class="tecido-value"
+                                            style="color: #f8bbd0;">0%</span>
                                     </div>
                                 </div>
                                 <div class="tecido-item">
@@ -636,11 +2008,10 @@
                                     <div class="tecido-input-wrapper">
                                         <input type="range" id="percentual_esfacelo_leito"
                                             name="percentual_esfacelo_leito" min="0" max="100" value="0"
-                                            class="tecido-input"
-                                            style="accent-color: #fbc02d;"
-                                            required
+                                            class="tecido-input" style="accent-color: #fbc02d;" required
                                             oninput="document.getElementById('percentual_esfacelo_leito_val_range').textContent = this.value + '%'">
-                                        <span id="percentual_esfacelo_leito_val_range" class="tecido-value" style="color: #fbc02d;">0%</span>
+                                        <span id="percentual_esfacelo_leito_val_range" class="tecido-value"
+                                            style="color: #fbc02d;">0%</span>
                                     </div>
                                 </div>
                                 <div class="tecido-item">
@@ -651,310 +2022,71 @@
                                     <div class="tecido-input-wrapper">
                                         <input type="range" id="percentual_necrose_seca_leito"
                                             name="percentual_necrose_seca_leito" min="0" max="100" value="0"
-                                            class="tecido-input"
-                                            style="accent-color: #212121;"
-                                            required
+                                            class="tecido-input" style="accent-color: #212121;" required
                                             oninput="document.getElementById('percentual_necrose_seca_leito_val_range').textContent = this.value + '%'">
-                                        <span id="percentual_necrose_seca_leito_val_range" class="tecido-value" style="color: #212121;">0%</span>
+                                        <span id="percentual_necrose_seca_leito_val_range" class="tecido-value"
+                                            style="color: #212121;">0%</span>
                                     </div>
                                 </div>
                             </div>
                             <small class="info-message">
                                 <i class="fas fa-info-circle"></i>
-                                Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma deve ser 100%.
+                                Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A
+                                soma deve ser 100%.
                             </small>
                         </div>
                     </div>
-                    <style>
-                        .tecido-leito-wrapper .input-group { margin-bottom: 20px; }
-                        .tecido-leito-wrapper .input-group > label {
-                            color: #2563eb;
-                            font-weight: bold;
-                            font-size: 1.2em;
-                            display: flex;
-                            align-items: center;
-                            gap: 10px;
-                            margin-bottom: 10px;
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                            gap: 20px 28px;
-                            margin-top: 14px;
-                            background: linear-gradient(90deg, #e3eafc 0%, #eaf1fb 100%);
-                            border-radius: 16px;
-                            padding: 22px 16px 10px 16px;
-                            box-shadow: 0 4px 18px rgba(37,99,235,0.08);
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-item {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: flex-start;
-                            gap: 6px;
-                            transition: box-shadow 0.3s ease-in-out;
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-label {
-                            font-weight: 600;
-                            display: flex;
-                            align-items: center;
-                            gap: 7px;
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.granulacao { color: #d32f2f; }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.epitelizacao { color: #f8bbd0; }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.esfacelo { color: #fbc02d; }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-label.necrose-seca { color: #212121; }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-input-wrapper {
-                            display: flex;
-                            align-items: center;
-                            gap: 10px;
-                            width: 100%;
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"] {
-                            flex: 1 1 8px;
-                            height: 8px;
-                            border-radius: 4px;
-                            appearance: none;
-                            -webkit-appearance: none;
-                            background: #d3d3d3;
-                            outline: none;
-                            opacity: 0.7;
-                            transition: opacity .2s;
-                            min-width: 0;
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"]:hover {
-                            opacity: 1;
-                        }
-                        .tecido-leito-wrapper #tecido_leito_group .tecido-value {
-                            min-width: 38px;
-                            font-weight: 600;
-                        }
-                       
-                    .tecido-leito-wrapper .tecido-progress-bar-container {
-                        width: 100%;
-                        min-width: 0;
-                        height: 18px;
-                        background: #e3eafc;
-                        border-radius: 8px;
-                        margin: 18px 0 8px 0;
-                        overflow: hidden;
-                        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 2px 8px rgba(37,99,235,0.08);
-                        display: flex;
-                        align-items: stretch;
-                        flex-wrap: nowrap;
-                        flex-direction: row;
-                    }
 
-                    .tecido-leito-wrapper .tecido-progress-bar-segment {
-                        height: 100%;
-                        transition: width 0.4s cubic-bezier(.4,2,.6,1);
-                        flex-shrink: 0;
-                        /* Ensure segments don't wrap */
-                        min-width: 0;
-                    }
 
-                    .tecido-leito-wrapper .tecido-progress-granulacao { background: #d32f2f; }
-                    .tecido-leito-wrapper .tecido-progress-epitelizacao { background: #f8bbd0; }
-                    .tecido-leito-wrapper .tecido-progress-esfacelo { background: #fbc02d; }
-                    .tecido-leito-wrapper .tecido-progress-necrose-seca { background: #212121; }
-
-                    .tecido-leito-wrapper .tecido-leito-section > div:nth-of-type(2) {
-                        font-size: 0.98em;
-                        margin-bottom: 15px;
-                        color: #444;
-                        line-height: 1.4;
-                    }
-                    .tecido-leito-wrapper .tecido-leito-section > div:nth-of-type(2) span {
-                        display: flex;
-                        align-items: center;
-                        flex-wrap: wrap;
-                        margin-top: 6px;
-                        gap: 16px;
-                    }
-                    .tecido-leito-wrapper .tecido-leito-section > div:nth-of-type(2) span span:first-child {
-                        display: inline-block;
-                        min-width: 18px;
-                        height: 18px;
-                        border-radius: 4px;
-                        margin-right: 6px;
-                        vertical-align: middle;
-                        flex-shrink: 0;
-                    }
-
-                    /* Impede quebra de linha dos segmentos da barra até 600px */
-                    @media (max-width: 900px) {
-                        .tecido-leito-wrapper .tecido-progress-bar-container {
-                            flex-wrap: nowrap !important;
-                        }
-                    }
-                    @media (max-width: 600px) {
-                        .tecido-leito-wrapper .tecido-progress-bar-container {
-                            flex-wrap: nowrap !important;
-                        }
-                    }
-                        @media (max-width: 900px) {
-                            .tecido-leito-wrapper #tecido_leito_group {
-                                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-                                gap: 14px 12px;
-                                padding: 16px 8px 8px 8px;
-                            }
-                            .tecido-leito-wrapper #tecido_leito_group .tecido-label {
-                                font-size: 0.98em;
-                            }
-                            .tecido-leito-wrapper .tecido-progress-bar-container {
-                                height: 14px;
-                            }
-                        }
-                        @media (max-width: 600px) {
-                            .tecido-leito-wrapper #tecido_leito_group {
-                                grid-template-columns: 1fr;
-                                gap: 10px 0;
-                                padding: 10px 4px 6px 4px;
-                            }
-                            .tecido-leito-wrapper #tecido_leito_group .tecido-item {
-                                gap: 2px;
-                            }
-                            .tecido-leito-wrapper #tecido_leito_group .tecido-label {
-                                font-size: 0.97em;
-                            }
-                            .tecido-leito-wrapper #tecido_leito_group .tecido-input-wrapper {
-                                gap: 6px;
-                            }
-                            .tecido-leito-wrapper #tecido_leito_group .tecido-input[type="range"] {
-                                height: 6px;
-                            }
-                            .tecido-leito-wrapper #tecido_leito_group .tecido-value {
-                                font-size: 0.97em;
-                                min-width: 30px;
-                            }
-                            .tecido-leito-wrapper .tecido-progress-bar-container {
-                                height: 10px;
-                            }
-                        }
-                        
-                    </style>
-                    <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const tecidoIds = [
-                            'percentual_granulacao_leito',
-                            'percentual_epitelizacao_leito',
-                            'percentual_esfacelo_leito',
-                            'percentual_necrose_seca_leito'
-                        ];
-                        const progressBar = document.getElementById('tecido-progress-bar');
-                        const progressSegments = Array.from(progressBar.children);
-                        const tecidoInputs = tecidoIds.map(id => document.getElementById(id));
-                        const infoMessage = document.querySelector('.tecido-leito-wrapper .info-message');
-
-                        function updateProgressBar() {
-                            let total = 0;
-                            const values = tecidoInputs.map(input => parseInt(input.value, 10) || 0);
-                            total = values.reduce((a, b) => a + b, 0);
-
-                            let normalized = [0, 0, 0, 0];
-                            if (total > 0) {
-                                normalized = values.map(v => (v / total) * 100);
-                            }
-
-                            progressSegments.forEach((seg, idx) => {
-                                seg.style.width = normalized[idx] + '%';
-                            });
-
-                            tecidoInputs.forEach(el => {
-                                const parentDiv = el.closest('.tecido-item');
-                                if (parentDiv) {
-                                    if (total === 100) {
-                                        parentDiv.style.boxShadow = '0 0 0 2px #27ae60';
-                                        infoMessage.style.color = '#2563eb';
-                                    } else {
-                                        parentDiv.style.boxShadow = '0 0 0 2px #e74c3c';
-                                        infoMessage.style.color = '#e74c3c';
-                                    }
-                                }
-                            });
-
-                            if (total !== 100) {
-                                infoMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> A soma dos percentuais deve ser 100%. Soma atual: ' + total + '%';
-                            } else {
-                                infoMessage.innerHTML = '<i class="fas fa-info-circle"></i> Informe o percentual aproximado de cada tipo de tecido presente no leito da ferida. A soma deve ser 100%.';
-                            }
-                        }
-
-                        tecidoInputs.forEach((input, idx) => {
-                            input.addEventListener('input', function () {
-                                let currentValue = parseInt(this.value, 10) || 0;
-                                let otherTotal = tecidoInputs.reduce((sum, el, i) => i !== idx ? sum + (parseInt(el.value, 10) || 0) : sum, 0);
-                                if (currentValue + otherTotal > 100) {
-                                    currentValue = 100 - otherTotal;
-                                    this.value = currentValue;
-                                }
-                                const valSpan = document.getElementById(this.id + '_val_range');
-                                if (valSpan) valSpan.textContent = this.value + '%';
-                                if (parseInt(this.value, 10) === 100) {
-                                    tecidoInputs.forEach((otherInput, otherIdx) => {
-                                        if (otherIdx !== idx) {
-                                            otherInput.value = 0;
-                                            const otherValSpan = document.getElementById(otherInput.id + '_val_range');
-                                            if (otherValSpan) otherValSpan.textContent = '0%';
-                                        }
-                                    });
-                                }
-                                updateProgressBar();
-                            });
-                        });
-
-                        updateProgressBar();
-                    });
-                    </script>
                 </fieldset>
-        
-                    <div class="input-group">
-                        <label
-                            style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-exclamation-circle" style="color:#e67e22"></i>
-                            Sinais de Inflamação:
-                        </label>
-                        <div class="checkbox-container"
-                            style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
-                            <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="inflamacao_rubor" name="inflamacao_rubor" value="1">
-                                <label for="inflamacao_rubor">
-                                    <i class="fas fa-tint" style="color:#e74c3c"></i>
-                                    <span style="margin-left: 6px;">Rubor <span
-                                            style="color:#888; font-size:0.95em;">(Vermelhidão)</span></span>
-                                </label>
-                            </div>
-                            <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="inflamacao_calor" name="inflamacao_calor" value="1">
-                                <label for="inflamacao_calor">
-                                    <i class="fas fa-fire" style="color:#e67e22"></i>
-                                    <span style="margin-left: 6px;">Calor</span>
-                                </label>
-                            </div>
-                            <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="inflamacao_edema" name="inflamacao_edema" value="1">
-                                <label for="inflamacao_edema">
-                                    <i class="fas fa-water" style="color:#3498db"></i>
-                                    <span style="margin-left: 6px;">Edema <span
-                                            style="color:#888; font-size:0.95em;">(Inchaço)</span></span>
-                                </label>
-                            </div>
-                            <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="inflamacao_dor_local" name="inflamacao_dor_local" value="1">
-                                <label for="inflamacao_dor_local">
-                                    <i class="fas fa-bolt" style="color:#f1c40f"></i>
-                                    <span style="margin-left: 6px;">Dor Local</span>
-                                </label>
-                            </div>
-                            <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="inflamacao_perda_funcao" name="inflamacao_perda_funcao"
-                                    value="1">
-                                <label for="inflamacao_perda_funcao">
-                                    <i class="fas fa-ban" style="color:#7f8c8d"></i>
-                                    <span style="margin-left: 6px;">Perda de Função</span>
-                                </label>
-                            </div>
+
+                <div class="input-group">
+                    <label style="font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-exclamation-circle" style="color:#e67e22"></i>
+                        Sinais de Inflamação:
+                    </label>
+                    <div class="checkbox-container"
+                        style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
+                        <div class="checkbox-group" style="min-width: 180px;">
+                            <input type="checkbox" id="inflamacao_rubor" name="inflamacao_rubor" value="1">
+                            <label for="inflamacao_rubor">
+                                <i class="fas fa-tint" style="color:#e74c3c"></i>
+                                <span style="margin-left: 6px;">Rubor <span
+                                        style="color:#888; font-size:0.95em;">(Vermelhidão)</span></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group" style="min-width: 180px;">
+                            <input type="checkbox" id="inflamacao_calor" name="inflamacao_calor" value="1">
+                            <label for="inflamacao_calor">
+                                <i class="fas fa-fire" style="color:#e67e22"></i>
+                                <span style="margin-left: 6px;">Calor</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group" style="min-width: 180px;">
+                            <input type="checkbox" id="inflamacao_edema" name="inflamacao_edema" value="1">
+                            <label for="inflamacao_edema">
+                                <i class="fas fa-water" style="color:#3498db"></i>
+                                <span style="margin-left: 6px;">Edema <span
+                                        style="color:#888; font-size:0.95em;">(Inchaço)</span></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group" style="min-width: 180px;">
+                            <input type="checkbox" id="inflamacao_dor_local" name="inflamacao_dor_local" value="1">
+                            <label for="inflamacao_dor_local">
+                                <i class="fas fa-bolt" style="color:#f1c40f"></i>
+                                <span style="margin-left: 6px;">Dor Local</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group" style="min-width: 180px;">
+                            <input type="checkbox" id="inflamacao_perda_funcao" name="inflamacao_perda_funcao"
+                                value="1">
+                            <label for="inflamacao_perda_funcao">
+                                <i class="fas fa-ban" style="color:#7f8c8d"></i>
+                                <span style="margin-left: 6px;">Perda de Função</span>
+                            </label>
                         </div>
                     </div>
+                </div>
                 </fieldset>
 
                 <fieldset>
@@ -1037,23 +2169,7 @@
                         <input type="text" id="resultado_cultura" name="resultado_cultura"
                             placeholder="Microrganismos identificados">
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const culturaSelect = document.getElementById('cultura_realizada');
-                            const resultadoGroup = document.getElementById('resultado_cultura_group');
-                            const resultadoInput = document.getElementById('resultado_cultura');
-                            function toggleResultadoCultura() {
-                                if (culturaSelect.value === '1') {
-                                    resultadoGroup.style.display = 'block';
-                                } else {
-                                    resultadoGroup.style.display = 'none';
-                                    resultadoInput.value = '';
-                                }
-                            }
-                            culturaSelect.addEventListener('change', toggleResultadoCultura);
-                            toggleResultadoCultura();
-                        });
-                    </script>
+
                 </fieldset>
 
                 <fieldset>
@@ -1161,23 +2277,7 @@
                         <input type="text" id="localizacao_tunel_cavidade" name="localizacao_tunel_cavidade"
                             placeholder="Ex: 12 horas, 3 cm de profundidade">
                     </div>
-                    <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const tunelSelect = document.getElementById('tunel_cavidade');
-                        const localizacaoGroup = document.getElementById('localizacao_tunel_cavidade_group');
-                        const localizacaoInput = document.getElementById('localizacao_tunel_cavidade');
-                        function toggleLocalizacaoTunel() {
-                            if (tunelSelect.value === '1') {
-                                localizacaoGroup.style.display = 'block';
-                            } else {
-                                localizacaoGroup.style.display = 'none';
-                                localizacaoInput.value = '';
-                            }
-                        }
-                        tunelSelect.addEventListener('change', toggleLocalizacaoTunel);
-                        toggleLocalizacaoTunel();
-                    });
-                    </script>
+
 
                     <div class="input-group">
                         <label for="velocidade_cicatrizacao">Velocidade de Cicatrização Observada:</label>
@@ -1193,45 +2293,56 @@
 
                     <div class="input-group">
                         <label style="font-weight: bold; font-size: 1.1em;">Condição da Pele Perilesional:</label>
-                        <div class="checkbox-container" style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
+                        <div class="checkbox-container"
+                            style="display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 10px;">
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_integra" name="pele_perilesional_integra" value="1">
+                                <input type="checkbox" id="pele_perilesional_integra" name="pele_perilesional_integra"
+                                    value="1">
                                 <label for="pele_perilesional_integra">Íntegra</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_eritematosa" name="pele_perilesional_eritematosa" value="1">
+                                <input type="checkbox" id="pele_perilesional_eritematosa"
+                                    name="pele_perilesional_eritematosa" value="1">
                                 <label for="pele_perilesional_eritematosa">Eritematosa (Vermelha)</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_macerada" name="pele_perilesional_macerada" value="1">
+                                <input type="checkbox" id="pele_perilesional_macerada" name="pele_perilesional_macerada"
+                                    value="1">
                                 <label for="pele_perilesional_macerada">Macerada</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_seca_descamativa" name="pele_perilesional_seca_descamativa" value="1">
+                                <input type="checkbox" id="pele_perilesional_seca_descamativa"
+                                    name="pele_perilesional_seca_descamativa" value="1">
                                 <label for="pele_perilesional_seca_descamativa">Seca e Descamativa</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_eczematosa" name="pele_perilesional_eczematosa" value="1">
+                                <input type="checkbox" id="pele_perilesional_eczematosa"
+                                    name="pele_perilesional_eczematosa" value="1">
                                 <label for="pele_perilesional_eczematosa">Eczematosa</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_hiperpigmentada" name="pele_perilesional_hiperpigmentada" value="1">
+                                <input type="checkbox" id="pele_perilesional_hiperpigmentada"
+                                    name="pele_perilesional_hiperpigmentada" value="1">
                                 <label for="pele_perilesional_hiperpigmentada">Hiperpigmentada</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_hipopigmentada" name="pele_perilesional_hipopigmentada" value="1">
+                                <input type="checkbox" id="pele_perilesional_hipopigmentada"
+                                    name="pele_perilesional_hipopigmentada" value="1">
                                 <label for="pele_perilesional_hipopigmentada">Hipopigmentada</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_indurada" name="pele_perilesional_indurada" value="1">
+                                <input type="checkbox" id="pele_perilesional_indurada" name="pele_perilesional_indurada"
+                                    value="1">
                                 <label for="pele_perilesional_indurada">Indurada</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_sensivel" name="pele_perilesional_sensivel" value="1">
+                                <input type="checkbox" id="pele_perilesional_sensivel" name="pele_perilesional_sensivel"
+                                    value="1">
                                 <label for="pele_perilesional_sensivel">Sensível</label>
                             </div>
                             <div class="checkbox-group" style="min-width: 180px;">
-                                <input type="checkbox" id="pele_perilesional_edema" name="pele_perilesional_edema" value="1">
+                                <input type="checkbox" id="pele_perilesional_edema" name="pele_perilesional_edema"
+                                    value="1">
                                 <label for="pele_perilesional_edema">Edema</label>
                             </div>
                         </div>
@@ -1239,9 +2350,9 @@
                 </fieldset>
             </div>
 
-                <div class="step">
+            <div class="step">
 
-             
+
                 <fieldset>
                     <legend>Informações Adicionais</legend>
                     <div class="input-group">
@@ -1286,7 +2397,7 @@
                     </div>
                 </fieldset>
             </div>
-            
+
 
             <div class="action-buttons">
                 <button type="button" id="prevBtn"><i class="fas fa-arrow-left"></i> Voltar</button>
@@ -1295,7 +2406,7 @@
             </div>
         </form>
     </div>
-      <div id="finalizacao-container">
+    <div id="finalizacao-container">
         <fieldset>
             <legend>Finalização da Documentação</legend>
             <p>Após preencher os dados da anamnese, finalize a documentação e gere um PDF com as informações.</p>
@@ -1324,7 +2435,8 @@
 
         <div class="action-buttons">
             <button type="reset" id="apagar-tudo">Apagar tudo <i class="fas fa-sync-alt"></i></button>
-            <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i class="fas fa-check"></i></button>
+            <button type="submit" id="finalizar-documentacao">Finalizar Documentação <i
+                    class="fas fa-check"></i></button>
         </div>
     </div>
 
@@ -1347,7 +2459,7 @@
             letter-spacing: 0.01em;
             border: none;
         " onmouseover="this.style.background='linear-gradient(90deg, #1e40af 0%, #2563eb 100%)';this.style.transform='translateY(-2px) scale(1.04)';this.style.boxShadow='0 10px 28px rgba(37,99,235,0.18)';"
-        onmouseout="this.style.background='linear-gradient(90deg, #2563eb 0%, #60a5fa 100%)';this.style.transform='none';this.style.boxShadow='0 6px 24px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.08)';">
+            onmouseout="this.style.background='linear-gradient(90deg, #2563eb 0%, #60a5fa 100%)';this.style.transform='none';this.style.boxShadow='0 6px 24px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.08)';">
             <i class="fas fa-arrow-left" style="font-size: 1.2em;"></i>
             <span>Voltar ao Dashboard</span>
         </a>
@@ -1375,313 +2487,14 @@
         </nav>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const steps = document.querySelectorAll('.step');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const submitBtn = document.getElementById('submitBtn');
-            const progressBar = document.getElementById('progress-bar');
-            const stepCounter = document.getElementById('step-counter');
-            const anamneseForm = document.getElementById('anamnese-form');
-            
-            let currentStep = 0;
-
-            const fotoFeridaInput = document.getElementById('foto_ferida');
-            const larguraFeridaInput = document.querySelector('input[name="ferida_largura"]');
-            const comprimentoFeridaInput = document.querySelector('input[name="ferida_comprimento"]');
-            const profundidadeFeridaInput = document.querySelector('input[name="ferida_profundidade"]');
-
-            // Function to display custom messages
-            function showMessageBox(message, type) {
-                const messageBox = document.createElement('div');
-                messageBox.classList.add('message-box', type);
-                messageBox.textContent = message;
-                document.body.appendChild(messageBox);
-
-                setTimeout(() => {
-                    messageBox.style.opacity = 1;
-                }, 10);
-
-                setTimeout(() => {
-                    messageBox.style.opacity = 0;
-                    messageBox.addEventListener('transitionend', () => messageBox.remove());
-                }, 3000);
-            }
-
-            function toggleTamanhoFeridaRequired() {
-                if (fotoFeridaInput.files.length > 0) {
-                    larguraFeridaInput.removeAttribute('required');
-                    comprimentoFeridaInput.removeAttribute('required');
-                    profundidadeFeridaInput.removeAttribute('required');
-                } else {
-                    larguraFeridaInput.setAttribute('required', '');
-                    comprimentoFeridaInput.setAttribute('required', '');
-                    profundidadeFeridaInput.setAttribute('required', '');
-                }
-            }
-
-            function updateProgressBar() {
-                const progress = ((currentStep + 1) / steps.length) * 100;
-                progressBar.style.width = progress + '%';
-            }
-
-            function updateStepCounter() {
-                stepCounter.textContent = `Tela ${currentStep + 1} de ${steps.length}`;
-            }
-
-            function showStep(n) {
-                if (n < 0 || n >= steps.length) {
-                    console.error(`Attempted to show invalid step: ${n}. Total steps: ${steps.length}`);
-                    return;
-                }
-
-                steps.forEach(step => step.classList.remove('active'));
-                document.querySelectorAll('[data-original-required]').forEach(field => {
-                    field.removeAttribute('required');
-                });
-
-                steps[n].classList.add('active');
-                currentStep = n;
-
-                steps[n].querySelectorAll('[data-original-required]').forEach(field => {
-                    field.setAttribute('required', '');
-                });
-
-                if (currentStep === 0) {
-                    toggleTamanhoFeridaRequired();
-                }
-
-                updateProgressBar();
-                updateStepCounter();
-
-                if (currentStep === 0) {
-                    prevBtn.style.display = 'none';
-                } else {
-                    prevBtn.style.display = 'inline-block';
-                }
-
-                if (currentStep === steps.length - 1) {
-                    nextBtn.style.display = 'none';
-                    submitBtn.style.display = 'inline-block';
-                } else {
-                    nextBtn.style.display = 'inline-block';
-                    submitBtn.style.display = 'none';
-                }
-            }
-
-            // Store original 'required' state for all elements on load
-            document.querySelectorAll('.step input[required], .step select[required], .step textarea[required]').forEach(field => {
-                field.setAttribute('data-original-required', 'true');
-            });
-
-            prevBtn.addEventListener('click', () => {
-                if (currentStep > 0) {
-                    currentStep--;
-                    window.scrollTo(0, 0);
-                    showStep(currentStep);
-                }
-            });
-
-            nextBtn.addEventListener('click', () => {
-                const activeStep = steps[currentStep];
-                const requiredFields = activeStep.querySelectorAll('input[required], select[required], textarea[required]');
-                let allFieldsValid = true;
-                let firstInvalidField = null;
-
-                requiredFields.forEach(field => {
-                    // Check if field is visible and not disabled, and if it's empty
-                    if (!field.value.trim() && field.offsetParent !== null && !field.disabled) {
-                        allFieldsValid = false;
-                        field.classList.add('is-invalid');
-                        if (!firstInvalidField) {
-                            firstInvalidField = field;
-                        }
-                    } else {
-                        field.classList.remove('is-invalid');
-                    }
-                });
-
-                if (allFieldsValid) {
-                    if (currentStep < steps.length - 1) {
-                        currentStep++;
-                        window.scrollTo(0, 0);
-                        showStep(currentStep);
-                    }
-                } else {
-                    showMessageBox('Por favor, preencha todos os campos obrigatórios nesta tela antes de avançar.', 'error');
-                    if (firstInvalidField) {
-                        firstInvalidField.focus();
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
-            });
-
-            anamneseForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                const formData = new FormData(anamneseForm);
-                const data = {};
-
-                // Process form data
-                for (let [key, value] of formData.entries()) {
-                    const inputElement = anamneseForm.querySelector(`[name="${key}"]`);
-                    if (inputElement && inputElement.type === 'checkbox') {
-                        data[key] = inputElement.checked ? 1 : 0;
-                    } else {
-                        data[key] = value;
-                    }
-                }
-
-                // Handle hidden inputs that might not be in formData if they were hidden
-                anamneseForm.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
-                    if (input.id.endsWith('_nome') || input.id.endsWith('_dose') || input.id === 'qual_doenca' || input.id === 'qual_alergia' || input.id === 'qual_atividade' || input.id === 'frequencia_atividade' || input.id === 'frequencia_alcool' || input.id === 'localizacao_tunel_cavidade' || input.id === 'tipo_edema_perilesional' || input.id === 'controle_glicemico' || input.id === 'pulsos_perifericos' || input.id === 'etiologia_outra' || input.id === 'pele_perilesional_extensao' || input.id === 'outros_hpp' || input.id === 'outros_medicamento' || input.id === 'quantos_filhos' || input.id === 'quais_cirurgias') {
-                        if (input.style.display === 'none') {
-                            data[input.name] = ''; // Clear value if input is hidden
-                        }
-                    }
-                });
-
-                let storedAnamneses = JSON.parse(localStorage.getItem('anamneses')) || [];
-                const editingIndex = localStorage.getItem('editingAnamneseIndex'); // Get index from localStorage
-
-                try {
-                    if (editingIndex !== null) {
-                        // Editing existing anamnese
-                        storedAnamneses[parseInt(editingIndex)] = data;
-                        showMessageBox('Anamnese atualizada com sucesso!', 'success');
-                    } else {
-                        // Adding new anamnese
-                        storedAnamneses.push(data);
-                        showMessageBox('Anamnese salva com sucesso!', 'success');
-                    }
-                    localStorage.setItem('anamneses', JSON.stringify(storedAnamneses));
-
-                    // Clear temporary data used for editing
-                    localStorage.removeItem('editingAnamneseData');
-                    localStorage.removeItem('editingAnamneseIndex');
-                    
-                    // Redirect back to dashboard with a success message
-                    const encodedMessage = encodeURIComponent('Anamnese salva/atualizada com sucesso!');
-                    window.location.href = `dashboard.html?messageType=success&messageText=${encodedMessage}`;
-
-                } catch (error) {
-                    console.error('Erro ao salvar/atualizar anamnese:', error);
-                    const encodedError = encodeURIComponent(`Erro ao salvar/atualizar anamnese: ${error.message}`);
-                    window.location.href = `dashboard.html?messageType=error&messageText=${encodedError}`;
-                }
-            });
-
-            fotoFeridaInput.addEventListener('change', toggleTamanhoFeridaRequired);
-            
-            // Initial call to set required fields for the first step and show it
-            showStep(currentStep);
-
-            // Conditional display for form fields (copied from your original script)
-            document.getElementById('diabetes').addEventListener('change', function () {
-                document.getElementById('controle_glicemico_group').style.display = this.value === '1' ? 'block' : 'none';
-            });
-            const etiologiaSelect = document.getElementById('etiologia_ferida');
-            const outraEtiologiaInput = document.getElementById('etiologia_outra');
-            etiologiaSelect.addEventListener('change', function () {
-                outraEtiologiaInput.style.display = this.value === 'outra' ? 'block' : 'none';
-            });
-            const doencaVascularCheckbox = document.getElementById('doenca_vascular');
-            const funcaoVascularGroup = document.getElementById('funcao_vascular_group');
-            doencaVascularCheckbox.addEventListener('change', function () {
-                funcaoVascularGroup.style.display = this.checked ? 'block' : 'none';
-            });
-
-            const possuiDoencaSelect = document.getElementById('possui_doenca');
-            possuiDoencaSelect.addEventListener('change', function () {
-                const temDoenca = this.value === '1';
-                const doencaText = document.getElementById('qual_doenca');
-                doencaText.style.display = temDoenca ? 'block' : 'none';
-                if (!temDoenca) {
-                    doencaText.value = '';
-                }
-            });
-            const usaMedicacaoSelect = document.getElementById('usa_medicacao');
-            const qualMedicacaoInput = document.getElementById('qual_medicacao');
-            usaMedicacaoSelect.addEventListener('change', function () {
-                qualMedicacaoInput.style.display = this.value === '1' ? 'block' : 'none';
-                if (this.value !== '1') {
-                    qualMedicacaoInput.value = '';
-                }
-            });
-            const possuiAlergiaSelect = document.getElementById('possui_alergia');
-            const qualAlergiaInput = document.getElementById('qual_alergia');
-            possuiAlergiaSelect.addEventListener('change', function () {
-                qualAlergiaInput.style.display = this.value === '1' ? 'block' : 'none';
-                if (this.value !== '1') {
-                    qualAlergiaInput.value = '';
-                }
-            });
-            const praticaAtividadeFisicaSelect = document.getElementById('pratica_atividade_fisica');
-            const qualAtividadeInput = document.getElementById('qual_atividade');
-            const frequenciaAtividadeInput = document.getElementById('frequencia_atividade');
-            praticaAtividadeFisicaSelect.addEventListener('change', function () {
-                const pratica = this.value === '1';
-                qualAtividadeInput.style.display = pratica ? 'block' : 'none';
-                frequenciaAtividadeInput.style.display = pratica ? 'block' : 'none';
-                if (!pratica) {
-                    qualAtividadeInput.value = '';
-                    frequenciaAtividadeInput.value = '';
-                }
-            });
-            const ingestaAlcoolSelect = document.getElementById('ingestao_alcool');
-            const frequenciaAlcoolInput = document.getElementById('frequencia_alcool');
-            ingestaAlcoolSelect.addEventListener('change', function () {
-                frequenciaAlcoolInput.style.display = this.value === '1' ? 'block' : 'none';
-                if (this.value !== '1') {
-                    frequenciaAlcoolInput.value = ''; // Corrected variable name
-                }
-            });
-
-            // Populate form if in edit mode
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('mode') === 'edit') {
-                const editingAnamneseData = JSON.parse(localStorage.getItem('editingAnamneseData'));
-                if (editingAnamneseData) {
-                    document.querySelector('h1').textContent = 'Editar Anamnese';
-                    for (const key in editingAnamneseData) {
-                        const input = anamneseForm.elements[key];
-                        if (input) {
-                            if (input.type === 'checkbox') {
-                                input.checked = editingAnamneseData[key] === 1;
-                            } else {
-                                input.value = editingAnamneseData[key];
-                            }
-                            // Trigger change event for dynamic fields
-                            if (input.tagName === 'SELECT' || input.type === 'checkbox') {
-                                input.dispatchEvent(new Event('change'));
-                            }
-                        }
-                    }
-                    // Special handling for text inputs associated with checkboxes
-                    anamneseForm.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(checkbox => {
-                        const associatedInputName = checkbox.name + '_nome' || checkbox.name + '_dose';
-                        const associatedInput = anamneseForm.elements[associatedInputName];
-                        if (associatedInput) {
-                            if (checkbox.checked && editingAnamneseData[associatedInputName]) {
-                                associatedInput.value = editingAnamneseData[associatedInputName];
-                                associatedInput.style.display = 'block'; // Ensure it's visible
-                            } else {
-                                associatedInput.style.display = 'none'; // Ensure it's hidden if checkbox not checked
-                            }
-                        }
-                    });
-
-                } else {
-                    showMessageBox('Erro: Dados da anamnese para edição não encontrados.', 'error');
-                }
-            } else {
-                 // For new anamnese, clear any lingering editing data
-                 localStorage.removeItem('editingAnamneseData');
-                 localStorage.removeItem('editingAnamneseIndex');
-            }
-        });
-    </script>
+    <script src="/site/public/js/script.js"></script>
+    <script src="/site/public/js/cultura.js"></script>
+    <script src="/site/public/js/eva.js"></script>
+    <script src="/site/public/js/exibirCampos.js"></script>
+    <script src="/site/public/js/local.js"></script>
+    <script src="/site/public/js/customMessages.js"></script>
+    <script src="/site/public/js/tecido.js"></script>
+    
 </body>
 
 </html>
