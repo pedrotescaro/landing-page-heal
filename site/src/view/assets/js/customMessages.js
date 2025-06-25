@@ -30,6 +30,7 @@ const stepCounter = document.getElementById("step-counter");
 
 // Variável para armazenar o ID da anamnese em edição
 let editingAnamneseId = null; // Mantenha esta linha aqui, no escopo global ou superior
+let currentStep = 0; 
 
 function updateProgressBar() {
     const progress = (currentStep / (steps.length - 1)) * 100;

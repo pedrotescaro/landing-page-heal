@@ -21,27 +21,27 @@ $router = new Routes();
 // Definindo rotas da API
 
 // Criar um anamnese (POST)    
-$router->add('POST', '/site/public/index.php/api/anamnese', 
+$router->add('POST', '/site/public/api/anamnese', 
     [new AnamneseController(), 'save']);
 
 // Listar todos os anamneses (GET)
-$router->add('GET', '/site/public/index.php/api/anamnese', 
+$router->add('GET', '/site/public/api/anamnese', 
     [new AnamneseController(), 'findAll']);
 
 // Visualizar um Anamnese pelo ID (GET)
-$router->add('GET', '/site/public/index.php/api/anamnese/{id}', 
+$router->add('GET', '/site/public/api/anamnese/{id}', 
     [new AnamneseController(), 'buscarPorId']);
 
 // Atualizar um Anamnese (PUT)
-$router->add('PUT', '/site/public/index.php/api/anamnese/{id}', 
+$router->add('PUT', '/site/public/api/anamnese/{id}', 
     [new AnamneseController(), 'update']);
 
 // Deletar um Anamnese (DELETE)
-$router->add('DELETE', '/site/public/index.php/api/anamnese/{id}', 
+$router->add('DELETE', '/site/public/api/anamnese/{id}', 
     [new AnamneseController(), 'deletar']);
 
 // Rota de teste (GET)
-$router->add('GET', '/site/public/index.php/hello', 
+$router->add('GET', 'site/public/index.php/hello', 
     [new AnamneseController(), 'hello']);
 
 // Iniciar o roteador

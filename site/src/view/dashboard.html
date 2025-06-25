@@ -446,7 +446,7 @@
         let storedAnamneses = [];
 
         function fetchAnamnesesFromAPI() {
-          fetch("/site/public/index.php/api/anamnese")
+          fetch("/site/public/api/anamnese")
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Erro ao buscar dados da API");
@@ -624,7 +624,7 @@
               "Tem certeza que deseja excluir esta anamnese? Esta ação é irreversível."
             )
           ) {
-            fetch(`/site/public/index.php/api/anamnese/${anamneseId}`, {
+            fetch(`/site/public/api/anamnese/${anamneseId}`, {
               method: "DELETE", // ou POST/DELETE conforme sua API
             })
               .then((response) => {

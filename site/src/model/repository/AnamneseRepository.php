@@ -4,6 +4,8 @@ namespace src\model\repository;
 use src\config\connection;
 use src\model\entity\Anamnese;
 use PDO;
+use ReflectionClass; // Adicionado para introspecção de classes
+use ReflectionProperty;
 
 class AnamneseRepository{
     private $conn;
@@ -14,70 +16,61 @@ class AnamneseRepository{
         $this->conn = $db->getConnection();;
     }
 
-    // Método para inserir uma nova anamnese
-    public function save(Anamnese $Anamnese) {
-        $query = "INSERT INTO " . $this->table . " (
-            nome_cliente, data_nascimento, telefone, email, profissao, estado_civil,
-            objetivo_tratamento, usa_medicacao, qual_medicacao, possui_doenca, qual_doenca,
-            possui_alergia, qual_alergia, pratica_atividade_fisica, qual_atividade, frequencia_atividade,
-            ingestao_agua_dia, ingestao_alcool, frequencia_alcool, ciclo_menstrual_regular,
-            usa_anticoncepcional, tem_filhos, quantos_filhos, realizou_cirurgias, quais_cirurgias,
-            marca_pacemaker, diabetes, hipertensao, problemas_cardiacos, problemas_respiratorios,
-            problemas_renais, problemas_hepaticos, fumante, historico_estetico, data_cadastro
-        ) VALUES (
-            :nome_cliente, :data_nascimento, :telefone, :email, :profissao, :estado_civil,
-            :objetivo_tratamento, :usa_medicacao, :qual_medicacao, :possui_doenca, :qual_doenca,
-            :possui_alergia, :qual_alergia, :pratica_atividade_fisica, :qual_atividade, :frequencia_atividade,
-            :ingestao_agua_dia, :ingestao_alcool, :frequencia_alcool, :ciclo_menstrual_regular,
-            :usa_anticoncepcional, :tem_filhos, :quantos_filhos, :realizou_cirurgias, :quais_cirurgias,
-            :marca_pacemaker, :diabetes, :hipertensao, :problemas_cardiacos, :problemas_respiratorios,
-            :problemas_renais, :problemas_hepaticos, :fumante, :historico_estetico, :data_cadastro
-        )";
+   public function save(Anamnese $anamnese) {
+        // Usa Reflection para obter todas as propriedades públicas do objeto Anamnese
+        $reflection = new ReflectionClass($anamnese);
+        $properties = $reflection->getProperties(ReflectionProperty::IS_PUBLIC);
+
+        $columns = [];
+        $placeholders = [];
+        $params = [];
+
+        foreach ($properties as $property) {
+            $columnName = $property->getName();
+            
+            // Ignora a chave primária 'anamnese_id' pois é AUTO_INCREMENT
+            if ($columnName === 'id') {
+                continue;
+            }
+
+            // Garante que a propriedade existe no objeto e seu valor pode ser lido
+            if ($property->isInitialized($anamnese) || $property->getValue($anamnese) === null) {
+                $columns[] = $columnName;
+                $placeholders[] = ":" . $columnName;
+                $params[":" . $columnName] = $property->getValue($anamnese);
+            }
+        }
+
+        $columnList = implode(", ", $columns);
+        $placeholderList = implode(", ", $placeholders);
+
+        $query = "INSERT INTO " . $this->table . " ({$columnList}) VALUES ({$placeholderList})";
 
         $stmt = $this->conn->prepare($query);
 
-        // Bind de parâmetros
-        $stmt->bindParam(':nome_cliente', $Anamnese->nome_cliente);
-        $stmt->bindParam(':data_nascimento', $Anamnese->data_nascimento);
-        $stmt->bindParam(':telefone', $Anamnese->telefone);
-        $stmt->bindParam(':email', $Anamnese->email);
-        $stmt->bindParam(':profissao', $Anamnese->profissao);
-        $stmt->bindParam(':estado_civil', $Anamnese->estado_civil);
-        $stmt->bindParam(':objetivo_tratamento', $Anamnese->objetivo_tratamento);
-        $stmt->bindParam(':usa_medicacao', $Anamnese->usa_medicacao);
-        $stmt->bindParam(':qual_medicacao', $Anamnese->qual_medicacao);
-        $stmt->bindParam(':possui_doenca', $Anamnese->possui_doenca);
-        $stmt->bindParam(':qual_doenca', $Anamnese->qual_doenca);
-        $stmt->bindParam(':possui_alergia', $Anamnese->possui_alergia);
-        $stmt->bindParam(':qual_alergia', $Anamnese->qual_alergia);
-        $stmt->bindParam(':pratica_atividade_fisica', $Anamnese->pratica_atividade_fisica);
-        $stmt->bindParam(':qual_atividade', $Anamnese->qual_atividade);
-        $stmt->bindParam(':frequencia_atividade', $Anamnese->frequencia_atividade);
-        $stmt->bindParam(':ingestao_agua_dia', $Anamnese->ingestao_agua_dia);
-        $stmt->bindParam(':ingestao_alcool', $Anamnese->ingestao_alcool);
-        $stmt->bindParam(':frequencia_alcool', $Anamnese->frequencia_alcool);
-        $stmt->bindParam(':ciclo_menstrual_regular', $Anamnese->ciclo_menstrual_regular);
-        $stmt->bindParam(':usa_anticoncepcional', $Anamnese->usa_anticoncepcional);
-        $stmt->bindParam(':tem_filhos', $Anamnese->tem_filhos);
-        $stmt->bindParam(':quantos_filhos', $Anamnese->quantos_filhos);
-        $stmt->bindParam(':realizou_cirurgias', $Anamnese->realizou_cirurgias);
-        $stmt->bindParam(':quais_cirurgias', $Anamnese->quais_cirurgias);
-        $stmt->bindParam(':marca_pacemaker', $Anamnese->marca_pacemaker);
-        $stmt->bindParam(':diabetes', $Anamnese->diabetes);
-        $stmt->bindParam(':hipertensao', $Anamnese->hipertensao);
-        $stmt->bindParam(':problemas_cardiacos', $Anamnese->problemas_cardiacos);
-        $stmt->bindParam(':problemas_respiratorios', $Anamnese->problemas_respiratorios);
-        $stmt->bindParam(':problemas_renais', $Anamnese->problemas_renais);
-        $stmt->bindParam(':problemas_hepaticos', $Anamnese->problemas_hepaticos);
-        $stmt->bindParam(':fumante', $Anamnese->fumante);
-        $stmt->bindParam(':historico_estetico', $Anamnese->historico_estetico);
-        $stmt->bindParam(':data_cadastro', $Anamnese->data_cadastro);
-        // Executa
-        if ($stmt->execute()) {
-            return $this->conn->lastInsertId(); // Retorna o ID inserido com sucesso
+        // --- INÍCIO: LOGGING PARA DEBUG ---
+        // Estas linhas irão imprimir a query SQL e os parâmetros no log de erros do PHP (php_error.log no XAMPP)
+        // Isso é crucial para entender o que está sendo enviado ao banco de dados.
+        error_log("SQL Query (SAVE): " . $query);
+        error_log("Number of columns (SAVE): " . count($columns));
+        error_log("Number of bound parameters (SAVE): " . count($params));
+        error_log("Bound Parameters Data (SAVE): " . json_encode($params));
+        // --- FIM: LOGGING PARA DEBUG ---
+
+        try {
+            // Executa a query passando o array de parâmetros diretamente
+            if ($stmt->execute($params)) {
+                return $this->conn->lastInsertId();
+            }
+        } catch (PDOException $e) {
+            // Captura e loga a exceção PDO detalhada
+            error_log("PDOException during Anamnese save: " . $e->getMessage() . " - SQL: " . $query . " - Params: " . json_encode($params));
+            throw $e; // Re-lança a exceção para que ela possa ser tratada em níveis superiores
         }
 
-        return false; // Falhou
+        // Se a execução falhar por outros motivos (ex: violação de integridade)
+        error_log("Erro desconhecido ao salvar anamnese (SQLSTATE): " . implode(" - ", $stmt->errorInfo()));
+        return false;
     }
 
      public function findAll() {
