@@ -30,38 +30,74 @@ document.addEventListener("DOMContentLoaded", function () {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = passwordInput.value;
-    const confirmPassword = document.getElementById("confirm-password").value;
+    const confirmPassword = confirmPasswordInput.value;
 
-    // Validação básica
+    // Limpa mensagens anteriores
+    matchError.classList.add("hidden");
+
+    // Validação dos campos obrigatórios
     if (!name || !email || !password || !confirmPassword) {
-      alert("Por favor, preencha todos os campos.");
+      showError("Por favor, preencha todos os campos.");
       e.preventDefault();
       return;
     }
 
-    // Verifica e-mail
+    // Validação do e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Por favor, insira um e-mail válido.");
+      showError("E-mail inválido. Tente novamente.");
       e.preventDefault();
       return;
     }
 
-    // Verifica senha: min 6 caracteres, 1 maiúscula, 1 caractere especial
+    // Validação da senha
     const senhaSeguraRegex = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
     if (!senhaSeguraRegex.test(password)) {
-      alert("A senha deve ter no mínimo 6 caracteres, conter ao menos uma letra maiúscula e um caractere especial.");
+      showError("A senha precisa de 6+ caracteres, 1 letra maiúscula e 1 caractere especial.");
       e.preventDefault();
       return;
     }
 
-    // Verifica se as senhas conferem
+    // Confirmação de senha
     if (password !== confirmPassword) {
-      alert("As senhas não conferem.");
+      showError("As senhas não conferem.");
       e.preventDefault();
       return;
     }
-  });
+    });
+
+    // Função para exibir erros de forma mais elegante em todos os campos obrigatórios
+    function showError(message) {
+      matchError.textContent = message;
+      matchError.classList.remove("hidden");
+      matchError.style.background = "#ffe0e0";
+      matchError.style.color = "#b71c1c";
+      matchError.style.border = "1px solid #ffb3b3";
+      matchError.style.padding = "10px";
+      matchError.style.borderRadius = "6px";
+      matchError.style.marginTop = "10px";
+      matchError.style.fontWeight = "bold";
+      matchError.style.boxShadow = "0 2px 8px rgba(255,0,0,0.08)";
+      // Aplica o estilo também nos campos obrigatórios que estão vazios
+      const requiredFields = [document.getElementById("name"), document.getElementById("email"), passwordInput, confirmPasswordInput];
+      requiredFields.forEach(field => {
+      if (!field.value.trim()) {
+        field.style.border = "2px solid #ffb3b3";
+        field.style.background = "#fff5f5";
+      } else {
+        field.style.border = "";
+        field.style.background = "";
+      }
+      });
+      setTimeout(() => {
+      matchError.classList.add("hidden");
+      matchError.removeAttribute("style");
+      requiredFields.forEach(field => {
+        field.style.border = "";
+        field.style.background = "";
+      });
+      }, 3000);
+    }
 
   function avaliarForcaSenha(senha) {
     let pontuacao = 0;
