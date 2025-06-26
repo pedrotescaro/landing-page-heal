@@ -299,3 +299,26 @@
                 order: 1; /* Garante que o register fique abaixo do login-right no mobile */
             }
         }
+
+
+                    #toggleDarkMode {
+                background: hsl(var(--background));
+                border: 2px solid #38bdf8;
+                color: #0ea5e9;
+                transition: background 0.3s, color 0.3s, border 0.3s;
+            }
+            #toggleDarkMode:hover {
+                background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+                color: #fff;
+                border-color: #0ea5e9;
+                   .fa-moon {
+                color: #fff;
+                      }
+            }
+            #toggleDarkMode .fa-sun {
+                color: #fff;
+            }
+            #toggleDarkMode .fa-moon {
+                
+                color: #0ea5e9;
+            }

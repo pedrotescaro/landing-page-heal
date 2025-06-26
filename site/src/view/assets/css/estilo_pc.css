@@ -387,9 +387,7 @@ input[type="checkbox"]:checked::before {
 .checkbox-container .checkbox-group input[type="checkbox"] {
     margin-right: 5px;
 }
-
-
-\\ESTILO DO FOOTER
+/* Estilos para a barra de navegação inferior */
 footer {
             position: fixed;
             left: 0;
