@@ -1,8 +1,10 @@
 <?php
 // CORS headers – adicione no topo do arquivo
-header("Access-Control-Allow-Origin: *"); // ou substitua * pelo domínio específico, ex: http://localhost:3000
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Add all methods your API uses
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With"); // Add all custom headers you might send
+header("Access-Control-Allow-Credentials: true"); // If you're sending cookies or authorization headers
+header("Content-Type: application/json"); // Ensure this is set for your JSON responses
 header("Access-Control-Max-Age: 86400");
 
 // Responder requisição OPTIONS (pré-flight)
