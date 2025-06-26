@@ -198,8 +198,6 @@
         }
 
         .nav-links {
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
             display: flex;
             gap: 2rem;
             transition: all 0.3s ease;
@@ -207,7 +205,6 @@
 
         .nav-links a {
             text-decoration: none;
-            background-color: hsl(var(--background));
             color: hsl(var(--foreground));
             font-weight: 500;
             transition: all 0.3s;
@@ -225,7 +222,6 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: hsl(var(--primary));
             transition: width 0.3s;
         }
 
@@ -278,6 +274,7 @@
             }
 
             .header-container {
+                background-color: transparent;
                 padding: 1rem;
             }
 
@@ -292,7 +289,6 @@
                 right: -100%;
                 width: 70%;
                 height: 100vh;
-                background-color: white;
                 flex-direction: column;
                 align-items: right;
                 justify-content: center;
@@ -535,7 +531,7 @@
         }
 
         .feature-card {
-            background-color: white;
+            background-color: hsl(var(--background));
             border-radius: 1.5rem;
             padding: 2rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -587,7 +583,7 @@
         }
 
         .testimonial-card {
-            background-color: white;
+            background-color: hsl(var(--background));
             border-radius: 1rem;
             padding: 1.5rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -636,7 +632,7 @@
         }
 
         .pricing-card {
-            background-color: white;
+            background-color: hsl(var(--background));
             border-radius: 1.5rem;
             padding: 2rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -896,7 +892,6 @@
             left: 0;
             right: 0;
             height: calc(100vh - 70px);
-            background-color: hsl(var(--background));
             padding: 2rem 1rem;
             flex-direction: column;
             transform: translateX(-100%);
@@ -977,6 +972,50 @@ body.dark header{
             color: hsl(var(--foreground));
 }
 
+body.dark .header-container {
+    background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+}
+
+.feedback {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 2rem;
+    border-radius: var(--radius);
+}
+
+.feedback form {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+}
+
+body.dark .feedback h2 {
+    color: hsl(var(--primary));
+}
+body.dark .feedback label {
+    color: hsl(var(--foreground));
+}
+body.dark .feedback textarea,
+body.dark .feedback input,
+body.dark .feedback select,
+body.dark .feedback option {
+    background-color: hsl(222 47% 16%); /* Fundo escuro para campos de entrada */
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+}
+body.dark .feedback form {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
 body.dark .feedback{
     background-color: hsl(var(--background));
             color: hsl(var(--foreground));
@@ -995,7 +1034,7 @@ body.dark .feedback{
         body.dark .feedback input,
         body.dark .feedback select,
         body.dark .feedback option {
-            background-color: hsl(var(--muted));
+            background-color: hsl(var(--background));
             color: hsl(var(--foreground));
             border-color: hsl(var(--border));
         }
@@ -1072,7 +1111,6 @@ body.dark .feature-card,
 body.dark .testimonial-card,
 body.dark form,
 body.dark .nav-links {
-    background-color: hsl(var(--background));
     color: hsl(var(--foreground));
 }
 
