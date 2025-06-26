@@ -13,7 +13,7 @@ class AnamneseRepository{
 
     public function __construct() {
         $db = new connection();
-        $this->conn = $db->getConnection();;
+        $this->conn = $db->getConnection();
     }
 
    public function save(Anamnese $anamnese) {

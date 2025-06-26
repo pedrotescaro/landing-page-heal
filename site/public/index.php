@@ -17,6 +17,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use src\routes\Routes;
 use src\controller\AnamneseController;
+use src\controller\UserController;
 
 $router = new Routes();
 
@@ -41,6 +42,14 @@ $router->add('PUT', '/site/public/api/anamnese/{id}',
 // Deletar um Anamnese (DELETE)
 $router->add('DELETE', '/site/public/api/anamnese/{id}', 
     [new AnamneseController(), 'deletar']);
+
+ // A rota POST para '/login' é onde o formulário envia os dados.
+$router->add('POST', '/site/public/api/login', 
+    [new UserController, 'login']);
+
+// A rota POST para '/login' é onde o formulário envia os dados.
+$router->add('POST', '/site/public/api/register', 
+    [new UserController, 'register']);
 
 // Rota de teste (GET)
 $router->add('GET', 'site/public/index.php/hello', 
