@@ -255,25 +255,29 @@
         .message-box {
             position: fixed;
             left: 50%;
-            bottom: 90px;
-            transform: translateX(-50%) translateY(40px);
+            top: 40%;
+            transform: translateX(-50%) translateY(-50%) translateY(40px);
             background: #fff;
             color: #22223b;
             border-radius: 10px;
-            padding: 14px 32px;
+            padding: 12px 20px;
             box-shadow: 0 4px 24px rgba(37,99,235,0.13);
             font-weight: 600;
-            font-size: 1.08em;
+            font-size: 0.95em;
             opacity: 0;
             pointer-events: none;
             z-index: 9999;
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             text-align: center;
+            max-width: 90vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .message-box.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) translateY(-50%) translateY(0);
         }
 
         .message-box.success { border-left: 6px solid #22c55e; }
@@ -396,6 +400,19 @@
             .action-buttons button {
                 padding: 10px 20px;
                 font-size: 0.95em;
+            }
+            .message-box {
+                padding: 10px 16px;
+                font-size: 0.9em;
+                max-width: 85vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message-box {
+                padding: 8px 12px;
+                font-size: 0.85em;
+                max-width: 80vw;
             }
         }
 
@@ -524,6 +541,13 @@
 
         body.dark .bottom-nav a.active::after {
             background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
+        }
+
+        /* Modo escuro para message-box */
+        body.dark .message-box {
+            background: #1e293b;
+            color: #e2e8f0;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -707,17 +731,15 @@
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 const patientName = document.getElementById('patient-name').value.trim();
-                const specialty = document.getElementById('specialty').value; // Changed from original
                 const date = document.getElementById('date').value;
                 const time = document.getElementById('time').value;
-                if (!patientName || !specialty || !date || !time) {
+                if (!patientName || !date || !time) {
                     showMessageBox('Por favor, preencha todos os campos obrigatórios.', 'error');
                     return;
                 }
                 const formData = {
                     patientName: patientName,
                     doctorName: document.getElementById('doctor-name').value.trim(),
-                    specialty: specialty,
                     date: date,
                     time: time,
                     reason: document.getElementById('reason').value.trim()
