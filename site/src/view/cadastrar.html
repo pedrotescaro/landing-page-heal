@@ -7,17 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="assets/imgs/Logo_Heal4.png">
-    <Link:css> </Link:css>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-      @import url("assets/css/css_cadastro_login.css");
-    </style>
+    <link rel="stylesheet" href="assets/css/css_cadastro_login.css">
 </head>
-<body>
+<body class="cadastro-page">
       <header>
         <div class="container header-container">
             <div class="flex items-center gap-2 relative z-50">
-                <a href="index.html" class="mr-2 flex items-center text-sky-600 hover:text-sky-800 transition-colors" title="Voltar para a página inicial">
+                <a href="pagina.html" class="mr-2 flex items-center text-sky-600 hover:text-sky-800 transition-colors" title="Voltar para a página inicial">
                     <i class="fas fa-arrow-left text-xl"></i>
                 </a>
                 <div class="flex items-center gap-2">
@@ -54,29 +51,29 @@
 
             <form id="register-form" class="space-y-5"> <!-- REMOVIDO action e method AQUI -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-[#111827] mb-1">Nome Completo</label>
+                    <label for="name" class="block text-sm font-medium mb-1">Nome Completo</label>
                     <input type="text" id="name" name="name" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+                        class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium text-[#111827] mb-1">Email</label>
+                    <label for="email" class="block text-sm font-medium mb-1">Email</label>
                     <input type="email" id="email" name="email" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
+                        class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA]">
                     <div id="email-check" class="text-sm mt-1"></div>
                 </div>
                 <div class="relative">
-                    <label for="password" class="block text-sm font-medium text-[#111827] mb-1">Senha</label>
+                    <label for="password" class="block text-sm font-medium mb-1">Senha</label>
                     <input type="password" id="password" name="password" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+                        class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
                     <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="password">
                         <i class="fa-regular fa-eye"></i>
                     </button>
                     <div id="password-strength" class="text-sm mt-1 font-semibold"></div>
                 </div>
                 <div class="relative">
-                    <label for="confirm-password" class="block text-sm font-medium text-[#111827] mb-1">Confirmar Senha</label>
+                    <label for="confirm-password" class="block text-sm font-medium mb-1">Confirmar Senha</label>
                     <input type="password" id="confirm-password" name="confirm-password" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
+                        class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E77EA] pr-10">
                     <button type="button" class="absolute right-3 top-9 text-gray-500 toggle-password" data-target="confirm-password">
                         <i class="fa-regular fa-eye"></i>
                     </button>
@@ -143,5 +140,4 @@
     <script src="assets/loginScript/login.js"></script>
     
     </body>
-</body>
 </html>

@@ -22,42 +22,43 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use src\routes\Routes;
 use src\controller\AnamneseController;
 use src\controller\UserController;
+use src\service\AnamneseService;
+use src\service\UserService;
+
+$anamneseService = new AnamneseService();
+$userService = new UserService();
 
 $router = new Routes();
 
 // Definindo rotas da API
 
 // Criar um anamnese (POST)    
-$router->add('POST', '/site/public/api/anamnese', 
-    [new AnamneseController(), 'save']);
+$router->add('POST', '/site/public/api/anamnese', [new AnamneseController($anamneseService), 'save']);
 
 // Listar todos os anamneses (GET)
-$router->add('GET', '/site/public/api/anamnese', 
-    [new AnamneseController(), 'findAll']);
+$router->add('GET', '/site/public/api/anamnese', [new AnamneseController($anamneseService), 'findAll']);
 
 // Visualizar um Anamnese pelo ID (GET)
-$router->add('GET', '/site/public/api/anamnese/{id}', 
-    [new AnamneseController(), 'buscarPorId']);
+$router->add('GET', '/site/public/api/anamnese/{id}', [new AnamneseController($anamneseService), 'buscarPorId']);
 
 // Atualizar um Anamnese (PUT)
-$router->add('PUT', '/site/public/api/anamnese/{id}', 
-    [new AnamneseController(), 'update']);
+$router->add('PUT', '/site/public/api/anamnese/{id}', [new AnamneseController($anamneseService), 'update']);
 
 // Deletar um Anamnese (DELETE)
-$router->add('DELETE', '/site/public/api/anamnese/{id}', 
-    [new AnamneseController(), 'deletar']);
+$router->add('DELETE', '/site/public/api/anamnese/{id}', [new AnamneseController($anamneseService), 'deletar']);
 
  // A rota POST para '/login' é onde o formulário envia os dados.
-$router->add('POST', '/site/public/api/login', 
-    [new UserController, 'login']);
+$router->add('POST', '/site/public/api/login', [new UserController($userService), 'login']);
 
 // A rota POST para '/login' é onde o formulário envia os dados.
-$router->add('POST', '/site/public/api/register', 
-    [new UserController, 'register']);
+$router->add('POST', '/site/public/api/register', [new UserController($userService), 'register']);
 
 // Rota de teste (GET)
 $router->add('GET', 'site/public/index.php/hello', 
     [new AnamneseController(), 'hello']);
+
+// Rota para servir a view do formulário de anamnese (GET)
+$router->add('GET', '/site/public/formulario', [new AnamneseController($anamneseService), 'viewForm']);
 
 // Iniciar o roteador
 $router->handlerRequest();

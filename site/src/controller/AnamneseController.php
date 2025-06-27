@@ -7,9 +7,16 @@ header('Content-Type: application/json');
 class AnamneseController {
     private AnamneseService $service;
 
+    // Injeção de dependência via construtor
+    public function __construct(AnamneseService $service) {
+        $this->service = $service;
+    }
 
-    public function __construct() {
-        $this->service = new AnamneseService();
+    /**
+     * Serve a view HTML do formulário de anamnese (GET)
+     */
+    public function viewForm() {
+        require __DIR__ . '/../view/formulario.html';
     }
 
     /**
@@ -17,27 +24,20 @@ class AnamneseController {
      */
     public function save() {
         $dados = json_decode(file_get_contents("php://input"), true);
-
         $success = $this->service->saveAnamnese($dados);
-
         if ($success) {
-
             $id = $success;
-
             $anamneseSalva = $this->service->buscarPorId($id);
-
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "success",
                 "message" => "Anamnese criada com sucesso",
-                "data" => $anamneseSalva    
+                "data" => $anamneseSalva
             ]);
-
         } else {
-            http_response_code(500);
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "error",
                 "message" => "Erro ao criar anamnese"
-            ]);
+            ], 500);
         }
     }
 
@@ -46,7 +46,7 @@ class AnamneseController {
      */
     public function findAll() {
         $resultados = $this->service->listarAnamneses();
-        echo json_encode($resultados);
+        $this->jsonResponse($resultados);
     }
 
     /**
@@ -55,13 +55,12 @@ class AnamneseController {
     public function buscarPorId($id) {
         $anamnese = $this->service->buscarPorId((int)$id);
         if ($anamnese) {
-            echo json_encode($anamnese);
+            $this->jsonResponse($anamnese);
         } else {
-            http_response_code(404);
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "error",
                 "message" => "Anamnese não encontrada"
-            ]);
+            ], 404);
         }
     }
 
@@ -71,16 +70,15 @@ class AnamneseController {
     public function update($id) {
         $dados = json_decode(file_get_contents("php://input"), true);
         if ($this->service->atualizarAnamnese((int)$id, $dados)) {
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "success",
                 "message" => "Anamnese atualizada com sucesso"
             ]);
         } else {
-            http_response_code(500);
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "error",
                 "message" => "Erro ao atualizar anamnese"
-            ]);
+            ], 500);
         }
     }
 
@@ -89,20 +87,28 @@ class AnamneseController {
      */
     public function deletar($id) {
         if ($this->service->excluirAnamnese((int)$id)) {
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "success",
-                "message" => "Anamnese excluida com sucesso"
+                "message" => "Anamnese excluída com sucesso"
             ]);
         } else {
-            http_response_code(500);
-            echo json_encode([
+            $this->jsonResponse([
                 "status" => "error",
                 "message" => "Erro ao excluir anamnese"
-            ]);
+            ], 500);
         }
     }
-    //funçao de teste 
+
+    //função de teste 
     public function hello() {
         echo "Olá! Método hello() funcionando.";
+    }
+
+    // Método utilitário para resposta JSON padronizada
+    private function jsonResponse($data, $status = 200) {
+        http_response_code($status);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
     }
 }

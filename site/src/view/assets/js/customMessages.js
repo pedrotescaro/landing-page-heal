@@ -19,20 +19,23 @@ let currentStep = 0; // Inicializa a variável currentStep aqui!
 // --- Função para exibir mensagens na UI ---
 // Esta função pode ser chamada de qualquer lugar neste script.
 function showMessage(message, type) {
-    const messageBox = document.getElementById('form-message') || document.createElement('div');
-    if (!messageBox.parentNode || messageBox.id !== 'form-message') { 
+    const form = document.getElementById('anamnese-form');
+    let messageBox = document.getElementById('form-message') || document.createElement('div');
+    if (!messageBox.parentNode || messageBox.id !== 'form-message') {
         messageBox.id = 'form-message';
-        document.body.appendChild(messageBox); 
+        if (form && form.parentNode) {
+            form.parentNode.insertBefore(messageBox, form);
+        } else {
+            document.body.appendChild(messageBox);
+        }
     }
-    
     messageBox.textContent = message;
     messageBox.classList.remove('hidden', 'error', 'success', 'visible');
-    messageBox.classList.add('message-box', type, 'visible'); 
-    
+    messageBox.classList.add('message-box', type, 'visible');
     setTimeout(() => {
         messageBox.classList.remove('visible');
         messageBox.classList.add('hidden');
-    }, 5000); 
+    }, 5000);
 }
 
 // --- Lógica Principal: Executado após o DOM ser completamente carregado ---
@@ -87,6 +90,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         currentStep = stepIndex; // Atualiza a variável global currentStep
         updateProgressBar();
+        
+        // Rola para o topo do formulário sempre que mudar de passo
+        const formContainer = document.getElementById('form-container');
+        if (formContainer) {
+            formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            // Fallback: rola para o topo da página
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
 
@@ -101,27 +113,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     function validateCurrentStep() {
         const currentActiveStep = steps[currentStep];
         if (!currentActiveStep) return true; // Se não houver passo ativo, assume válido
-        const requiredInputs = currentActiveStep.querySelectorAll("[required]");
+        const requiredInputs = currentActiveStep.querySelectorAll('[required]');
         let allInputsValid = true;
+        let firstInvalidInput = null;
 
         requiredInputs.forEach((input) => {
-            if (input.type === "file") {
+            if (input.type === 'file') {
                 if (!input.files.length && !input.dataset.currentUrl) {
-                    input.style.borderColor = "red";
+                    input.style.borderColor = 'red';
                     allInputsValid = false;
+                    if (!firstInvalidInput) firstInvalidInput = input;
                 } else {
-                    input.style.borderColor = "";
+                    input.style.borderColor = '';
                 }
             } else if (!input.value.trim()) {
-                input.style.borderColor = "red";
+                input.style.borderColor = 'red';
                 allInputsValid = false;
+                if (!firstInvalidInput) firstInvalidInput = input;
             } else {
-                input.style.borderColor = "";
+                input.style.borderColor = '';
             }
         });
 
         if (!allInputsValid) {
-            showMessage("Por favor, preencha todos os campos obrigatórios para avançar.", "error");
+            showMessage('Por favor, preencha todos os campos obrigatórios para avançar.', 'error');
+            if (firstInvalidInput) {
+                firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalidInput.focus();
+            }
             return false;
         }
         return true;
@@ -143,6 +162,22 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (currentStep < steps.length - 1) {
                     showStep(currentStep + 1);
                 }
+            } else {
+                // Se não validou, já está rolando e mostrando mensagem pelo validateCurrentStep
+                // Mas garantimos que a mensagem e o scroll sempre aconteçam
+                const currentActiveStep = steps[currentStep];
+                const requiredInputs = currentActiveStep.querySelectorAll('[required]');
+                let firstInvalidInput = null;
+                requiredInputs.forEach((input) => {
+                    if ((input.type === 'file' && !input.files.length && !input.dataset.currentUrl) || (!input.value.trim() && input.type !== 'file')) {
+                        if (!firstInvalidInput) firstInvalidInput = input;
+                    }
+                });
+                if (firstInvalidInput) {
+                    firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalidInput.focus();
+                }
+                showMessage('Por favor, preencha todos os campos obrigatórios para avançar.', 'error');
             }
         });
     }
@@ -217,10 +252,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 } else {
                     await createAnamnese(data);
                 }
-                
                 // Redireciona para o dashboard após o sucesso
                 window.location.href = 
-                    window.location.protocol + "//" + window.location.hostname + "/site/public/dashboard.html?messageType=success&messageText=" +
+                    window.location.protocol + "//" + window.location.hostname + "/site/public/landing-page.html?messageType=success&messageText=" +
                     encodeURIComponent(
                         `Anamnese ${editingAnamneseId ? "atualizada" : "criada"} com sucesso!`
                     );
@@ -307,6 +341,36 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // ATENÇÃO: As funções abaixo foram movidas para dentro do DOMContentLoaded ou reorganizadas.
     // Certifique-se de que não haja duplicação em outros arquivos JS.
+
+    /**
+     * Coleta os dados do formulário e separa arquivos para upload
+     * @returns {Object} Objeto com { data: Object, filesToUpload: Object }
+     */
+    function getFormData() {
+        const formData = new FormData(form);
+        const data = {};
+        const filesToUpload = {};
+
+        for (const [key, value] of formData.entries()) {
+            if (value instanceof File) {
+                if (value.size > 0) {
+                    filesToUpload[key] = value;
+                }
+            } else {
+                data[key] = value;
+            }
+        }
+
+        // Processa checkboxes que não estão no FormData
+        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (!data.hasOwnProperty(checkbox.name)) {
+                data[checkbox.name] = checkbox.checked ? '1' : '0';
+            }
+        });
+
+        return { data, filesToUpload };
+    }
 
     /**
      * Envia um arquivo para o endpoint de upload da API.
@@ -414,7 +478,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error("Erro ao carregar anamnese:", error);
             showMessage(`Erro ao carregar anamnese: ${error.message}`, "error");
             window.location.href =
-                window.location.protocol + "//" + window.location.hostname + "/site/public/dashboard.html?messageType=error&messageText=" + 
+                window.location.protocol + "//" + window.location.hostname + "/site/public/landing-page.html?messageType=error&messageText=" + 
                 encodeURIComponent(
                     `Não foi possível carregar a anamnese para edição: ${error.message}`
                 );
@@ -456,7 +520,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 listContainer.querySelectorAll(".edit-anamnese-btn").forEach((btn) => {
                     btn.addEventListener("click", (e) => {
                         const id = e.target.dataset.id;
-                        window.location.href = window.location.protocol + "//" + window.location.hostname + `/site/public/index_template.html?id=${id}`; 
+                        window.location.href = window.location.protocol + "//" + window.location.hostname + `/site/public/formulario.html?id=${id}`; 
                     });
                 });
 

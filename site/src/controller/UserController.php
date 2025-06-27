@@ -145,7 +145,7 @@ class UserController {
             echo json_encode([
                 "status" => "success", // Adicionado "status"
                 "message" => "Login realizado com sucesso!",
-                "redirect" => "/dashboard.html" // Sugere redirecionamento para o frontend
+                "redirect" => "/landing-page.html" // Sugere redirecionamento para o frontend
             ]);
         } catch (\InvalidArgumentException $e) {
             http_response_code(400); // Bad Request
@@ -177,7 +177,7 @@ class UserController {
         echo json_encode([
             "status" => "success",
             "message" => "Logout realizado com sucesso.",
-            "redirect" => "/index.html"
+            "redirect" => "/landing-page.html"
         ]);
         exit; // Garante que nenhum outro output seja enviado.
     }

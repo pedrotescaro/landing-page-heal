@@ -117,6 +117,8 @@
                 border: 2px solid #38bdf8;
                 color: #0ea5e9;
                 transition: background 0.3s, color 0.3s, border 0.3s;
+                z-index: 10001 !important;
+                position: relative !important;
             }
             #toggleDarkMode:hover {
                 background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
@@ -184,23 +186,423 @@
 }
 
 
-     /* Menu Hamburguer */
+     /* Menu Toggle - Sempre visível, mas só funcional em mobile */
      .menu-toggle {
-            left: -5rem;
-            position: absolute;
-            display: none;
-            background: none;
-            border: none;
-            color: hsl(var(--primary));
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 101;
+            display: block !important;
+            background: none !important;
+            border: none !important;
+            color: hsl(var(--primary)) !important;
+            font-size: 1.5rem !important;
+            cursor: pointer !important;
+            padding: 0.5rem !important;
+            transition: all 0.3s ease !important;
+            z-index: 1001 !important;
+            position: relative !important;
+            width: auto !important;
+            height: auto !important;
         }
 
+        .menu-toggle:hover {
+            color: hsl(var(--primary-light)) !important;
+            transform: scale(1.1) !important;
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid hsl(var(--primary)) !important;
+            outline-offset: 2px !important;
+        }
+
+        .menu-toggle i {
+            display: inline-block !important;
+            font-size: 1.5rem !important;
+            color: hsl(var(--primary)) !important;
+        }
+
+        /* Debug - Força visibilidade do menu hambúrguer */
+        .debug-menu {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 9999 !important;
+        }
+
+        .debug-menu i {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* Navegação Desktop */
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 2rem;
-            transition: all 0.3s ease;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            /* Header e Navegação */
+            .header-container {
+                padding: 0.75rem 1rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: hsl(var(--background));
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 0;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+                transition: right 0.3s ease;
+                z-index: 1000;
+                padding: 5rem 2rem 2rem 2rem;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+                margin-bottom: 2rem;
+            }
+
+            .nav-menu a {
+                width: 100%;
+                padding: 1rem 0;
+                border-bottom: 1px solid hsl(var(--border));
+                font-size: 1.1rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: hsl(var(--foreground));
+                transition: all 0.3s ease;
+            }
+
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+
+            .nav-menu a:hover {
+                color: hsl(var(--primary));
+                background-color: hsl(var(--muted));
+                padding-left: 1rem;
+            }
+
+            .nav-controls {
+                flex-direction: column;
+                width: 100%;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid hsl(var(--border));
+            }
+
+            .cta-buttons {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Esconde elementos em desktop quando em mobile */
+            .nav-links .nav-menu,
+            .nav-links .nav-controls,
+            .nav-links .cta-buttons {
+                display: flex;
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 6rem 0 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.3;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            /* Features Section */
+            .features {
+                padding: 3rem 0;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            .feature-card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .feature-card p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            /* Testimonials Section */
+            .testimonials {
+                padding: 3rem 0;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .testimonial-card p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            /* Pricing Section */
+            .pricing {
+                padding: 3rem 0;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .pricing-card {
+                padding: 1.5rem;
+            }
+
+            .pricing-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .price {
+                font-size: 1.5rem;
+            }
+
+            /* FAQ Section */
+            .faq {
+                padding: 3rem 0;
+            }
+
+            .faq-container {
+                padding: 0 1rem;
+            }
+
+            .faq-question {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
+            .faq-answer {
+                font-size: 1rem;
+                padding: 0 1rem 1rem 1rem;
+            }
+
+            /* Section Headers */
+            .section-header {
+                margin-bottom: 2.5rem;
+                padding: 0 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1rem;
+            }
+
+            footer .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            /* Feedback Section */
+            #feedback {
+                padding: 0 1rem;
+                margin-bottom: 2rem;
+            }
+
+            #feedback .max-w-2xl {
+                max-width: 100%;
+            }
+
+            #feedback form {
+                padding: 1.5rem;
+            }
+
+            /* Modal */
+            #downloadModal .max-w-md {
+                max-width: 90%;
+                margin: 1rem;
+            }
+
+            #downloadModal .grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            /* WhatsApp Button */
+            .whatsapp-button {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            /* Font Size Controls */
+            .js-increase-font-size,
+            .js-decrease-font-size {
+                width: 35px;
+                height: 35px;
+                font-size: 1.25rem;
+                right: 0.75rem;
+                top: 35%;
+            }
+
+            /* Language Switcher */
+            #languageSwitcher {
+                max-width: 100px;
+                font-size: 0.75rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .nav-links {
+                z-index: 10000 !important;
+            }
+        }
+
+        /* Desktop - Esconde menu toggle e mostra navegação normal */
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none !important;
+            }
+
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background-color: transparent;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 2rem;
+                box-shadow: none;
+                padding: 0;
+                overflow: visible;
+            }
+
+            .nav-menu {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .nav-menu a {
+                padding: 0.5rem 0;
+                border-bottom: none;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            .nav-menu a:hover {
+                padding-left: 0;
+            }
+
+            .nav-controls {
+                flex-direction: row;
+                width: auto;
+                gap: 1rem;
+                margin-bottom: 0;
+                padding: 0;
+                border-bottom: none;
+            }
+
+            .cta-buttons {
+                flex-direction: row;
+                width: auto;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: auto;
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
         }
 
         .nav-links a {
@@ -255,64 +657,65 @@
             border-radius: 9999px;
         }
 
-         /* Responsivo */
-         @media (max-width: 768px) {
-            .register-right {
-                display: none;
+         /* Tablets */
+         @media (min-width: 769px) and (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.25rem;
             }
 
-            .register-left {
-                padding: 2rem;
+            .hero p {
+                font-size: 1.15rem;
             }
 
-            .login-right {
-                display: none;
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
 
-            .login-left {
-                padding: 2rem;
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
 
-            .header-container {
-                background-color: transparent;
-                padding: 1rem;
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* Telas muito pequenas */
+        @media (max-width: 480px) {
+            .hero {
+                padding: 5rem 0 3rem;
             }
 
-            .menu-toggle {
-                align-items: right;
-                display: block;
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
             }
 
             .nav-links {
-                position: fixed;
-                top: 0;
+                width: 100%;
                 right: -100%;
-                width: 70%;
-                height: 100vh;
-                flex-direction: column;
-                align-items: right;
-                justify-content: center;
-                gap: 2rem;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                transition: right 0.3s ease;
-                z-index: 100;
             }
 
-            .nav-links.active {
-                right: 0;
+            .header-container {
+                padding: 0.5rem 1rem;
             }
 
-            .cta-buttons {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                flex-direction: column;
-                width: 100%;
-                padding: 0 2rem;
+            .logo {
+                font-size: 1.25rem;
             }
 
-            .btn {
-                width: 100%;
+            .logo img {
+                width: 2rem;
             }
         }
 
@@ -479,10 +882,10 @@
         }
 
         .price {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
             color: hsl(var(--primary));
+            margin-bottom: 1rem;
         }
 
         .features-list {
@@ -651,13 +1054,10 @@
         }
 
         .price {
-            font-size: 2.25rem;
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #2563eb, #0d9488);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: hsl(var(--primary));
+            margin-bottom: 1rem;
         }
 
         .features-list {
@@ -694,7 +1094,7 @@
             margin-bottom: 1.5rem;
             border-bottom: 1px solid hsl(var(--border));
             padding-bottom: 1.5rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .faq-item:hover {
@@ -705,9 +1105,13 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
             position: relative;
             padding-right: 30px;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .faq-question:hover {
@@ -725,6 +1129,7 @@
             transform: translateY(-50%);
             transition: transform 0.3s ease;
             color: hsl(var(--primary));
+            font-size: 0.875rem;
         }
 
         .faq-item.active .faq-question::after {
@@ -735,12 +1140,27 @@
             color: hsl(var(--muted-foreground));
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+            line-height: 1.6;
         }
 
         .faq-item.active .faq-answer {
             max-height: 500px; /* Ajuste conforme necessário */
             margin-top: 0.5rem;
+            opacity: 1;
+        }
+
+        /* Melhorar acessibilidade */
+        .faq-question:focus {
+            outline: 2px solid hsl(var(--primary));
+            outline-offset: 2px;
+        }
+
+        /* Estado ativo da pergunta */
+        .faq-item.active .faq-question {
+            color: hsl(var(--primary));
+            font-weight: 700;
         }
 
         /* Footer */
@@ -775,377 +1195,273 @@
             color: hsl(var(--primary));
         }
 
-        .footer-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: hsl(var(--primary));
-            transition: width 0.3s;
-        }
-
-        .footer-links a:hover::after {
-            width: 100%;
-        }
-
-        .copyright {
-            color: hsl(var(--muted-foreground));
-            margin-bottom: 1rem;
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 50;
-        }
-
-        .whatsapp-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-            background-color: #128C7E;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        /* Responsive */
+        /* Garantir que o menu hambúrguer apareça em mobile */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+            .menu-toggle {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2.25rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
+            
+            .menu-toggle i {
+                display: inline-block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
         }
-        /* Animação do Modal */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
 
-        .animate-fade-in {
-            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Estilos específicos do modal */
-        .download-btn div {
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover div {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (max-width: 768px) {
-        .nav-links {
-            position: fixed;
-            top: 70px; /* Altura do header */
-            left: 0;
-            right: 0;
-            height: calc(100vh - 70px);
-            padding: 2rem 1rem;
-            flex-direction: column;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            z-index: 99;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-links.active {
-            transform: translateX(0);
-        }
-
-        .header-container {
-            height: 70px;
-        }
-
-        .cta-buttons {
-            margin-top: auto;
-            margin: 0;
-            padding: 0;
-        }
-
-    }
-
-   /* Garantir que o header fique acima do conteúdo */
-   header {
-        z-index: 100;
-    }
-
-    .language-selector {
-            background: transparent;
-            color: inherit;
-            border: 1px solid hsl(var(--primary));
-            padding: 0.25rem 0.5rem;
-            border-radius: var(--radius);
-            margin-left: 1rem;
-        }
-
-    .language-selector option {
+        /* Modo Escuro */
+        body.dark {
+            --background: 222 47% 11%;
+            --foreground: 210 40% 98%;
+            --primary: 201 96% 60%;
+            --primary-foreground: 222 47% 10%;
+            --muted: 215 20% 20%;
+            --muted-foreground: 210 20% 70%;
+            --border: 215 20% 30%;
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
 
-        @media (max-width: 768px) {
-            .language-selector {
-                margin: 1rem 0;
-                width: 100%;
-            }
+        body.dark {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+        
+
+        body.dark header {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
         }
 
-          body.dark {
-    --background: 222 47% 11%; /* fundo escuro */
-    --foreground: 210 40% 98%; /* texto claro */
-    --primary: 201 96% 60%;
-    --primary-foreground: 222 47% 10%;
-    --muted: 215 20% 20%;
-    --muted-foreground: 210 20% 70%;
-    --border: 215 20% 30%;
-}
-body.dark {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-}
-
-body.dark #feedback-type-select,
-body.dark #feedback-type-select option {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    border-color: hsl(var(--primary));
-}
-
-body.dark footer {
-    background-color: hsl(222 47% 8%);
-}
-
-body.dark header{
-    background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-}
-
-body.dark .header-container {
-    background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-}
-
-.feedback {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    border: 1px solid hsl(var(--border));
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    padding: 2rem;
-    border-radius: var(--radius);
-}
-
-.feedback form {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    border: 1px solid hsl(var(--border));
-    border-radius: var(--radius);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    padding: 1.5rem;
-}
-
-body.dark .feedback h2 {
-    color: hsl(var(--primary));
-}
-body.dark .feedback label {
-    color: hsl(var(--foreground));
-}
-body.dark .feedback textarea,
-body.dark .feedback input,
-body.dark .feedback select,
-body.dark .feedback option {
-    background-color: hsl(222 47% 16%); /* Fundo escuro para campos de entrada */
-    color: hsl(var(--foreground));
-    border-color: hsl(var(--border));
-}
-body.dark .feedback form {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    border-color: hsl(var(--border));
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-}
-
-body.dark .feedback{
-    background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-}
-     /* Your provided CSS for dark mode */
-        body.dark textarea,
-        body.dark .feedback textarea,
-        body.dark .feedback input,
-        body.dark .feedback section,
-        body.dark .feedback form,
-        body.dark .feedback button,
-        body.dark .feedback .btn,
-        body.dark .feedback .btn-primary,
-        body.dark .feedback .btn-outline,
-        body.dark .feedback textarea,
-        body.dark .feedback input,
-        body.dark .feedback select,
-        body.dark .feedback option {
+        body.dark .header-container {
             background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+
+        body.dark .pricing-card,
+        body.dark .feature-card,
+        body.dark .testimonial-card,
+        body.dark form,
+        body.dark .nav-links {
+            background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
             color: hsl(var(--foreground));
             border-color: hsl(var(--border));
         }
 
-        body.dark .feedback label {
+        body.dark .btn-outline {
+            color: hsl(var(--primary));
+            border-color: hsl(var(--primary));
+        }
+
+        body.dark .btn-outline:hover {
+            background-color: hsl(var(--primary) / 0.1);
+        }
+
+        body.dark .hero p,
+        body.dark .section-header p,
+        body.dark .faq-answer,
+        body.dark .testimonial-card p,
+        body.dark .testimonial-role {
+            color: hsl(var(--muted-foreground));
+        }
+
+        body.dark footer {
+            background-color: hsl(222 47% 8%);
             color: hsl(var(--foreground));
+        }
+
+        body.dark #feedback-type-select,
+        body.dark #feedback-type-select option,
+        body.dark textarea,
+        body.dark input[type="text"],
+        body.dark input[type="email"],
+        body.dark input[type="password"],
+        body.dark select {
+            background-color: hsl(222 47% 16%);
+            color: hsl(var(--foreground));
+            border-color: hsl(var(--border));
         }
 
         body.dark .feedback h2 {
             color: hsl(var(--primary));
         }
 
-        body.dark .feedback form {
-            background-color: hsl(var(--background));
-            border-color: hsl(var(--border));
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
         body.dark .feedback label {
-            color: hsl(var(--primary));
+            color: hsl(var(--foreground));
         }
-
-        body.dark .feedback select,
-        body.dark .feedback textarea,
-        body.dark .feedback input {
-            background-color: hsl(222 47% 16%); /* This is what you want for the dropdown in dark mode */
+        body.dark {
+            --background: 222 47% 11%; /* fundo escuro */
+            --foreground: 210 40% 98%; /* texto claro */
+            --primary: 201 96% 60%;
+            --primary-foreground: 222 47% 10%;
+            --muted: 215 20% 20%;
+            --muted-foreground: 210 20% 70%;
+            --border: 215 20% 30%;
+        }
+        body.dark {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+        
+        body.dark #feedback-type-select,
+        body.dark #feedback-type-select option {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            border-color: hsl(var(--primary));
+        }
+        
+        body.dark footer {
+            background-color: hsl(222 47% 8%);
+        }
+        
+        body.dark header{
+            background-color: hsl(var(--background));
+                    color: hsl(var(--foreground));
+        }
+        
+        body.dark .feedback{
+            background-color: hsl(var(--background));
+                    color: hsl(var(--foreground));
+        }
+             /* Your provided CSS for dark mode */
+                body.dark textarea,
+                body.dark .feedback textarea,
+                body.dark .feedback input,
+                body.dark .feedback section,
+                body.dark .feedback form,
+                body.dark .feedback button,
+                body.dark .feedback .btn,
+                body.dark .feedback .btn-primary,
+                body.dark .feedback .btn-outline,
+                body.dark .feedback textarea,
+                body.dark .feedback input,
+                body.dark .feedback select,
+                body.dark .feedback option {
+                    background-color: hsl(var(--muted));
+                    color: hsl(var(--foreground));
+                    border-color: hsl(var(--border));
+                }
+        
+                body.dark .feedback label {
+                    color: hsl(var(--foreground));
+                }
+        
+                body.dark .feedback h2 {
+                    color: hsl(var(--primary));
+                }
+        
+                body.dark .feedback form {
+                    background-color: hsl(var(--background));
+                    border-color: hsl(var(--border));
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                }
+        
+                body.dark .feedback label {
+                    color: hsl(var(--primary));
+                }
+        
+                body.dark .feedback select,
+                body.dark .feedback textarea,
+                body.dark .feedback input {
+                    background-color: hsl(222 47% 16%); /* This is what you want for the dropdown in dark mode */
+                    color: hsl(var(--primary));
+                    border-color: hsl(var(--primary));
+                }
+        
+                body.dark .feedback option {
+                    background-color: hsl(222 47% 16%); /* Ensure options also have dark background */
+                    color: hsl(var(--primary));
+                }
+        
+                body.dark .feedback button,
+                body.dark .feedback .btn,
+                body.dark .feedback .btn-primary {
+                    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 1.2));
+                    color: hsl(var(--primary-foreground));
+                    border: none;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                }
+        
+                body.dark .feedback button:hover,
+                body.dark .feedback .btn:hover,
+                body.dark .feedback .btn-primary:hover {
+                    filter: brightness(1.1);
+                    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+                }
+        
+                /* Define your HSL custom properties here if they are not already defined globally */
+                /* Example: */
+                :root {
+                    --background: 0 0% 100%;    /* Light mode background */
+                    --foreground: 222 47% 11%;  /* Light mode foreground */
+                    --primary: 200 80% 50%;     /* Light mode primary color */
+                    --primary-foreground: 0 0% 100%; /* Light mode primary foreground */
+                    --muted: 210 20% 90%;       /* Light mode muted color */
+                    --border: 210 20% 80%;      /* Light mode border color */
+                }
+        
+                body.dark {
+                    --background: 222 47% 11%;  /* Dark mode background */
+                    --foreground: 210 20% 98%;  /* Dark mode foreground */
+                    --primary: 200 80% 60%;     /* Dark mode primary color (slightly lighter for contrast) */
+                    --primary-foreground: 210 20% 98%; /* Dark mode primary foreground */
+                    --muted: 222 47% 16%;       /* Dark mode muted color */
+                    --border: 222 47% 20%;      /* Dark mode border color */
+                }
+                
+        body.dark .pricing-card,
+        body.dark .feature-card,
+        body.dark .testimonial-card,
+        body.dark form,
+        body.dark .nav-links {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+        
+        body.dark .btn-outline {
             color: hsl(var(--primary));
             border-color: hsl(var(--primary));
         }
-
-        body.dark .feedback option {
-            background-color: hsl(222 47% 16%); /* Ensure options also have dark background */
-            color: hsl(var(--primary));
-        }
-
-        body.dark .feedback button,
-        body.dark .feedback .btn,
-        body.dark .feedback .btn-primary {
-            background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 1.2));
-            color: hsl(var(--primary-foreground));
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        body.dark .feedback button:hover,
-        body.dark .feedback .btn:hover,
-        body.dark .feedback .btn-primary:hover {
-            filter: brightness(1.1);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-        }
-
-        /* Define your HSL custom properties here if they are not already defined globally */
-        /* Example: */
-        :root {
-            --background: 0 0% 100%;    /* Light mode background */
-            --foreground: 222 47% 11%;  /* Light mode foreground */
-            --primary: 200 80% 50%;     /* Light mode primary color */
-            --primary-foreground: 0 0% 100%; /* Light mode primary foreground */
-            --muted: 210 20% 90%;       /* Light mode muted color */
-            --border: 210 20% 80%;      /* Light mode border color */
-        }
-
-        body.dark {
-            --background: 222 47% 11%;  /* Dark mode background */
-            --foreground: 210 20% 98%;  /* Dark mode foreground */
-            --primary: 200 80% 60%;     /* Dark mode primary color (slightly lighter for contrast) */
-            --primary-foreground: 210 20% 98%; /* Dark mode primary foreground */
-            --muted: 222 47% 16%;       /* Dark mode muted color */
-            --border: 222 47% 20%;      /* Dark mode border color */
+        
+        body.dark .btn-outline:hover {
+            background-color: hsl(var(--primary) / 0.1);
         }
         
-body.dark .pricing-card,
-body.dark .feature-card,
-body.dark .testimonial-card,
-body.dark form,
-body.dark .nav-links {
-    color: hsl(var(--foreground));
-}
+        body.dark .hero p,
+        body.dark .section-header p,
+        body.dark .faq-answer,
+        body.dark .testimonial-card p,
+        body.dark .testimonial-role {
+            color: hsl(var(--muted-foreground));
+        }
 
-body.dark .btn-outline {
-    color: hsl(var(--primary));
-    border-color: hsl(var(--primary));
-}
+        /* Language Switcher no modo escuro */
+        body.dark #languageSwitcher {
+            background-color: hsl(var(--muted));
+            color: hsl(var(--foreground));
+            border-color: hsl(var(--primary));
+        }
 
-body.dark .btn-outline:hover {
-    background-color: hsl(var(--primary) / 0.1);
-}
+        body.dark #languageSwitcher:hover {
+            background-color: hsl(var(--primary) / 0.1);
+            border-color: hsl(var(--primary));
+        }
 
-body.dark .hero p,
-body.dark .section-header p,
-body.dark .faq-answer,
-body.dark .testimonial-card p,
-body.dark .testimonial-role {
-    color: hsl(var(--muted-foreground));
-}
+        body.dark #languageSwitcher:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 2px hsl(var(--primary) / 0.3);
+            background-color: hsl(var(--muted));
+        }
 
+        body.dark #languageSwitcher option {
+            background-color: hsl(var(--muted));
+            color: hsl(var(--foreground));
+        }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* espaço entre os elementos */
-}
-
-.user-name {
-    font-weight: 500; /* peso da fonte médio */
-    color: hsl(var(--foreground));
-    padding: 4px 8px; /* leve preenchimento ao redor do texto */
-}
-
-
-.user-name {
-    font-weight: 500;
-    color: hsl(var(--foreground));
-}
+        body.dark .feedback h2 {
+            color: hsl(var(--primary));
+        }
+        
