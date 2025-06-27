@@ -642,6 +642,24 @@
             return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
+        function forceScrollToBottom() {
+            // Força o scroll da página para mostrar o quick-options-container
+            const quickOptions = document.getElementById('quick-options-container');
+            if (quickOptions) {
+                quickOptions.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+            
+            // Fallback: scroll das mensagens
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Verificação adicional
+            setTimeout(() => {
+                if (chatMessages.scrollTop + chatMessages.clientHeight < chatMessages.scrollHeight - 10) {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            }, 50);
+        }
+
         function showMessageBox(message, type) {
             const messageBox = document.createElement('div');
             messageBox.className = `message-box ${type}`;
@@ -671,7 +689,36 @@
                 </div>
             `;
             chatMessages.appendChild(row);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Scroll automático com múltiplas estratégias para garantir funcionamento
+            const scrollToBottom = () => {
+                // Método 1: scroll da página para mostrar as opções rápidas
+                const quickOptions = document.getElementById('quick-options-container');
+                if (quickOptions) {
+                    quickOptions.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+                
+                // Método 2: scrollTop direto das mensagens
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Método 3: scrollIntoView da mensagem como fallback
+                setTimeout(() => {
+                    row.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 50);
+                
+                // Método 4: verificação adicional
+                setTimeout(() => {
+                    if (chatMessages.scrollTop + chatMessages.clientHeight < chatMessages.scrollHeight - 10) {
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+                }, 100);
+            };
+            
+            // Executa imediatamente
+            scrollToBottom();
+            
+            // Executa novamente após um pequeno delay para garantir
+            setTimeout(scrollToBottom, 10);
         }
 
         function getReplyFromKeywords(choiceText, responseMap) {
@@ -709,6 +756,9 @@
                     });
                     quickOptionsContainer.appendChild(button);
                 });
+                
+                // Força o scroll para baixo após exibir as opções
+                setTimeout(forceScrollToBottom, 100);
             }
         }
 
@@ -805,6 +855,19 @@
 
         setupInitialInteraction();
 
+        // Força o scroll inicial
+        setTimeout(forceScrollToBottom, 100);
+
+        // Observer para mudanças no conteúdo do chat
+        const chatObserver = new MutationObserver(() => {
+            setTimeout(forceScrollToBottom, 50);
+        });
+        
+        chatObserver.observe(chatMessages, {
+            childList: true,
+            subtree: true
+        });
+
         // Mensagens via URL (mantido)
         const urlParams = new URLSearchParams(window.location.search);
         const messageType = urlParams.get('messageType');
@@ -819,7 +882,19 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
+                // Força o scroll da página para mostrar as opções rápidas
+                const quickOptions = document.getElementById('quick-options-container');
+                if (quickOptions) {
+                    quickOptions.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Verificação adicional
+                setTimeout(() => {
+                    if (chatMessages.scrollTop + chatMessages.clientHeight < chatMessages.scrollHeight - 10) {
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+                }, 50);
             }, 200);
         });
     });
