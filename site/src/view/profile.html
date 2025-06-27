@@ -16,6 +16,59 @@
             font-family: 'Inter', Arial, Helvetica, sans-serif;
             color: #22223b;
             padding-bottom: 80px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Modo Escuro */
+        body.dark {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #e2e8f0;
+        }
+
+        body.dark .profile-container {
+            background: #1e293b;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 1.5px 4px rgba(0,0,0,0.1);
+        }
+
+        body.dark .profile-header h2 {
+            color: #e2e8f0;
+        }
+
+        body.dark .profile-header p {
+            color: #94a3b8;
+        }
+
+        body.dark .detail-item {
+            background: #334155;
+            border-color: #475569;
+            color: #e2e8f0;
+        }
+
+        body.dark .detail-item label {
+            color: #cbd5e1;
+        }
+
+        body.dark .detail-item span {
+            color: #e2e8f0;
+        }
+
+        body.dark footer {
+            background: #1e293b;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3), 0 -1px 8px rgba(0,0,0,0.2);
+        }
+
+        body.dark .bottom-nav a {
+            color: #60a5fa;
+        }
+
+        body.dark .bottom-nav a:hover, 
+        body.dark .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        body.dark .bottom-nav a.active::after {
+            background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
         }
 
         h1 {
@@ -154,6 +207,17 @@
         }
 
         .profile-actions button.edit-button:hover {
+            background: linear-gradient(90deg, #1d4ed8 70%, #2563eb 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        .profile-actions button.theme-button {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        .profile-actions button.theme-button:hover {
             background: linear-gradient(90deg, #1d4ed8 70%, #2563eb 100%);
             transform: translateY(-2px) scale(1.03);
             box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
@@ -391,6 +455,9 @@
             <button class="edit-button" id="edit-profile-btn">
                 <i class="fas fa-edit"></i> Editar Perfil
             </button>
+            <button class="theme-button" id="toggleDarkMode" title="Alternar modo escuro/claro">
+                <i class="fas fa-moon"></i> Tema Escuro
+            </button>
             <button class="logout-button" id="logout-btn">
                 <i class="fas fa-sign-out-alt"></i> Sair
             </button>
@@ -419,6 +486,7 @@
     </footer>
 
     <script>
+        // Script principal do perfil
         document.addEventListener('DOMContentLoaded', () => {
             const profileName = document.getElementById('profile-name');
             const profileEmail = document.getElementById('profile-email');
@@ -542,6 +610,9 @@
             }
         });
     </script>
+    
+    <!-- Theme Manager - Script centralizado para gerenciar o tema -->
+    <script src="assets/js/theme-manager.js"></script>
 </body>
 
 </html>

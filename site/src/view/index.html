@@ -355,6 +355,89 @@
           margin-left: 0;
         }
       }
+
+      /* Modo Escuro */
+      body.dark {
+        background: linear-gradient(120deg, #1e293b 0%, #0f172a 100%);
+        color: #e2e8f0;
+      }
+
+      body.dark .dashboard-container {
+        background: #1e293b;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      body.dark .header-section h1 {
+        color: #60a5fa;
+      }
+
+      body.dark .dashboard-section {
+        background: #334155;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      body.dark .dashboard-section h2 {
+        color: #60a5fa;
+        border-bottom-color: #475569;
+      }
+
+      body.dark .stat-card {
+        background: linear-gradient(120deg, #334155 0%, #1e293b 100%);
+        border-color: #475569;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      body.dark .stat-card:hover {
+        border-color: #60a5fa;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      body.dark .stat-card h3 {
+        color: #60a5fa;
+      }
+
+      body.dark .stat-card p {
+        color: #cbd5e1;
+      }
+
+      body.dark .anamnese-item {
+        background: #334155;
+        border-color: #475569;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      body.dark .anamnese-item:hover {
+        background: #475569;
+        border-color: #60a5fa;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      body.dark .anamnese-info h3 {
+        color: #60a5fa;
+      }
+
+      body.dark .anamnese-info p {
+        color: #cbd5e1;
+      }
+
+      body.dark footer {
+        background: #1e293b;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      body.dark .bottom-nav a {
+        color: #60a5fa;
+      }
+
+      body.dark .bottom-nav a:hover, 
+      body.dark .bottom-nav a:focus {
+        color: #fff;
+        background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+      }
+
+      body.dark .bottom-nav a.active::after {
+        background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
+      }
     </style>
   </head>
 
@@ -653,5 +736,8 @@
         fetchAnamnesesFromAPI();
       });
     </script>
+    
+    <!-- Theme Manager - Script centralizado para gerenciar o tema -->
+    <script src="assets/js/theme-manager.js"></script>
   </body>
 </html>

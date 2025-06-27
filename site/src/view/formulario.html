@@ -9,9 +9,195 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/tecido.css">
     
-
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Modo Escuro para Formulário */
+        body.dark {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #e2e8f0;
+        }
+
+        body.dark h1 {
+            color: #60a5fa;
+        }
+
+        body.dark #form-container {
+            background: #1e293b;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 1.5px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark fieldset {
+            border-color: #475569;
+            background: #334155;
+        }
+
+        body.dark legend {
+            color: #60a5fa;
+            background: #1e293b;
+            border-color: #475569;
+        }
+
+        body.dark .input-group label {
+            color: #e2e8f0;
+        }
+
+        body.dark .input-group input[type="text"],
+        body.dark .input-group input[type="date"],
+        body.dark .input-group input[type="email"],
+        body.dark .input-group input[type="number"],
+        body.dark .input-group select,
+        body.dark .input-group textarea {
+            background: #475569;
+            color: #e2e8f0;
+            border-color: #64748b;
+        }
+
+        body.dark .input-group input:focus,
+        body.dark .input-group select:focus,
+        body.dark .input-group textarea:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+
+        body.dark .action-buttons button {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        body.dark .action-buttons button:hover {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+        }
+
+        body.dark #finalizacao-container {
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+
+        body.dark #finalizacao-container fieldset {
+            background: #334155;
+            border-color: #475569;
+        }
+
+        body.dark #finalizacao-container legend {
+            color: #60a5fa;
+            background: #1e293b;
+        }
+
+        body.dark .back-to-dashboard-button {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%) !important;
+            color: #fff !important;
+        }
+
+        body.dark .back-to-dashboard-button:hover {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%) !important;
+        }
+
+        body.dark footer {
+            background: #1e293b;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .bottom-nav a {
+            color: #60a5fa;
+        }
+
+        body.dark .bottom-nav a:hover, 
+        body.dark .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        body.dark .bottom-nav a.active::after {
+            background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
+        }
+
+        body.dark .photo-button {
+            background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%) !important;
+            color: #fff !important;
+            border-color: #60a5fa !important;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+        }
+
+        body.dark .photo-button:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+            color: #fff !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+        }
+
+        body.dark .checkbox-group {
+            color: #e2e8f0;
+        }
+
+        body.dark .checkbox-group input[type="checkbox"] {
+            accent-color: #60a5fa;
+        }
+
+        /* Garantir que todos os labels dos checkboxes fiquem brancos no modo escuro */
+        body.dark .checkbox-group label,
+        body.dark .checkbox-container label,
+        body.dark label[for] {
+            color: #e2e8f0 !important;
+        }
+
+        /* Garantir que todos os textos dentro do formulário fiquem brancos no modo escuro */
+        body.dark #form-container label,
+        body.dark #form-container p,
+        body.dark #form-container span,
+        body.dark #form-container div {
+            color: #e2e8f0 !important;
+        }
+
+        /* Exceção para legendas que devem ficar azuis */
+        body.dark #form-container legend {
+            color: #60a5fa !important;
+        }
+
+        /* Corrigir estilos inline no modo escuro */
+        body.dark i[style*="color:#333333"] {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark span[style*="color:#888"] {
+            color: #94a3b8 !important;
+        }
+
+        body.dark span[style*="color:#14532d"] {
+            color: #60a5fa !important;
+        }
+
+        body.dark label[style*="color: #2980b9"] {
+            color: #60a5fa !important;
+        }
+
+        body.dark div[style*="color:#444"] {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark div[style*="background: #fff8ef"] {
+            background: #334155 !important;
+        }
+
+        body.dark input[style*="background: #f9fafb"] {
+            background: #475569 !important;
+            color: #e2e8f0 !important;
+            border-color: #64748b !important;
+        }
+
+        body.dark input[style*="border: 1px solid #e1e4ea"] {
+            border-color: #64748b !important;
+        }
+
+        /* Garantir que textos do finalizacao-container fiquem brancos */
+        body.dark #finalizacao-container p {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark #finalizacao-container label {
+            color: #e2e8f0 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -1073,6 +1259,9 @@
 <script src="assets/js/edit.js"></script>
 <script src="assets/js/tecido.js"></script>
 <script src="assets/js/customMessages.js"></script>
+
+<!-- Theme Manager - Script centralizado para gerenciar o tema -->
+<script src="assets/js/theme-manager.js"></script>
  
   
 </body>

@@ -643,3 +643,112 @@ footer {
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
+
+        /* Modo Escuro */
+        body.dark {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #e2e8f0;
+        }
+
+        body.dark h1 {
+            color: #60a5fa;
+        }
+
+        body.dark #form-container {
+            background: #1e293b;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark fieldset {
+            border-color: #475569;
+            background: #334155;
+        }
+
+        body.dark legend {
+            color: #60a5fa;
+            background: #1e293b;
+        }
+
+        body.dark .input-group label {
+            color: #e2e8f0;
+        }
+
+        body.dark .checkbox-group label {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark .checkbox-container label {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark .input-group input[type="text"],
+        body.dark .input-group input[type="date"],
+        body.dark .input-group input[type="email"],
+        body.dark .input-group input[type="number"],
+        body.dark .input-group select,
+        body.dark .input-group textarea {
+            background: #475569;
+            color: #e2e8f0;
+            border-color: #64748b;
+        }
+
+        body.dark .input-group input:focus,
+        body.dark .input-group select:focus,
+        body.dark .input-group textarea:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+
+        body.dark .action-buttons button {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        body.dark .action-buttons button:hover {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+        }
+
+        body.dark footer {
+            background: #1e293b;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .bottom-nav a {
+            color: #60a5fa;
+        }
+
+        body.dark .bottom-nav a:hover, 
+        body.dark .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        body.dark .bottom-nav a.active::after {
+            background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
+        }
+
+        /* Modo escuro para finalização */
+        body.dark #finalizacao-container {
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+
+        body.dark #finalizacao-container p {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark #finalizacao-container ul#anamneses-list-ul li {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark #finalizacao-container textarea#nota {
+            background: #475569;
+            color: #e2e8f0;
+            border-color: #64748b;
+        }
+
+        body.dark #finalizacao-container select#paciente {
+            background: #475569;
+            color: #e2e8f0;
+            border-color: #64748b;
+        }

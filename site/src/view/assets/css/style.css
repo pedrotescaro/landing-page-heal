@@ -479,3 +479,33 @@ header {
 #remover-foto i, #remover-assinatura i {
     font-size: 15px;
 }
+
+/* Modo Escuro */
+body.dark {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #e2e8f0;
+}
+
+body.dark .photo-button {
+    background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+}
+
+body.dark .photo-button:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+}
+
+body.dark #remover-foto, 
+body.dark #remover-assinatura {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3) !important;
+}
+
+body.dark #remover-foto:hover, 
+body.dark #remover-assinatura:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4) !important;
+}

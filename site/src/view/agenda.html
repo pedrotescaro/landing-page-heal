@@ -425,6 +425,106 @@
                 bottom: -3px;
             }
         }
+
+        /* Modo Escuro */
+        body.dark {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #e2e8f0;
+        }
+
+        body.dark h1 {
+            color: #60a5fa;
+        }
+
+        body.dark .calendar-container {
+            background: #1e293b;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 1.5px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark .calendar-header span {
+            color: #60a5fa;
+        }
+
+        body.dark .calendar-date {
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        body.dark .calendar-date.today {
+            background: #1e40af;
+            border-color: #60a5fa;
+        }
+
+        body.dark .calendar-date:disabled {
+            color: #64748b;
+            background: #475569;
+        }
+
+        body.dark #form-container {
+            background: #1e293b;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 1.5px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark fieldset {
+            border-color: #475569;
+        }
+
+        body.dark legend {
+            color: #60a5fa;
+            border-color: #475569;
+            background: #334155;
+        }
+
+        body.dark .input-group label {
+            color: #e2e8f0;
+        }
+
+        body.dark .input-group input[type="text"],
+        body.dark .input-group input[type="date"],
+        body.dark .input-group input[type="time"],
+        body.dark .input-group input[type="email"],
+        body.dark .input-group input[type="number"],
+        body.dark .input-group select,
+        body.dark .input-group textarea {
+            background: #334155;
+            color: #e2e8f0;
+            border-color: #475569;
+        }
+
+        body.dark .input-group input:focus,
+        body.dark .input-group select:focus,
+        body.dark .input-group textarea:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+
+        body.dark .action-buttons button {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            color: #fff;
+        }
+
+        body.dark .action-buttons button:hover {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+        }
+
+        body.dark footer {
+            background: #1e293b;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .bottom-nav a {
+            color: #60a5fa;
+        }
+
+        body.dark .bottom-nav a:hover, 
+        body.dark .bottom-nav a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        }
+
+        body.dark .bottom-nav a.active::after {
+            background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
+        }
     </style>
 </head>
 <body>
@@ -647,5 +747,8 @@
             }
         });
     </script>
+    
+    <!-- Theme Manager - Script centralizado para gerenciar o tema -->
+    <script src="assets/js/theme-manager.js"></script>
 </body>
 </html>
