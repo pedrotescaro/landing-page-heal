@@ -303,10 +303,9 @@
             font-size: 1.08em;
             font-weight: 600;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 3px;
-            padding: 6px 18px 4px;
+            justify-content: center;
+            padding: 8px 16px;
             border-radius: 10px;
             transition: 
             color 0.18s,
@@ -335,13 +334,13 @@
         }
 
         .bottom-nav i {
-            font-size: 1.5em;
+            font-size: 1.8em;
             transition: color 0.18s;
         }
 
         .bottom-nav span {
-            font-size: 0.97em;
-            letter-spacing: 0.01em;
+            /* font-size: 0.97em;
+            letter-spacing: 0.01em; */
         }
 
         /* Responsive Adjustments */
@@ -405,10 +404,6 @@
 
             .bottom-nav i {
                 font-size: 1.3em;
-            }
-
-            .bottom-nav span {
-                font-size: 0.85em;
             }
 
             .bottom-nav a.active::after {
@@ -527,19 +522,15 @@
         <nav class="bottom-nav">
             <a href="index.html" title="Home">
                 <i class="fas fa-home"></i>
-                <span>Home</span>
             </a>
             <a href="agenda.html" title="Agenda">
                 <i class="fas fa-calendar-alt"></i>
-                <span>Agenda</span>
             </a>
             <a href="chat.html" title="Chat">
                 <i class="fas fa-comment-dots"></i>
-                <span>Chat</span>
             </a>
             <a href="profile.html" title="Perfil">
                 <i class="fas fa-user-circle"></i>
-                <span>Perfil</span>
             </a>
         </nav>
     </footer>

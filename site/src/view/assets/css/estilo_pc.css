@@ -212,10 +212,10 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0;
     position: relative;
     flex-direction: row;
-    padding: 0.25rem 0.75rem;
+    padding: 0.5rem 1rem;
     border-radius: var(--radius);
 }
 
@@ -250,9 +250,9 @@ footer {
 
 .bottom-nav a:hover span,
 .bottom-nav a:focus span {
-    display: block;
-    opacity: 1;
-    visibility: visible;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
 }
 
 @media (max-width: 600px) {
@@ -448,7 +448,7 @@ footer {
         }
 
         .bottom-nav i {
-            font-size: 1.5em;
+            font-size: 1.8em;
             transition: color 0.18s;
         }
 
