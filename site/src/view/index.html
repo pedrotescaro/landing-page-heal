@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard de Anamnese</title>
+    <link rel="icon" type="image/png" href="assets/imgs/Logo_Heal4.png">
     <link rel="stylesheet" href="assets/css/estilo_pc.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link
@@ -14,7 +15,7 @@
       @import url("assets/css/estilo_pc.css");
 
       body {
-        background: linear-gradient(120deg, #e0e7ff 0%, #f8fafc 100%);
+        background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
         font-family: "Inter", "Segoe UI", Arial, sans-serif;
         color: #222;
         padding-bottom: 90px;
@@ -34,8 +35,47 @@
       .header-section {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 32px;
+        position: relative;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 16px;
+      }
+
+      .header-logo {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+      }
+
+      .logo-text {
+        font-size: 1.8em;
+        font-weight: 700;
+        background: linear-gradient(to right, hsl(201, 96%, 60%), hsl(201, 96%, 45%));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transition: all 0.3s;
+        letter-spacing: -0.5px;
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+
+      .logo-text:hover {
+        opacity: 0.8;
       }
 
       .header-section h1 {
@@ -330,6 +370,32 @@
           padding: 10px 2vw 10px;
         }
 
+        .header-section {
+          flex-direction: column;
+          gap: 16px;
+          align-items: stretch;
+        }
+
+        .header-left {
+          justify-content: center;
+          gap: 12px;
+        }
+
+        .header-right {
+          align-items: center;
+          gap: 12px;
+        }
+
+        .header-logo {
+          width: 40px;
+          height: 40px;
+        }
+
+        .logo-text {
+          font-size: 1.5em;
+          margin-bottom: 4px;
+        }
+
         .header-section h1 {
           font-size: 1.3em;
         }
@@ -438,48 +504,754 @@
       body.dark .bottom-nav a.active::after {
         background: linear-gradient(90deg, #60a5fa 0%, #93c5fd 100%);
       }
+
+      body.dark .logo-text {
+        background: linear-gradient(to right, hsl(201, 96%, 70%), hsl(201, 96%, 55%));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      body {
+        background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+        font-family: 'Inter', Arial, sans-serif;
+        color: #222;
+        margin: 0;
+        padding: 0;
+      }
+      .main-responsive-container {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 32px 16px 40px 16px;
+        background: #f8fafc;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      .top-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .greeting {
+        margin-top: 8px;
+        margin-bottom: 18px;
+        font-size: 1.1em;
+        color: #a0aec0;
+      }
+      .greeting-nome {
+        color: #222;
+        font-size: 1.25em;
+      }
+      .search-bar {
+        display: flex;
+        align-items: center;
+        background: #f1f5f9;
+        border-radius: 14px;
+        padding: 10px 16px;
+        margin-bottom: 22px;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.03);
+      }
+      .search-bar i {
+        color: #b6c3d1;
+        font-size: 1.1em;
+        margin-right: 10px;
+      }
+      .search-bar input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 1em;
+        width: 100%;
+        color: #222;
+      }
+      .shortcut-menu {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+      .shortcut-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+      }
+      .shortcut-icon {
+        background: #e6f0ff;
+        color: #4f8cff;
+        border-radius: 50%;
+        width: 54px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6em;
+        margin-bottom: 2px;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.06);
+        transition: background 0.2s, color 0.2s;
+      }
+      .shortcut-item:active .shortcut-icon,
+      .shortcut-item:hover .shortcut-icon {
+        background: #4f8cff;
+        color: #fff;
+      }
+      .shortcut-label {
+        font-size: 0.98em;
+        color: #7b8ca6;
+        font-weight: 500;
+      }
+      .dashboard-section {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(37,99,235,0.08);
+        padding: 22px 18px 18px 18px;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .dashboard-title {
+        font-size: 1.15em;
+        color: #2563eb;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .stat-card {
+        background: linear-gradient(120deg, #e0e7ff 0%, #f8fafc 100%);
+        padding: 18px 0 12px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(37, 99, 235, 0.07);
+        text-align: center;
+        border: 2px solid #e0e7ff;
+        transition: transform 0.18s, box-shadow 0.18s;
+        position: relative;
+      }
+      .stat-card h3 {
+        color: #2563eb;
+        font-size: 2em;
+        margin: 0 0 6px;
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+      .stat-card p {
+        color: #444;
+        font-size: 1em;
+        margin: 0;
+        font-weight: 500;
+      }
+      .pacientes-section {
+        margin-top: 0;
+      }
+      .pacientes-title {
+        font-size: 1.08em;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 14px;
+        margin-top: 18px;
+      }
+      .paciente-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(37,99,235,0.08);
+        padding: 18px 16px 10px 16px;
+        margin-bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .paciente-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .paciente-avatar {
+        width: 38px;
+        height: 38px;
+        background: #f1f5f9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        color: #b6c3d1;
+      }
+      .paciente-dados {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .paciente-nome {
+        font-size: 1.08em;
+        color: #222;
+        font-weight: 700;
+      }
+      .paciente-telefone {
+        font-size: 0.98em;
+        color: #a0aec0;
+        font-weight: 500;
+      }
+      .paciente-editar {
+        background: none;
+        border: none;
+        color: #4f8cff;
+        font-size: 1em;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 8px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .paciente-editar:hover {
+        background: #e6f0ff;
+        color: #2563eb;
+      }
+      .paciente-alerta {
+        color: #ef4444;
+        font-size: 0.98em;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .paciente-alerta i {
+        font-size: 1.1em;
+      }
+      @media (max-width: 900px) {
+        .main-responsive-container {
+          max-width: 98vw;
+          padding: 18px 2vw 24px 2vw;
+        }
+        .dashboard-stats {
+          gap: 10px;
+        }
+      }
+      @media (max-width: 600px) {
+        .main-responsive-container {
+          max-width: 100vw;
+          padding: 10px 2vw 18px 2vw;
+        }
+        .dashboard-section {
+          padding: 12px 4px 10px 4px;
+        }
+        .dashboard-stats {
+          grid-template-columns: 1fr;
+        }
+        .stat-card {
+          font-size: 0.98em;
+        }
+        .shortcut-menu {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+        }
+        .shortcut-icon {
+          width: 44px;
+          height: 44px;
+          font-size: 1.2em;
+        }
+        .paciente-avatar {
+          width: 32px;
+          height: 32px;
+          font-size: 1.1em;
+        }
+      }
+      .top-actions-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0 0 18px 0;
+      }
+      .nova-anamnese-btn {
+        background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 10px;
+        font-size: 1em;
+        font-weight: 600;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.10);
+        transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nova-anamnese-btn:hover {
+        background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+      }
+      .anamnese-cadastradas-title {
+        font-size: 1.13em;
+        font-weight: 700;
+        color: #2563eb;
+        margin: 0 0 10px 0;
+        letter-spacing: -0.5px;
+      }
+      @media (max-width: 600px) {
+        .top-actions-row {
+          margin: 0 0 12px 0;
+        }
+        .search-bar {
+          margin-bottom: 16px;
+        }
+        .shortcut-menu {
+          margin-bottom: 22px;
+        }
+      }
+      .dashboard-responsive-container {
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 56px 0 64px 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+      }
+      .card-block {
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 8px 32px rgba(37,99,235,0.10), 0 2px 8px rgba(0,0,0,0.04);
+        padding: 36px 40px 32px 40px;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        width: 100%;
+        max-width: 700px;
+        box-sizing: border-box;
+      }
+      .dashboard-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+      }
+      .dashboard-header-row .dashboard-title {
+        margin-bottom: 0;
+        font-size: 1.25em;
+        color: #2563eb;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 220px;
+      }
+      .search-bar, .shortcut-menu {
+        width: 100%;
+        max-width: 700px;
+        box-sizing: border-box;
+      }
+      .search-bar {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px 22px;
+        margin-bottom: 28px;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.03);
+        font-size: 1.1em;
+      }
+      .search-bar i {
+        color: #b6c3d1;
+        font-size: 1.2em;
+        margin-right: 12px;
+      }
+      .search-bar input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 1em;
+        width: 100%;
+        color: #222;
+      }
+      .shortcut-menu {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-bottom: 36px;
+        background: transparent;
+      }
+      .shortcut-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+      }
+      .shortcut-icon {
+        background: #e6f0ff;
+        color: #4f8cff;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.1em;
+        margin-bottom: 2px;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.06);
+        transition: background 0.2s, color 0.2s;
+      }
+      .shortcut-item:active .shortcut-icon,
+      .shortcut-item:hover .shortcut-icon {
+        background: #4f8cff;
+        color: #fff;
+      }
+      .shortcut-label {
+        font-size: 1.08em;
+        color: #7b8ca6;
+        font-weight: 500;
+      }
+      .anamnese-header-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+      }
+      .anamnese-header-row .dashboard-title {
+        margin-top: 32px;
+        margin-bottom: 24px;
+        font-size: 1.5em;
+        color: #2563eb !important;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        min-width: 220px;
+        background: none;
+        z-index: 2;
+      }
+      .anamnese-header-row .dashboard-title i {
+        font-size: 1.2em;
+      }
+      body.dark .anamnese-header-row .dashboard-title {
+        color: #60a5fa !important;
+        text-shadow: 0 2px 8px #1e293b;
+      }
+      .nova-anamnese-btn {
+        background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+        color: #fff;
+        padding: 12px 32px;
+        border-radius: 12px;
+        font-size: 1.08em;
+        font-weight: 600;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.10);
+        transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        white-space: nowrap;
+      }
+      .nova-anamnese-btn:hover {
+        background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+      }
+      .dashboard-title {
+        font-size: 1.25em;
+        color: #2563eb;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .stat-card {
+        background: linear-gradient(120deg, #e0e7ff 0%, #f8fafc 100%);
+        padding: 28px 0 18px;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(37, 99, 235, 0.07);
+        text-align: center;
+        border: 2px solid #e0e7ff;
+        transition: transform 0.18s, box-shadow 0.18s;
+        position: relative;
+      }
+      .stat-card h3 {
+        color: #2563eb;
+        font-size: 2.3em;
+        margin: 0 0 8px;
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+      .stat-card p {
+        color: #444;
+        font-size: 1.08em;
+        margin: 0;
+        font-weight: 500;
+      }
+      @media (max-width: 1100px) {
+        .dashboard-responsive-container {
+          max-width: 98vw;
+          padding: 24px 0 32px 0;
+        }
+        .card-block, .dashboard-header-row, .search-bar, .shortcut-menu {
+          max-width: 98vw;
+        }
+      }
+      @media (max-width: 900px) {
+        .dashboard-responsive-container {
+          padding: 18px 0 24px 0;
+        }
+        .card-block, .dashboard-header-row, .search-bar, .shortcut-menu {
+          max-width: 98vw;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .card-block {
+          padding: 18px 8px 14px 8px;
+          border-radius: 14px;
+          gap: 14px;
+        }
+        .anamnese-header-row {
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+        .dashboard-title, .anamnese-header-row .dashboard-title {
+          font-size: 1.08em;
+        }
+        .nova-anamnese-btn {
+          font-size: 1em;
+          padding: 10px 0;
+          width: 100%;
+          justify-content: center;
+        }
+        .dashboard-stats {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .stat-card {
+          font-size: 0.98em;
+          padding: 14px 0 10px;
+          border-radius: 8px;
+        }
+        .stat-card h3 {
+          font-size: 1.3em;
+        }
+      }
+      .greeting-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 64px;
+        width: 100%;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .greeting-texts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        font-size: 1.1em;
+        color: #222;
+        font-weight: 600;
+      }
+      .greeting-ola {
+        color: #a0aec0;
+        font-size: 1em;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .greeting-nome {
+        font-size: 1.25em;
+        color: #222;
+        font-weight: bold;
+        margin-top: -2px;
+      }
+      .profile-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+        min-width: 48px;
+        min-height: 48px;
+        transition: background 0.3s, border 0.3s;
+      }
+      .profile-avatar i {
+        font-size: 2.2em;
+        color: #e0e7ff;
+        transition: color 0.3s;
+      }
+      @media (max-width: 700px) {
+        .greeting-row {
+          gap: 24px;
+          width: 100vw;
+          padding: 0 12px 0 12px;
+          box-sizing: border-box;
+        }
+        .greeting-texts {
+          align-items: flex-start;
+          font-size: 1em;
+        }
+        .profile-avatar {
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+          min-height: 40px;
+          border-width: 2px;
+        }
+        .greeting-nome {
+          font-size: 1.08em;
+        }
+      }
+      /* Modo dark para header/avatar/textos */
+      body.dark .greeting-nome, body.dark .greeting-texts {
+        color: #e2e8f0;
+      }
+      body.dark .greeting-ola {
+        color: #94a3b8;
+      }
+      body.dark .profile-avatar {
+        background: linear-gradient(135deg, #1e293b 60%, #334155 100%);
+        border: 4px solid #1e293b;
+      }
+      body.dark .profile-avatar i {
+        color: #60a5fa;
+      }
+      @media (max-width: 700px) {
+        body.dark .profile-avatar {
+          border-width: 2px;
+        }
+      }
+      /* Modo dark para barra de pesquisa */
+      body.dark .search-bar {
+        background: #1e293b;
+        color: #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      }
+      body.dark .search-bar input {
+        color: #e2e8f0;
+      }
+      body.dark .search-bar i {
+        color: #60a5fa;
+      }
+      /* Modo dark para menu de atalhos */
+      body.dark .shortcut-menu {
+        background: transparent;
+      }
+      body.dark .shortcut-icon {
+        background: #334155;
+        color: #60a5fa;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      }
+      body.dark .shortcut-item:active .shortcut-icon,
+      body.dark .shortcut-item:hover .shortcut-icon {
+        background: #2563eb;
+        color: #fff;
+      }
+      body.dark .shortcut-label {
+        color: #cbd5e1;
+      }
+      body.dark .anamnese-header-row .dashboard-title {
+        color: #60a5fa;
+      }
     </style>
   </head>
 
   <body>
-    <div class="dashboard-container">
-      <div class="header-section">
-        <h1><i class="fas fa-notes-medical"></i> Dashboard de Anamnese</h1>
-        <a href="formulario.html" class="button">
-          <i class="fas fa-plus-circle"></i> Nova Anamnese
-        </a>
+    <div class="dashboard-responsive-container">
+      <!-- Topo: Saudação -->
+      <div class="dashboard-header-block">
+        <div class="greeting-row">
+          <div class="greeting-texts">
+            <span class="greeting-ola">Olá,</span>
+            <span class="greeting-nome">Profissional da Saúde</span>
+          </div>
+          <span class="profile-avatar">
+            <img id="profile-avatar-img" src="" alt="Foto de Perfil" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+            <i id="profile-avatar-placeholder" class="fas fa-user-circle"></i>
+          </span>
+        </div>
       </div>
-
-      <div id="dashboard-view">
-        <div class="dashboard-section">
-          <h2><i class="fas fa-chart-bar"></i> Resumo Geral</h2>
-          <div class="dashboard-stats">
-            <div class="stat-card">
-              <h3><span id="total-anamneses">0</span></h3>
-              <p>Total de Anamneses</p>
-            </div>
-            <div class="stat-card">
-              <h3><span id="open-wounds">0</span></h3>
-              <p>Feridas Abertas</p>
-            </div>
-            <div class="stat-card">
-              <h3><span id="closed-wounds">0</span></h3>
-              <p>Feridas Cicatrizadas</p>
-            </div>
+      <!-- Busca -->
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Pesquisar Pacientes" />
+      </div>
+      <!-- Atalhos -->
+      <div class="shortcut-menu">
+        <div class="shortcut-item">
+          <div class="shortcut-icon"><i class="fas fa-band-aid"></i></div>
+          <div class="shortcut-label">Feridas</div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-icon"><i class="fas fa-user"></i></div>
+          <div class="shortcut-label">Pacientes</div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-icon"><i class="fas fa-file-alt"></i></div>
+          <div class="shortcut-label">Relatórios</div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-icon"><i class="fas fa-star"></i></div>
+          <div class="shortcut-label">Premium</div>
+        </div>
+      </div>
+      <!-- Dashboard de estatísticas -->
+      <div class="dashboard-section card-block">
+        <div class="dashboard-header-row">
+          <h2 class="dashboard-title"><i class="fas fa-chart-bar"></i> Dashboard de Anamneses</h2>
+          <a href="formulario.html" class="button nova-anamnese-btn">
+            <i class="fas fa-plus-circle"></i> Nova Anamnese
+          </a>
+        </div>
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <h3><span id="total-anamneses">0</span></h3>
+            <p>Total de Anamneses</p>
+          </div>
+          <div class="stat-card">
+            <h3><span id="open-wounds">0</span></h3>
+            <p>Feridas Abertas</p>
+          </div>
+          <div class="stat-card">
+            <h3><span id="closed-wounds">0</span></h3>
+            <p>Feridas Cicatrizadas</p>
           </div>
         </div>
-
-        <div class="dashboard-section">
-          <h2><i class="fas fa-list-ul"></i> Anamneses Cadastradas</h2>
-          <ul id="anamneses-dashboard-list" class="anamnese-list"></ul>
+      </div>
+      <!-- Seção Anamneses Cadastradas -->
+      <div class="dashboard-section card-block">
+        <div class="anamnese-header-row">
+          <h2 class="dashboard-title"><i class="fas fa-list-ul"></i> Anamneses Cadastradas</h2>
         </div>
+        <!-- Aqui ficaria a lista de anamneses, sem a parte de pacientes disponíveis -->
       </div>
     </div>
-    <style>
-      .header-section .button {
-        margin-left: 18px;
-      }
-    </style>
 
     <footer>
       <nav class="bottom-nav">
@@ -597,142 +1369,15 @@
                             <button class="edit-anamnese" data-index="${index}"><i class="fas fa-edit"></i> Editar</button>
                             <button class="delete-anamnese delete" data-index="${index}"><i class="fas fa-trash"></i> Excluir</button>
                         </div>
-                    `;
-            anamnesesDashboardList.appendChild(li);
+                    `
           });
 
-          document.getElementById("total-anamneses").textContent =
-            storedAnamneses.length;
+          document.getElementById("total-anamneses").textContent = storedAnamneses.length;
           document.getElementById("open-wounds").textContent = openWoundsCount;
-          document.getElementById("closed-wounds").textContent =
-            closedWoundsCount;
-
-          addDashboardEventListeners();
+          document.getElementById("closed-wounds").textContent = closedWoundsCount;
         }
-
-        let dashboardEventsAdded = false;
-
-        function addDashboardEventListeners() {
-          if (dashboardEventsAdded) return;
-          dashboardEventsAdded = true;
-
-          anamnesesDashboardList.addEventListener("click", (event) => {
-            const target = event.target.closest("button");
-            if (!target) return;
-            const index = target.dataset.index;
-            if (target.classList.contains("view-anamnese")) {
-              viewAnamneseDetails(index);
-            } else if (target.classList.contains("edit-anamnese")) {
-              editAnamnese(index);
-            } else if (target.classList.contains("delete-anamnese")) {
-              deleteAnamnese(index);
-            }
-          });
-        }
-
-        function viewAnamneseDetails(index) {
-          const anamnese = storedAnamneses[index];
-          if (!anamnese) {
-            showMessageBox("Anamnese não encontrada.", "error");
-            return;
-          }
-          let details = `Detalhes da Anamnese para ${
-            anamnese.nome_cliente || "Paciente desconhecido"
-          }:\n\n`;
-          details += `Localização da Ferida: ${
-            anamnese.localizacao_ferida || "N/A"
-          }\n`;
-          details += `Etiologia: ${anamnese.etiologia_ferida || "N/A"}\n`;
-          details += `Tempo de Evolução: ${anamnese.tempo_evolucao || "N/A"}\n`;
-          details += `Intensidade da Dor (EVA): ${
-            anamnese.dor_escala || "N/A"
-          }\n`;
-          details += `Percentual Epitelização: ${
-            anamnese.percentual_epitelizacao_leito || "N/A"
-          }%\n`;
-          details += `Exsudato: ${anamnese.quantidade_exsudato || "N/A"} (${
-            anamnese.tipo_exsudato || "N/A"
-          })\n`;
-          details += `Sinais de Inflamação: ${
-            anamnese.inflamacao_rubor ? "Rubor, " : ""
-          }${anamnese.inflamacao_calor ? "Calor, " : ""}${
-            anamnese.inflamacao_edema ? "Edema, " : ""
-          }${anamnese.inflamacao_dor_local ? "Dor, " : ""}${
-            anamnese.inflamacao_perda_funcao ? "Perda de Função" : ""
-          }\n`.replace(/, $/, "");
-          details += `Sinais de Infecção: ${
-            anamnese.infeccao_eritema_perilesional ? "Eritema, " : ""
-          }${anamnese.infeccao_calor_local ? "Calor, " : ""}${
-            anamnese.infeccao_edema ? "Edema, " : ""
-          }${anamnese.infeccao_dor_local ? "Dor, " : ""}${
-            anamnese.infeccao_exsudato ? "Exsudato Purulento, " : ""
-          }${anamnese.infeccao_odor ? "Odor, " : ""}${
-            anamnese.infeccao_retardo_cicatrizacao ? "Retardo Cicatrização" : ""
-          }\n`.replace(/, $/, "");
-          details += `Data da Consulta: ${
-            anamnese.data_consulta
-              ? new Date(anamnese.data_consulta).toLocaleDateString("pt-BR")
-              : "N/A"
-          }\n`;
-          details += `Profissional Responsável: ${
-            anamnese.profissional_responsavel || "N/A"
-          }\n`;
-          alert(details);
-        }
-
-        // function editAnamnese(index) {
-        //   localStorage.setItem(
-        //     "editingAnamneseData",
-        //     JSON.stringify(storedAnamneses[index])
-        //   );
-        //   localStorage.setItem("editingAnamneseIndex", index);
-        //   window.location.href = "index_template.html?mode=edit";
-        // }
-
-        function editAnamnese(index) {
-          const anamnese = storedAnamneses[index];
-          const id = anamnese.id;
-          window.location.href = `index_template.html?mode=edit&id=${id}`;
-        }
-
-        function deleteAnamnese(index) {
-          const anamneseId = storedAnamneses[index].id;
-
-          if (
-            confirm(
-              "Tem certeza que deseja excluir esta anamnese? Esta ação é irreversível."
-            )
-          ) {
-            fetch(`/site/public/api/anamnese/${anamneseId}`, {
-              method: "DELETE", // ou POST/DELETE conforme sua API
-            })
-              .then((response) => {
-                if (!response.ok) throw new Error("Erro ao excluir");
-                return response.json();
-              })
-              .then((result) => {
-                showMessageBox("Anamnese excluída com sucesso!", "success");
-                fetchAnamnesesFromAPI(); // recarrega os dados atualizados
-              })
-              .catch((error) => {
-                console.error(error);
-                showMessageBox("Erro ao excluir a anamnese.", "error");
-              });
-          }
-        }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const messageType = urlParams.get("messageType");
-        const messageText = urlParams.get("messageText");
-        if (messageType && messageText) {
-          showMessageBox(decodeURIComponent(messageText), messageType);
-          history.replaceState(null, "", window.location.pathname);
-        }
-
-        fetchAnamnesesFromAPI();
       });
     </script>
-    
     <!-- Theme Manager - Script centralizado para gerenciar o tema -->
     <script src="assets/js/theme-manager.js"></script>
   </body>
