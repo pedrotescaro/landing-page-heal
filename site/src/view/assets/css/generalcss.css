@@ -29,21 +29,44 @@
             gap: 0.5rem;
         }
         
-        button.btn.btn-primary, a.btn.btn-primary, input.btn.btn-primary, .btn.btn-primary {
+        /* Modo claro: botão primário azul escuro */
+        body:not(.dark) button.btn.btn-primary,
+        body:not(.dark) a.btn.btn-primary,
+        body:not(.dark) input.btn.btn-primary,
+        body:not(.dark) .btn.btn-primary {
+            background-color: #0369A0 !important;
+            color: #fff !important;
+            border: 1.5px solid #0ea5e9 !important;
+        }
+        
+        /* Modo claro: hover azul claro */
+        body:not(.dark) button.btn.btn-primary:hover,
+        body:not(.dark) a.btn.btn-primary:hover,
+        body:not(.dark) input.btn.btn-primary:hover,
+        body:not(.dark) .btn.btn-primary:hover {
+            background-color: #38bdf8 !important;
+            color: #fff !important;
+            border-color: #0ea5e9 !important;
+        }
+        
+        /* Modo escuro: mantém azul claro como normal */
+        body.dark button.btn.btn-primary,
+        body.dark a.btn.btn-primary,
+        body.dark input.btn.btn-primary,
+        body.dark .btn.btn-primary {
             background-color: #38bdf8 !important;
             color: #fff !important;
             border: 1.5px solid #0ea5e9 !important;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
-            transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.2s !important;
         }
         
-        button.btn.btn-primary:hover, a.btn.btn-primary:hover, input.btn.btn-primary:hover, .btn.btn-primary:hover {
+        /* Modo escuro: hover azul escuro */
+        body.dark button.btn.btn-primary:hover,
+        body.dark a.btn.btn-primary:hover,
+        body.dark input.btn.btn-primary:hover,
+        body.dark .btn.btn-primary:hover {
             background-color: #0369A0 !important;
             color: #fff !important;
             border-color: #025b8c !important;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.18) !important;
-            transform: translateY(-2px);
         }
         
         .btn-outline {
@@ -1511,6 +1534,10 @@
 
         body.dark .feedback h2 {
             color: hsl(var(--primary));
+        }
+        
+        body.dark .pricing-card h3 {
+            color: #fff !important;
         }
         
        
