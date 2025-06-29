@@ -5,6 +5,23 @@ const headerContainer = document.querySelector('.header-container');
 const downloadModal = document.getElementById('downloadModal');
 const closeModal = document.getElementById('closeModal');
 
+// Function to display custom messages (replaces alert() for better UX)
+function showMessageBox(message, type) {
+    const messageBox = document.createElement('div');
+    messageBox.classList.add('message-box', type);
+    messageBox.textContent = message;
+    document.body.appendChild(messageBox);
+
+    setTimeout(() => {
+        messageBox.style.opacity = 1;
+    }, 10);
+
+    setTimeout(() => {
+        messageBox.style.opacity = 0;
+        messageBox.addEventListener('transitionend', () => messageBox.remove());
+    }, 3000);
+}
+
 // Função para fechar menu mobile (só executa se navLinks e menuToggle existirem)
 const closeMobileMenu = () => {
     if (navLinks && menuToggle) { // Garante que ambos os elementos existam
@@ -276,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = document.getElementById('feedback-message').value;
             
             if (!message.trim()) {
-                alert('Por favor, preencha a mensagem.');
+                showMessageBox('Por favor, preencha a mensagem.', 'error');
                 return;
             }
             
@@ -285,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
             feedbackSubmit.disabled = true;
             
             setTimeout(() => {
-                alert('Obrigado pelo seu feedback!');
+                showMessageBox('Obrigado pelo seu feedback!', 'success');
                 feedbackForm.reset();
                 feedbackSubmit.textContent = 'Enviar Feedback';
                 feedbackSubmit.disabled = false;

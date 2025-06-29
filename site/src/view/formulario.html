@@ -197,6 +197,50 @@
         body.dark #finalizacao-container label {
             color: #e2e8f0 !important;
         }
+
+        /* Mensagem customizada (igual profile e dashboard) */
+        .message-box {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 260px;
+            max-width: 90vw;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 1.08em;
+            font-weight: 600;
+            color: #fff;
+            background: #2563eb;
+            box-shadow: 0 4px 18px rgba(37,99,235,0.13);
+            opacity: 0;
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+        .message-box.info {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+        }
+        .message-box.success {
+            background: linear-gradient(90deg, #22c55e 70%, #4ade80 100%);
+        }
+        .message-box.error {
+            background: linear-gradient(90deg, #ef4444 70%, #f87171 100%);
+        }
+
+        /* Modo escuro para message-box */
+        body.dark .message-box {
+            background: #1e293b;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+        }
+        body.dark .message-box.info {
+            background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+        }
+        body.dark .message-box.success {
+            background: linear-gradient(90deg, #22c55e 70%, #4ade80 100%);
+        }
+        body.dark .message-box.error {
+            background: linear-gradient(90deg, #ef4444 70%, #f87171 100%);
+        }
     </style>
 </head>
 
@@ -1245,6 +1289,37 @@
             </a>
         </nav>
     </footer>
+    
+    <script>
+        // Function to display custom messages (replaces alert() for better UX)
+        function showMessageBox(message, type) {
+            const messageBox = document.createElement('div');
+            messageBox.classList.add('message-box', type);
+            messageBox.textContent = message;
+            document.body.appendChild(messageBox);
+
+            setTimeout(() => {
+                messageBox.style.opacity = 1;
+            }, 10);
+
+            setTimeout(() => {
+                messageBox.style.opacity = 0;
+                messageBox.addEventListener('transitionend', () => messageBox.remove());
+            }, 3000);
+        }
+
+        // Handle messages from other pages (e.g., login success)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const messageType = urlParams.get('messageType');
+            const messageText = urlParams.get('messageText');
+            if (messageType && messageText) {
+                showMessageBox(decodeURIComponent(messageText), messageType);
+                history.replaceState(null, '', window.location.pathname); // Clear URL params
+            }
+        });
+    </script>
+    
     <script src="assets/js/foto_script.js"></script>
     <script src="assets/js/assinatura_script.js"></script>
     <script src="assets/js/script.js"></script>

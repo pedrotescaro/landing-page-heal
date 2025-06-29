@@ -1,3 +1,20 @@
+// Function to display custom messages (replaces alert() for better UX)
+function showMessageBox(message, type) {
+    const messageBox = document.createElement('div');
+    messageBox.classList.add('message-box', type);
+    messageBox.textContent = message;
+    document.body.appendChild(messageBox);
+
+    setTimeout(() => {
+        messageBox.style.opacity = 1;
+    }, 10);
+
+    setTimeout(() => {
+        messageBox.style.opacity = 0;
+        messageBox.addEventListener('transitionend', () => messageBox.remove());
+    }, 3000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const createAnamneseForm = document.getElementById('anamnese-form');
     const listaAnamneses = document.getElementById('anamneses-list-ul');
@@ -31,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             listaAnamneses.appendChild(li);
             
-            alert('Anamnese salva com sucesso!');
+            showMessageBox('Anamnese salva com sucesso!', 'success');
             createAnamneseForm.reset();
         } catch (error) {
             console.error('Erro ao salvar anamnese:', error);
-            alert('Erro ao salvar anamnese.');
+            showMessageBox('Erro ao salvar anamnese.', 'error');
         }
     });
 });

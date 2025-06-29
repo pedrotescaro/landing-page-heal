@@ -19,23 +19,20 @@ let currentStep = 0; // Inicializa a variável currentStep aqui!
 // --- Função para exibir mensagens na UI ---
 // Esta função pode ser chamada de qualquer lugar neste script.
 function showMessage(message, type) {
-    const form = document.getElementById('anamnese-form');
-    let messageBox = document.getElementById('form-message') || document.createElement('div');
-    if (!messageBox.parentNode || messageBox.id !== 'form-message') {
-        messageBox.id = 'form-message';
-        if (form && form.parentNode) {
-            form.parentNode.insertBefore(messageBox, form);
-        } else {
-            document.body.appendChild(messageBox);
-        }
-    }
+    // Usar o mesmo sistema de message boxes do profile.html
+    const messageBox = document.createElement('div');
+    messageBox.classList.add('message-box', type);
     messageBox.textContent = message;
-    messageBox.classList.remove('hidden', 'error', 'success', 'visible');
-    messageBox.classList.add('message-box', type, 'visible');
+    document.body.appendChild(messageBox);
+
     setTimeout(() => {
-        messageBox.classList.remove('visible');
-        messageBox.classList.add('hidden');
-    }, 5000);
+        messageBox.style.opacity = 1;
+    }, 10);
+
+    setTimeout(() => {
+        messageBox.style.opacity = 0;
+        messageBox.addEventListener('transitionend', () => messageBox.remove());
+    }, 3000);
 }
 
 // --- Lógica Principal: Executado após o DOM ser completamente carregado ---
