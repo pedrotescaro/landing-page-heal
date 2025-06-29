@@ -61,9 +61,8 @@
         const toggleButton = document.getElementById('toggleDarkMode');
         if (toggleButton) {
             const icon = toggleButton.querySelector('i');
-            const buttonText = toggleButton.querySelector('span') || toggleButton;
             
-            // Atualiza o ícone e texto do botão
+            // Atualiza o ícone do botão
             if (icon) {
                 if (isDark) {
                     icon.classList.remove('fa-moon');
@@ -71,15 +70,6 @@
                 } else {
                     icon.classList.remove('fa-sun');
                     icon.classList.add('fa-moon');
-                }
-            }
-            
-            // Atualiza o texto do botão se existir
-            if (buttonText && buttonText.textContent) {
-                if (isDark) {
-                    buttonText.textContent = buttonText.textContent.replace('Tema Escuro', 'Tema Claro');
-                } else {
-                    buttonText.textContent = buttonText.textContent.replace('Tema Claro', 'Tema Escuro');
                 }
             }
             
@@ -91,7 +81,7 @@
                 applyTheme(newTheme);
                 localStorage.setItem('theme', newTheme ? 'dark' : 'light');
                 
-                // Atualiza o ícone e texto
+                // Atualiza o ícone
                 if (icon) {
                     if (newTheme) {
                         icon.classList.remove('fa-moon');
@@ -99,14 +89,6 @@
                     } else {
                         icon.classList.remove('fa-sun');
                         icon.classList.add('fa-moon');
-                    }
-                }
-                
-                if (buttonText && buttonText.textContent) {
-                    if (newTheme) {
-                        buttonText.textContent = buttonText.textContent.replace('Tema Escuro', 'Tema Claro');
-                    } else {
-                        buttonText.textContent = buttonText.textContent.replace('Tema Claro', 'Tema Escuro');
                     }
                 }
                 

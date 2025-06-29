@@ -185,6 +185,7 @@
             gap: 18px;
             width: 100%;
             margin-top: 18px;
+            align-items: center;
         }
 
         .profile-actions button {
@@ -221,6 +222,22 @@
             background: linear-gradient(90deg, #1d4ed8 70%, #2563eb 100%);
             transform: translateY(-2px) scale(1.03);
             box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        /* Estilos específicos para o botão de tema apenas com ícone */
+        .profile-actions button.theme-button {
+            min-width: 50px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-actions button.theme-button i {
+            font-size: 1.3em;
         }
 
         .profile-actions button.logout-button {
@@ -394,6 +411,14 @@
                 justify-content: center;
                 padding: 9px 0;
             }
+            .profile-actions button.theme-button {
+                width: 45px;
+                height: 45px;
+                min-width: 45px;
+            }
+            .profile-actions button.theme-button i {
+                font-size: 1.2em;
+            }
             .bottom-nav {
                 height: 54px;
                 font-size: 0.97em;
@@ -455,11 +480,11 @@
             <button class="edit-button" id="edit-profile-btn">
                 <i class="fas fa-edit"></i> Editar Perfil
             </button>
-            <button class="theme-button" id="toggleDarkMode" title="Alternar modo escuro/claro">
-                <i class="fas fa-moon"></i> Tema Escuro
-            </button>
             <button class="logout-button" id="logout-btn">
                 <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+            <button class="theme-button" id="toggleDarkMode" title="Alternar modo escuro/claro">
+                <i class="fas fa-moon"></i>
             </button>
         </div>
     </div>
