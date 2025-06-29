@@ -169,27 +169,37 @@
         }
 
         .btn {
-            display: inline-flex; /* Use flex for icon and text alignment */
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem; /* Space between icon and text */
+            gap: 0.5rem;
             padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
             font-weight: 500;
-            border-radius: var(--radius);
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid transparent;
-            transform: translateY(0);
+            background: none;
         }
 
-        .btn-primary {
-            background-color: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
+        button.btn.btn-primary, a.btn.btn-primary, input.btn.btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #0369A0;
+            color: #fff;
+            border: 1.5px solid #38bdf8;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 0.75rem 1.5rem;
+            transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.2s;
         }
-
-        .btn-primary:hover {
-            background-color: hsl(var(--primary-light));
+        button.btn.btn-primary:hover, a.btn.btn-primary:hover, input.btn.btn-primary:hover {
+            background-color: #025b8c;
+            color: #fff;
+            border-color: #0ea5e9;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
         .btn-outline {
@@ -404,16 +414,20 @@
 
         /* Dark mode toggle button styles */
         #toggleDarkMode {
-            background: hsl(var(--background)) !important;
+            background: hsl(var(--background));
             border: 2px solid #38bdf8;
             color: #0ea5e9;
-            transition: background 0.3s, color 0.3s, border 0.3s;
+            transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s;
+            z-index: 10001 !important;
+            position: relative !important;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.10);
         }
         
         #toggleDarkMode:hover {
             background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
             color: #fff;
-            border-color: #0ea5e9;
+            border-color: #0369A0;
+            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.25), 0 1.5px 6px rgba(0,0,0,0.10);
         }
         
         #toggleDarkMode:hover .fa-moon {
@@ -495,4 +509,13 @@
 
         body.dark .feedback label { 
             color: hsl(var(--foreground)) !important; 
+        }
+
+        body.dark .btn-primary {
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+        body.dark .btn-primary:hover {
+            background-color: hsl(var(--primary-light));
+            color: hsl(var(--primary-foreground));
         }

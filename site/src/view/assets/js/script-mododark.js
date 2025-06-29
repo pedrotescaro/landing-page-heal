@@ -1,18 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById('toggleDarkMode');
     const bodyElement = document.body;
+    const htmlElement = document.documentElement;
 
     if (toggleButton) {
         const icon = toggleButton.querySelector('i');
         
         if (icon) {
-            // Verifica o modo salvo
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
+            // Verifica primeiro o atributo data-theme do HTML
+            const htmlTheme = htmlElement.getAttribute('data-theme');
+            let savedTheme = localStorage.getItem('theme');
+            
+            // Se o HTML tem data-theme="dark", força o modo escuro
+            if (htmlTheme === 'dark') {
+                bodyElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                savedTheme = 'dark';
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else if (savedTheme === 'dark') {
+                // Se não tem data-theme mas localStorage tem dark
                 bodyElement.classList.add('dark');
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
             } else {
+                // Modo claro por padrão
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
             }

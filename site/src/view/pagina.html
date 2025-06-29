@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +9,35 @@
     <link rel="icon" type="image/png" href="assets/imgs/Logo_Heal4.png">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/style.css">
+
     <link rel="stylesheet" href="assets/css/generalcss.css">
     <link rel="stylesheet" href="assets/css/menu-hamburguer.css">
+    <link rel="stylesheet" href="assets/css/loader.css">
 </head>
 <body>
+  <!-- Loader 3D com Cuboide -->
+  <div id="loader-bg">
+    <div class="scene">
+      <div class="shadow"></div>
+      <div class="jumper">
+        <div class="spinner">
+          <div class="scaler">
+            <div class="loader">
+              <div class="cuboid">
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
 <header>
    <div class="container header-container">
@@ -54,24 +78,11 @@
 
             <!-- Botões de Ação -->
             <div class="cta-buttons">
-                <?php if ($displayName): ?>
-                    <!-- Exibe o nome do usuário e botão logout -->
-                    <span class="user-name me-2">
-                        <?php echo htmlspecialchars($displayName); ?>
-                    </span>
-                    <form action="php/logout.php" method="POST" style="display: inline;">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span data-i18n="header.logout">Sair</span>
-                        </button>
-                    </form>
-                <?php else: ?>
-                    <!-- Se não logado, mostra botão login -->
-                    <button onclick="location.href='login.html'" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span data-i18n="header.login">Login</span>
-                    </button>
-                <?php endif; ?>
+                <!-- Botão de Login -->
+                <button onclick="location.href='login.html'" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span data-i18n="header.login">Login</span>
+                </button>
             </div>
         </nav>
     </div>
@@ -347,11 +358,6 @@
 </footer>
 
 
-<!-- WhatsApp Button -->
-<a href="https://wa.me/5511972015304" target="_blank" class="whatsapp-button">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 <!-- Modal Download -->
 <div id="downloadModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
     <div class="flex items-center justify-center min-h-screen p-4">
@@ -403,5 +409,16 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/script-geral.js"></script>
     <script src="assets/js/script-mododark.js"></script>
+    
+    <!-- Script do Loader -->
+    <script>
+        // Esconde o loader quando a página estiver pronta
+        setTimeout(function() {
+            const loader = document.getElementById('loader-bg');
+            if (loader) {
+                loader.classList.add('hide');
+            }
+        }, 3000); // 3 segundos para o loader aparecer
+    </script>
 </body>
 </html>

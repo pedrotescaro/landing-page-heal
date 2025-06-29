@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="assets/imgs/Logo_Heal4.png">
     <link rel="stylesheet" href="assets/css/estilo_pc.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/loader.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -1183,6 +1184,29 @@
   </head>
 
   <body>
+    <!-- Loader 3D com Cuboide -->
+    <div id="loader-bg">
+      <div class="scene">
+        <div class="shadow"></div>
+        <div class="jumper">
+          <div class="spinner">
+            <div class="scaler">
+              <div class="loader">
+                <div class="cuboid">
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="dashboard-responsive-container">
       <!-- Topo: Saudação -->
       <div class="dashboard-header-block">
@@ -1226,24 +1250,24 @@
         <div class="dashboard-header-row">
           <h2 class="dashboard-title"><i class="fas fa-chart-bar"></i> Dashboard de Anamneses</h2>
           <a href="formulario.html" class="button nova-anamnese-btn">
-            <i class="fas fa-plus-circle"></i> Nova Anamnese
-          </a>
-        </div>
-        <div class="dashboard-stats">
-          <div class="stat-card">
-            <h3><span id="total-anamneses">0</span></h3>
-            <p>Total de Anamneses</p>
-          </div>
-          <div class="stat-card">
-            <h3><span id="open-wounds">0</span></h3>
-            <p>Feridas Abertas</p>
-          </div>
-          <div class="stat-card">
-            <h3><span id="closed-wounds">0</span></h3>
-            <p>Feridas Cicatrizadas</p>
-          </div>
-        </div>
+          <i class="fas fa-plus-circle"></i> Nova Anamnese
+        </a>
       </div>
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <h3><span id="total-anamneses">0</span></h3>
+              <p>Total de Anamneses</p>
+            </div>
+            <div class="stat-card">
+              <h3><span id="open-wounds">0</span></h3>
+              <p>Feridas Abertas</p>
+            </div>
+            <div class="stat-card">
+              <h3><span id="closed-wounds">0</span></h3>
+              <p>Feridas Cicatrizadas</p>
+            </div>
+          </div>
+        </div>
       <!-- Seção Anamneses Cadastradas -->
       <div class="dashboard-section card-block">
         <div class="anamnese-header-row">
@@ -1271,12 +1295,20 @@
     </footer>
 
     <script>
+      // Variável para controlar se o loader já desapareceu
+      let loaderHidden = false;
+
       document.addEventListener("DOMContentLoaded", () => {
         const anamnesesDashboardList = document.getElementById(
           "anamneses-dashboard-list"
         );
 
         function showMessageBox(message, type) {
+          // Só mostra o aviso se o loader já desapareceu
+          if (!loaderHidden) {
+            return;
+          }
+
           const messageBox = document.createElement("div");
           messageBox.classList.add("message-box", type);
           messageBox.textContent = message;
@@ -1310,7 +1342,10 @@
             })
             .catch((error) => {
               console.error(error);
+              // Aguarda o loader desaparecer antes de mostrar o erro
+              setTimeout(() => {
               showMessageBox("Erro ao carregar dados da API.", "error");
+              }, 100);
             });
         }
 
@@ -1376,6 +1411,18 @@
           document.getElementById("open-wounds").textContent = openWoundsCount;
           document.getElementById("closed-wounds").textContent = closedWoundsCount;
         }
+
+        fetchAnamnesesFromAPI();
+
+        // Esconde o loader quando a página estiver pronta
+        setTimeout(function() {
+          const loader = document.getElementById('loader-bg');
+          if (loader) {
+            loader.classList.add('hide');
+            // Marca que o loader desapareceu
+            loaderHidden = true;
+          }
+        }, 3000); // 3 segundos para o loader aparecer
       });
     </script>
     <!-- Theme Manager - Script centralizado para gerenciar o tema -->
