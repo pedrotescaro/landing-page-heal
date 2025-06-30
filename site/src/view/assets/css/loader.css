@@ -22,11 +22,11 @@
   transition: opacity 0.4s, background 0.3s;
 }
 
-body:not(.dark) #loader-bg {
+:not([data-theme="dark"]) #loader-bg {
   background: #f0f4fa;
 }
 
-body.dark #loader-bg {
+[data-theme="dark"] #loader-bg {
   background: #121621;
 }
 

@@ -30,40 +30,40 @@
         }
         
         /* Modo claro: botão primário azul escuro */
-        body:not(.dark) button.btn.btn-primary,
-        body:not(.dark) a.btn.btn-primary,
-        body:not(.dark) input.btn.btn-primary,
-        body:not(.dark) .btn.btn-primary {
+        :not([data-theme="dark"]) button.btn.btn-primary,
+        :not([data-theme="dark"]) a.btn.btn-primary,
+        :not([data-theme="dark"]) input.btn.btn-primary,
+        :not([data-theme="dark"]) .btn.btn-primary {
             background-color: #0369A0 !important;
             color: #fff !important;
             border: 1.5px solid #0ea5e9 !important;
         }
         
         /* Modo claro: hover azul claro */
-        body:not(.dark) button.btn.btn-primary:hover,
-        body:not(.dark) a.btn.btn-primary:hover,
-        body:not(.dark) input.btn.btn-primary:hover,
-        body:not(.dark) .btn.btn-primary:hover {
+        :not([data-theme="dark"]) button.btn.btn-primary:hover,
+        :not([data-theme="dark"]) a.btn.btn-primary:hover,
+        :not([data-theme="dark"]) input.btn.btn-primary:hover,
+        :not([data-theme="dark"]) .btn.btn-primary:hover {
             background-color: #38bdf8 !important;
             color: #fff !important;
             border-color: #0ea5e9 !important;
         }
         
         /* Modo escuro: mantém azul claro como normal */
-        body.dark button.btn.btn-primary,
-        body.dark a.btn.btn-primary,
-        body.dark input.btn.btn-primary,
-        body.dark .btn.btn-primary {
+        [data-theme="dark"] button.btn.btn-primary,
+        [data-theme="dark"] a.btn.btn-primary,
+        [data-theme="dark"] input.btn.btn-primary,
+        [data-theme="dark"] .btn.btn-primary {
             background-color: #38bdf8 !important;
             color: #fff !important;
             border: 1.5px solid #0ea5e9 !important;
         }
         
         /* Modo escuro: hover azul escuro */
-        body.dark button.btn.btn-primary:hover,
-        body.dark a.btn.btn-primary:hover,
-        body.dark input.btn.btn-primary:hover,
-        body.dark .btn.btn-primary:hover {
+        [data-theme="dark"] button.btn.btn-primary:hover,
+        [data-theme="dark"] a.btn.btn-primary:hover,
+        [data-theme="dark"] input.btn.btn-primary:hover,
+        [data-theme="dark"] .btn.btn-primary:hover {
             background-color: #0369A0 !important;
             color: #fff !important;
             border-color: #025b8c !important;
@@ -1282,7 +1282,7 @@
         }
 
         /* Modo Escuro */
-        body.dark {
+        [data-theme="dark"] {
             --background: 222 47% 11%;
             --foreground: 210 40% 98%;
             --primary: 201 96% 60%;
@@ -1294,75 +1294,75 @@
             color: hsl(var(--foreground));
         }
 
-        body.dark {
+        [data-theme="dark"] {
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
         
 
-        body.dark header {
+        [data-theme="dark"] header {
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
 
-        body.dark .header-container {
+        [data-theme="dark"] .header-container {
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
 
-        body.dark .pricing-card,
-        body.dark .feature-card,
-        body.dark .testimonial-card,
-        body.dark form,
-        body.dark .nav-links {
+        [data-theme="dark"] .pricing-card,
+        [data-theme="dark"] .feature-card,
+        [data-theme="dark"] .testimonial-card,
+        [data-theme="dark"] form,
+        [data-theme="dark"] .nav-links {
             background-color: hsl(var(--background));
     color: hsl(var(--foreground));
             color: hsl(var(--foreground));
             border-color: hsl(var(--border));
         }
 
-        body.dark .btn-outline {
+        [data-theme="dark"] .btn-outline {
             color: hsl(var(--primary));
             border-color: hsl(var(--primary));
         }
 
-        body.dark .btn-outline:hover {
+        [data-theme="dark"] .btn-outline:hover {
             background-color: hsl(var(--primary) / 0.1);
         }
 
-        body.dark .hero p,
-        body.dark .section-header p,
-        body.dark .faq-answer,
-        body.dark .testimonial-card p,
-        body.dark .testimonial-role {
+        [data-theme="dark"] .hero p,
+        [data-theme="dark"] .section-header p,
+        [data-theme="dark"] .faq-answer,
+        [data-theme="dark"] .testimonial-card p,
+        [data-theme="dark"] .testimonial-role {
             color: hsl(var(--muted-foreground));
         }
 
-        body.dark footer {
+        [data-theme="dark"] footer {
             background-color: hsl(222 47% 8%);
             color: hsl(var(--foreground));
         }
 
-        body.dark #feedback-type-select,
-        body.dark #feedback-type-select option,
-        body.dark textarea,
-        body.dark input[type="text"],
-        body.dark input[type="email"],
-        body.dark input[type="password"],
-        body.dark select {
+        [data-theme="dark"] #feedback-type-select,
+        [data-theme="dark"] #feedback-type-select option,
+        [data-theme="dark"] textarea,
+        [data-theme="dark"] input[type="text"],
+        [data-theme="dark"] input[type="email"],
+        [data-theme="dark"] input[type="password"],
+        [data-theme="dark"] select {
             background-color: hsl(222 47% 16%);
             color: hsl(var(--foreground));
             border-color: hsl(var(--border));
         }
 
-        body.dark .feedback h2 {
+        [data-theme="dark"] .feedback h2 {
             color: hsl(var(--primary));
         }
 
-        body.dark .feedback label {
+        [data-theme="dark"] .feedback label {
             color: hsl(var(--foreground));
         }
-        body.dark {
+        [data-theme="dark"] {
             --background: 222 47% 11%; /* fundo escuro */
             --foreground: 210 40% 98%; /* texto claro */
             --primary: 201 96% 60%;
@@ -1371,93 +1371,93 @@
             --muted-foreground: 210 20% 70%;
             --border: 215 20% 30%;
         }
-        body.dark {
+        [data-theme="dark"] {
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
         
-        body.dark #feedback-type-select,
-        body.dark #feedback-type-select option {
+        [data-theme="dark"] #feedback-type-select,
+        [data-theme="dark"] #feedback-type-select option {
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
             border-color: hsl(var(--primary));
         }
         
-        body.dark footer {
+        [data-theme="dark"] footer {
             background-color: hsl(222 47% 8%);
         }
         
-        body.dark header{
+        [data-theme="dark"] header{
             background-color: hsl(var(--background));
                     color: hsl(var(--foreground));
         }
         
-        body.dark .feedback{
+        [data-theme="dark"] .feedback{
             background-color: hsl(var(--background));
                     color: hsl(var(--foreground));
         }
              /* Your provided CSS for dark mode */
-                body.dark textarea,
-                body.dark .feedback textarea,
-                body.dark .feedback input,
-                body.dark .feedback section,
-                body.dark .feedback form,
-                body.dark .feedback button,
-                body.dark .feedback .btn,
-                body.dark .feedback .btn-primary,
-                body.dark .feedback .btn-outline,
-                body.dark .feedback textarea,
-                body.dark .feedback input,
-                body.dark .feedback select,
-                body.dark .feedback option {
+                [data-theme="dark"] textarea,
+                [data-theme="dark"] .feedback textarea,
+                [data-theme="dark"] .feedback input,
+                [data-theme="dark"] .feedback section,
+                [data-theme="dark"] .feedback form,
+                [data-theme="dark"] .feedback button,
+                [data-theme="dark"] .feedback .btn,
+                [data-theme="dark"] .feedback .btn-primary,
+                [data-theme="dark"] .feedback .btn-outline,
+                [data-theme="dark"] .feedback textarea,
+                [data-theme="dark"] .feedback input,
+                [data-theme="dark"] .feedback select,
+                [data-theme="dark"] .feedback option {
                     background-color: hsl(var(--muted));
                     color: hsl(var(--foreground));
                     border-color: hsl(var(--border));
                 }
         
-                body.dark .feedback label {
+                [data-theme="dark"] .feedback label {
                     color: hsl(var(--foreground));
                 }
         
-                body.dark .feedback h2 {
+                [data-theme="dark"] .feedback h2 {
                     color: hsl(var(--primary));
                 }
         
-                body.dark .feedback form {
+                [data-theme="dark"] .feedback form {
                     background-color: hsl(var(--background));
                     border-color: hsl(var(--border));
                     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
                 }
         
-                body.dark .feedback label {
+                [data-theme="dark"] .feedback label {
                     color: hsl(var(--primary));
                 }
         
-                body.dark .feedback select,
-                body.dark .feedback textarea,
-                body.dark .feedback input {
+                [data-theme="dark"] .feedback select,
+                [data-theme="dark"] .feedback textarea,
+                [data-theme="dark"] .feedback input {
                     background-color: hsl(222 47% 16%); /* This is what you want for the dropdown in dark mode */
                     color: hsl(var(--primary));
                     border-color: hsl(var(--primary));
                 }
         
-                body.dark .feedback option {
+                [data-theme="dark"] .feedback option {
                     background-color: hsl(222 47% 16%); /* Ensure options also have dark background */
                     color: hsl(var(--primary));
                 }
         
-                body.dark .feedback button,
-                body.dark .feedback .btn,
-                body.dark .feedback .btn-primary {
+                [data-theme="dark"] .feedback button,
+                [data-theme="dark"] .feedback .btn,
+                [data-theme="dark"] .feedback .btn-primary {
                     background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 1.2));
                     color: hsl(var(--primary-foreground));
                     border: none;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 }
         
-                body.dark .feedback button:hover,
-                body.dark .feedback .btn:hover,
-                body.dark .feedback .btn-primary:hover {
+                [data-theme="dark"] .feedback button:hover,
+                [data-theme="dark"] .feedback .btn:hover,
+                [data-theme="dark"] .feedback .btn-primary:hover {
                     filter: brightness(1.1);
                     box-shadow: 0 6px 16px rgba(0,0,0,0.2);
                 }
@@ -1473,7 +1473,7 @@
                     --border: 210 20% 80%;      /* Light mode border color */
                 }
         
-                body.dark {
+                [data-theme="dark"] {
                     --background: 222 47% 11%;  /* Dark mode background */
                     --foreground: 210 20% 98%;  /* Dark mode foreground */
                     --primary: 200 80% 60%;     /* Dark mode primary color (slightly lighter for contrast) */
@@ -1482,61 +1482,61 @@
                     --border: 222 47% 20%;      /* Dark mode border color */
                 }
                 
-        body.dark .pricing-card,
-        body.dark .feature-card,
-        body.dark .testimonial-card,
-        body.dark form,
-        body.dark .nav-links {
+        [data-theme="dark"] .pricing-card,
+        [data-theme="dark"] .feature-card,
+        [data-theme="dark"] .testimonial-card,
+        [data-theme="dark"] form,
+        [data-theme="dark"] .nav-links {
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
         
-        body.dark .btn-outline {
+        [data-theme="dark"] .btn-outline {
             color: hsl(var(--primary));
             border-color: hsl(var(--primary));
         }
         
-        body.dark .btn-outline:hover {
+        [data-theme="dark"] .btn-outline:hover {
             background-color: hsl(var(--primary) / 0.1);
         }
         
-        body.dark .hero p,
-        body.dark .section-header p,
-        body.dark .faq-answer,
-        body.dark .testimonial-card p,
-        body.dark .testimonial-role {
+        [data-theme="dark"] .hero p,
+        [data-theme="dark"] .section-header p,
+        [data-theme="dark"] .faq-answer,
+        [data-theme="dark"] .testimonial-card p,
+        [data-theme="dark"] .testimonial-role {
             color: hsl(var(--muted-foreground));
         }
 
         /* Language Switcher no modo escuro */
-        body.dark #languageSwitcher {
+        [data-theme="dark"] #languageSwitcher {
             background-color: hsl(var(--muted));
             color: hsl(var(--foreground));
             border-color: hsl(var(--primary));
         }
 
-        body.dark #languageSwitcher:hover {
+        [data-theme="dark"] #languageSwitcher:hover {
             background-color: hsl(var(--primary) / 0.1);
             border-color: hsl(var(--primary));
         }
 
-        body.dark #languageSwitcher:focus {
+        [data-theme="dark"] #languageSwitcher:focus {
             outline: none;
             border-color: hsl(var(--primary));
             box-shadow: 0 0 0 2px hsl(var(--primary) / 0.3);
             background-color: hsl(var(--muted));
         }
 
-        body.dark #languageSwitcher option {
+        [data-theme="dark"] #languageSwitcher option {
             background-color: hsl(var(--muted));
             color: hsl(var(--foreground));
         }
 
-        body.dark .feedback h2 {
+        [data-theme="dark"] .feedback h2 {
             color: hsl(var(--primary));
         }
         
-        body.dark .pricing-card h3 {
+        [data-theme="dark"] .pricing-card h3 {
             color: #fff !important;
         }
         
