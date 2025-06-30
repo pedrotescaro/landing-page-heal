@@ -111,6 +111,7 @@
             overflow: hidden;
             border: 4px solid #fff;
             box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+            position: relative;
         }
 
         .profile-avatar img {
@@ -427,6 +428,123 @@
                 font-size: 1.3em;
             }
         }
+
+        .avatar-camera-btn {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb 80%, #60a5fa 100%);
+            color: #fff;
+            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.18);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.18s, box-shadow 0.18s, border 0.18s;
+            z-index: 2;
+        }
+        .avatar-camera-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8 80%, #2563eb 100%);
+            transform: scale(1.12) translateY(-1px);
+            box-shadow: 0 0 0 6px rgba(37,99,235,0.18), 0 4px 16px rgba(0,0,0,0.22);
+            border: 2px solid #60a5fa;
+        }
+        .avatar-camera-btn i {
+            font-size: 1em;
+            color: #fff;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+        }
+
+        .avatar-action-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.38);
+            color: #fff;
+            font-size: 1.1em;
+            border-radius: 50%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 10;
+            transition: opacity 0.3s;
+            pointer-events: auto;
+        }
+        .profile-avatar:hover .avatar-action-btn {
+            opacity: 1;
+        }
+        .avatar-action-btn i {
+            pointer-events: none;
+            font-size: 1.2em;
+        }
+
+        .avatar-remove-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(239,68,68,0.85);
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(239,68,68,0.18);
+            cursor: pointer;
+            z-index: 20;
+            opacity: 0.92;
+            transition: background 0.2s, transform 0.18s;
+        }
+        .avatar-remove-btn:hover {
+            background: rgba(239,68,68,1);
+            transform: scale(1.12);
+        }
+        .avatar-remove-btn i {
+            font-size: 1em;
+            pointer-events: none;
+        }
+        .profile-avatar:hover .avatar-remove-btn {
+            display: flex;
+        }
+
+        .avatar-remove-btn-ux {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: #fff;
+            color: #ef4444;
+            border: 1.5px solid #ef4444;
+            border-radius: 22px;
+            font-size: 1em;
+            font-weight: 500;
+            padding: 6px 18px 6px 14px;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(239,68,68,0.08);
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, border 0.18s, box-shadow 0.18s;
+            outline: none;
+            justify-content: center;
+        }
+        .avatar-remove-btn-ux:hover, .avatar-remove-btn-ux:focus {
+            background: #ef4444;
+            color: #fff;
+            border: 1.5px solid #ef4444;
+            box-shadow: 0 4px 16px rgba(239,68,68,0.18);
+        }
+        .avatar-remove-btn-ux i {
+            font-size: 1.1em;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -435,11 +553,17 @@
 
     <div class="profile-container">
         <div class="profile-header">
-            <div class="profile-avatar">
-                <img id="profile-img" src="assets/imgs/Logo_Heal4.png" alt="Avatar do usuário" />
+            <div class="profile-avatar" style="position: relative;">
+                <img id="profile-avatar-img" src="" alt="Avatar do usuário" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                <i id="profile-avatar-placeholder" class="fas fa-user-circle"></i>
+                <span id="avatar-action-btn" class="avatar-action-btn" title="Alterar foto de perfil">
+                    <i class="fas fa-upload"></i>
+                </span>
                 <input type="file" id="profile-upload" accept="image/*" style="display:none;" />
-                <button type="button" id="btn-upload-img">Alterar foto</button>
             </div>
+            <button id="avatar-remove-btn" class="avatar-remove-btn-ux" style="display: none; margin: 12px auto 0 auto;" type="button">
+                <i class="fas fa-trash"></i> Remover foto
+            </button>
             <h2 id="profile-name">Nome do Usuário</h2>
             <p id="profile-email">email@example.com</p>
         </div>
@@ -570,15 +694,9 @@
                     profileDob.textContent = 'Não Informado';
                 }
 
-                // Load avatar image
-                if (userData.avatarUrl) {
-                    profileAvatarImg.src = userData.avatarUrl;
-                    profileAvatarImg.style.display = 'block';
-                    profileAvatarPlaceholder.style.display = 'none';
-                } else {
-                    profileAvatarImg.style.display = 'none';
-                    profileAvatarPlaceholder.style.display = 'block';
-                }
+                // Sempre usa a foto do localStorage para o avatar visual
+                const fotoSalva = localStorage.getItem('fotoPerfil');
+                atualizarAvatarPerfil(fotoSalva);
 
                 // Get last anamnese date from stored anamneses (if any)
                 const storedAnamneses = JSON.parse(localStorage.getItem('anamneses')) || [];
@@ -632,8 +750,27 @@
             }
         });
 
-        // Preview da imagem de perfil
-        document.getElementById('btn-upload-img').onclick = function() {
+        function atualizarAvatarPerfil(urlFoto) {
+            const img = document.getElementById('profile-avatar-img');
+            const placeholder = document.getElementById('profile-avatar-placeholder');
+            const actionBtn = document.getElementById('avatar-action-btn');
+            const removeBtn = document.getElementById('avatar-remove-btn');
+            if (urlFoto && urlFoto.trim() !== "") {
+                img.src = urlFoto;
+                img.style.display = "block";
+                placeholder.style.display = "none";
+                actionBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                removeBtn.style.display = 'flex';
+            } else {
+                img.src = "";
+                img.style.display = "none";
+                placeholder.style.display = "block";
+                actionBtn.innerHTML = '<i class="fas fa-upload"></i>';
+                removeBtn.style.display = 'none';
+            }
+        }
+
+        document.getElementById('avatar-action-btn').onclick = function() {
             document.getElementById('profile-upload').click();
         };
         document.getElementById('profile-upload').onchange = function(event) {
@@ -641,12 +778,16 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('profile-img').src = e.target.result;
-                    // Salvar no localStorage para sincronizar com o dashboard
-                    localStorage.setItem('profileImgBase64', e.target.result);
+                    localStorage.setItem('fotoPerfil', e.target.result);
+                    atualizarAvatarPerfil(e.target.result);
                 };
                 reader.readAsDataURL(file);
             }
+        };
+
+        document.getElementById('avatar-remove-btn').onclick = function() {
+            localStorage.removeItem('fotoPerfil');
+            atualizarAvatarPerfil("");
         };
     </script>
     
