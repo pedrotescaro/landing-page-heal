@@ -482,7 +482,7 @@ header {
 
 /* Modo Escuro */
 body.dark {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background-color: #0F1729 !important;
     color: #e2e8f0;
 }
 
@@ -509,3 +509,70 @@ body.dark #remover-assinatura:hover {
     background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
     box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4) !important;
 }
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+    color: #38BDF8 !important;
+ 
+}
+
+body.dark button .fa,
+body.dark button .fas,
+body.dark button .far,
+body.dark button .fab,
+body.dark .btn .fa,
+body.dark .btn .fas,
+body.dark .btn .far,
+body.dark .btn .fab {
+    color: #38BDF8 !important;
+}
+
+body.dark .button.nova-anamnese-btn .fa,
+body.dark .button.nova-anamnese-btn .fas,
+body.dark .button.nova-anamnese-btn .far,
+body.dark .button.nova-anamnese-btn .fab {
+    color: #fff !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ícones dentro de botões continuam brancos */
+body.dark button .fa,
+body.dark button .fas,
+body.dark button .far,
+body.dark button .fab,
+body.dark .btn .fa,
+body.dark .btn .fas,
+body.dark .btn .far,
+body.dark .btn .fab {
+  color: #fff !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
