@@ -436,8 +436,9 @@
     <div class="profile-container">
         <div class="profile-header">
             <div class="profile-avatar">
-                <img id="profile-avatar-img" src="" alt="Foto de Perfil" style="display: none;">
-                <i id="profile-avatar-placeholder" class="fas fa-user-circle"></i>
+                <img id="profile-img" src="assets/imgs/Logo_Heal4.png" alt="Avatar do usuário" />
+                <input type="file" id="profile-upload" accept="image/*" style="display:none;" />
+                <button type="button" id="btn-upload-img">Alterar foto</button>
             </div>
             <h2 id="profile-name">Nome do Usuário</h2>
             <p id="profile-email">email@example.com</p>
@@ -630,6 +631,23 @@
                 history.replaceState(null, '', window.location.pathname); // Clear URL params
             }
         });
+
+        // Preview da imagem de perfil
+        document.getElementById('btn-upload-img').onclick = function() {
+            document.getElementById('profile-upload').click();
+        };
+        document.getElementById('profile-upload').onchange = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                    // Salvar no localStorage para sincronizar com o dashboard
+                    localStorage.setItem('profileImgBase64', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        };
     </script>
     
     <!-- Theme Manager - Script centralizado para gerenciar o tema -->
