@@ -19,7 +19,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s, background 0.3s;
+}
+
+body:not(.dark) #loader-bg {
+  background: #f0f4fa;
+}
+
+body.dark #loader-bg {
+  background: #121621;
 }
 
 /* Garante que o loader não afete o body ou outros elementos */
