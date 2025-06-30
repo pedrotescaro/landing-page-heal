@@ -32,7 +32,6 @@ A landing page tem como objetivo apresentar o app, suas funcionalidades e facili
 - ✅ **Apresentação clara** dos benefícios e diferenciais do aplicativo Heal.
 - ✅ **Abas interativas** explicando como funciona o app.
 - ✅ **Links para download** na Google Play e App Store.
-- ✅ **Botão flutuante de WhatsApp** para contato direto com a equipe.
 - ✅ **Footer completo** com links úteis como: Sobre nós, Política de Privacidade, Contato, etc.
 
 ---
