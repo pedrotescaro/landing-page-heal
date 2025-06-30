@@ -13,7 +13,6 @@ Landing page desenvolvida para apresentar o **Heal**, um aplicativo voltado a pr
 ## 👥 Integrantes
 
 - **Guilherme Alves de Campos** — RA: 2920482411018
-- **Kauê Costa Souza** - RA: 2920482411029
 - **Lucas Balbino Santos** - RA: 2920482111040
 - **Paulo Henrique Leal dos Santos** — RA: 2920482411024
 - **Pedro Antonio Silvestre Tescaro** — RA: 2920482411010
