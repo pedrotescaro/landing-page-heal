@@ -54,8 +54,8 @@ $router->add('POST', '/site/public/api/login', [new UserController($userService)
 $router->add('POST', '/site/public/api/register', [new UserController($userService), 'register']);
 
 // Rota de teste (GET)
-$router->add('GET', 'site/public/index.php/hello', 
-    [new AnamneseController(), 'hello']);
+$router->add('GET', 'site/public/index.php/hello', [new AnamneseController($anamneseService), 'hello']);
+
 
 // Rota para servir a view do formulário de anamnese (GET)
 $router->add('GET', '/site/public/formulario', [new AnamneseController($anamneseService), 'viewForm']);

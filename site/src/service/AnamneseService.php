@@ -19,7 +19,6 @@ class AnamneseService {
      */
     public function saveAnamnese(array $dados): int|false{
         $anamnese = new Anamnese($dados);
-        $anamnese->data_cadastro = date('Y-m-d H:i:s'); // Adiciona a data atual
         return $this->repository->save($anamnese);
     }
 
