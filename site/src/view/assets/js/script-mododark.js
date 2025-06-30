@@ -1,91 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById('toggleDarkMode');
-    const bodyElement = document.body;
     const htmlElement = document.documentElement;
 
     if (toggleButton) {
         const icon = toggleButton.querySelector('i');
-        
-        if (icon) {
-            // Verifica primeiro o atributo data-theme do HTML
-            const htmlTheme = htmlElement.getAttribute('data-theme');
-            let savedTheme = localStorage.getItem('theme');
-            
-            // Se o HTML tem data-theme="dark", força o modo escuro
-            if (htmlTheme === 'dark') {
-                bodyElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                savedTheme = 'dark';
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else if (savedTheme === 'dark') {
-                // Se não tem data-theme mas localStorage tem dark
-                bodyElement.classList.add('dark');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                // Modo claro por padrão
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
+        let savedTheme = localStorage.getItem('theme');
 
-            toggleButton.addEventListener('click', () => {
-                bodyElement.classList.toggle('dark');
-                const isDark = bodyElement.classList.contains('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                icon.classList.toggle('fa-moon', !isDark);
-                icon.classList.toggle('fa-sun', isDark);
-                
-                // Força a atualização das cores
-                forceColorUpdate();
-            });
+        // Inicializa o tema salvo
+        if (savedTheme === 'dark') {
+            htmlElement.setAttribute('data-theme', 'dark');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            htmlElement.setAttribute('data-theme', 'light');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
 
-            // Garante o tema correto ao recarregar
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                bodyElement.classList.add('dark');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                bodyElement.classList.remove('dark');
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-            
-            // Força a atualização das cores na inicialização
-            forceColorUpdate();
-        }
-    }
-    
-    // Função para forçar a atualização das cores
-    function forceColorUpdate() {
-        // Força o reflow para garantir que as mudanças sejam aplicadas
-        document.body.offsetHeight;
-        
-        // Atualiza elementos específicos se necessário
-        const registerLeft = document.querySelector('.register-left');
-        const loginRight = document.querySelector('.login-right');
-        const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
-        
-        if (registerLeft) {
-            registerLeft.style.transition = 'none';
-            setTimeout(() => {
-                registerLeft.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-            }, 10);
-        }
-        
-        if (loginRight) {
-            loginRight.style.transition = 'none';
-            setTimeout(() => {
-                loginRight.style.transition = 'background-image 0.3s ease';
-            }, 10);
-        }
-        
-        inputs.forEach(input => {
-            input.style.transition = 'none';
-            setTimeout(() => {
-                input.style.transition = 'background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease';
-            }, 10);
+        toggleButton.addEventListener('click', () => {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            htmlElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            icon.classList.toggle('fa-moon', isDark);
+            icon.classList.toggle('fa-sun', !isDark);
         });
     }
 });
