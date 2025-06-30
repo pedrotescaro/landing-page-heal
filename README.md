@@ -1,7 +1,7 @@
 # Heal - Monitoramento Inteligente de Feridas
 
 <p align="center">
-  <img src="./imgs/Logo_Heal4.png" alt="Heal Logo" width="180">
+  <img src="site\src\view\assets\imgs\Logo_Heal4.png" alt="Heal Logo" width="180">
 </p>
 
 Landing page desenvolvida para apresentar o **Heal**, um aplicativo voltado a profissionais da saúde que buscam gerenciar o tratamento de feridas com mais eficiência, precisão e praticidade.
