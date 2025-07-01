@@ -162,6 +162,108 @@ class UserController {
         }
     }
 
+    // Métodos para gerenciar o perfil do usuário
+    public function getProfile($id) {
+        header('Content-Type: application/json');
+        
+        try {
+            $user = $this->service->getById($id);
+            if (!$user) {
+                http_response_code(404);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Usuário não encontrado"
+                ]);
+                return;
+            }
+
+            // Retorna dados do perfil sem a senha
+            $profileData = $user->toArray();
+            unset($profileData['password']); // Remove a senha dos dados retornados
+
+            echo json_encode([
+                "status" => "success",
+                "data" => $profileData
+            ]);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function updateProfile($id) {
+        header('Content-Type: application/json');
+        
+        $data = json_decode(file_get_contents("php://input"), true);
+        
+        try {
+            if ($this->service->updateProfile($id, $data)) {
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Perfil atualizado com sucesso"
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Erro ao atualizar perfil"
+                ]);
+            }
+        } catch (\InvalidArgumentException $e) {
+            http_response_code(400);
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function updateAvatar($id) {
+        header('Content-Type: application/json');
+        
+        $data = json_decode(file_get_contents("php://input"), true);
+        $avatarUrl = $data['avatarUrl'] ?? null;
+        
+        if (!$avatarUrl) {
+            http_response_code(400);
+            echo json_encode([
+                "status" => "error",
+                "message" => "URL do avatar é obrigatória"
+            ]);
+            return;
+        }
+        
+        try {
+            if ($this->service->updateAvatar($id, $avatarUrl)) {
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Avatar atualizado com sucesso"
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Erro ao atualizar avatar"
+                ]);
+            }
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+
     // Você precisará de um método logout se este UserController for responsável por ele
     public function logout(): void
     {

@@ -664,39 +664,68 @@
                 }, 3000);
             }
 
-            // --- User Data Handling (Simulated with localStorage) ---
-            // In a real application, this data would come from a backend API after authentication.
-            let userData = JSON.parse(localStorage.getItem('currentUserProfile')) || {
-                name: 'Profissional da Saúde',
-                email: 'profissional@clinica.com',
-                phone: '(11) 98765-4321',
-                dob: '1985-05-15', // YYYY-MM-DD for consistency
-                profession: 'Enfermeiro(a)',
-                maritalStatus: 'Casado(a)',
-                coren: 'COREN-SP 123456',
-                avatarUrl: '', // Can be a URL to an image
-                lastAnamneseDate: '' // Date of the most recent anamnesis completed
-            };
+            // Função para obter o ID do usuário logado (simulado)
+            function getCurrentUserId() {
+                // Em uma aplicação real, isso viria da sessão ou token
+                // Por enquanto, vamos usar um ID fixo para o usuário padrão
+                return 1; // ID do usuário padrão
+            }
 
-            function loadProfileData() {
-                profileName.textContent = userData.name;
-                profileEmail.textContent = userData.email;
+            // Função para carregar dados do perfil da API
+            async function loadProfileFromAPI() {
+                try {
+                    const userId = getCurrentUserId();
+                    const response = await fetch(`/site/public/api/profile/${userId}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.status === 'success' && result.data) {
+                        const userData = result.data;
+                        displayProfileData(userData);
+                    } else {
+                        throw new Error(result.message || 'Erro ao carregar perfil');
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar perfil:', error);
+                    showMessageBox('Erro ao carregar dados do perfil. Usando dados padrão.', 'error');
+                    loadDefaultProfileData();
+                }
+            }
+
+            // Função para exibir dados do perfil
+            function displayProfileData(userData) {
+                profileName.textContent = userData.name || 'Nome não informado';
+                profileEmail.textContent = userData.email || 'Email não informado';
                 profilePhone.textContent = userData.phone || 'Não Informado';
                 profileProfession.textContent = userData.profession || 'Não Informado';
                 profileMaritalStatus.textContent = userData.maritalStatus || 'Não Informado';
                 profileCoren.textContent = userData.coren || 'Não Informado';
 
                 // Format Date of Birth
-                if (userData.dob) {
-                    const dobParts = userData.dob.split('-'); // Assumes YYYY-MM-DD
+                if (userData.dateOfBirth) {
+                    const dobParts = userData.dateOfBirth.split('-'); // Assumes YYYY-MM-DD
                     profileDob.textContent = `${dobParts[2]}/${dobParts[1]}/${dobParts[0]}`;
                 } else {
                     profileDob.textContent = 'Não Informado';
                 }
 
-                // Sempre usa a foto do localStorage para o avatar visual
-                const fotoSalva = localStorage.getItem('fotoPerfil');
-                atualizarAvatarPerfil(fotoSalva);
+                // Avatar
+                if (userData.avatarUrl) {
+                    atualizarAvatarPerfil(userData.avatarUrl);
+                } else {
+                    // Sempre usa a foto do localStorage para o avatar visual
+                    const fotoSalva = localStorage.getItem('fotoPerfil');
+                    atualizarAvatarPerfil(fotoSalva);
+                }
 
                 // Get last anamnese date from stored anamneses (if any)
                 const storedAnamneses = JSON.parse(localStorage.getItem('anamneses')) || [];
@@ -717,28 +746,126 @@
                 }
             }
 
+            // Função para carregar dados padrão (fallback)
+            function loadDefaultProfileData() {
+                const defaultUserData = {
+                    name: 'Profissional da Saúde',
+                    email: 'profissional@clinica.com',
+                    phone: '(11) 98765-4321',
+                    dateOfBirth: '1985-05-15',
+                    profession: 'Enfermeiro(a)',
+                    maritalStatus: 'Casado(a)',
+                    coren: 'COREN-SP 123456',
+                    avatarUrl: '',
+                    lastAnamneseDate: ''
+                };
+                displayProfileData(defaultUserData);
+            }
+
+            // Função para atualizar perfil na API
+            async function updateProfileInAPI(profileData) {
+                try {
+                    const userId = getCurrentUserId();
+                    const response = await fetch(`/site/public/api/profile/${userId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(profileData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.status === 'success') {
+                        showMessageBox('Perfil atualizado com sucesso!', 'success');
+                        return true;
+                    } else {
+                        throw new Error(result.message || 'Erro ao atualizar perfil');
+                    }
+                } catch (error) {
+                    console.error('Erro ao atualizar perfil:', error);
+                    showMessageBox('Erro ao atualizar perfil: ' + error.message, 'error');
+                    return false;
+                }
+            }
+
+            // Função para atualizar avatar na API
+            async function updateAvatarInAPI(avatarUrl) {
+                try {
+                    const userId = getCurrentUserId();
+                    const response = await fetch(`/site/public/api/profile/${userId}/avatar`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ avatarUrl: avatarUrl })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.status === 'success') {
+                        showMessageBox('Avatar atualizado com sucesso!', 'success');
+                        return true;
+                    } else {
+                        throw new Error(result.message || 'Erro ao atualizar avatar');
+                    }
+                } catch (error) {
+                    console.error('Erro ao atualizar avatar:', error);
+                    showMessageBox('Erro ao atualizar avatar: ' + error.message, 'error');
+                    return false;
+                }
+            }
+
             // --- Event Listeners ---
             editProfileBtn.addEventListener('click', () => {
-                // In a real application, this would redirect to an "edit profile" form
-                // or open a modal to allow editing profile fields.
-                // For this example, we'll just show a message.
-                showMessageBox('Funcionalidade de edição de perfil ainda não implementada.', 'info');
-                console.log('Implementar lógica de edição de perfil aqui.');
+                // Abrir modal de edição ou redirecionar para página de edição
+                showMessageBox('Funcionalidade de edição de perfil será implementada em breve.', 'info');
+                console.log('Implementar modal de edição de perfil aqui.');
             });
 
-            logoutBtn.addEventListener('click', () => {
-                // Clear user data (simulated logout)
-                localStorage.removeItem('currentUserProfile');
-                localStorage.removeItem('anamneses'); // Optionally clear all data on logout
-                showMessageBox('Sessão encerrada com sucesso!', 'success');
-                // Redirect to login page or home page
-                setTimeout(() => {
-                    window.location.href = 'pagina.html';
-                }, 1000);
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/site/public/api/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        if (result.status === 'success') {
+                            showMessageBox('Sessão encerrada com sucesso!', 'success');
+                            // Limpar dados locais
+                            localStorage.removeItem('currentUserProfile');
+                            localStorage.removeItem('anamneses');
+                            localStorage.removeItem('fotoPerfil');
+                            
+                            setTimeout(() => {
+                                window.location.href = 'pagina.html';
+                            }, 1000);
+                        } else {
+                            throw new Error(result.message || 'Erro no logout');
+                        }
+                    } else {
+                        throw new Error('Erro na requisição de logout');
+                    }
+                } catch (error) {
+                    console.error('Erro no logout:', error);
+                    showMessageBox('Erro ao fazer logout: ' + error.message, 'error');
+                }
             });
 
-            // Load data when the page is ready
-            loadProfileData();
+            // Carregar dados quando a página estiver pronta
+            loadProfileFromAPI();
 
             // Handle messages from other pages (e.g., login success)
             const urlParams = new URLSearchParams(window.location.search);
@@ -773,21 +900,65 @@
         document.getElementById('avatar-action-btn').onclick = function() {
             document.getElementById('profile-upload').click();
         };
-        document.getElementById('profile-upload').onchange = function(event) {
+
+        document.getElementById('profile-upload').onchange = async function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    localStorage.setItem('fotoPerfil', e.target.result);
-                    atualizarAvatarPerfil(e.target.result);
+                reader.onload = async function(e) {
+                    const avatarUrl = e.target.result;
+                    localStorage.setItem('fotoPerfil', avatarUrl);
+                    atualizarAvatarPerfil(avatarUrl);
+                    
+                    // Atualizar avatar na API
+                    try {
+                        const userId = 1; // ID do usuário padrão
+                        const response = await fetch(`/site/public/api/profile/${userId}/avatar`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ avatarUrl: avatarUrl })
+                        });
+
+                        if (response.ok) {
+                            const result = await response.json();
+                            if (result.status === 'success') {
+                                console.log('Avatar atualizado na API com sucesso');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Erro ao atualizar avatar na API:', error);
+                    }
                 };
                 reader.readAsDataURL(file);
             }
         };
 
-        document.getElementById('avatar-remove-btn').onclick = function() {
+        document.getElementById('avatar-remove-btn').onclick = async function() {
             localStorage.removeItem('fotoPerfil');
             atualizarAvatarPerfil("");
+            
+            // Remover avatar da API
+            try {
+                const userId = 1; // ID do usuário padrão
+                const response = await fetch(`/site/public/api/profile/${userId}/avatar`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ avatarUrl: null })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        console.log('Avatar removido da API com sucesso');
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao remover avatar da API:', error);
+            }
         };
     </script>
     

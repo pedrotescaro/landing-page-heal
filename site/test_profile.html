@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste CRUD Perfil - Heal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste CRUD de Perfil - Heal</h1>
+    
+    <div class="container">
+        <h2>🔐 Autenticação</h2>
+        <button class="btn" onclick="checkAuth()">Verificar Autenticação</button>
+        <button class="btn" onclick="logout()">Logout</button>
+        <div id="authResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>👤 Perfil do Usuário</h2>
+        <button class="btn" onclick="getCurrentProfile()">Carregar Perfil Atual</button>
+        <button class="btn" onclick="getProfileById()">Carregar Perfil por ID</button>
+        <div id="profileResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>✏️ Atualizar Perfil</h2>
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" placeholder="Nome completo">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="email@exemplo.com">
+        </div>
+        <div class="form-group">
+            <label for="phone">Telefone:</label>
+            <input type="tel" id="phone" placeholder="(11) 99999-9999">
+        </div>
+        <div class="form-group">
+            <label for="birthDate">Data de Nascimento:</label>
+            <input type="date" id="birthDate">
+        </div>
+        <div class="form-group">
+            <label for="address">Endereço:</label>
+            <input type="text" id="address" placeholder="Rua, número, complemento">
+        </div>
+        <div class="form-group">
+            <label for="city">Cidade:</label>
+            <input type="text" id="city" placeholder="Cidade">
+        </div>
+        <div class="form-group">
+            <label for="state">Estado:</label>
+            <select id="state">
+                <option value="">Selecione</option>
+                <option value="SP">São Paulo</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="MG">Minas Gerais</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" placeholder="00000-000">
+        </div>
+        <div class="form-group">
+            <label for="bio">Biografia:</label>
+            <textarea id="bio" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
+        </div>
+        <button class="btn" onclick="updateProfile()">Atualizar Perfil</button>
+        <div id="updateResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>🔒 Alterar Senha</h2>
+        <div class="form-group">
+            <label for="currentPassword">Senha Atual:</label>
+            <input type="password" id="currentPassword" placeholder="Senha atual">
+        </div>
+        <div class="form-group">
+            <label for="newPassword">Nova Senha:</label>
+            <input type="password" id="newPassword" placeholder="Nova senha">
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirmar Nova Senha:</label>
+            <input type="password" id="confirmPassword" placeholder="Confirmar nova senha">
+        </div>
+        <button class="btn" onclick="updatePassword()">Alterar Senha</button>
+        <div id="passwordResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>📷 Upload de Imagem</h2>
+        <div class="form-group">
+            <label for="profileImage">Imagem de Perfil:</label>
+            <input type="file" id="profileImage" accept="image/*">
+        </div>
+        <button class="btn" onclick="uploadImage()">Fazer Upload</button>
+        <div id="uploadResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>🗑️ Excluir Conta</h2>
+        <button class="btn btn-danger" onclick="deleteAccount()">Excluir Conta</button>
+        <div id="deleteResult" class="result"></div>
+    </div>
+
+    <script>
+        let currentUserId = null;
+
+        // Verificar autenticação ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+        });
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/site/public/api/auth/check');
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('authResult');
+                if (data.authenticated) {
+                    currentUserId = data.user.id;
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Autenticado - ID: ${data.user.id}\nNome: ${data.user.name}\nEmail: ${data.user.email}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Não autenticado - Faça login primeiro';
+                }
+            } catch (error) {
+                document.getElementById('authResult').className = 'result error';
+                document.getElementById('authResult').textContent = '❌ Erro ao verificar autenticação: ' + error.message;
+            }
+        }
+
+        async function getCurrentProfile() {
+            try {
+                const response = await fetch('/site/public/api/users/profile');
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('profileResult');
+                if (data.status === 'success') {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = JSON.stringify(data.data, null, 2);
+                    fillFormWithProfile(data.data);
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Erro: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('profileResult').className = 'result error';
+                document.getElementById('profileResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+
+        async function getProfileById() {
+            if (!currentUserId) {
+                alert('Faça login primeiro');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/site/public/api/users/${currentUserId}/profile`);
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('profileResult');
+                if (data.status === 'success') {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = JSON.stringify(data.data, null, 2);
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Erro: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('profileResult').className = 'result error';
+                document.getElementById('profileResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+
+        function fillFormWithProfile(profile) {
+            document.getElementById('name').value = profile.name || '';
+            document.getElementById('email').value = profile.email || '';
+            document.getElementById('phone').value = profile.phone || '';
+            document.getElementById('birthDate').value = profile.birthDate || '';
+            document.getElementById('address').value = profile.address || '';
+            document.getElementById('city').value = profile.city || '';
+            document.getElementById('state').value = profile.state || '';
+            document.getElementById('cep').value = profile.cep || '';
+            document.getElementById('bio').value = profile.bio || '';
+        }
+
+        async function updateProfile() {
+            if (!currentUserId) {
+                alert('Faça login primeiro');
+                return;
+            }
+
+            try {
+                const profileData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    birthDate: document.getElementById('birthDate').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    cep: document.getElementById('cep').value,
+                    bio: document.getElementById('bio').value
+                };
+                
+                const response = await fetch(`/site/public/api/users/${currentUserId}/profile`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(profileData)
+                });
+                
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('updateResult');
+                if (data.status === 'success') {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = '✅ Perfil atualizado com sucesso!';
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Erro: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('updateResult').className = 'result error';
+                document.getElementById('updateResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+
+        async function updatePassword() {
+            if (!currentUserId) {
+                alert('Faça login primeiro');
+                return;
+            }
+
+            try {
+                const passwordData = {
+                    currentPassword: document.getElementById('currentPassword').value,
+                    newPassword: document.getElementById('newPassword').value,
+                    confirmPassword: document.getElementById('confirmPassword').value
+                };
+                
+                const response = await fetch(`/site/public/api/users/${currentUserId}/password`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(passwordData)
+                });
+                
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('passwordResult');
+                if (data.status === 'success') {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = '✅ Senha atualizada com sucesso!';
+                    // Limpar campos
+                    document.getElementById('currentPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Erro: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('passwordResult').className = 'result error';
+                document.getElementById('passwordResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+
+        async function uploadImage() {
+            if (!currentUserId) {
+                alert('Faça login primeiro');
+                return;
+            }
+
+            const fileInput = document.getElementById('profileImage');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Selecione uma imagem');
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('profileImage', file);
+                
+                const response = await fetch(`/site/public/api/users/${currentUserId}/profile-image`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('uploadResult');
+                if (data.status === 'success') {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Imagem enviada com sucesso!\nArquivo: ${data.filename}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Erro: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('uploadResult').className = 'result error';
+                document.getElementById('uploadResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+
+        async function deleteAccount() {
+            if (!currentUserId) {
+                alert('Faça login primeiro');
+                return;
+            }
+
+            if (!confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/site/public/api/users/${currentUserId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('deleteResult');
+                if (data.status === 'success') {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = '✅ Conta excluída com sucesso! Redirecionando...';
+                    setTimeout(() => {
+                        window.location.href = data.redirect || 'login.html';
+                    }, 2000);
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Erro: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('deleteResult').className = 'result error';
+                document.getElementById('deleteResult').textContent = '❌ Erro: ' + error.message;
+            }
+        }
+
+        async function logout() {
+            try {
+                const response = await fetch('/site/public/api/logout', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    alert('Logout realizado com sucesso!');
+                    window.location.reload();
+                } else {
+                    alert('Erro no logout: ' + data.message);
+                }
+            } catch (error) {
+                alert('Erro no logout: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html> 

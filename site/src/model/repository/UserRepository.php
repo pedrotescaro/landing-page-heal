@@ -22,7 +22,7 @@ class UserRepository
         $stmt = $this->conn->query("SELECT * FROM {$this->table}");
         $users = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = new User($row['user_name'], $row['user_email'], $row['user_password'], $row['user_id']);
+            $users[] = $this->createUserFromRow($row);
         }
         return $users;
     }
@@ -33,7 +33,7 @@ class UserRepository
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['user_name'], $row['user_email'], $row['user_password'], $row['user_id']);
+            return $this->createUserFromRow($row);
         }
         return null;
     }
@@ -44,32 +44,93 @@ class UserRepository
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['user_name'], $row['user_email'], $row['user_password'], $row['user_id']);
+            return $this->createUserFromRow($row);
         }
         return null;
     }
 
     public function save(User $user): bool {
-        $stmt = $this->conn->prepare("INSERT INTO {$this->table} (user_name, user_email, user_password) VALUES (:user_name, :user_email, :user_password)");
+        $stmt = $this->conn->prepare("
+            INSERT INTO {$this->table} 
+            (user_name, user_email, user_password, user_phone, user_date_of_birth, user_profession, user_marital_status, user_coren, user_avatar_url) 
+            VALUES 
+            (:user_name, :user_email, :user_password, :user_phone, :user_date_of_birth, :user_profession, :user_marital_status, :user_coren, :user_avatar_url)
+        ");
 
         $name = $user->getName();
         $email = $user->getEmail();
         $password = $user->getPassword();
+        $phone = $user->getPhone();
+        $dateOfBirth = $user->getDateOfBirth();
+        $profession = $user->getProfession();
+        $maritalStatus = $user->getMaritalStatus();
+        $coren = $user->getCoren();
+        $avatarUrl = $user->getAvatarUrl();
 
         $stmt->bindParam(':user_name', $name);
         $stmt->bindParam(':user_email', $email);
         $stmt->bindParam(':user_password', $password);
+        $stmt->bindParam(':user_phone', $phone);
+        $stmt->bindParam(':user_date_of_birth', $dateOfBirth);
+        $stmt->bindParam(':user_profession', $profession);
+        $stmt->bindParam(':user_marital_status', $maritalStatus);
+        $stmt->bindParam(':user_coren', $coren);
+        $stmt->bindParam(':user_avatar_url', $avatarUrl);
 
- 
         return $stmt->execute();
     }
 
     public function update(User $user): bool {
-        $stmt = $this->conn->prepare("UPDATE {$this->table} SET user_name = :user_name, user_email = :user_email, user_password = :user_password WHERE user_id = :user_id");
+        $stmt = $this->conn->prepare("
+            UPDATE {$this->table} 
+            SET user_name = :user_name, 
+                user_email = :user_email, 
+                user_password = :user_password,
+                user_phone = :user_phone,
+                user_date_of_birth = :user_date_of_birth,
+                user_profession = :user_profession,
+                user_marital_status = :user_marital_status,
+                user_coren = :user_coren,
+                user_avatar_url = :user_avatar_url
+            WHERE user_id = :user_id
+        ");
+        
         $stmt->bindParam(':user_name', $user->getName(), PDO::PARAM_STR);
         $stmt->bindParam(':user_email', $user->getEmail(), PDO::PARAM_STR);
         $stmt->bindParam(':user_password', $user->getPassword(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_phone', $user->getPhone(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_date_of_birth', $user->getDateOfBirth(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_profession', $user->getProfession(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_marital_status', $user->getMaritalStatus(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_coren', $user->getCoren(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_avatar_url', $user->getAvatarUrl(), PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $user->getId(), PDO::PARAM_INT);
+        
+        return $stmt->execute();
+    }
+
+    public function updateProfile(User $user): bool {
+        $stmt = $this->conn->prepare("
+            UPDATE {$this->table} 
+            SET user_name = :user_name, 
+                user_phone = :user_phone,
+                user_date_of_birth = :user_date_of_birth,
+                user_profession = :user_profession,
+                user_marital_status = :user_marital_status,
+                user_coren = :user_coren,
+                user_avatar_url = :user_avatar_url
+            WHERE user_id = :user_id
+        ");
+        
+        $stmt->bindParam(':user_name', $user->getName(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_phone', $user->getPhone(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_date_of_birth', $user->getDateOfBirth(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_profession', $user->getProfession(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_marital_status', $user->getMaritalStatus(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_coren', $user->getCoren(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_avatar_url', $user->getAvatarUrl(), PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $user->getId(), PDO::PARAM_INT);
+        
         return $stmt->execute();
     }
 
@@ -77,5 +138,21 @@ class UserRepository
         $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+    private function createUserFromRow(array $row): User {
+        return new User(
+            $row['user_name'],
+            $row['user_email'],
+            $row['user_password'],
+            $row['user_phone'] ?? null,
+            $row['user_date_of_birth'] ?? null,
+            $row['user_profession'] ?? null,
+            $row['user_marital_status'] ?? null,
+            $row['user_coren'] ?? null,
+            $row['user_avatar_url'] ?? null,
+            $row['user_id'] ?? null,
+            $row['created_at'] ?? null
+        );
     }
 }

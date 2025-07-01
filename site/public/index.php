@@ -47,15 +47,24 @@ $router->add('PUT', '/site/public/api/anamnese/{id}', [new AnamneseController($a
 // Deletar um Anamnese (DELETE)
 $router->add('DELETE', '/site/public/api/anamnese/{id}', [new AnamneseController($anamneseService), 'deletar']);
 
- // A rota POST para '/login' é onde o formulário envia os dados.
+// Rotas de usuário
 $router->add('POST', '/site/public/api/login', [new UserController($userService), 'login']);
-
-// A rota POST para '/login' é onde o formulário envia os dados.
 $router->add('POST', '/site/public/api/register', [new UserController($userService), 'register']);
+$router->add('POST', '/site/public/api/logout', [new UserController($userService), 'logout']);
+
+// Rotas do perfil do usuário
+$router->add('GET', '/site/public/api/profile/{id}', [new UserController($userService), 'getProfile']);
+$router->add('PUT', '/site/public/api/profile/{id}', [new UserController($userService), 'updateProfile']);
+$router->add('PUT', '/site/public/api/profile/{id}/avatar', [new UserController($userService), 'updateAvatar']);
+
+// Rotas CRUD completas do usuário
+$router->add('GET', '/site/public/api/users', [new UserController($userService), 'list']);
+$router->add('GET', '/site/public/api/users/{id}', [new UserController($userService), 'getProfile']);
+$router->add('PUT', '/site/public/api/users/{id}', [new UserController($userService), 'update']);
+$router->add('DELETE', '/site/public/api/users/{id}', [new UserController($userService), 'delete']);
 
 // Rota de teste (GET)
 $router->add('GET', 'site/public/index.php/hello', [new AnamneseController($anamneseService), 'hello']);
-
 
 // Rota para servir a view do formulário de anamnese (GET)
 $router->add('GET', '/site/public/formulario', [new AnamneseController($anamneseService), 'viewForm']);
