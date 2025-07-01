@@ -16,14 +16,21 @@
         }
 
         /* Dark mode variables - only applied when body has 'dark' class */
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
         [data-theme="dark"] {
+=======
+        body.dark {
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             --background: 222 47% 11%;
             --foreground: 210 20% 98%;
             --primary: 200 80% 60%;
             --primary-light: 200 80% 65%;
             --primary-foreground: 210 20% 98%;
             --muted: 222 47% 16%;
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             --muted-foreground: 215.4 16.3% 46.9%;
+=======
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             --border: 222 47% 20%;
 
             /* Gradient for login-right (Dark Mode) */
@@ -58,7 +65,12 @@
         /* General body styles */
         body {
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             color: hsl(var(--foreground)) !important;
+=======
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -79,8 +91,13 @@
 
         /* Header Styles */
         header {
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             background-color: hsl(var(--background)) !important;
             color: hsl(var(--foreground)) !important;
+=======
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed; /* Keep header fixed at the top */
             width: 100%;
@@ -94,14 +111,21 @@
         }
 
         .header-container {
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
 
+=======
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             display: flex;
             justify-content: space-between; /* Pushes left and right groups apart */
             align-items: center;
             padding: 0 2rem; /* Adjusted padding to be consistent */
             width: 100%; /* Take full width of the header */
             max-width: 1200px; /* Limit width like other containers */
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             margin: 0 auto; /* Center the content within the fixed header */ /* Removida transição de background */
+=======
+            margin: 0 auto; /* Center the content within the fixed header */
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
         }
 
         .logo {
@@ -125,7 +149,11 @@
             align-items: center;
             gap: 1rem; /* Space between language selector and dark mode toggle */
             background-color: transparent; /* No background on nav-links itself */
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             color: hsl(var(--foreground)) !important;
+=======
+            color: hsl(var(--foreground));
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             transition: all 0.3s ease;
         }
                 #languageSwitcher {
@@ -134,7 +162,11 @@
         border-radius: var(--radius);
         padding: 0.5rem 1rem;
         font-size: 0.875rem; /* text-sm */
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
         color: hsl(var(--foreground)) !important;
+=======
+        color: hsl(var(--foreground));
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
         cursor: pointer;
         transition: all 0.3s;
         }
@@ -169,6 +201,7 @@
         }
 
         .btn {
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -200,6 +233,29 @@
             border-color: #0ea5e9;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+=======
+            display: inline-flex; /* Use flex for icon and text alignment */
+            align-items: center;
+            gap: 0.5rem; /* Space between icon and text */
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+
+        .btn-primary:hover {
+            background-color: hsl(var(--primary-light));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
         }
 
         .btn-outline {
@@ -230,6 +286,7 @@
 
         /* Register Left (Form) */
         .register-left {
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             background-color: hsl(var(--background)) !important;
             color: hsl(var(--foreground)) !important;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -245,10 +302,23 @@
             background-color: hsl(var(--background)) !important;
             color: hsl(var(--foreground)) !important;
             border: 1px solid hsl(var(--border)) !important;
+=======
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .register-left h2, .register-left p, .register-left label { color: hsl(var(--foreground)); }
+        .register-left input[type="text"], .register-left input[type="email"], .register-left input[type="password"] {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            border: 1px solid hsl(var(--border));
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         .register-left input:focus {
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
             border-color: hsl(var(--primary)) !important;
             box-shadow: 0 0 0 2px hsl(var(--primary) / 0.3) !important;
             outline: none; /* Remove default outline */
@@ -262,10 +332,23 @@
         /* Login Right (Info Section) */
         .login-right {
             background-image: linear-gradient(to bottom, hsl(var(--right-bg-light-from)), hsl(var(--right-bg-light-to))) !important;
+=======
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 2px hsl(var(--primary) / 0.3);
+            outline: none; /* Remove default outline */
+        }
+
+        .register-left p a { color: hsl(var(--primary)); transition: color 0.3s ease; }
+
+        /* Login Right (Info Section) */
+        .login-right {
+            background-image: linear-gradient(to bottom, hsl(var(--right-bg-light-from)), hsl(var(--right-bg-light-to)));
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
             color: white; /* Text always white on this side */
             transition: background-image 0.3s ease;
         }
 
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
         .login-right h2, .login-right h3, .login-right p, .login-right i { 
             color: white !important; 
         }
@@ -397,6 +480,45 @@
             font-weight: 500; 
             color: hsl(var(--foreground)) !important; 
         }
+=======
+        .login-right h2, .login-right h3, .login-right p, .login-right i { color: white; }
+
+        /* Decorative Elements */
+        .decorativo { opacity: 0.1; background-color: white; border-radius: 9999px; }
+
+        /* Dark Mode Specific Styles */
+        body.dark .login-right { background-image: linear-gradient(to bottom, hsl(var(--right-bg-dark-from)), hsl(var(--right-bg-dark-to))); }
+        body.dark .pricing-card, body.dark .feature-card, body.dark .testimonial-card, body.dark form { background-color: hsl(var(--background)); color: hsl(var(--foreground)); }
+        body.dark .btn-outline { color: hsl(var(--primary)); border-color: hsl(var(--primary)); }
+        body.dark .btn-outline:hover { background-color: hsl(var(--primary) / 0.1); }
+        body.dark .hero p, body.dark .section-header p, body.dark .faq-answer, body.dark .testimonial-card p, body.dark .testimonial-role { color: hsl(var(--muted-foreground)); }
+        body.dark #feedback-type-select, body.dark #feedback-type-select option, body.dark textarea, body.dark input[type="text"], body.dark input[type="email"], body.dark input[type="password"], body.dark select {
+            background-color: hsl(var(--muted));
+            color: hsl(var(--foreground));
+            border-color: hsl(var(--border));
+        }
+        body.dark .feedback label { color: hsl(var(--foreground)); }
+        body.dark .feedback h2 { color: hsl(var(--primary)); }
+        body.dark footer { background-color: hsl(222 47% 8%); }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) { 
+          #languageSwitcher { max-width: 120px; font-size: 0.75rem; padding: 0.25rem 0.5rem; } }
+        @media (max-width: 768px) {
+            .header-container { padding: 0 1rem; }
+            .main-content-wrapper { flex-direction: column; }
+            .login-right { display: none; }
+            .register-left { padding: 2rem; }
+            .btn { padding: 0.5rem 0.75rem; }
+            #languageSwitcher { padding: 0.5rem 0.75rem; }
+        }
+        @media (min-width: 769px) {
+            .main-content-wrapper { flex-direction: row; }
+            .header-spacer { height: 80px; } /* Adjust if desktop header is taller */
+            header { height: 80px; } /* Adjust desktop header height */
+        }
+        .user-name { font-weight: 500; color: hsl(var(--foreground)); }
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
 
         @media (max-width: 768px) {
             .main-content-wrapper {
@@ -412,6 +534,7 @@
                 order: 1; /* Garante que o register fique abaixo do login-right no mobile */
             }
         }
+<<<<<<< HEAD:site/src/view/assets/css/css_cadastro_login.css
 
         /* Dark mode toggle button styles */
         #toggleDarkMode {
@@ -520,3 +643,5 @@
             background-color: hsl(var(--primary-light));
             color: hsl(var(--primary-foreground));
         }
+=======
+>>>>>>> c1a3d80f50247da11fa330fe0bc1d18520a62fa6:css/css_cadastro_login.css
