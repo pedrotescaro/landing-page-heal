@@ -5,22 +5,37 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmPasswordInput = document.getElementById("confirm-password");
   const matchError = document.getElementById("password-match-error");
 
+  // Função para obter tradução
+  function getTranslation(key) {
+    return window.i18n ? window.i18n.getTranslation(key) : key;
+  }
+
+  // Função para mostrar mensagem traduzida
+  function showTranslatedMessage(messageKey, type = 'error') {
+    if (window.i18n && window.i18n.showTranslatedMessage) {
+      window.i18n.showTranslatedMessage(messageKey, type);
+    } else {
+      showError(getTranslation(messageKey));
+    }
+  }
+
   // Só executa se os elementos existirem
   if (passwordInput && passwordStrength) {
     passwordInput.addEventListener("input", function () {
       const strength = avaliarForcaSenha(passwordInput.value);
+      const currentLang = localStorage.getItem('language') || 'pt';
 
       switch (strength) {
         case "fraca":
-          passwordStrength.textContent = "Força da senha: Fraca";
+          passwordStrength.textContent = currentLang === 'pt' ? "Força da senha: Fraca" : "Password strength: Weak";
           passwordStrength.style.color = "red";
           break;
         case "media":
-          passwordStrength.textContent = "Força da senha: Média";
+          passwordStrength.textContent = currentLang === 'pt' ? "Força da senha: Média" : "Password strength: Medium";
           passwordStrength.style.color = "orange";
           break;
         case "forte":
-          passwordStrength.textContent = "Força da senha: Forte";
+          passwordStrength.textContent = currentLang === 'pt' ? "Força da senha: Forte" : "Password strength: Strong";
           passwordStrength.style.color = "green";
           break;
         default:
@@ -46,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Validação dos campos obrigatórios
       if (!name || !email || !password || !confirmPassword) {
-        showError("Por favor, preencha todos os campos.");
+        showTranslatedMessage("message.fillAllFields", "error");
         e.preventDefault();
         return;
       }
@@ -54,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Validação do e-mail
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        showError("E-mail inválido. Tente novamente.");
+        showTranslatedMessage("message.invalidEmail", "error");
         e.preventDefault();
         return;
       }
@@ -62,14 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
       // Validação da senha
       const senhaSeguraRegex = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
       if (!senhaSeguraRegex.test(password)) {
-        showError("A senha precisa de 6+ caracteres, 1 letra maiúscula e 1 caractere especial.");
+        showTranslatedMessage("message.passwordTooShort", "error");
         e.preventDefault();
         return;
       }
 
       // Confirmação de senha
       if (password !== confirmPassword) {
-        showError("As senhas não conferem.");
+        showTranslatedMessage("message.passwordMismatch", "error");
         e.preventDefault();
         return;
       }
@@ -170,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (passwordInput.value !== confirmPasswordInput.value) {
       matchError.classList.remove("hidden");
+      matchError.textContent = getTranslation("register.passwordMismatch");
     } else {
       matchError.classList.add("hidden");
     }
@@ -182,4 +198,30 @@ document.addEventListener("DOMContentLoaded", function () {
   if (confirmPasswordInput) {
     confirmPasswordInput.addEventListener("input", checkPasswordMatch);
   }
+
+  // Event listener para mudança de idioma
+  document.addEventListener('languageChanged', function(e) {
+    // Atualizar mensagens de erro se estiverem visíveis
+    if (matchError && !matchError.classList.contains('hidden')) {
+      matchError.textContent = getTranslation("register.passwordMismatch");
+    }
+    
+    // Atualizar força da senha se estiver visível
+    if (passwordInput && passwordStrength && passwordStrength.textContent) {
+      const strength = avaliarForcaSenha(passwordInput.value);
+      const currentLang = e.detail.language;
+      
+      switch (strength) {
+        case "fraca":
+          passwordStrength.textContent = currentLang === 'pt' ? "Força da senha: Fraca" : "Password strength: Weak";
+          break;
+        case "media":
+          passwordStrength.textContent = currentLang === 'pt' ? "Força da senha: Média" : "Password strength: Medium";
+          break;
+        case "forte":
+          passwordStrength.textContent = currentLang === 'pt' ? "Força da senha: Forte" : "Password strength: Strong";
+          break;
+      }
+    }
+  });
 });
