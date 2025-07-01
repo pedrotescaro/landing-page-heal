@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && data.status === 'success') {
                     showTranslatedMessage("message.registerSuccess", "success");
                     setTimeout(() => {
-                        window.location.href = '/site/src/view/dashboard.html'; 
+                        window.location.href = '/site/src/view/index.html'; 
                     }, 1500);
                 } else {
                     showMessage(data.message || getTranslation("message.registerError"), 'error');

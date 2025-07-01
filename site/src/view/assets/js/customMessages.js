@@ -416,8 +416,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const result = await response.json();
         console.log("Anamnese salva com sucesso:", result);
         
-        // Redireciona para o dashboard após o sucesso
-        window.location.href = 'dashboard.html';
+        // Remove o redirecionamento daqui - será feito no evento de submit
+        // window.location.href = 'dashboard.html';
 
     } catch (error) {
         console.error("Erro ao criar anamnese:", error);
@@ -472,7 +472,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error("Erro ao carregar anamnese:", error);
             showMessage(`Erro ao carregar anamnese: ${error.message}`, "error");
             window.location.href =
-                window.location.protocol + "//" + window.location.hostname + "/site/public/landing-page.html?messageType=error&messageText=" + 
+                window.location.protocol + "//" + window.location.hostname + "/site/public/dashboard.html?messageType=error&messageText=" + 
                 encodeURIComponent(
                     `Não foi possível carregar a anamnese para edição: ${error.message}`
                 );
