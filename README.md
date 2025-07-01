@@ -118,5 +118,3 @@ Dúvidas, sugestões ou feedback?
 Entre em contato pelo email: **healgrupo@gmail.com**
 
 ---
-
-Se quiser adicionar prints, badges ou links para as lojas de aplicativos, posso complementar!
