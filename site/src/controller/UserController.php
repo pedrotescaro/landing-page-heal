@@ -145,7 +145,7 @@ class UserController {
             echo json_encode([
                 "status" => "success", // Adicionado "status"
                 "message" => "Login realizado com sucesso!",
-                "redirect" => "/landing-page.html" // Sugere redirecionamento para o frontend
+                "redirect" => "/dashboard.html" // Sugere redirecionamento para o frontend
             ]);
         } catch (\InvalidArgumentException $e) {
             http_response_code(400); // Bad Request
@@ -172,12 +172,12 @@ class UserController {
         $this->service->logout(); // Assume que UserService tem um método logout()
         // Após logout, redireciona o cliente via JS no frontend, ou força aqui.
         // Para uma API, o ideal é retornar JSON e o frontend redirecionar.
-        // Para um logout direto do PHP, um header("Location: /index.html"); exit; seria usado.
+        // Para um logout direto do PHP, um header("Location: /dashboard.html"); exit; seria usado.
         header('Content-Type: application/json');
         echo json_encode([
             "status" => "success",
             "message" => "Logout realizado com sucesso.",
-            "redirect" => "/landing-page.html"
+            "redirect" => "/index.html"
         ]);
         exit; // Garante que nenhum outro output seja enviado.
     }

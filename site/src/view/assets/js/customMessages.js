@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
                 // Redireciona para o dashboard após o sucesso
                 window.location.href = 
-                    window.location.protocol + "//" + window.location.hostname + "/site/public/landing-page.html?messageType=success&messageText=" +
+                    window.location.protocol + "//" + window.location.hostname + "/site/public/dashboard.html?messageType=success&messageText=" +
                     encodeURIComponent(
                         `Anamnese ${editingAnamneseId ? "atualizada" : "criada"} com sucesso!`
                     );
@@ -399,34 +399,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     async function createAnamnese(anamneseData) {
-        try {
-            const response = await fetch(API_ENDPOINTS.anamneses, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(anamneseData),
-            });
+    try {
+        const response = await fetch(API_ENDPOINTS.anamneses, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(anamneseData),
+        });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Erro ao salvar anamnese.");
-            }
-
-            const result = await response.json();
-            console.log("Anamnese salva com sucesso:", result);
-            if (form) form.reset();
-            resetPhotoPreviews();
-            editingAnamneseId = null;
-            const h1Element = document.querySelector("h1");
-            if (h1Element) h1Element.textContent = "Ficha de Anamnese";
-            showStep(0); // Volta para o primeiro passo
-        } catch (error) {
-            console.error("Erro ao criar anamnese:", error);
-            throw error;
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Erro ao salvar anamnese.");
         }
-    }
 
+        const result = await response.json();
+        console.log("Anamnese salva com sucesso:", result);
+        
+        // Redireciona para o dashboard após o sucesso
+        window.location.href = 'dashboard.html';
+
+    } catch (error) {
+        console.error("Erro ao criar anamnese:", error);
+        throw error;
+    }
+}
     async function updateAnamnese(id, updatedData) {
         try {
             updatedData.id = id;

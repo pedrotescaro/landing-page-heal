@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && data.status === 'success') {
                     showMessage(data.message, 'success');
                     setTimeout(() => {
-                        window.location.href = '/site/src/view/landing-page.html'; 
+                        window.location.href = '/site/src/view/dashboard.html'; 
                     }, 1500);
                 } else {
                     showMessage(data.message || 'Erro desconhecido ao cadastrar.', 'error');
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && data.status === 'success') {
                     showMessageWithTransition(data.message, 'success');
                     setTimeout(() => {
-                        window.location.href = '/site/src/view/landing-page.html'; 
+                        window.location.href = '/site/src/view/dashboard.html'; 
                     }, 1500);
                 } else {
                     showMessageWithTransition(data.message || 'Erro desconhecido ao fazer login.', 'error');
