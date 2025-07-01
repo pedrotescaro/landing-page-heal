@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Heal - Monitoramento Inteligente de Feridas
 
 <p align="center">
