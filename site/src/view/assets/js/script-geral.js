@@ -70,7 +70,7 @@ const translations = {
         "testimonial2.author": "Dr. João Santos",
         "testimonial2.role": "Médico Dermatologista",
         
-        // Pricing
+            // Pricing
         "pricing.title": "Nossos Planos",
         "pricing.subtitle": "Escolha o plano ideal para suas necessidades",
         
@@ -194,100 +194,108 @@ const translations = {
         "footer.policies.privacy": "Privacidade",
         "footer.policies.cookies": "Cookies",
         "footer.policies.accessibility": "Acessibilidade",
-        "footer.copyright": "© 2025 Heal. Todos os direitos reservados."
+        "footer.copyright": "© 2025 Heal. Todos os direitos reservados.",
+
+        // Features (alternativos para telas de login/cadastro)
+        "feature1b.title": "Registro fotográfico",
+        "feature1b.text": "Capture e organize fotos para acompanhar a evolução visual do tratamento.",
+        "feature2b.title": "Medidas e observações",
+        "feature2b.text": "Registre dimensões, características e notas importantes sobre cada ferida.",
+        "feature3b.title": "Relatórios automáticos",
+        "feature3b.text": "Gere relatórios detalhados de evolução para compartilhar com a equipe médica.",
     },
     "en": {
-        // Header
-        "header.features": "Features",
-        "header.testimonials": "Testimonials",
-        "header.pricing": "Pricing",
-        "header.contact": "Contact",
-        "header.download": "Download App",
-        "header.login": "Sign In",
-        "header.logout": "Sign Out",
-        "header.hello": "Hello",
+    // Header
+    "header.features": "Features",
+    "header.testimonials": "Testimonials",
+    "header.pricing": "Pricing",
+    "header.contact": "Contact",
+    "header.download": "Download App",
+    "header.login": "Sign In",
+    "header.logout": "Sign Out",
+    "header.hello": "Hello",
 
-        // Hero
-        "hero.title": "<span class='heal-text'>Heal</span><br>Smart Wound Monitoring",
-        "hero.subtitle": "The complete solution for healthcare professionals to track treatment progress with precision and efficiency.",
-        "hero.downloadButton": "Download App",
-        "hero.login": "Sign In",
+    // Hero
+    "hero.title": "<span class='heal-text'>Heal</span><br>Smart Wound Monitoring",
+    "hero.subtitle": "The complete solution for healthcare professionals to track treatment progress with precision and efficiency.",
+    "hero.downloadButton": "Download App",
+    "hero.login": "Sign In",
 
-        // Features
-        "features.title": "Main Features",
-        "features.subtitle": "Everything you need for efficient care",
-        "feature1.title": "Patient Records",
-        "feature1.text": "Register patients and track complete treatment history with photos and detailed notes.",
-        "feature2.title": "Integrated Scheduler",
-        "feature2.text": "Manage consultations and procedures with an intuitive calendar synchronized across all devices.",
-        "feature3.title": "Smart Reports",
-        "feature3.text": "Generate automated reports with detailed analysis of treatment progress.",
+    // Features
+    "features.title": "Main Features",
+    "features.subtitle": "Everything you need for efficient care",
+    "feature1.title": "Patient Records",
+    "feature1.text": "Register patients and track complete treatment history with photos and detailed notes.",
+    "feature2.title": "Integrated Scheduler",
+    "feature2.text": "Manage consultations and procedures with an intuitive calendar synchronized across all devices.",
+    "feature3.title": "Smart Reports",
+    "feature3.text": "Generate automated reports with detailed analysis of treatment progress.",
 
-        // Testimonials
-        "testimonials.title": "Testimonials",
-        "testimonials.subtitle": "What our users say about Heal",
+    // Testimonials
+    "testimonials.title": "Testimonials",
+    "testimonials.subtitle": "What our users say about Heal",
 
-        "testimonial1.text": "\"Heal has revolutionized the way I work. Now I can track patient progress much more accurately.\"",
-        "testimonial1.author": "Dr. Maria Silva",
-        "testimonial1.role": "Specialist Nurse",
+    "testimonial1.text": "\"Heal has revolutionized the way I work. Now I can track patient progress much more accurately.\"",
+    "testimonial1.author": "Dr. Maria Silva",
+    "testimonial1.role": "Specialist Nurse",
 
-        "testimonial2.text": "\"The app's convenience is impressive. The automatic reports save me hours every week.\"",
-        "testimonial2.author": "Dr. João Santos",
-        "testimonial2.role": "Dermatologist",
+    "testimonial2.text": "\"The app's convenience is impressive. The automatic reports save me hours every week.\"",
+    "testimonial2.author": "Dr. João Santos",
+    "testimonial2.role": "Dermatologist",
 
-        // Pricing
-        "pricing.title": "Our Plans",
-        "pricing.subtitle": "Choose the plan that best fits your needs",
+    // Pricing
+    "pricing.title": "Our Plans",
+    "pricing.subtitle": "Choose the plan that best fits your needs",
 
-        "plan1.title": "Basic",
-        "plan1.price": "Free",
-        "plan1.feature1": "Up to 10 patients",
-        "plan1.feature2": "Basic wound registration",
-        "plan1.feature3": "Simple calendar",
-        "plan1.button": "Start Now",
+    "plan1.title": "Basic",
+    "plan1.price": "Free",
+    "plan1.feature1": "Up to 10 patients",
+    "plan1.feature2": "Basic wound registration",
+    "plan1.feature3": "Simple calendar",
+    "plan1.button": "Start Now",
 
-        "plan2.title": "Premium",
-        "plan2.price": "$19/month", 
-        "plan2.feature1": "Unlimited patients",
-        "plan2.feature2": "Advanced wound analysis",
-        "plan2.feature3": "Custom reports",
-        "plan2.feature4": "Priority support",
-        "plan2.button": "Start Now",
+    "plan2.title": "Premium",
+    "plan2.price": "$19/month", 
+    "plan2.feature1": "Unlimited patients",
+    "plan2.feature2": "Advanced wound analysis",
+    "plan2.feature3": "Custom reports",
+    "plan2.feature4": "Priority support",
+    "plan2.button": "Start Now",
 
-        // FAQ
-        "faq.title": "Frequently Asked Questions",
-        "faq.subtitle": "Get your questions about Heal answered",
+    // FAQ
+    "faq.title": "Frequently Asked Questions",
+    "faq.subtitle": "Get your questions about Heal answered",
 
-        "faq1.question": "How does Heal assist in wound monitoring?",
-        "faq1.answer": "Heal allows you to record photos, measurements, and observations for each wound, creating a complete and organized history. The app also generates automatic progress reports and offers reminders for upcoming appointments.",
+    "faq1.question": "How does Heal assist in wound monitoring?",
+    "faq1.answer": "Heal allows you to record photos, measurements, and observations for each wound, creating a complete and organized history. The app also generates automatic progress reports and offers reminders for upcoming appointments.",
 
-        "faq2.question": "Which professionals can use Heal?",
-        "faq2.answer": "Doctors, nurses, and healthcare professionals specialized in wound care.",
+    "faq2.question": "Which professionals can use Heal?",
+    "faq2.answer": "Doctors, nurses, and healthcare professionals specialized in wound care.",
 
-        "faq3.question": "Are patient data secure?",
-        "faq3.answer": "We use end-to-end encryption and strictly follow GDPR standards to ensure total information security.",
+    "faq3.question": "Are patient data secure?",
+    "faq3.answer": "We use end-to-end encryption and strictly follow GDPR standards to ensure total information security.",
 
-        "faq4.question": "Can I use Heal on more than one device?",
-        "faq4.answer": "Yes! Your data is synchronized in real-time across all devices connected to your account.",
+    "faq4.question": "Can I use Heal on more than one device?",
+    "faq4.answer": "Yes! Your data is synchronized in real-time across all devices connected to your account.",
 
-        "faq5.question": "How does technical support work?",
-        "faq5.answer": "Our team is available 24/7 via chat, email, and phone to assist with any needs.",
+    "faq5.question": "How does technical support work?",
+    "faq5.answer": "Our team is available 24/7 via chat, email, and phone to assist with any needs.",
 
         // Feedback
-        "feedback.title": "Your Opinion is Essential",
-        "feedback.typeLabel": "Feedback Type",
-        "feedback.options.suggestion": "Suggestion",
-        "feedback.options.problem": "Problem",
-        "feedback.options.praise": "Praise",
-        "feedback.options.other": "Other",
-        "feedback.messageLabel": "Message",
-        "feedback.submitButton": "Send Feedback",
+    "feedback.title": "Your Opinion is Essential",
+    "feedback.typeLabel": "Feedback Type",
+    "feedback.options.suggestion": "Suggestion",
+    "feedback.options.problem": "Problem",
+    "feedback.options.praise": "Praise",
+    "feedback.options.other": "Other",
+    "feedback.messageLabel": "Message",
+    "feedback.submitButton": "Send Feedback",
 
         // Modal
-        "modal.title": "Download the Heal App",
-        "modal.iosDownload": "Download for iOS",
-        "modal.androidDownload": "Download for Android",
-        "modal.choosePlatform": "Choose your preferred platform",
+    "modal.title": "Download the Heal App",
+    "modal.iosDownload": "Download for iOS",
+    "modal.androidDownload": "Download for Android",
+    "modal.choosePlatform": "Choose your preferred platform",
 
         // Login
         "login.title": "Welcome back",
@@ -345,25 +353,33 @@ const translations = {
         "message.networkError": "Connection error. Try again.",
         "message.fillAllFields": "Please fill in all fields.",
 
-        // Footer
-        "footer.contact": "Contact",
-        "footer.navigation": "Navigation",
-        "footer.connect": "Connect",
-        "footer.followUs": "Follow us for updates",
-        "footer.links.home": "Home",
-        "footer.links.features": "Features",
-        "footer.links.testimonials": "Testimonials",
-        "footer.links.pricing": "Pricing",
-        "footer.links.faq": "FAQ",
-        "footer.policies.terms": "Terms of Use",
-        "footer.policies.privacy": "Privacy",
-        "footer.policies.cookies": "Cookies",
-        "footer.policies.accessibility": "Accessibility",
-        "footer.copyright": "© 2025 Heal. All rights reserved."
+    // Footer
+    "footer.contact": "Contact",
+    "footer.navigation": "Navigation",
+    "footer.connect": "Connect",
+    "footer.followUs": "Follow us for updates",
+    "footer.links.home": "Home",
+    "footer.links.features": "Features",
+    "footer.links.testimonials": "Testimonials",
+    "footer.links.pricing": "Pricing",
+    "footer.links.faq": "FAQ",
+    "footer.policies.terms": "Terms of Use",
+    "footer.policies.privacy": "Privacy",
+    "footer.policies.cookies": "Cookies",
+    "footer.policies.accessibility": "Accessibility",
+    "footer.copyright": "© 2025 Heal. All rights reserved.",
+
+    // Features (alternatives for login/register screens)
+    "feature1b.title": "Photo Records",
+    "feature1b.text": "Capture and organize photos to track the visual progress of treatment.",
+    "feature2b.title": "Measurements and Notes",
+    "feature2b.text": "Record dimensions, characteristics, and important notes about each wound.",
+    "feature3b.title": "Automatic Reports",
+    "feature3b.text": "Generate detailed progress reports to share with the medical team.",
     }
 };
 
-// Função para mudar idioma
+ // Função para mudar idioma
 function changeLanguage(lang) {
     document.documentElement.lang = lang;
     localStorage.setItem('language', lang);
@@ -372,7 +388,7 @@ function changeLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
-            element.innerHTML = translations[lang][key];
+        element.innerHTML = translations[lang][key];
         }
     });
 
