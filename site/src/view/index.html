@@ -1,78 +1,92 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heal - Monitoramento Inteligente de Feridas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script defer src="theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="icon" type="image/png" href="imgs/Logo_Heal4.png">
+    <link rel="icon" type="image/png" href="assets/imgs/Logo_Heal4.png">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/generalcss.css">
-    <link rel="stylesheet" href="css/style.css">
+
+
+    <link rel="stylesheet" href="assets/css/generalcss.css">
+    <link rel="stylesheet" href="assets/css/menu-hamburguer.css">
+    <link rel="stylesheet" href="assets/css/loader.css">
 </head>
 <body>
+  <!-- Loader 3D com Cuboide -->
+  <div id="loader-bg">
+    <div class="scene">
+      <div class="shadow"></div>
+      <div class="jumper">
+        <div class="spinner">
+          <div class="scaler">
+            <div class="loader">
+              <div class="cuboid">
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
 <header>
    <div class="container header-container">
         <!-- Grupo Logo + Menu Toggle -->
-         
         <div class="flex items-center gap-4 relative z-50">
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars text-sky-600"></i>
+            <button class="menu-toggle debug-menu" id="menuToggle" aria-label="Abrir menu de navegação">
+                <i class="fas fa-bars"></i>
             </button>
             <div class="flex items-center gap-2">
-                <img src="imgs/Logo_Heal4.png" alt="Heal Logo" class="w-12 object-contain">
+                <img src="assets/imgs/Logo_Heal4.png" alt="Heal Logo" class="w-12 object-contain">
                 <div class="logo">Heal</div>
             </div>
         </div>
 
         <!-- Links de Navegação -->
         <nav class="nav-links" id="navLinks">
-              <button id="toggleDarkMode" class="rounded-full p-2 shadow transition-colors duration-200 focus:ring-2 focus:ring-sky-400 outline-none flex items-center justify-center" aria-label="Alternar modo escuro/claro" title="Alternar modo escuro/claro" style="border: none; width: 40px; height: 40px;">
-            <i class="fas fa-moon text-xl"></i>
-        </button>
-               <!-- Seletor de Idioma -->
-               <select id="languageSwitcher" onchange="changeLanguage(this.value)" 
-               class="language-selector bg-transparent border border-sky-300 rounded-lg px-2 py-1 text-sm">
+            <!-- Links de Navegação -->
+            <div class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#recursos" data-i18n="header.features">Recursos</a>
+                <a href="#depoimentos" data-i18n="header.testimonials">Depoimentos</a>
+                <a href="#precos" data-i18n="header.pricing">Preços</a>
+            </div>
+
+            <!-- Controles (Dark Mode + Idioma) -->
+            <div class="nav-controls">
+                <button id="toggleDarkMode" class="rounded-full p-2 shadow transition-colors duration-200 focus:ring-2 focus:ring-sky-400 outline-none flex items-center justify-center" aria-label="Alternar modo escuro/claro" title="Alternar modo escuro/claro" style="border: none; width: 40px; height: 40px;">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
+                
+                <!-- Seletor de Idioma -->
+                <select id="languageSwitcher" onchange="changeLanguage(this.value)" 
+                class="language-selector bg-transparent border border-sky-300 rounded-lg px-2 py-1 text-sm">
                     <option value="pt">🇧🇷 Português</option>
                     <option value="en">🇺🇸 English</option>
                 </select>
-                
+            </div>
 
-
-                <a href="#home">Home</a>
-                <a href="#recursos" data-i18n="header.features"></a>
-                <a href="#depoimentos" data-i18n="header.testimonials"></a>
-                <a href="#precos" data-i18n="header.pricing"></a>
-               
-
- 
-
-    <?php if ($displayName): ?>
-            <!-- Exibe o nome do usuário e botão logout -->
-                <span class="user-name me-2">
-                </span>
-            <form action="php/logout.php" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span data-i18n="header.logout">Logout</span>
+            <!-- Botões de Ação -->
+            <div class="cta-buttons">
+                <!-- Botão de Login -->
+                <button onclick="location.href='login.html'" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span data-i18n="header.login">Login</span>
                 </button>
-            </form>
-        <?php else: ?>
-            <!-- Se não logado, mostra botão login -->
-            <button onclick="location.href='login.html'" class="btn btn-primary">
-                <i class="fas fa-sign-in-alt"></i>
-                <span data-i18n="header.login">Login</span>
-            </button>
-        <?php endif; ?>
-                    
-                </div>
-            </nav>
-        </div>
-    </header>
+            </div>
+        </nav>
+    </div>
+</header>
 
 <!-- Hero Section -->
 <section class="hero" id="home">
@@ -259,7 +273,7 @@
 <section id="feedback" class="container mx-auto px-4 mb-32">
     <div class="max-w-2xl mx-auto">
         <h2 class="text-3xl font-bold mb-8 text-center text-sky-600" data-i18n="feedback.title">Your Opinion is Essential</h2>
-        <form class="space-y-6 bg-white rounded-2xl p-6 border border-sky-200 shadow-lg">
+        <form class="space-y-6 rounded-2xl p-6 border border-sky-200 shadow-lg">
             <div>
                 <label for="feedback-type" id="feedback-type-label" class="block text-sm font-medium mb-2 text-white-800" data-i18n="feedback.typeLabel">Feedback Type</label>
                 <select id="feedback-type-select" class="w-full px-4 py-3 rounded-lg bg-blue border border-sky-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 text-gray-800 transition-all">
@@ -344,11 +358,6 @@
 </footer>
 
 
-<!-- WhatsApp Button -->
-<a href="https://wa.me/5511972015304" target="_blank" class="whatsapp-button">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 <!-- Modal Download -->
 <div id="downloadModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
     <div class="flex items-center justify-center min-h-screen p-4">
@@ -397,9 +406,19 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-    <script src="js/script.js"></script>
-    <script src="js/script-geral.js"></script>
-    <script src="js/script-mododark.js"></script>
-
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script-geral.js"></script>
+    <script src="assets/js/script-mododark.js"></script>
+    
+    <!-- Script do Loader -->
+    <script>
+        // Esconde o loader quando a página estiver pronta
+        setTimeout(function() {
+            const loader = document.getElementById('loader-bg');
+            if (loader) {
+                loader.classList.add('hide');
+            }
+        }, 3000); // 3 segundos para o loader aparecer
+    </script>
 </body>
 </html>
